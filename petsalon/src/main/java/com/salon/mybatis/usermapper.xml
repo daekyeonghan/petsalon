@@ -2,26 +2,26 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.salon.mapper.ReviewMapper">
+<mapper namespace="com.salon.mapper.UserMapper">
 	
-	<select id="select" parameterType="Integer" resultType="Review">
-		SELECT * FROM review WHERE review_no=#{review_no}
+	<select id="select" parameterType="String" resultType="User">
+		SELECT * FROM user WHERE useremail=#{useremail}
 	</select>
 	
 	<select id="selectall" resultType="User">
-		SELECT * FROM review
+		SELECT * FROM user
 	</select>
 	
 	<insert id="insert" parameterType="User">
-		INSERT INTO review VALUES (#{useremail},#{userpwd},#{username},#{birth},#{tel},#{addr},#{zipcode},NOW())
+		INSERT INTO user VALUES (#{useremail},#{userpwd},#{username},#{birth},#{tel},#{addr},#{zipcode},NOW())
 	</insert>
 	
 	<update id="update" parameterType="User">
-		UPDATE review SET username=#{username},addr=#{addr}, zipcode=#{zipcode} WHERE useremail=#{useremail}
+		UPDATE user SET username=#{username},addr=#{addr}, zipcode=#{zipcode} WHERE useremail=#{useremail}
 	</update>
 	
 	<delete id="delete" parameterType="String">
-		DELETE FROM review WHERE useremail=#{useremail}
+		DELETE FROM user WHERE useremail=#{useremail}
 	</delete>
 	
 </mapper>
