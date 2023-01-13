@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.salon.mapper.Review_AnswerMapper">
+	
+	<select id="select" parameterType="Integer" resultType="Review_Answer">
+		SELECT * FROM review_answer WHERE ra_no=#{ra_no}
+	</select>
+	
+	<select id="selectall" resultType="Review_Answer">
+		SELECT * FROM review_answer
+	</select>
+	
+	<insert id="insert" parameterType="Review_Answer">
+		INSERT INTO review_answer VALUES (0,#{ra_content},#{review_no},#{admin_id},NOW())
+	</insert>
+	
+	<update id="update" parameterType="Review_Answer">
+		UPDATE review_answer SET ra_content=#{ra_content} WHERE ra_no=#{ra_no}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM review_answer WHERE ra_no=#{ra_no}
+	</delete>
+	
+</mapper>
