@@ -8,6 +8,7 @@ class PetsalonAdminApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }

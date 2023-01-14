@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.salon.mapper.ScheduleMapper">
+	
+	<select id="select" parameterType="Integer" resultType="Schedule">
+		SELECT * FROM schedule WHERE sc_id=#{sc_id}
+	</select>
+	<select id="selectall" resultType="Schedule">
+		SELECT * FROM schedule
+	</select>
+	<insert id="insert" parameterType="Schedule">
+		INSERT INTO schedule VALUES (#{sc_id}, #{designer_id}, #{resv_no}, NOW() )
+	</insert>
+	<update id="update" parameterType="Schedule">
+		UPDATE schedule SET sc_date=#{sc_date}WHERE sc_id=#{sc_id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM schedule WHERE sc_id=#{sc_id}
+	</delete>
+	
+</mapper>

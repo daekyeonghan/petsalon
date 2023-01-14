@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.salon.mapper.DogMapper">
+	<select id="select" parameterType="Integer" resultType="Dog">
+		SELECT * FROM dog WHERE dog_id=#{dog_id}
+	</select>
+	<select id="selectall" resultType="Dog">
+		SELECT * FROM dog
+	</select>
+	<insert id="insert" parameterType="Dog">
+		INSERT INTO dog VALUES(#{dog_id},#{useremail},#{dog_name},#{dog_photo},#{dog_gender},#{dog_age},#{dog_weight},#{dog_breed},#{dog_special},#{dog_rdate})
+	</insert>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM dog WHERE dog_id=#{dog_id}
+	</delete>
+	<update id="update" parameterType="Dog">
+		UPDATE dog SET dog_name=#{dog_name}, dog_photo=#{dog_photo}, dog_gender=#{dog_gender}, dog_age=#{dog_age}, dog_weight=#{dog_weight}, dog_breed=#{dog_breed}, dog_special=#{dog_special}, dog_rdate=#{dog_rdate}
+		WHERE dog_id=#{dog_id}
+	</update>
+</mapper>
