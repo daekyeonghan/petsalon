@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.salon.mapper.DesignerMapper">
+<select id="select" parameterType="String" resultType="Designer">
+		SELECT * FROM designer WHERE designer_id=#{designer_id}
+	</select>
+
+	<select id="selectall" resultType="Designer">
+		SELECT * FROM designer
+	</select>
+	<insert id="insert" parameterType="Designer">
+		INSERT INTO Designer VALUES (#{designer_id},#{admin_id},#{designer_name},#{designer_career},#{designer_introduce},#{designer_photo},now())
+	</insert>
+	<update id="update" parameterType="Designer">
+		UPDATE Designer SET designer_name=#{designer_name},designer_career=#{designer_career},designer_introduce=#{designer_introduce} WHERE designer_id=#{designer_id}
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM designer WHERE designer_id=#{designer_id}
+	</delete>
+</mapper>

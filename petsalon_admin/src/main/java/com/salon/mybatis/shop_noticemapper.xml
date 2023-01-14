@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.salon.mapper.Shop_NoticeMapper">
+	
+	<select id="select" parameterType="Integer" resultType="Shop_Notice">
+		SELECT * FROM shop_notice WHERE sn_no=#{sn_no}
+	</select>
+	<select id="selectall" resultType="Shop_Notice">
+		SELECT * FROM shop_notice
+	</select>
+	<insert id="insert" parameterType="Shop_Notice">
+		INSERT INTO shop_notice VALUES (#{sn_no}, #{admin_id}, #{sn_title}, #{sn_content}, #{sn_photo}, NOW())
+	</insert>
+	<update id="update" parameterType="Shop_Notice">
+		UPDATE shop_notice SET sn_title=#{sn_title}, sn_content=#{sn_content}, sn_photo=#{sn_photo} WHERE sn_no=#{sn_no}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM shop_notice WHERE sn_no=#{sn_no}
+	</delete>
+	
+</mapper>
