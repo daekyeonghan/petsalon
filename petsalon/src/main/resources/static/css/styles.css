@@ -11347,6 +11347,171 @@ p {
     margin-right: 0;
   }
 }
+#login>#loginform>h3{
+	margin-right:330px;
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+	font-weight:200px;
+	color:#6633FF;
+}
+#login>#loginform{
+	margin: 100px auto;
+	text-align:center;
+}
+#login>#loginform>input[name="email"],#login>#loginform>input[name="pwd"]{
+	width:400px;
+	height:50px;
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+	border-radius:15px 15px 15px 15px;
+	border-color:#ddd;
+}
+#login>#loginform>.link>ul{
+	width:400px;
+	margin-top:25px;
+	margin:0 auto;
+}
+#login>#loginform>.link>ul>a{
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+	list-style:none;
+	color:#FF9900;
+	margin:0 auto;
+	width:300px;
+}
+
+#login>#loginform>.link>ul>a:nth-child(2){
+	margin-left:20px;
+}
+
+#login>#loginform>.link>ul>a:hover{
+	color:#FF6600;
+}
+#login>#loginform>button{
+	margin:0 auto;
+	width:150px;
+	height:50px;
+	margin-top:40px;
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+	border-radius:25px 25px 25px 25px;
+	border-color:#6633FF;
+	background-color:white;
+	color:#6633FF;
+}
+#login>#loginform>button:hover{
+	background-color:#6633FF;
+	color:white;
+}
+#lostinfo{
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+#lostinfo>#lostid, #lostinfo>#lostpwd{
+	width:700px;
+	height:250px;
+	padding-top:38px;
+	margin:0 auto;
+	border:1px solid black;
+	border-radius:10px 10px;
+	border-width:medium;
+	border-color:#3b365c;
+}
+#lostinfo>#lostpwd{
+	margin-top:50px;
+}
+#lostinfo>#lostid>ul{
+	margin:0 auto;
+	width:690px;
+}
+#lostinfo>#lostid>ul>li,#lostinfo>#lostpwd>ul>div>li{
+	float:left;
+	margin-left:auto;
+}
+#lostinfo>#lostid>ul>li:nth-child(1){
+	margin-left:23px;
+}
+#lostinfo>#lostid>ul>li:nth-child(2){
+	margin-left:20px;
+}
+#lostinfo>#lostid>ul>#findemailbtn,#lostinfo>#lostpwd>ul>div>#findpwdbtn{
+	margin-left:20px;
+	border-radius:14px 14px;
+	width:120px;
+	height:30px;
+	background-color:#ccd0d4;
+	color:#FFFFFF;
+}
+#lostinfo>#lostid>ul>#findemailbtn:hover,#lostinfo>#lostpwd>ul>div>#findpwdbtn:hover{
+	background-color:#b8bbbf;
+	color:white;
+}
+#lostinfo>#lostpwd>ul>div{
+	margin:0 auto;
+	width:415px;
+}
+#lostinfo>#lostid>h4, #lostinfo>#lostpwd>h4{
+	color:#6633FF;
+	text-align:center;
+}
+#mypage{
+	width:1000px;
+	height:600px;
+	margin:0 auto;
+}
+#mypage>aside{
+	float:left
+}
+#mypage>#left_aside{
+	margin-top:50px;
+	margin-bottom:50px;
+	width:200px;
+	height:600px;
+	border:1px solid blue;
+}
+#mypage>#right_aside{
+	margin-top:50px;
+	margin-bottom:50px;
+	width:796px;
+	height:600px;
+	border:1px solid green;
+}
+#update_form{
+	width:500px;
+	margin-top:0;
+	margin:0 auto;
+	border:1px solid red;
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+#update_form input[type="text"]{
+	width:350px;
+}
+footer{
+	width:900px;
+	height:100px;
+	margin:0 auto;
+}
+a{
+	text-decoration:none;
+}
+li{
+	list-style:none;
+}
+.person:hover{
+	cursor:pointer;
+}
+.sub{
+	margin:0 auto;
+	border:1px solid red;
+}
+.sub>li{
+	list-style:none;
+	border-radius:25px 25px 25px 25px;
+	background-color:#6633FF;
+}
+.sub>li:nth-child(2){
+	margin-top:2px;
+}
+.sub>li>a{
+	color:white;
+	text-align:center;
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
 header.masthead {
   padding-top: 10.5rem;
   padding-bottom: 6rem;

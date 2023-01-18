@@ -39,5 +39,13 @@ public class UserService  implements MyService<String, User>{
 	public List<User> get() throws Exception {
 		return mapper.selectall();
 	}
+	
+	public String findemail(String k, String j) throws Exception{
+		return mapper.findemail(k, j);
+	}
+	
+	public String findpwd(String k) throws Exception{
+		return mapper.findpwd(k);
+	}
 
 }

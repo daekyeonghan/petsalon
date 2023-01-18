@@ -12,8 +12,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM user
 	</select>
 	
+	<select id="findemail" resultType="String">
+		SELECT useremail FROM user WHERE username=#{username} AND tel=#{tel}
+	</select>
+	
+	<select id="findpwd" resultType="String">
+		SELECT userpwd FROM user WHERE useremail=#{useremail}
+	</select>
+	
 	<insert id="insert" parameterType="User">
-		INSERT INTO user VALUES (#{useremail},#{userpwd},#{username},#{birth},#{tel},#{addr},#{zipcode},NOW())
+		INSERT INTO user VALUES (#{useremail},#{userpwd},#{username},#{birth},#{tel},#{addr},#{detaddr},#{zipcode},NOW())
 	</insert>
 	
 	<update id="update" parameterType="User">
