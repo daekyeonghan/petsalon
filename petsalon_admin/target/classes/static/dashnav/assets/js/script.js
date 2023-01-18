@@ -41,7 +41,7 @@ $(function(){
   });
 
   // single level menu
-  $('.nav-sidebar > .nav-link').on('click', function(e){
+  $('.nav-sidebar style-one> .nav-link').on('click', function(e){
     e.preventDefault();
 
     // remove active siblings

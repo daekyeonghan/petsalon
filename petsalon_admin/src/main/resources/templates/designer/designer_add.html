@@ -1,0 +1,44 @@
+<div th:fragment="main">
+
+<h1>Designer ADD</h1>
+
+<form>
+  <div class="mb-3">
+    <label for="inputId" class="form-label">아이디</label>
+    <input type="text" class="form-control" id="inputID" aria-describedby="idInput">
+    <div id="idHelp" class="form-text">영소문자, 숫자 0자리 이상</div>
+  </div>
+  <div class="mb-3">
+    <label for="inputName" class="form-label">이름</label>
+    <input type="text" class="form-control" id="inputName">
+  </div>
+    <div class="mb-3">
+    <label for="inputCareer" class="form-label">경력</label>
+    <input type="number" class="form-control" id="inputName">
+  </div>
+    <div class="mb-3">
+  <label for="formFile" class="form-label">사진</label>
+  <input class="form-control" type="file" id="formFile">
+</div>
+    <div class="mb-3">
+    <label for="inputIntroduce" class="form-label">간단한 소개</label>
+    <input type="text" class="form-control" id="inputName">
+  </div>
+ 
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">등록</button>
+</form>
+
+
+</div>
+
+designer_id 	VARCHAR(30)	NOT NULL,
+	 admin_id 	VARCHAR(100)	NOT NULL,
+	 designer_name 	VARCHAR(20)	NOT NULL,
+	 designer_career 	INT	NULL,
+	 designer_introduce 	VARCHAR(300)	NULL,
+	 designer_photo 	VARCHAR(500)	NULL,
+	 designer_date 

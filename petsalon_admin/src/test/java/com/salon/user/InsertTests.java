@@ -16,7 +16,7 @@ class InsertTests {
 	@Test
 	void contextLoads() {
 		
-		User obj = new User("test@test.com", "testtest!", "테스트", "19990909", "01012121212", "서울특별시", "10101");
+		User obj = new User("test@test.com", "testtest!", "테스트", "19990909", "01012121212", "서울특별시", "아파트","10101");
 		
 		try {
 			service.register(obj);

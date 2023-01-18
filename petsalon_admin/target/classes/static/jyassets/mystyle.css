@@ -1,0 +1,49 @@
+@charset "UTF-8";
+.mygap-xs{
+	
+	margin:30px auto;
+}
+.mygap-sm{
+	
+	margin:50px auto;
+}
+
+.card-title{
+	display:inline;
+}
+
+.minilink{
+	
+	font-weight:bold;
+	font-size:1.1em;
+}
+
+
+.card-img-top{
+	width:150px;
+	height:150px;
+margin: auto;
+    display: block;
+}
+
+.text-muted{
+	text-align:right;
+	display: block;
+}
+
+.designer-update{
+	padding-left:50px;
+	padding-right:50px;
+}
+
+.designer-update .mb-3{
+	margin-top:20px;
+}
+
+designer-update .card-body{
+	text-align:center;
+}
+
+#updatebtn{
+	margin-top:30px;
+}

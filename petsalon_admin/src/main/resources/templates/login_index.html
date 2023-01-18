@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+<title>Login Page</title>
+<style>
+/***********/
+.center{
+ 	width:1000px;
+ 	/*border: 1px solid green;*/
+	margin:0px auto;
+	text-align: center;
+}
+
+/*************header CSS*****************/
+header{
+	margin:50px auto 0px ;
+}  
+	img {
+	width: 200px;
+	height: 200px;
+	
+}
+
+/***************footer CSS***************/
+footer {
+	width: 300px;
+	height: 10px;
+	/*background: #8BBDFF;*/
+	margin: 250px auto;
+}
+/************div center**************/
+#cn{
+	width:300px;
+	height:200px;
+	margin: 0px auto;
+	/*border: 2px solid #F0CA61;*/
+
+}
+/***************footer*****************/
+#ft{
+	font-size: 12px;
+	font-style: inherit;
+}
+/****************font************/
+#h1{
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif'; 
+}
+</style>
+<script>
+
+function loginchk(){
+	/*ID 비밀번호 정보 받아오기*/
+	var form = document.querySelector('#login_form'); 
+	var id =  form.admin_id.value;
+	var pwd = form.admin_pwd.value;
+	/*ID 혹은 비밀번호 공백일때 */
+	
+	if(id == ''){
+		alert("아이디를 입력하세요.");
+		form.id.focus();
+		event.preventDefault();
+		return ;
+		}
+	
+	if(pwd == ''){
+		alert("비밀번호를 입력하세요.");
+		form.pwd.focus();
+		event.preventDefault();
+		return ;
+	}
+
+	$.ajax({
+		
+		data:{
+			"admin_id":id,
+			"admin_pwd":pwd
+		},
+		
+		url:'[[@{/loginimpl}]]',
+			success:function(data){
+				if(data == 1){
+					form.action = "[[@{/user}]]";
+					alert("로그인에 성공하셨습니다! 환영합니다!");
+					form.submit();
+				}else{
+					alert("아이디와 비밀번호를 잘못입력하셨습니다. 다시 시도해주세요");
+					form.action = "[[@{/login_index}]]";
+				}
+			}
+	}); 
+};
+</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
+</head>
+<body>
+	<div class="center">
+	<header>
+	<img src="wkassets/img/logo.png">
+	</header>
+	<div id="cn">
+	<h1 id="h1">관리자 전용 페이지</h1>
+	
+	<form id="login_form" method="post" >
+	<p><input type="text" id="admin_id" name="admin_id" placeholder="아이디"  maxlength="41"/>
+	<input type="password" id="admin_pwd" name="admin_pwd" placeholder="비밀번호"  maxlength="16"/><br>
+	<button onclick="loginchk()">로그인하기</button>
+	</form>	
+	<footer id="ft">
+	(주)퍼스트클래스: 서울특별시 강남구 언주로 508 14층(역삼동, 서울상록빌딩)<p>
+	대표이사 : 한대경 | 사업자등록번호 : 123-45-67890 | 통신판매신고번호 : 제2023-서울강남-12345호 개인정보관리<p>
+	사업자등록번호 : 123-45-67890
+	통신판매신고번호 : 제2016-서울강남-00515호개인정보관리 <p>
+	최고책임자 : 한대경 이사<p>
+	Copyright by firstClass, Ltd. All rights reserved.
+	</footer>
+	</div>
+	</div>
+</body>
+</html>

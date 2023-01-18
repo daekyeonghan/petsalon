@@ -16,7 +16,7 @@ class UpdateTests {
 	@Test
 	void contextLoads() {
 		
-	User obj = new User("test@test.com", "testtest!", "홍길동", "20000909", "01012121212", "제주특별시", "10201");
+	User obj = new User("test@test.com", "testtest!", "홍길동", "20000909", "01012121212", "제주특별시", "주택","10201");
 		
 		try {
 			service.modify(obj);

@@ -13,11 +13,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insert" parameterType="User">
-		INSERT INTO user VALUES (#{useremail},#{userpwd},#{username},#{birth},#{tel},#{addr},#{zipcode},NOW())
+		INSERT INTO user VALUES (#{useremail},#{userpwd},#{username},#{birth},#{tel},#{addr},#{detaddr},#{zipcode},NOW())
 	</insert>
 	
 	<update id="update" parameterType="User">
-		UPDATE user SET username=#{username},addr=#{addr}, zipcode=#{zipcode} WHERE useremail=#{useremail}
+		UPDATE user SET username=#{username},addr=#{addr},detaddr=#{detaddr} zipcode=#{zipcode} WHERE useremail=#{useremail}
 	</update>
 	
 	<delete id="delete" parameterType="String">

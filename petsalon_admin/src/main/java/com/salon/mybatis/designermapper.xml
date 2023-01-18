@@ -8,13 +8,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectall" resultType="Designer">
-		SELECT * FROM designer
+		SELECT * FROM designer ORDER BY designer_date DESC
 	</select>
 	<insert id="insert" parameterType="Designer">
 		INSERT INTO Designer VALUES (#{designer_id},#{admin_id},#{designer_name},#{designer_career},#{designer_introduce},#{designer_photo},now())
 	</insert>
 	<update id="update" parameterType="Designer">
-		UPDATE Designer SET designer_name=#{designer_name},designer_career=#{designer_career},designer_introduce=#{designer_introduce} WHERE designer_id=#{designer_id}
+		UPDATE Designer SET designer_name=#{designer_name},designer_career=#{designer_career},designer_introduce=#{designer_introduce}, designer_photo=#{designer_photo} WHERE designer_id=#{designer_id}
 	</update>
 	<delete id="delete" parameterType="String">
 		DELETE FROM designer WHERE designer_id=#{designer_id}
