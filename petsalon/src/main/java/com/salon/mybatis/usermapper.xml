@@ -32,4 +32,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DELETE FROM user WHERE useremail=#{useremail}
 	</delete>
 	
+	<select id="checkId" parameterType = "String" resultType = "int">
+ 	 	SELECT COUNT(*) FROM user WHERE useremail = #{useremail}
+ 	 </select>
+	
 </mapper>

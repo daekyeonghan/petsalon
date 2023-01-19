@@ -19,6 +19,60 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
 	<script>
 	
+		function regMemberid(useremail) { //영문자 또는 숫자 6~16자
+		   var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+		   return regExp.test(useremail);   
+		}
+		
+		var idCheck = 0;
+		
+		function checkId() {
+			   var inputed = $('#useremail').val();
+			   $.ajax({
+			      data : {
+			         useremail : inputed //입력한 값을 mId라는 변수에 담음
+			      },
+			      url : "checkid", // data를 checkid url에 보냄 (Controller에서 받아처리한다. 중복이 되면 1, 아니면 0을 반환하는 함수를 구현했다.)
+			      success : function(data) {
+			         if(data == '1') { //아이디가 중복되었을 때
+			            $("#fail").css("display", "block"); //에러메세지를 띄운다
+			            $("#failid").css("display","none"); //중복에러메세지 말고 다른 에러 메세지를 지운다.
+			            $(".joinbtn").prop("disabled", true);
+			            $(".joinbtn").css("background-color", "#aaaaaa");
+			            $("#useremail").css("background-color", "#FFCECE");
+			            $("#idEmo").css("color", "#ff2020");
+			            idCheck = 0;
+			         } else if (regMemberid(inputed) == false) {
+			            $("#failid").css("display","block");
+			            $("#fail").css("display","none");
+			            $(".joinbtn").prop("disabled", true);
+			            $(".joinbtn").css("background-color", "#aaaaaa");
+			            $("#useremail").css("background-color", "#FFCECE");
+			            $("#idEmo").css("color", "#ff2020");
+			            idCheck = 0;
+			         } else if( data == '0' && regMemberid(inputed)) { //중복되지않고, 정규식을 통과할 때
+			            $("#useremail").css("background-color", "#B0F6AC");
+			            $("#idEmo").css("color", "#1853ff");
+			            $("#failid").css("display","none");
+			            $("#fail").css("display","none");
+			            idCheck = 1;  
+			         }
+			      }
+			   });
+			}
+		
+		function activateJoinbtn() {
+			   
+			   if( idCheck == 1 && pwdCheck == 1  && nameCheck == 1  && pwCheck == 1 && authCheck ==1) {
+			      $(".joinbtn").prop("disabled", false);   
+			      $(".joinbtn").css("background-color", "#B0F6AC");
+			   }
+			   else  {
+			      $(".joinbtn").css("background-color", "#aaaaaa");
+			      $(".joinbtn").prop("disabled", true);
+			   }
+			}
+	
 		function join_check() {
 			var useremail = document.getElementById("useremail");
 			var userpwd = document.getElementById("userpwd");
@@ -30,7 +84,7 @@
 			var detaddr = document.getElementById("detaddr");
 			var zipcode = document.getElementById("zipcode");
 			
-			var emailc = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+			/* var emailc = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 			
 			if (useremail.value == "") { //해당 입력값이 없을 경우 같은말: if(!uid.value)
 				alert("이메일을 입력하세요");
@@ -41,7 +95,7 @@
 			if(!emailc.test(useremail.value)){ //이메일 유효성 검사
 	            alert("올바른 이메일 형식이 아닙니다.");
 	            return false;
-	        }
+	        } */
 			
 			if (userpwd.value == "") {
 			    alert("비밀번호를 입력하세요.");
@@ -175,8 +229,8 @@
 					<form id="join_form" class="validation-form" novalidate>
 						<div class="mb-3">
 							<label for="useremail" class="form-label">이메일</label>
-							<input type="text" id="useremail" name="useremail" class="form-control" placeholder="예) id@example.com"/>
-							<div class="invalid-feedback">이메일주소를 입력하세요</div>
+							<input type="text" id="useremail" name="useremail" class="form-control" placeholder="예) id@example.com" oninput="checkId(), activateJoinbtn()"/>
+							<font color = "red" id = "fail" style = "display:none">이미 존재하는 ID입니다.</font>
 						</div>
 						<div class="mb-3">
 							<label for="userpwd" class="form-label">비밀번호</label>

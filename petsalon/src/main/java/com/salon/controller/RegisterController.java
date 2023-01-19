@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.salon.dto.User;
 import com.salon.service.UserService;
@@ -44,6 +46,15 @@ public class RegisterController {
 		}
 		
 		return "index";
+	}
+	
+	@RequestMapping(value = "/checkid", method = {RequestMethod.GET})
+	public @ResponseBody int idCheck(String useremail) {
+		if(useremail == null || useremail == "") {
+			return -1;
+		}else {
+			return service.checkId(useremail);
+		}
 	}
 	
 	

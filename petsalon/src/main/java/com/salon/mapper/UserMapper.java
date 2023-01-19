@@ -11,4 +11,5 @@ import com.salon.frame.MyMapper;
 public interface UserMapper extends MyMapper<String, User>{
 	public String findemail(String username, String tel);
 	public String findpwd(String useremail);
+	public int checkId(String useremail);
 }

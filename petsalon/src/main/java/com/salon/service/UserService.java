@@ -10,7 +10,7 @@ import com.salon.frame.MyService;
 import com.salon.mapper.UserMapper;
 
 @Service
-public class UserService  implements MyService<String, User>{
+public class UserService implements MyService<String, User>{
 
 	@Autowired
 	UserMapper mapper;
@@ -46,6 +46,11 @@ public class UserService  implements MyService<String, User>{
 	
 	public String findpwd(String k) throws Exception{
 		return mapper.findpwd(k);
+	}
+	
+	public int checkId(String useremail) {
+		int result = mapper.checkId(useremail);
+		return result;
 	}
 
 }
