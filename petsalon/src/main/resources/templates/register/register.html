@@ -19,12 +19,39 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
 	<script>
 	
-		function regMemberid(useremail) { //영문자 또는 숫자 6~16자
-		   var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+		function regMemberid(useremail) {
+		   var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+\.[a-zA-Z]{2,3}$/;
 		   return regExp.test(useremail);   
 		}
 		
+		function regPassword(userpwd) {
+			   var regExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+			   return regExp.test(userpwd);
+			}
+		
+		function regPhoneNumber(tel) {
+			   var regExp = /^01[0-1]?\d{3,4}?\d{4}$/;
+			   return regExp.test(tel);
+		}
+		
+		function regMemberName(username) {
+		   var regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+		   return regExp.test(username);
+		}
+		
+		function regUserBirth(birth) {
+			   var regExp = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+			   return regExp.test(birth);
+		}
+		
 		var idCheck = 0;
+		var pwdCheck = 0;
+		var phoneCheck = 0;
+		var nameCheck = 0;
+		var pwCheck = 0;
+		var birthCheck = 0;
+		var addressCheck = 0;
+		var detaddressCheck = 0;
 		
 		function checkId() {
 			   var inputed = $('#useremail').val();
@@ -36,44 +63,213 @@
 			      success : function(data) {
 			         if(data == '1') { //아이디가 중복되었을 때
 			            $("#fail").css("display", "block"); //에러메세지를 띄운다
-			            $("#failid").css("display","none"); //중복에러메세지 말고 다른 에러 메세지를 지운다.
+			            $("#mailform").css("display","none"); //중복에러메세지 말고 다른 에러 메세지를 지운다.
+			            $("#mailcon").css("display","none");
 			            $(".joinbtn").prop("disabled", true);
 			            $(".joinbtn").css("background-color", "#aaaaaa");
 			            $("#useremail").css("background-color", "#FFCECE");
-			            $("#idEmo").css("color", "#ff2020");
 			            idCheck = 0;
 			         } else if (regMemberid(inputed) == false) {
-			            $("#failid").css("display","block");
+			            $("#mailform").css("display","block");
+			            $("#mailcon").css("display","none");
 			            $("#fail").css("display","none");
 			            $(".joinbtn").prop("disabled", true);
 			            $(".joinbtn").css("background-color", "#aaaaaa");
 			            $("#useremail").css("background-color", "#FFCECE");
-			            $("#idEmo").css("color", "#ff2020");
 			            idCheck = 0;
 			         } else if( data == '0' && regMemberid(inputed)) { //중복되지않고, 정규식을 통과할 때
 			            $("#useremail").css("background-color", "#B0F6AC");
-			            $("#idEmo").css("color", "#1853ff");
-			            $("#failid").css("display","none");
+			            $("#mailform").css("display","none");
 			            $("#fail").css("display","none");
+			            $("#mailcon").css("display","block");
 			            idCheck = 1;  
 			         }
 			      }
 			   });
 			}
 		
-		function activateJoinbtn() {
+		function checkPwd() {
+			   var inputed = $('#userpwd').val();
 			   
-			   if( idCheck == 1 && pwdCheck == 1  && nameCheck == 1  && pwCheck == 1 && authCheck ==1) {
-			      $(".joinbtn").prop("disabled", false);   
-			      $(".joinbtn").css("background-color", "#B0F6AC");
+			   $.ajax({
+			      success: function() {
+			         if(regPassword(inputed) == false || inputed.length > 25) {
+			            $(".joinbtn").prop("disabled", true);
+			            $(".joinbtn").css("background-color", "#aaaaaa");
+			            $("#failpwd").css("display", "block");
+			            $("#userpwd").css("background-color", "#FFCECE");
+			            pwdCheck = 0;
+			         } else if(regPassword(inputed) == true) {
+			            $("#userpwd").css("background-color", "#B0F6AC");
+			            $("#failpwd").css("display", "none");
+			            $("#userpwdok").css("display", "block");
+			            pwdCheck = 1;
+			         }
+			      }
+			   })
+			}
+			function checkPwd2() {
+			   var inputed = $('#userpwd2').val();
+			   var inputed1 = $('#userpwd').val();
+			   
+			   $.ajax({
+			      success: function() {
+			         if(inputed != inputed1) {
+			            $(".joinbtn").prop("disabled", true);
+			            $(".joinbtn").css("background-color", "#aaaaaa");
+			            $("#userpwd2").css("background-color", "#FFCECE");
+			            $("#userpwd2no").css("display", "block");
+			            $("#userpwd2ok").css("display", "none");
+			            pwCheck = 0;
+			         } else if(inputed == inputed1) {
+			            $("#userpwd2").css("background-color", "#B0F6AC");
+			            $("#userpwd2ok").css("display", "block");
+			            $("#userpwd2no").css("display", "none");
+			            pwCheck = 1;
+			         }
+			      }
+			   })
+			}
+			
+			function checkName() {
+				   var inputed = $('#username').val(); //이름에 입력한 값
+				   $.ajax({
+				      success: function() {
+				         if(regMemberName(inputed) == false || inputed.length > 18) { //입력한 값이 정규표현식에 해당되지 않을 때와 18자 이상이 넘을 때 
+				            $(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				            $(".joinbtn").css("background-color", "#aaaaaa"); //버튼 회색으로 바꾸기 
+				            $("#username").css("background-color", "#FFCECE");  // input 배경 붉은색으로 바꾸기
+				            $("#usernameck").css("display", "block");
+				            nameCheck = 0; // 회원 가입 전 값들 체크하기 위해 (0은 불가, 1은 가능)
+				         } else if(regMemberName(inputed) == true) { //정규표현식에 해당할 때
+				            $("#username").css("background-color", "#B0F6AC"); // input 배경 초록색으로 바꾸기
+				            $("#usernameck").css("display", "none");
+				            nameCheck = 1;
+				         }
+				      }
+				   })
+				}
+			
+			function checkTel() {
+				   var inputed = $('#tel').val();
+				   
+				   $.ajax({
+				      success: function() {
+				         if(regPhoneNumber(inputed) ==  false) {
+				        	$(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				            $("#tel").css("background-color", "#FFCECE");
+				            inputed = $('#tel').val();
+				            $("#telck").css("display", "block");
+				            phoneCheck = 0;
+				         }
+				         else if(regPhoneNumber(inputed)== true) {
+				            $("#tel").css("background-color", "#B0F6AC");
+				            $("#telck").css("display", "none");
+				            phoneCheck = 1;
+				         }
+				      }
+				   })
+				}
+			
+			function checkBirth() {
+				   var inputed = $('#birth').val();
+				   
+				   $.ajax({
+				      success: function() {
+				         if(regUserBirth(inputed) ==  false) {
+				        	$(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				            $("#birth").css("background-color", "#FFCECE");
+				            inputed = $('#birth').val();
+				            $("#birthck").css("display", "block");
+				            birthCheck = 0;
+				         }
+				         else if(regUserBirth(inputed)== true || inputed.length == 8) {
+				            $("#birth").css("background-color", "#B0F6AC");
+				            $("#birthck").css("display", "none");
+				            birthCheck = 1;
+				         }
+				      }
+				   })
+				}
+			
+			function checkDetaddr() {
+				var inputed = $('#detaddr').val();
+				   $.ajax({
+				      success: function() {
+				         if(inputed == true) {
+				        	 $("#detaddr").css("background-color", "#B0F6AC"); 
+					            $("#detaddrck").css("display", "none");
+					            detaddressCheck = 1;
+				         };
+				            
+				         }
+				      
+				   });
+			};
+			
+			/* function checkAddress() {
+				var inputed = $('#addr').val();
+				
+				   $.ajax({
+				      success: function() {
+				    	  
+				         if(inputed ==  false) {
+				            $("#addr").css("background-color", "#FFCECE");
+				            $("#addrck").css("display", "block");
+				            addressCheck = 0;
+				         }
+				         
+				      }
+				   })
+			} */
+			
+			$(document).ready(function(){
+				
+				activateJoinbtn()
+				/* checkDetaddr()
+				
+				var inputed = $('#addr').val();
+
+				if(inputed == false) {
+					checkAddress();
+				} */
+				
+				
+				
+				$('#joinbtn').click(function(){
+					var c = confirm('입력 하시겠습니까?');
+					if(c == true) {
+						$('#join_form').attr({
+							'enctype':'multipart/form-data',
+							'method':'post',
+							'action':'[[@{/registerimpl}]]'
+						});
+						$('#join_form').submit();
+					};
+				});
+
+			});
+
+			
+		function activateJoinbtn() {
+			
+			$.ajax({
+			      success: function() {
+			   
+			   if( idCheck == 1 && pwdCheck == 1  && nameCheck == 1 && phoneCheck == 1 && pwCheck == 1 && birthCheck == 1 && addressCheck == 1 && detaddressCheck == 1) {
+				   
+			      $("#joinbtn").prop("disabled", false);   
+			      $("#joinbtn").css("background-color", "#B0F6AC");
 			   }
 			   else  {
-			      $(".joinbtn").css("background-color", "#aaaaaa");
-			      $(".joinbtn").prop("disabled", true);
+			      $("#joinbtn").css("background-color", "#aaaaaa");
+			      $("#joinbtn").prop("disabled", true);
 			   }
 			}
+			});
+		}
 	
-		function join_check() {
+		/* function join_check() {
 			var useremail = document.getElementById("useremail");
 			var userpwd = document.getElementById("userpwd");
 			var userpwd2 = document.getElementById("userpwd2");
@@ -82,7 +278,7 @@
 			var tel = document.getElementById("tel");
 			var addr = document.getElementById("addr");
 			var detaddr = document.getElementById("detaddr");
-			var zipcode = document.getElementById("zipcode");
+			var zipcode = document.getElementById("zipcode"); */
 			
 			/* var emailc = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 			
@@ -97,14 +293,14 @@
 	            return false;
 	        } */
 			
-			if (userpwd.value == "") {
+			/* if (userpwd.value == "") {
 			    alert("비밀번호를 입력하세요.");
 			    userpwd.focus();
 			    return false;
-			};
+			}; */
 
 			  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
-			  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+			  /* var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 
 			  if (!pwdCheck.test(userpwd.value)) {
 			    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
@@ -116,9 +312,9 @@
 			    alert("비밀번호가 일치하지 않습니다..");
 			    userpwd2.focus();
 			    return false;
-			  };
+			  }; */
 			  
-			  if (username.value == "") {
+			  /* if (username.value == "") {
 				    alert("이름을 입력하세요.");
 				    username.focus();
 				    return false;
@@ -128,24 +324,24 @@
 				  if(!nameCheck.test(username.value)){
 			            alert("특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");
 			            return false;
-			        }
+			        } */
 				  
-				  var birthCheck = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+				  /* var birthCheck = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
 				  if (!birthCheck.test(birth.value)) {
 					    alert("생년월일을 입력해주세요 예) 19901212");
 					    birth.focus();
 					    return false;
-					  };
+					  }; */
 
-				var reg = /^01[0-1]?\d{3,4}?\d{4}$/; //숫자만 입력하는 정규식
+				/* var reg = /^01[0-1]?\d{3,4}?\d{4}$/; //숫자만 입력하는 정규식
 
 				  if (!reg.test(tel.value)) {
 				    alert("전화번호는 숫자만 입력할 수 있습니다.");
 				    tel.focus();
 				    return false;
-				  }
+				  } */
 				
-				  if(zipcode.value == "") {
+				  /* if(zipcode.value == "") {
 						alert("주소를 입력해주세요.");
 						open_Postcode();
 						return false;
@@ -155,23 +351,13 @@
 						alert("상세주소를 입력하세요.");
 						detaddr.focus();
 						return false;
-					}
+					} */
 					
-					/* $('#joinbtn').click(function(){ */
-						var c = confirm('입력 하시겠습니까?');
-						if(c == true) {
-							$('#join_form').attr({
-								'enctype':'multipart/form-data',
-								'method':'post',
-								'action':'[[@{/registerimpl}]]'
-							});
-							$('#join_form').submit();
-						};
-				/* }); */
+					
 
 				  
 				  
-		};
+		/* }; */
 		
 		function open_Postcode(){  //다음 카카오 주소찾기 
 			  new daum.Postcode({ 
@@ -211,6 +397,14 @@
 		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
 		                document.getElementById('zipcode').value = data.zonecode;
 		                document.getElementById("addr").value = addr;
+		                
+		                $("#addr").css("background-color", "#B0F6AC");
+		                $("#zipcode").css("background-color", "#B0F6AC");
+		                $("#readaddr").css("background-color", "#B0F6AC");
+		                $("#addrck").css("display", "none");
+		                
+			            addressCheck = 1;
+
 			  } 
 			}).open(); 
 		};
@@ -223,50 +417,55 @@
 	<section class="page-section" id="signup_form" style="background-color: #f5dcb7;">
 		<div class="container">
 			<div class="row mt-5">
-				<div class="col-lg-4 bg-white m-auto rounded-top">
+				<div class="col-lg-5 bg-white m-auto rounded-top">
 					<h2 class="text-center pt-3 mb-5">회원가입</h2>
 					<!--  form start -->
 					<form id="join_form" class="validation-form" novalidate>
 						<div class="mb-3">
 							<label for="useremail" class="form-label">이메일</label>
 							<input type="text" id="useremail" name="useremail" class="form-control" placeholder="예) id@example.com" oninput="checkId(), activateJoinbtn()"/>
-							<font color = "red" id = "fail" style = "display:none">이미 존재하는 ID입니다.</font>
+							<font color = "red" id = "mailform" style = "display:none">올바른 이메일 형식이 아닙니다</font>
+							<font color = "red" id = "fail" style = "display:none">이미 존재하는 이메일입니다</font>
+							<font color = "black" id = "mailcon" style = "display:none">사용 가능한 이메일입니다</font>
 						</div>
 						<div class="mb-3">
 							<label for="userpwd" class="form-label">비밀번호</label>
-							<input type="password" id="userpwd" name="userpwd" class="form-control" placeholder="영문자+숫자+특수조합(8~25자리 입력)"/>
-							<div class="invalid-feedback">비밀번호를 입력하세요</div>
+							<input type="password" id="userpwd" name="userpwd" class="form-control" placeholder="영문자+숫자+특수조합(8~25자리 입력)" oninput="checkPwd(), activateJoinbtn()"/>
+							<font color = "red" id = "failpwd" style = "display:none">비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다</font>
+							<font color = "black" id = "userpwdok" style = "display:none">사용 가능한 비밀번호입니다</font>
 						</div>         
 						<div class="mb-3">
 							<label for="userpwd2" class="form-label">비밀번호 재확인</label>
-							<input type="password" id="userpwd2" name="userpwd2" class="form-control" placeholder="비밀번호 재확인" />
-							<div class="invalid-feedback">비밀번호를 입력하세요</div>
+							<input type="password" id="userpwd2" name="userpwd2" class="form-control" placeholder="비밀번호 재확인" oninput ="checkPwd2(), activateJoinbtn()"/>
+							<font color = "black" id = "userpwd2ok" style = "display:none">비밀번호가 일치합니다</font>
+							<font color = "red" id = "userpwd2no" style = "display:none">비밀번호가 일치하지 않습니다</font>
 						</div>
 						<div class="mb-3">
 							<label for="username" class="form-label">이름</label>
-							<input type="text" id="username" name="username" class="form-control" placeholder="이름" />
-							<div class="invalid-feedback">이름을 입력하세요</div>
+							<input type="text" id="username" name="username" class="form-control" placeholder="이름" oninput="checkName(),activateJoinbtn()"/>
+							<font color = "red" id = "usernameck" style = "display:none">한글만 입력해주세요</font>
 						</div>
 						<div class="mb-3">
 							<label for="birth" class="form-label">생년월일</label>
-							<input type="text" id="birth" name="birth" class="form-control" placeholder="예) 19901212" maxlength="8" />
-							<div class="invalid-feedback">생년월일을 입력하세요</div>
+							<input type="text" id="birth" name="birth" class="form-control" placeholder="예) 19901212" maxlength="8" oninput="checkBirth(),activateJoinbtn()"/>
+							<font color = "red" id = "birthck" style = "display:none">숫자만 입력해주세요 예)19901212 </font>
 						</div>
 						<div class="mb-3">
 							<label for="tel" class="form-label">연락처</label>
-							<input type="text" id="tel" name="tel" class="form-control" placeholder="연락처" />
-							<div class="invalid-feedback">전화번호를 입력하세요</div>
+							<input type="text" id="tel" name="tel" class="form-control" placeholder="연락처" oninput="checkTel(), activateJoinbtn()"/>
+							<font color = "red" id = "telck" style = "display:none">숫자만 입력해주세요</font>
 						</div>
 						<div class="mb-3">
 							<label for="zipcode" class="form-label">우편번호 <input type="button" class="btn btn-secondary" id="postcode_button" onclick="open_Postcode()" value="우편번호 찾기"><br></label>
 							<input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="우편번호" readonly />
 							<div class="invalid-feedback">우편번호를 입력하세요</div>
 							<label class="form-label mt-3">주소</label>
-							<input type="text" id="addr" name="addr" class="form-control mb-1" placeholder="주소" readonly />
+							<input type="text" id="addr" name="addr" class="form-control mb-1" placeholder="주소" readonly oninput="activateJoinbtn()"/>
+							<font color ="red" id ="addrck" style = "display:none">주소를 입력해주세요</font>
 							<input type="text" id="readaddr" name="readaddr" class="form-control mb-1" placeholder="참고항목" readonly />
 							<!-- <input type="text" id="jibun_address" name="jibun_address" class="form-control mb-1" placeholder="지번 주소" readonly required/> -->
-							<input type="text" id="detaddr" name="detaddr" class="form-control" placeholder="상세 주소" />
-							<div class="invalid-feedback">주소를 입력하세요</div>
+							<input type="text" id="detaddr" name="detaddr" class="form-control" placeholder="상세 주소" oninput="checkDetaddr(), activateJoinbtn()"/>
+							<font color="red" id="detaddrck" style="display:none">상세주소를 입력해주세요</font>
 						</div>
 						
 						<div class="form-check mb-3">
@@ -293,10 +492,10 @@
 								만 14세 이상입니다.
 							</label>
 						</div>
-						<div id="btn22" class="d-grid">
-							<button type="button" id="joinbtn" onclick="join_check();" class="btn btn-secondary">회원가입</button>
-							<p class="text-center mt-2">
-							이미 가입된 계정이 존재하나요 ? <a href="#">로그인</a></p>
+						<p class="text-center mt-2"><b>모든 항목을 입력하셔야 회원가입이 가능합니다</b></p>
+						<div id="btn22" class="d-grid"><!-- onclick="join_check();" -->
+							<button type="button" id="joinbtn" class="btn btn-secondary">회원가입</button>
+							<p class="text-center mt-2"><b>이미 가입된 계정이 존재하나요 ?</b><a th:href="@{/login}"> 로그인</a></p>
 						</div>
 					</form>
 					<!--  form end -->
