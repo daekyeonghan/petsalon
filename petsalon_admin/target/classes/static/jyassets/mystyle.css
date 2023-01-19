@@ -47,3 +47,18 @@ designer-update .card-body{
 #updatebtn{
 	margin-top:30px;
 }
+ .some-add-icon:hover{
+ cursor:pointer;
+ }
+ .listtitle{
+  vertical-align: middle;
+ font-size:1.3em;
+ }
+ 
+ #addItemModal .form-select{
+ 	margin-bottom:25px;
+ }
+ 
+ .feather-icon{
+  align-items: center;
+ }

@@ -19,4 +19,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE Item SET item_name=#{item_name}, item_price=#{item_price}, item_photo=#{item_photo}
 		WHERE item_id=#{item_id}
 	</update>
+	
+	<select id="selectmenu" resultType="Item">
+		SELECT i.item_id, i.item_name, d.designer_name, i.item_price, i.item_photo FROM item i
+		INNER JOIN designer d ON d.designer_id = i.designer_id;
+	</select>
 </mapper>

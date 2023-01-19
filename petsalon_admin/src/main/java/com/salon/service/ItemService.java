@@ -38,5 +38,9 @@ public class ItemService implements MyService<Integer, Item>{
 	public List<Item> get() throws Exception {
 		return mapper.selectall();
 	}
+	
+	public List<Item> getlist() throws Exception{
+		return mapper.selectmenu();
+	}
 
 }

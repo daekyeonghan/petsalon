@@ -1,0 +1,39 @@
+<div th:fragment="main">
+<script>
+
+
+</script>
+
+<h1>메뉴 수정</h1>
+<div class="mygap-xs"></div>
+<div class="item_update">
+<form id="item_update">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">메뉴 이름 :</label>
+            <input type="text" class="form-control" id="item_name" name="item_name">
+            <div id="nameFeedback" class="invalid-feedback"></div>
+          </div>
+            <div class="mb-3">
+            <label for="message-text" class="col-form-label">가격 :</label>
+            <input type="number" class="form-control" id="item_price" name="item_price">
+            <div id="priceFeedback" class="invalid-feedback"></div>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">담당 디자이너 :</label>
+           <select class="form-select" aria-label="Default select example" id="designer_id" name="designer_id">
+  				<option th:each="d:${designerlist}" th:value="${d.designer_id}" th:text="${d.designer_name}"></option>
+			</select>
+          </div>
+           <div class="mb-3">
+  				<label for="formFile" class="form-label">사진 :</label>
+  				<input class="form-control" type="file" id="formFile" name="item_photo">
+		   </div>
+        </form>
+<button type="button" id="updatebtn" class="btn btn-primary btn-lg">수정</button>
+
+
+
+
+
+</div>
+</div>
