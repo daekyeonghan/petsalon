@@ -57,13 +57,4 @@ public class AjaxController {
 		}
 		return pwd;
 	}
-	@RequestMapping("/updateuser")
-	public String updateuser(User user) {
-		try {
-			uservice.modify(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "index";
-	}
 }

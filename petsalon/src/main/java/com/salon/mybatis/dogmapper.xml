@@ -9,6 +9,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="Dog">
 		SELECT * FROM dog
 	</select>
+	<select id="ownerdog" parameterType="String" resultType="Dog">
+		SELECT * FROM dog WHERE useremail=#{useremail}
+	</select>
 	<insert id="insert" parameterType="Dog">
 		INSERT INTO dog VALUES(#{dog_id},#{useremail},#{dog_name},#{dog_photo},#{dog_gender},#{dog_age},#{dog_weight},#{dog_breed},#{dog_special},#{dog_rdate})
 	</insert>

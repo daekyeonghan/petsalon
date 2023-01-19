@@ -11355,7 +11355,14 @@ p {
 }
 #login>#loginform{
 	margin: 100px auto;
+	padding: 30px 30px;;
 	text-align:center;
+	border:2px solid black;
+	border-radius:10px 10px;
+	border-color:black;
+	background-color:white;
+	width:600px;
+	height:400px;
 }
 #login>#loginform>input[name="email"],#login>#loginform>input[name="pwd"]{
 	width:400px;
@@ -11411,6 +11418,8 @@ p {
 	border-radius:10px 10px;
 	border-width:medium;
 	border-color:#3b365c;
+	border-style:thin;
+	background-color:white;
 }
 #lostinfo>#lostpwd{
 	margin-top:50px;
@@ -11449,6 +11458,14 @@ p {
 	color:#6633FF;
 	text-align:center;
 }
+#emailresult{
+	width:640px;
+	text-align:center;
+}
+#pwdresult{
+	width:370px;
+	text-align:center;
+}
 #mypage{
 	width:1000px;
 	height:600px;
@@ -11460,26 +11477,75 @@ p {
 #mypage>#left_aside{
 	margin-top:50px;
 	margin-bottom:50px;
+	margin-right:20px;
 	width:200px;
-	height:600px;
-	border:1px solid blue;
+	height:800px;
+	border:1px solid #808080;
 }
 #mypage>#right_aside{
 	margin-top:50px;
 	margin-bottom:50px;
-	width:796px;
-	height:600px;
-	border:1px solid green;
+	width:780px;
+	height:800px;
+	border:1px solid #808080;
 }
-#update_form{
-	width:500px;
-	margin-top:0;
-	margin:0 auto;
-	border:1px solid red;
+.left_myinfo>.menu,.left_myresv>.menu,.left_doginfo>.menu,.left_visit>.menu{
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+	margin:140px auto;
+	padding:100px 0px;
 }
-#update_form input[type="text"]{
-	width:350px;
+.left_myinfo>.menu>#button,.left_myresv>.menu>#button,.left_doginfo>.menu>#button,.left_visit>.menu>#button{
+	text-align:center;
+}
+.left_myinfo>.menu>#button button{
+	width:150px;
+	height:60px;
+	margin-bottom:20px;
+	background-color:#808080;
+	border-style:none;
+	color:white;
+	font-size:1.2em;
+	border-radius:10px 10px;
+}
+.left_myinfo>.menu>#button button>a{
+	color:white;
+}
+.left_myinfo>.menu>#button button>a:hover{
+	color:#F6F6F6;
+}
+#updateform{
+	width:500px;
+	margin-left:30px;
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+	font-size:0.9em;
+}
+#updateform input[type="text"]{
+	width:250px;
+	height:30px;
+}
+#updateform input[name="addr"],#updateform input[name="detaddr"]{
+	width:400px;
+	height:30px;
+}
+#postcode_button{
+	margin-left:10px;
+	background-color:#5F5F5F;
+	color:white;
+}
+#updatebtn{
+	width:100px;
+	height:40px;
+	font-size:1.1em;
+	margin-top:20px;
+	border-radius:15px 15px;
+	background-color:white;
+	color:#6633FF;
+	border-style:thin;
+}
+#updatebtn:hover{
+	background-color:#6633FF;
+	color:white;
+	border:none;
 }
 footer{
 	width:900px;

@@ -1,0 +1,43 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+</script>
+<section class="page-section" id="myinfo">
+	<form name="updateform" id="updateform" class="validation-form" method="post" novalidate>
+		<div class="mb-3">
+			<label for="dog_name" class="form-label">강아지 이름</label>
+			<input type="text" id="dog_name" name="dog_name" th:value="${dog.dog_name}" class="form-control"/>
+		</div>
+		<div class="mb-3">
+			<label for="dog_photo" class="form-label">강아지 사진</label>
+			<input type="text" id="dog_photo" name="dog_photo" th:value="${dog.dog_photo}" class="form-control"/>
+			<input type="hidden" id=""/>
+			<button id="photo_update">수정</button>
+		</div> 
+		<div class="mb-3">
+			<label for="dog_gender" class="form-label">성별</label>
+			<input type="text" id="dog_gender" name="dog_gender" th:value="${dog.dog_gender}" class="form-control"/>
+			<div class="invalid-feedback">성별을 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="dog_age" class="form-label">나이</label>
+			<input type="text" id="dog_age" name="dog_age" th:value="${dog.dog_age}" class="form-control" maxlength="8" readonly/>
+			<div class="invalid-feedback">강아지 나이를 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="dog_weight" class="form-label">몸무게</label>
+			<input type="text" id="dog_weight" name="dog_weight" th:value="${dog.dog_weight}" class="form-control"/>
+			<div class="invalid-feedback">강아지 몸무게를 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="dog_breed" class="form-label">견종</label>
+			<input type="text" id="dog_breed" name="dog_breed" th:value="${dog.dog_breed}" class="form-control"/>
+			<div class="invalid-feedback">견종을 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="dog_special" class="form-label">특이사항</label>
+			<input type="text" id="dog_special" name="dog_special" th:value="${dog.dog_special}" class="form-control"/>
+		</div>
+		<button id="updatebtn" onclick="updatechk()">정보 수정</button>
+    </form>
+</section>

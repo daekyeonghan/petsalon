@@ -1,0 +1,115 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+function updatechk(){
+	/* form의 name을 받아옴 */
+	var form = document.updateform;
+	var userpwd = form.userpwd.value;
+	var username = form.username.value;
+	var birth = form.birth.value;
+	var tel = form.tel.value;
+	var addr = form.addr.value;
+	var zipcode = form.zipcode.value;
+	var detaddr = form.detaddr.value;
+	
+	if(userpwd==""){
+		alert("비밀번호가 비어있습니다");
+		form.userpwd.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(username==""){
+		alert("이름이 비어있습니다");
+		form.username.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(birth==""){
+		alert("생년월일이 비어있습니다");
+		form.birth.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(tel==""){
+		alert("연락처가 비어있습니다");
+		form.tel.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(addr==""){
+		alert("주소가 비어있습니다");
+		form.addr.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(zipcode==""){
+		alert("우편번호가 비어있습니다");
+		form.zipcode.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(detaddr==""){
+		alert("상세주소가 비어있습니다");
+		form.detaddr.focus();
+		event.preventDefault();
+		return false;
+	}
+}
+
+function open_Postcode(){  //다음 카카오 주소찾기 
+	  new daum.Postcode({ 
+	    oncomplete: function(data) { 
+	    	 var addr = ''; // 주소 변수
+              //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+              if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                  addr = data.roadAddress;
+              } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                  addr = data.jibunAddress;
+              }
+              // 우편번호와 주소 정보를 해당 필드에 넣는다.
+              document.getElementById('zipcode').value = data.zonecode;
+              document.getElementById("addr").value = addr;
+	  } 
+	}).open(); 
+};
+</script>
+<section class="page-section" id="myinfo">
+	<form name="updateform" id="updateform" class="validation-form" method="post" th:action="@{/updateuser}" novalidate>
+		<div class="mb-3">
+			<label for="useremail" class="form-label">이메일</label>
+			<input type="text" id="useremail" th:value="${user.useremail}" class="form-control" readonly/>
+			<div class="invalid-feedback">이메일주소를 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="userpwd" class="form-label">비밀번호</label>
+			<input type="text" id="userpwd" name="userpwd" th:value="${user.userpwd}" class="form-control" readonly/>
+			<div class="invalid-feedback">비밀번호를 입력하세요</div>
+		</div> 
+		<div class="mb-3">
+			<label for="username" class="form-label">이름</label>
+			<input type="text" id="username" name="username" th:value="${user.username}" class="form-control"/>
+			<div class="invalid-feedback">이름을 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="birth" class="form-label">생년월일</label>
+			<input type="text" id="birth" th:value="${user.birth}" class="form-control" maxlength="8" readonly/>
+			<div class="invalid-feedback">생년월일을 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="tel" class="form-label">연락처</label>
+			<input type="text" id="tel" name="tel" th:value="${user.tel}" class="form-control"/>
+			<div class="invalid-feedback">전화번호를 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="zipcode" class="form-label">우편번호 <input type="button" class="btn btn-secondary" id="postcode_button" onclick="open_Postcode()" value="우편번호 찾기"><br></label>
+			<input type="text" id="zipcode" name="zipcode" th:value="${user.zipcode}" class="form-control" readonly />
+			<div class="invalid-feedback">우편번호를 입력하세요</div>
+			<label class="form-label mt-3">주소</label>
+			<input type="text" id="addr" name="addr" th:value="${user.addr}" class="form-control mb-1" readonly />
+			<!-- <input type="text" id="jibun_address" name="jibun_address" class="form-control mb-1" placeholder="지번 주소" readonly required/> -->
+			<input type="text" id="detaddr" name="detaddr" th:value="${user.detaddr}" class="form-control"/>
+			<div class="invalid-feedback">주소를 입력하세요</div>
+		</div>
+		<button id="updatebtn" onclick="updatechk()">정보 수정</button>
+    </form>
+</section>
