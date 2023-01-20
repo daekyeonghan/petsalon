@@ -42,7 +42,6 @@ public class MyPageController {
 		user.setZipcode(req.getParameter("zipcode"));
 		try {
 			uservice.modify(user);
-			System.out.println(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -49,9 +49,9 @@
 	                        		<a class="nav-link" th:href="@{/login}">로그인</a>
 	                        	</li>
 	                        	<li th:unless="${session.logemail==null}">
-	                        		<a class="nav-link" th:href="@{/logout}">로그아웃</a>
+	                        		<li><a class="nav-link" th:href="@{/logout}">로그아웃</a></li>
+	                        		<li><a class="nav-link" th:href="@{/mypage}">마이페이지</a></li>
 	                        	</li>
-	                        	<li><a class="nav-link" th:href="@{/mypage}">마이페이지</a></li>
 	                        </ul>
                         </li>
                       </ul>

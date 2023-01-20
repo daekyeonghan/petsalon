@@ -39,7 +39,7 @@ public class DogService implements MyService<Integer, Dog>{
 		return mapper.selectall();
 	}
 	
-	public Dog ownerdog(String j) throws Exception {
+	public List<Dog> ownerdog(String j) throws Exception {
 		return mapper.ownerdog(j);
 	}
 }

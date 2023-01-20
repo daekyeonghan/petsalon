@@ -17,6 +17,7 @@ public class Review {
 	private int review_no;
 	private String useremail;
 	private String designer_id;
+	private int dog_id;
 	private String review_title;
 	private String review_content;
 	private String review_photo;
@@ -24,12 +25,13 @@ public class Review {
 	
 	
 	// reviewmapper.xml INSERT 문 review_date 를 NOW()로 들어가게 해놔서 review_date를 뺀 생성자입니다. 불필요시 삭제해주세요.
-	public Review(int review_no, String useremail, String designer_id, String review_title, String review_content,
+	public Review(int review_no, String useremail, String designer_id, int dog_id, String review_title, String review_content,
 			String review_photo) {
 		super();
 		this.review_no = review_no;
 		this.useremail = useremail;
 		this.designer_id = designer_id;
+		this.dog_id = dog_id;
 		this.review_title = review_title;
 		this.review_content = review_content;
 		this.review_photo = review_photo;

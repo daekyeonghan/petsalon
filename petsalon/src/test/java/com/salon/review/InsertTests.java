@@ -16,7 +16,7 @@ class InsertTests {
 	@Test
 	void contextLoads() {
 		
-		Review obj = new Review(0,"test@test.com", "babo", "테스트제목", "테스트내용", null);
+		Review obj = new Review(0,"helloworld@gmail.com", "babo",3, "테스트제목", "테스트내용", null);
 		
 		try {
 			service.register(obj);

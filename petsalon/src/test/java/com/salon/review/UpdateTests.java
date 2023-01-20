@@ -17,7 +17,7 @@ class UpdateTests {
 	@Test
 	void contextLoads() {
 		
-	Review obj = new Review(0, "test@test.com", "babo", "아주 좋군요", "베리굿", "good.jpg");
+	Review obj = new Review(0, "helloworld@gmail.com", "babo", 3,"아주 좋군요", "베리굿", "good.jpg");
 		
 		try {
 			service.modify(obj);

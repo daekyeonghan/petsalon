@@ -1,0 +1,77 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+function addchk(){
+	/* form의 name을 받아옴 */
+	var form = document.addform;
+	var dog_gender = form.dog_gender.value;
+	var dog_age = form.dog_age.value;
+	var dog_weight = form.dog_weight.value;
+	var dog_breed = form.dog_breed.value;
+	var dog_special = form.dog_special.value;
+	
+	if(dog_gender==""){
+		alert("성별이 비어있습니다");
+		form.dog_gender.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(dog_age==""){
+		alert("나이가 비어있습니다");
+		form.dog_age.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(dog_weight==""){
+		alert("몸무게가 비어있습니다");
+		form.dog_weight.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(dog_breed==""){
+		alert("견종이 비어있습니다");
+		form.dog_breed.focus();
+		event.preventDefault();
+		return false;
+	}
+
+}
+</script>
+<section class="page-section" id="myinfo">
+	<form name="addform" id="addform" class="validation-form" method="post" th:action="@{/adddogOk}">
+		<div class="mb-3">
+			<label for="dog_name" class="form-label">강아지 이름</label>
+			<input type="text" id="dog_name" name="dog_name" class="form-control"/>
+		</div>
+		<div class="mb-3">
+			<label for="dog_photo" class="form-label">강아지 사진</label>
+			<input type="file" id="dog_photo" name="dog_photo" class="form-control"/>
+			<input type="hidden" id=""/>
+		</div> 
+		<div class="mb-3">
+			<label for="dog_gender" class="form-label">성별</label>
+			<input type="text" id="dog_gender" name="dog_gender" class="form-control"/>
+			<div class="invalid-feedback">성별을 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="dog_age" class="form-label">나이</label>
+			<input type="text" id="dog_age" name="dog_age" class="form-control" maxlength="8"/>
+			<div class="invalid-feedback">강아지 나이를 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="dog_weight" class="form-label">몸무게</label>
+			<input type="text" id="dog_weight" name="dog_weight" class="form-control"/>
+			<div class="invalid-feedback">강아지 몸무게를 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="dog_breed" class="form-label">견종</label>
+			<input type="text" id="dog_breed" name="dog_breed" class="form-control"/>
+			<div class="invalid-feedback">견종을 입력하세요</div>
+		</div>
+		<div class="mb-3">
+			<label for="dog_special" class="form-label">특이사항</label>
+			<input type="text" id="dog_special" name="dog_special" class="form-control"/>
+		</div>
+		<button id="addbtn" onclick="addchk()">강아지 등록</button>
+    </form>
+</section>

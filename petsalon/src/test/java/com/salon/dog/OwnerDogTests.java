@@ -1,5 +1,7 @@
 package com.salon.dog;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +17,7 @@ class OwnerDogTests {
 	
 	@Test
 	void contextLoads() {
-		Dog dog = null;
+		List<Dog> dog = null;
 		try {
 			dog = service.ownerdog("ruler@naver.com");
 			System.out.println(dog);
