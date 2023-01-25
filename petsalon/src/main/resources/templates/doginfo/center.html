@@ -1,16 +1,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-function deletechk(){
-	if(!confirm('정말 삭제하시겠습니까?')){
-		event.preventDefault();
-		return false;
-	}
-}
 </script>
-<section class="page-section" id="dogmanage" style="font-family:'Spoqa Han Sans Neo', 'sans-serif';">
+<div id="dogmanage" enctype="multipart/form-data">
 	<div class="doginfo" th:each="dog : ${dogList}">
-		<img src="../././assets/img/logo.svg" width="100px;">
+		<img th:if="${dog.dog_photo!=''}" th:src="@{${dog.dog_photo}}" style="width:100px;height:100px">
+		<img th:unless="${dog.dog_photo!=''}" src="assets/img/logo.svg" width="100px;">
 		<table>
 			<tbody>
 				<tr>
@@ -32,16 +27,11 @@ function deletechk(){
 			</tbody>
 		</table>
 		<br><br><br>
-		<div id=modifybtn>
-			<div id="updatebtn">
-				<button><a th:href="@{/updatedog(dog_id=${dog.dog_id})}">수정</a></<button>
-			</div>
-			<div id="delbtn">
-				<button onclick="deletechk()"><a th:href="@{/deletedog(dog_id=${dog.dog_id})}">삭제</a></<button>
-			</div>
+		<div id="updatebtn">
+			<button th:onclick="|location.href='@{/updatedog(dog_id=${dog.dog_id})}'|">수정</<button>
 		</div>
 	</div>
 	<div id="addbtn">
-		<button id="add"><a th:href="@{/adddog}">+ 강아지 추가</a></<button>
+		<button id="add" th:onclick="|location.href='@{/adddog}'|">+ 강아지 추가</<button>
 	</div>
-</section>
+</div>

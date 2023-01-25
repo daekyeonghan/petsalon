@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+</script>
+<div id="userResv">
+	<div class="resvinfo" th:each="resv : ${resv}">
+		<table>
+			<tbody>
+				<tr>
+					<td style="border-right:1px solid #909090;">강아지</td>
+			    	<td th:text="${resv.dog_id}"></td>
+			    </tr>
+			    <tr>
+			    	<td style="border-right:1px solid #909090;">디자이너</td>
+			        <td th:text="${resv.designer_id}"></td>
+			    </tr>
+			    <tr>
+			    	<td style="border-right:1px solid #909090;">상품</td>
+			        <td th:text="${resv.item_id}"></td>
+			    </tr>
+			    <tr>
+			    	<td style="border-right:1px solid #909090;">예약확정여부</td>
+			        <td th:text="${resv.resv_fix}"></td>
+			    </tr>
+			</tbody>
+		</table>
+		<br>
+	</div>
+</div>

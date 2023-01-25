@@ -11,69 +11,91 @@ function updatechk(){
 	var dog_special = form.dog_special.value;
 	
 	if(dog_gender==""){
-		alert("성별이 비어있습니다");
+		alert("성별은 필수 항목입니다");
 		form.dog_gender.focus();
 		event.preventDefault();
 		return false;
 	}
 	if(dog_age==""){
-		alert("나이가 비어있습니다");
+		alert("나이는 필수 항목입니다");
+		form.dog_age.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(isNaN(dog_age)){
+		alert("나이에는 숫자만 입력하실 수 있습니다");
 		form.dog_age.focus();
 		event.preventDefault();
 		return false;
 	}
 	if(dog_weight==""){
-		alert("몸무게가 비어있습니다");
+		alert("몸무게는 필수 항목입니다");
+		form.dog_weight.focus();
+		event.preventDefault();
+		return false;
+	}
+	if(isNaN(dog_weight)){
+		alert("몸무게에는 숫자만 입력하실 수 있습니다");
 		form.dog_weight.focus();
 		event.preventDefault();
 		return false;
 	}
 	if(dog_breed==""){
-		alert("견종이 비어있습니다");
+		alert("견종은 필수 항목입니다");
 		form.dog_breed.focus();
 		event.preventDefault();
 		return false;
 	}
-
+	form.action = '[[@{updatedogOk(dog_id=${dog.dog_id})}]]';
+	form.submit();
+}
+function deletechk(){
+	var form = document.updateform;
+	if(!confirm('정말 삭제하시겠습니까?')){
+		event.preventDefault();
+		return false;
+	}
+	form.action = '[[@{deletedog(dog_id=${dog.dog_id})}]]';
+	form.submit();
 }
 </script>
-<section class="page-section" id="myinfo">
-	<form name="updateform" id="updateform" class="validation-form" method="post" th:action="@{/updatedogOk}">
-		<input type="hidden" id="dog_id" name="dog_id" th:value="${dog.dog_id}"/>
+<div id="doginfo">
+	<form name="updateform" id="updateform" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="dog_id" name="dog_id" th:value="${dog.dog_id}">
 		<div class="mb-3">
-			<label for="dog_name" class="form-label">강아지 이름</label>
+			<label for="dog_name" class="form-label">강아지 이름을 알려주세요!</label>
 			<input type="text" id="dog_name" name="dog_name" th:value="${dog.dog_name}" class="form-control"/>
 		</div>
 		<div class="mb-3">
-			<label for="dog_photo" class="form-label">강아지 사진</label>
-			<input type="text" id="dog_photo" name="dog_photo" th:value="${dog.dog_photo}" class="form-control"/>
-			<input type="hidden" id=""/>
-			<button id="photo_update">수정</button>
+			<label for="dog_photo" class="form-label">강아지 사진을 등록해보세요!</label><br>
+			<img th:if="${dog.dog_photo!=''}" th:src="@{${dog.dog_photo}}" width="100px;">
+			<img th:unless="${dog.dog_photo!=''}" src="assets/img/logo.svg" width="100px;">
+			<input type="file" id="dog_photo" name="dog_photo" th:value="${dog.dog_photo}" style="width:400px;" class="form-control"/>
 		</div> 
 		<div class="mb-3">
-			<label for="dog_gender" class="form-label">성별</label>
-			<input type="text" id="dog_gender" name="dog_gender" th:value="${dog.dog_gender}" class="form-control"/>
-			<div class="invalid-feedback">성별을 입력하세요</div>
+			<label for="dog_gender" class="form-label"><b style="color:red;">* </b>강아지의 성별은?</label><br>
+			<select name="dog_gender" style="width:120px;height:40px;border-radius:5px 5px;">
+				<option id="dog_gender" class="form-control" th:selected="${dog.dog_gender=='M'}" value="M">수컷</option>
+				<option id="dog_gender" class="form-control" th:selected="${dog.dog_gender=='F'}" value="F">암컷</option>
+			</select>
 		</div>
 		<div class="mb-3">
-			<label for="dog_age" class="form-label">나이</label>
-			<input type="text" id="dog_age" name="dog_age" th:value="${dog.dog_age}" class="form-control" maxlength="8"/>
-			<div class="invalid-feedback">강아지 나이를 입력하세요</div>
+			<label for="dog_age" class="form-label"><b style="color:red;">* </b>몇 살인가요?</label>
+			<input style="width:120px;" type="text" id="dog_age" name="dog_age" th:value="${dog.dog_age}" class="form-control" maxlength="2"/>
 		</div>
 		<div class="mb-3">
-			<label for="dog_weight" class="form-label">몸무게</label>
-			<input type="text" id="dog_weight" name="dog_weight" th:value="${dog.dog_weight}" class="form-control"/>
-			<div class="invalid-feedback">강아지 몸무게를 입력하세요</div>
+			<label for="dog_weight" class="form-label"><b style="color:red;">* </b>몇 kg인가요?</label>
+			<input style="width:120px; display:block;"  type="text" id="dog_weight" th:value="${dog.dog_weight}" name="dog_weight" class="form-control" maxlength="4"/>
 		</div>
 		<div class="mb-3">
-			<label for="dog_breed" class="form-label">견종</label>
+			<label for="dog_breed" class="form-label"><b style="color:red;">* </b>무슨 종인가요?</label><br>
 			<input type="text" id="dog_breed" name="dog_breed" th:value="${dog.dog_breed}" class="form-control"/>
-			<div class="invalid-feedback">견종을 입력하세요</div>
 		</div>
 		<div class="mb-3">
-			<label for="dog_special" class="form-label">특이사항</label>
-			<input type="text" id="dog_special" name="dog_special" th:value="${dog.dog_special}" class="form-control"/>
+			<label for="dog_special" class="form-label">특이사항이 있다면?</label><br>
+			<textarea id="dog_special" name="dog_special" th:value="${dog.dog_special}" style="width:600px;border-radius:5px;" maxlength="300"></textarea>
 		</div>
 		<button id="updatebtn" onclick="updatechk()">정보 수정</button>
+		<button id="delbtn" onclick="deletechk()">정보 삭제</button>
     </form>
-</section>
+</div>

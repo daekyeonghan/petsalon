@@ -45,16 +45,15 @@
                         <li class="nav-item"><a class="nav-link" href="#">이용후기</a></li>
                         <li class="nav-item"><img class="person" src="assets/img/person.svg" width="20px"/>
 	                        <ul class="sub" style="display:none">
-	                        	<li th:if="${session.logemail==null}">
+	                        	<li id="loginsub" th:if="${session.logemail==null}">
 	                        		<a class="nav-link" th:href="@{/login}">로그인</a>
 	                        	</li>
-	                        	<li th:unless="${session.logemail==null}">
+	                        	<ul id="mypagesub" th:unless="${session.logemail==null}">
 	                        		<li><a class="nav-link" th:href="@{/logout}">로그아웃</a></li>
 	                        		<li><a class="nav-link" th:href="@{/mypage}">마이페이지</a></li>
-	                        	</li>
+	                    		</ul>
 	                        </ul>
                         </li>
-                      </ul>
                 </div>
             </div>
         </nav>

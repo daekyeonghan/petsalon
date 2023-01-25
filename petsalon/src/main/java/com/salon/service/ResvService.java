@@ -40,5 +40,7 @@ public class ResvService implements MyService<Integer, Resv>{
 		return mapper.selectall();
 	}
 
-
+	public List<Resv> userResv(String j) throws Exception {
+		return mapper.userResv(j);
+	}
 }
