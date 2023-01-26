@@ -9,7 +9,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectall" resultType="Review">
-		SELECT * FROM review
+		SELECT re.review_no,u.useremail,ds.designer_id,d.dog_id,re.review_title,re.review_content,re.review_photo,re.review_date
+		FROM review re
+		INNER JOIN dog d ON re.dog_id =d.dog_id
+		INNER JOIN user u ON re.useremail =u.useremail
+		INNER JOIN designer ds ON re.designer_id =ds.designer_id
+		
+		
+		  
 	</select>
 	
 	<insert id="insert" parameterType="Review">

@@ -1,0 +1,27 @@
+<div th:fragment="main">
+
+
+<style>
+
+.text {
+	width:600px;
+	border:1px solid pink;
+	
+	
+}
+#iimg{
+	width:100px;
+}
+	
+</style>
+<h1>하로 이웃 후기</h1>
+
+<form id="review_modify">
+	<textarea class="text"  rows="10" type="text" name="content" th:text="${rep.review_content}"></textarea><br>	
+	<img id="iimg" th:src="@{/img/}+${rep.review_photo}"><br>
+	<input type="hidden" name="imgname" th:value="${rep.review_photo}"><br>
+	<input type="file" name="img"><br>
+	<a th:href="@{/review_update}" id="updatebtn">UPDATE</a>
+	<a th:href="@{/reviewPage}" id="delbtn">DELETE</a>
+</form>
+</div>

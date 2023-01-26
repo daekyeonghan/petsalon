@@ -8,6 +8,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM user WHERE useremail=#{useremail}
 	</select>
 	
+	<select id="usersearch" parameterType="String" resultType="User">
+		SELECT * FROM user WHERE username like CONCAT('%', #{searchValue}, '%');
+	</select>
+	
 	<select id="selectall" resultType="User">
 		SELECT * FROM user
 	</select>

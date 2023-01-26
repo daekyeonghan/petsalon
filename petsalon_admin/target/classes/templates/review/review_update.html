@@ -1,0 +1,28 @@
+<div th:fragment="main">
+<script>
+$(document).ready(function(){
+	$('#updatebtn').click(function(){
+		var rep = confirm('수정하겠습니까 ?');
+		if(rep == true){
+			$('#review_modify').attr({
+				'method':'post',
+				'action':'[[@{/review/review_update}]]'
+			})
+			$('#review_modify').submit();
+		}
+	});
+	
+	$('delbtn').click(function(){
+		
+		var rep = confirm('삭제하시겠습니까?');
+		if (rep == true){
+			var id = $('input[name=""]').val();
+			// /cust/delete?id=2
+			location.href='[[@{/review/delete(no=${re.review_no})}]]';
+
+		}
+	});
+});
+
+</script>
+</div>

@@ -1,4 +1,100 @@
 <div th:fragment="main">
-<h1>Review</h1>
+<div><span class="reviewtitle">고객후기</span></div>
+<style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  }
+ table thead {
+  background-image: #fff;
+  }
+  
+ table thead tr th {
+  background-color: transparent;
+  border-top: none;
+  padding: 10px;
+  font-weight: 400;
+}
 
+table thead tr th svg,table thead tr th img {
+  height: 16px;
+  width: 16px;
+  margin-left: 5px;
+}
+table tbody tr td {
+  border-top: none;
+  padding: 10px;
+  color: #787878;
+  font-size: 0.9rem;
+}
+
+table tbody tr td svg,table tbody tr td img {
+  height: 41px;
+  margin-right: 10px;
+}
+
+
+@media only screen and (max-width: 760px) {
+  p {
+    display: block;
+    font-weight: bold;
+  }
+  table tr td:not(:first-child),
+  table tr th:not(:first-child),
+  table tr td:not(.total-val) {
+    display: none;
+  }
+  }
+.reviewtitle{
+	font-size: 26px;
+	
+}
+.table-header {
+	font-size: 15px;
+}
+
+</style>
+<script>
+
+</script>
+<div class="row">
+            <div class="col-12">
+                <p class="mobile text-muted"></p>
+
+
+	<table>
+		<thead>
+		<tr class="table-header">
+			<th>후기 글번호&nbsp;&nbsp; <i data-feather=></i></th>
+			<th>보호자이메일&nbsp;&nbsp; <i data-feather=></i></th>
+			<th>디자이너 아이디&nbsp;&nbsp; <i data-feather=></i></th>
+			<th>강아지아이디&nbsp;&nbsp; <i data-feather=></i></th>
+			<th>리뷰제목&nbsp;&nbsp; <i data-feather=></i></th>
+			<th>리뷰내용&nbsp;&nbsp; <i data-feather=></i></th>
+			<th>리뷰사진&nbsp;&nbsp; <i data-feather=></i></th>
+			<th>리뷰날짜&nbsp;&nbsp; <i data-feather=></i></th>
+			</tr>
+			</thead>
+			<br>
+			<tbody>
+			<tr th:each="re:${review}" class="Relist">
+			<td th:text="${re.review_no}"></td>
+			<td th:text="${re.useremail}"></td>
+			<td th:text="${re.designer_id}"></td>
+			<td th:text="${re.dog_id}"></td>
+			<td><a th:href="@{/reviewPage(no=${re.review_no})}" th:text="${re.review_title}"></a></td>
+			<td th:text="${re.review_content}"></td>
+			<td th:if="${re.review_photo == null}"><img src="/wkassets/img/logo.png"></td>
+			<td th:unless="${re.review_photo == null}"><img th:src="${re.review_photo}"></td>
+			<td th:text="${re.review_date}"></td>
+			</tr>
+	</tbody>
+	</table>
+	</div>
+</div>
 </div>

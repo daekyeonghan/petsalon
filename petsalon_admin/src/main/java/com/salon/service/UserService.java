@@ -2,6 +2,7 @@ package com.salon.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,11 @@ public class UserService  implements MyService<String, User>{
 	public List<User> get() throws Exception {
 		return mapper.selectall();
 	}
+	
+	public List<User> usersearch(String k) throws Exception {
+		return mapper.usersearch(k);
+	}
+
+	
 
 }

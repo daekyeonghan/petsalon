@@ -18,6 +18,7 @@ public class Review {
 	private String useremail;
 	private String designer_id;
 	private String review_title;
+	private int dog_id;
 	private String review_content;
 	private String review_photo;
 	private Date review_date;
