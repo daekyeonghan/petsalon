@@ -27,6 +27,13 @@
     <link rel="stylesheet" th:href="@{jyassets/mystyle.css}">
    	<script src="jyassets/myjs.js"></script>
 
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 </head>
 <body>
  <div class="sidebar" th:fragment="sidebar">
@@ -68,5 +75,16 @@
         </div><!-- avatar-body -->
       </div><!-- sidebar-footer -->
     </div><!-- sidebar -->
+    
+    
+    <div th:fragment="fail">
+    <script>
+	$(document).ready(function(){
+    	setTimeout(() => window.location.replace('[[@{/}]]'),3000);
+	});
+    </script>
+    <h1>오류가 발생했습니다. 3초 후 메인 화면으로 돌아갑니다.</h1>
+    
+    </div>
 </body>
 </html>

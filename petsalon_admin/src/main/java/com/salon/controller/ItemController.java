@@ -3,12 +3,15 @@ package com.salon.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.salon.dto.Designer;
 import com.salon.dto.Item;
+import com.salon.frame.ImgUtil;
 import com.salon.service.DesignerService;
 import com.salon.service.ItemService;
 
@@ -17,12 +20,15 @@ public class ItemController {
 
 	@Autowired
 	ItemService iservice;
-	
+
 	@Autowired
 	DesignerService dsservice;
-	
+
 	String dir = "item/";
 	
+	@Value("${admindir}")
+	String admindir;
+
 	@RequestMapping("/item")
 	public String main(Model model) {
 		List<Item> ilist = null;
@@ -30,52 +36,188 @@ public class ItemController {
 		try {
 			ilist = iservice.getlist();
 			dlist = dsservice.get();
+			model.addAttribute("menulist", ilist);
+			model.addAttribute("designerlist", dlist);
+			model.addAttribute("path", dir + "item_main");
+			model.addAttribute("content", "main");
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
-		model.addAttribute("menulist",ilist);
-		model.addAttribute("designerlist",dlist);
-		model.addAttribute("path", dir+"item_main");
-		model.addAttribute("content", "main");
+
 		return "main";
 	}
 	
 
+    @RequestMapping("/itempage")
+    public String getItemsByPage(int page, Model model) {
+        int recordsPerPage = 2;
+        
+        List<Item> ilist;
+    	List<Designer> dlist = null;
+		try {
+			int totalRecords = iservice.totalitem();
+	        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+
+	        int offset = (page-1)*2;
+			ilist = iservice.pagingitem(recordsPerPage,offset);
+			
+			dlist = dsservice.get();
+			model.addAttribute("menulist", ilist);
+			model.addAttribute("designerlist", dlist);
+			model.addAttribute("totalPages", totalPages);
+			model.addAttribute("path", dir + "item_main");
+			model.addAttribute("content", "main");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+		}
+
+
+        return "main";
+    }
+
+	@RequestMapping("/itemSortByDesigner")
+	public String sortitem(Model model, String designer_id) {
+		List<Item> ilist = null;
+		List<Designer> dlist = null;
+		Designer ds = new Designer();
+		try {
+			System.out.println(designer_id);
+			
+			ilist = iservice.sortitem(designer_id);
+			dlist = dsservice.get();
+			ds = dsservice.get(designer_id);
+			
+			String dsname = ds.getDesigner_name();
+			
+			System.out.println(ilist);
+			model.addAttribute("menulist", ilist);
+			model.addAttribute("designerlist", dlist);
+			model.addAttribute("dsname", dsname);
+			model.addAttribute("path", dir + "item_sort");
+			model.addAttribute("content", "main");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+		}
+
+		return "main";
+	}
+	
 	@RequestMapping("/itemRegister")
 	public String register(Model model, Item item) {
-		
+
+		String blankName = item.getItem_img().getOriginalFilename();
 		
 		try {
+			if(item.getItem_img()!=null&&blankName.length()!=0) {
+			String newName = ImgUtil.saveFile(item.getItem_img(), admindir);
+			item.setItem_photo(newName);
+				
+			}
 			iservice.register(item);
 			System.out.println("item register ok");
+			model.addAttribute("path", dir + "item_ok");
+			model.addAttribute("content", "main");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("fail");
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
-	
-		model.addAttribute("path", dir+"item_ok");
-		model.addAttribute("content", "main");
-		
+
 		return "main";
 	}
-	
-	@RequestMapping("/itemtemp")
-	public String itemtemp(Model model) {
-		List<Item> ilist = null;
-		List<Designer> dlist = null;
+
+	@RequestMapping("/itemDelete")
+	public String deldesigner(Model model, Integer id) {
+
 		try {
-			ilist = iservice.getlist();
-			dlist = dsservice.get();
+			iservice.remove(id);
+			System.out.println("item deleted");
+			model.addAttribute("path", dir + "item_ok");
+			model.addAttribute("content", "main");
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
-		model.addAttribute("menulist",ilist);
-		model.addAttribute("designerlist",dlist);
-		model.addAttribute("path", dir+"item_temp");
-		model.addAttribute("content", "main");
+
 		return "main";
-		
-		
+	}
+
+	@RequestMapping("/itemUpdatePage")
+	public String uppage(Model model, Integer id) {
+		Item it = new Item();
+		try {
+			it = iservice.get(id);
+			System.out.println(id);
+			model.addAttribute("it", it);
+			model.addAttribute("path", dir + "item_update");
+			model.addAttribute("content", "main");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+		}
+
+		return "main";
 	}
 	
+	@RequestMapping("/itemUpdate")
+	public String updateItem(Model model, Item item,String originname) {
+
+		System.out.println(originname);
+		
+		String blankName= item.getItem_img().getOriginalFilename();
+
+		try {
+			if(item.getItem_img()!=null&&blankName.length()!=0){
+				String newName = ImgUtil.saveFile(item.getItem_img(), admindir);
+				item.setItem_photo(newName);
+				ImgUtil.deleteFile(admindir, originname);
+				}
+				else {
+				item.setItem_photo(originname);
+				}
+			
+			iservice.modify(item);
+			
+			System.out.println("item updated");
+			model.addAttribute("path", dir+"item_ok");
+			model.addAttribute("content", "main");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+		}
+	
+		return "main";
+	}
+
+	@RequestMapping("/itemtemp")
+	public String itemtemp(Model model) {
+
+		List<Item> ilist = null;
+		try {
+			ilist = iservice.getlist();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+		}
+
+		model.addAttribute("menulist", ilist);
+		model.addAttribute("path", dir+"item_main_temp");
+		model.addAttribute("content", "main");
+		return "main";
+
+	}
+	
+
 }

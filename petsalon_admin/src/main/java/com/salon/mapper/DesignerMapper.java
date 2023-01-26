@@ -9,4 +9,6 @@ import com.salon.frame.MyMapper;
 @Repository
 @Mapper
 public interface DesignerMapper extends MyMapper<String, Designer> {
+	
+	public void nopicUpdate(Designer designer) throws Exception;
 }

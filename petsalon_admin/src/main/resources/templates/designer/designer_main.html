@@ -27,7 +27,7 @@ function checkDesigner(){
 	
 	if($('#designer_id').val()==''){
 		 $('#designer_id').addClass('is-invalid');
-		 $('#idFeedback').text('아이디를 입력하세요');
+		 $('#idFeedback').text('아이디를 입력하세요.');
 		 return false;
 	}
 	if($('#designer_id').hasClass('is-invalid')){
@@ -37,7 +37,7 @@ function checkDesigner(){
 	
 	if($('#designer_name').val()==''){
 		$('#designer_name').addClass('is-invalid');
-		 $('#nameFeedback').text('이름을 입력하세요');
+		 $('#nameFeedback').text('이름을 입력하세요.');
 		 return false;
 	}
 
@@ -65,10 +65,9 @@ function designerSubmit(){
 		if($('#designer_introduce').val()==''){
 			$('#designer_introduce').val('반려견의 편안함을 추구합니다. 잘 부탁드립니다.');
 		}
-		if($('#designer_photo').val()==''){
-			$('#designer_photo').val('jyassets/img/haro.png');
-		}
+	
 		$('#designer_register').attr({
+			'enctype':'multipart/form-data',
 			'method':'post',
 			'action':'[[@{/designerRegister}]]'
 		});
@@ -115,7 +114,9 @@ function check(result){
 	
 }
 
+
 $(document).ready(function() {	
+	
 	
 		const myModal = document.getElementById('addDesignerModal')
 		const myInput = document.getElementById('designer_id')
@@ -190,11 +191,11 @@ $(document).ready(function() {
 	      	</div>
 	    </div>
 	  </div>
-	    
+
 	    	<div th:each="d : ${list}" class="col">
 	    	<form id="designer">
 	    <div class="card h-100">
-	      <img th:src="${d.designer_photo}" class="card-img-top" alt="...">
+	      <img th:src="'/jyassets/img/'+${d.designer_photo}" class="card-img-top" alt="...">
 	      <div class="card-body">
 	        <h5 class="card-title" th:text="${d.designer_name}" id="test"></h5>
 	        <p class="card-text" th:text="${d.designer_introduce}"></p>
@@ -239,7 +240,7 @@ $(document).ready(function() {
   </div>
     <div class="mb-3">
   <label for="formFile" class="form-label">사진</label>
-  <input class="form-control" type="file" id="formFile" name="designer_photo">
+  <input class="form-control" type="file" id="formFile" name="designer_img">
 </div>
     <div class="mb-3">
     <label for="inputIntroduce" class="form-label">간단한 소개</label>
@@ -250,7 +251,7 @@ $(document).ready(function() {
 
       </div>
       <div class="modal-footer">
-        <button type="button" id="canccle-btn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" id="cancel_btn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
   <button type="button" id="new_designer" class="btn btn-primary">등록</button>
       </div>
     </div>

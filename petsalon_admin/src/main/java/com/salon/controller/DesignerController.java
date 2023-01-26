@@ -3,12 +3,13 @@ package com.salon.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.salon.dto.Designer;
+import com.salon.frame.ImgUtil;
 import com.salon.service.DesignerService;
 
 @Controller
@@ -19,44 +20,55 @@ public class DesignerController {
 	
 	String dir = "designer/";
 	
+	@Value("${admindir}")
+	String admindir;
+	
 	@RequestMapping("/designer")
 		public String getlistds(Model model) {
 			List<Designer> list = null;
 			try {
 				list = dsservice.get();
+				model.addAttribute("path", dir+"designer_main");
+				model.addAttribute("content", "main");
+				model.addAttribute("list",list);
 			} catch (Exception e) {
 				e.printStackTrace();
+				model.addAttribute("path", "fragments");
+				model.addAttribute("content", "fail");
 			}
-			model.addAttribute("path", dir+"designer_main");
-			model.addAttribute("content", "main");
-			model.addAttribute("list",list);
+		
 			return "main";
 		}
-	
-	
-	@RequestMapping("/designeradd")
-	public String designeradd(Model model) {
-		model.addAttribute("path", dir+"designer_add");
-		model.addAttribute("content", "main");
-		return "main";
-	}
+
 	
 	@RequestMapping("/designerRegister")
 	public String register(Model model, Designer designer) {
+
+		// LocalDateTime now = LocalDateTime.now();
+		//	String newFileName = designer_photo + "_" + now.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
 		
+		String blankName = designer.getDesigner_img().getOriginalFilename();
 		
 		try {
+			if(designer.getDesigner_img()!=null&&blankName.length()!=0){
+				String newName = ImgUtil.saveFile(designer.getDesigner_img(), admindir);
+				designer.setDesigner_photo(newName);
+			}
+			else {
+				designer.setDesigner_photo("haro.png");
+			}
 			dsservice.register(designer);
 			System.out.println("designer register ok");
+			model.addAttribute("path", dir+"designer_ok");
+			model.addAttribute("content", "main");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("fail");
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
-	
-		model.addAttribute("path", dir+"designer_ok");
-		model.addAttribute("content", "main");
 		
-		return "main";
+		return "redirect:/designer";
 	}
 	
 	@RequestMapping("/designerDelete")
@@ -65,11 +77,14 @@ public class DesignerController {
 		try {
 			dsservice.remove(id);
 			System.out.println("designer deleted");
+			model.addAttribute("path", dir+"designer_ok");
+			model.addAttribute("content", "main");
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
-		model.addAttribute("path", dir+"designer_ok");
-		model.addAttribute("content", "main");
+	
 		return "main";
 	}
 	
@@ -79,25 +94,45 @@ public class DesignerController {
 		
 		try {
 			ds = dsservice.get(id);
+			model.addAttribute("ds",ds);
+			model.addAttribute("path", dir+"designer_update");
+			model.addAttribute("content", "main");
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
-		model.addAttribute("ds",ds);
-		model.addAttribute("path", dir+"designer_update");
-		model.addAttribute("content", "main");
+
 		return "main";
 	}
 	
 	@RequestMapping("/designerUpdate")
-	public String updateDesigner(Model model, Designer designer) {
+	public String updateDesigner(Model model, Designer designer,String originname) {
+
+		System.out.println(originname);
+		
+		String blankName= designer.getDesigner_img().getOriginalFilename();
+
 		try {
-			dsservice.modify(designer);
+			if(designer.getDesigner_img()!=null&&blankName.length()!=0){
+				String newName = ImgUtil.saveFile(designer.getDesigner_img(), admindir);
+				designer.setDesigner_photo(newName);
+				dsservice.modify(designer);
+				ImgUtil.deleteFile(admindir, originname);
+				}
+				else {
+					dsservice.nopicUpdate(designer);
+				}
+			
 			System.out.println("designer updated");
+			model.addAttribute("path", dir+"designer_ok");
+			model.addAttribute("content", "main");
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
-		model.addAttribute("path", dir+"designer_ok");
-		model.addAttribute("content", "main");
+	
 		return "main";
 	}
 }

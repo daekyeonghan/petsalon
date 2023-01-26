@@ -19,4 +19,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="String">
 		DELETE FROM designer WHERE designer_id=#{designer_id}
 	</delete>
+	
+	<update id="nopicUpdate" parameterType="Designer">
+		UPDATE Designer SET designer_name=#{designer_name},designer_career=#{designer_career},designer_introduce=#{designer_introduce} WHERE designer_id=#{designer_id}
+		
+	</update>
 </mapper>

@@ -1,5 +1,7 @@
 package com.salon.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,10 @@ public class Item {
 	private String item_photo;
 	
 	private String designer_name;
+	
+	private MultipartFile item_img;
+	
+	private int cnt;
 
 
 	// designer_name 추가 이전의 생성자

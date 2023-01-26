@@ -2,6 +2,8 @@ package com.salon.dto;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,9 @@ public class Shop_Notice {
 	private String sn_content;
 	private String sn_photo;
 	private Date sn_rdate;
+	private String format_rdate;
+	
+	private MultipartFile sn_img;
 	
 	public Shop_Notice(int sn_no, String admin_id, String sn_title, String sn_content, String sn_photo) {
 		super();

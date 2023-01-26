@@ -42,5 +42,17 @@ public class ItemService implements MyService<Integer, Item>{
 	public List<Item> getlist() throws Exception{
 		return mapper.selectmenu();
 	}
+	
+	public List<Item> sortitem(String k) throws Exception{
+		return mapper.sortitem(k);
+	}
+	
+	public List<Item> pagingitem(Integer limit, Integer offset) throws Exception{
+		return mapper.pagingitem(limit, offset);
+	}
+	
+	public Integer totalitem() throws Exception{
+		return mapper.totalitem();
+	}
 
 }

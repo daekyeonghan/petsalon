@@ -22,6 +22,22 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<select id="selectmenu" resultType="Item">
 		SELECT i.item_id, i.item_name, d.designer_name, i.item_price, i.item_photo FROM item i
-		INNER JOIN designer d ON d.designer_id = i.designer_id;
+		INNER JOIN designer d ON d.designer_id = i.designer_id
+	</select>
+	
+	<select id="sortitem" parameterType="String" resultType="Item">
+		SELECT i.item_id, i.item_name, i.designer_id, d.designer_name, i.item_price, i.item_photo FROM item i
+		INNER JOIN designer d ON d.designer_id = i.designer_id
+		WHERE i.designer_id = #{designer_id}
+	</select>
+	
+	<select id="pagingitem" parameterType="Integer" resultType="Item">
+		SELECT i.item_id, i.item_name, d.designer_name, i.item_price, i.item_photo FROM item i
+		INNER JOIN designer d ON d.designer_id = i.designer_id
+		ORDER BY i.item_id LIMIT #{limit} OFFSET #{offset};
+	</select>
+	
+	<select id="totalitem" resultType="Integer">
+		SELECT COUNT(*) cnt FROM item;
 	</select>
 </mapper>

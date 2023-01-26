@@ -1,0 +1,185 @@
+<div th:fragment="main">
+<style>
+ @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+.mt-50{ 
+    margin-top:50px;
+}
+.mb-50{
+    margin-bottom:50px;
+}
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+.card-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card .card-title {
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+ul{
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+    margin-bottom:0px;
+}
+ul.list-style-none li {
+    list-style: none;
+}
+
+ul.list-style-none li a {
+    color: #673AB7;
+    padding: 8px 0px;
+    display: block;
+    text-decoration: none;
+}
+
+.m-t-5 {
+    margin-top: 5px;
+}
+
+.w-30px {
+    width: 30px;
+}
+</style>
+
+<script>
+
+function checkNoticeContent(){
+	
+	let snTitle = $('#sn_title');
+	let snContent = $('#sn_content');
+	
+	if(snTitle.val()==''){
+		 snTitle.addClass('is-invalid');
+		 return false;
+	}else{
+		if(snTitle.hasClass('is-invalid')){
+		 snTitle.removeClass('is-invalid');
+		}
+		 snTitle.addClass('is-valid');
+	};
+	
+	if(snTitle.hasClass('is-invalid')){
+		snTitle.focus();
+		return false;
+	}
+	
+	if(snContent.val()==''){
+		snContent.addClass('is-invalid');
+		 return false;
+	}else{
+		if(snContent.hasClass('is-invalid')){
+			snContent.removeClass('is-invalid');
+		}
+		snContent.addClass('is-valid');
+	};
+	
+	if(snContent.hasClass('is-invalid')){
+		snContent.focus();
+		return false;
+	}
+		
+	if(snTitle.val()!=''&&snContent.val()!=''){
+		return true;
+	}else{
+		return false;
+	}
+	
+};
+
+function register(){
+	
+		$('#notice_register').attr({
+			'enctype':'multipart/form-data',
+			'method':'post',
+			'action':'[[@{/noticeRegister}]]'
+		});
+		$('#notice_register').submit();
+		
+		alert('등록되었습니다.');
+	    $('form').find('input[name=sn_title], textarea').val('');
+	    $('#contentFeedback').removeClass('is-valid');
+	    $('#titleFeedback').removeClass('is-valid');
+};
+
+
+$(document).ready(function() {	
+	
+	const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+	const alert = (message, type) => {
+	  const wrapper = document.createElement('div')
+	  wrapper.innerHTML = [
+	    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+	    `   <div>${message}</div>`,
+	    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+	    '</div>'
+	  ].join('')
+
+	  alertPlaceholder.append(wrapper)
+	}
+
+
+	$('#new_notice_btn').on('click', () => {
+		 
+		  let c = confirm('등록하시겠습니까?');
+			if(c&&checkNoticeContent()){
+				register();
+			}else{
+		  window.scrollTo(0,0);
+		  if(!alert){
+	    alert('제목과 내용을 모두 기입하세요.', 'danger')
+		  }
+			}
+	  })
+	
+	
+		
+	
+});
+
+</script>
+                    
+        <h1 class="mb-50 fs-5">새로운 공지사항 작성하기</h1>
+        <div id="liveAlertPlaceholder"></div>
+        <form id="notice_register">
+      <input type="text" id="staticEmail" value="admin01" name="admin_id" style="display:none;">
+          <div class="input-group mb-3">
+ 		  <span class="input-group-text" id="basic-addon1">제목</span>
+  		  <input type="text" class="form-control" id="sn_title" name="sn_title" aria-label="noticeTitle" aria-describedby="basic-addon1">
+		</div>
+            <div class="mb-3">
+   		    <textarea class="form-control" id="sn_content" name="sn_content" rows="30"></textarea>
+            
+          </div>
+           <div class="mb-3">
+  				<input class="form-control" type="file" id="formFile" name="sn_img">
+		   </div>
+        </form>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-50">
+           <button type="button" id="new_notice_btn" class="btn btn-lg btn-primary col-3">등록</button>
+        </div>
+        <div class="mygap-md"></div>
+
+</div>

@@ -39,6 +39,14 @@ public class ResvService implements MyService<Integer, Resv>{
 	public List<Resv> get() throws Exception {
 		return mapper.selectall();
 	}
+	
+	public List<Resv> notFixed() throws Exception{
+		return mapper.notFixed();
+	}
+	
+	public List<Resv> selectlist() throws Exception{
+		return mapper.selectlist();
+	}
 
 
 }

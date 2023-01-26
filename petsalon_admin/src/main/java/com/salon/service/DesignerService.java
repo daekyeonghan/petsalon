@@ -43,5 +43,9 @@ public class DesignerService implements MyService<String, Designer>  {
 			
 			return mapper.selectall();
 		}
+		
+		public void nopicUpdate(Designer v) throws Exception{
+			mapper.nopicUpdate(v);
+		}
 
 }

@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM shop_notice WHERE sn_no=#{sn_no}
 	</select>
 	<select id="selectall" resultType="Shop_Notice">
-		SELECT * FROM shop_notice
+		SELECT * FROM shop_notice ORDER BY sn_no DESC
 	</select>
 	<insert id="insert" parameterType="Shop_Notice">
 		INSERT INTO shop_notice VALUES (#{sn_no}, #{admin_id}, #{sn_title}, #{sn_content}, #{sn_photo}, NOW())
@@ -19,5 +19,4 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM shop_notice WHERE sn_no=#{sn_no}
 	</delete>
-	
 </mapper>

@@ -1,4 +1,234 @@
 <div th:fragment="main">
-<h1>Shop</h1>
+<style>
+ @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+.mt-50{ 
+    margin-top:50px;
+}
+.mb-100{
+    margin-bottom:100px;
+}
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+.card-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card .card-title {
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+ul{
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+    margin-bottom:0px;
+}
+ul.list-style-none li {
+    list-style: none;
+}
+
+ul.list-style-none li a {
+    color: #673AB7;
+    padding: 8px 0px;
+    display: block;
+    text-decoration: none;
+}
+
+.m-t-5 {
+    margin-top: 5px;
+}
+
+.w-30px {
+    width: 30px;
+}
+</style>
+
+<script>
+
+function checkNotice(){
+	
+	let snTitle = $('#sn_title');
+	let snContent = $('#sn_content');
+	
+	if(snTitle.val()==''){
+		 snTitle.addClass('is-invalid');
+		 $('#titleFeedback').text('공지 제목을 입력하세요.');
+		 return false;
+	}else{
+		if(snTitle.hasClass('is-invalid')){
+		 snTitle.removeClass('is-invalid');
+		}
+		 snTitle.addClass('is-valid');
+		 $('#titleFeedback').text('');
+	};
+	
+	if(snTitle.hasClass('is-invalid')){
+		snTitle.focus();
+		return false;
+	}
+	
+	if(snContent.val()==''){
+		snContent.addClass('is-invalid');
+		 $('#contentFeedback').text('공지 내용을 입력하세요.');
+		 return false;
+	}else{
+		if(snContent.hasClass('is-invalid')){
+			snContent.removeClass('is-invalid');
+		}
+		snContent.addClass('is-valid');
+		 $('#contentFeedback').text('');
+	};
+	
+	if(snContent.hasClass('is-invalid')){
+		snContent.focus();
+		return false;
+	}
+		
+	if(snTitle.val()!=''&&snContent.val()!=''){
+		return true;
+	}else{
+		return false;
+	}
+	
+};
+
+function noticeSubmit(){
+	if(checkNotice()){
+		alert('추가되었습니다.');}
+	else{
+		alert('실패하였습니다.');
+	}
+}
+
+function register(){
+	
+		$('#notice_register').attr({
+			'enctype':'multipart/form-data',
+			'method':'post',
+			'action':'[[@{/noticeRegister}]]'
+		});
+		$('#notice_register').submit();
+		
+		alert('등록되었습니다.');
+	    $('form').find('input[name=sn_title], textarea').val('');
+	    $('#contentFeedback').removeClass('is-valid');
+	    $('#titleFeedback').removeClass('is-valid');
+};
+
+
+$(document).ready(function() {	
+	
+		const myModal = document.getElementById('addNoticeModal')
+		const myInput = document.getElementById('sn_title')
+
+		myModal.addEventListener('shown.bs.modal', () => {
+			myInput.focus();
+		})
+		
+		let title = $('#sn_title');
+		
+	$('#new_notice_btn').click(function(){
+		let c = confirm('등록하시겠습니까?');
+		if(c&&checkNotice()){
+			register();
+		}else{
+			$('.is-invalid').focus();
+			return;
+		}
+		
+	});
+	
+	
+	
+});
+
+</script>
+<div><span class="listtitle">공지사항</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i data-feather="plus-circle" data-bs-toggle="modal" data-bs-target="#addNoticeModal" class="some-add-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-add" th:href="@{/noticeAdd}"><i data-feather="alert-circle" class="some-add-icon"></i></a></div>
+
+                     <div class="row d-flex justify-content-center mt-50 mb-100">
+                        
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title m-b-0">글 목록</h5>
+                            </div>
+                            <ul th:each="sn:${snlist}" class="list-style-none">
+                                
+                                <li class="d-flex no-block card-body border-top">
+                                     <span class="w-30px m-t-5" th:text="${sn.sn_no}"></span>
+                                    <div>
+                                        <a th:href="@{/shopNotice(no=${sn.sn_no})}" th:text="${sn.sn_title}" class="m-b-0 font-medium p-0" data-abc="true"></a>
+                                        <span style="text-align:left;" class="text-muted" th:text="${sn.admin_id}"></span>
+                                    </div>
+                                     <div class="mx-auto"></div>
+                                        <div class="tetx-right">
+                                            <h5 th:text="${#calendars.format(sn.sn_rdate, 'MMM')}" class="text-muted m-b-0"></h5>
+                                            <span th:text="${#dates.format(sn.sn_rdate, 'dd')}+'일'" class="text-muted font-16"></span>
+                                        </div>
+                                </li>
+                                    
+                            </ul>
+                        </div>
+
+                    </div>
+                    
+                    
+<!-- modal -->
+<div class="modal fade" id="addNoticeModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">새로운 공지사항 등록</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="notice_register">
+		  <div class="mb-3">
+             <label for="adminId" class="form-label">작성자 :</label>
+   			 <input type="text" class="form-control" id="admin_id" aria-describedby="adminIdInput" name="admin_id" value="admin01" disabled readonly>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">제목 :</label>
+            <input type="text" class="form-control" id="sn_title" name="sn_title">
+            <div id="titleFeedback" class="invalid-feedback"></div>
+          </div>
+            <div class="mb-3">
+            <label for="message-text" class="col-form-label">내용 :</label>
+   		    <textarea class="form-control" id="sn_content" name="sn_content"></textarea>
+            <div id="contentFeedback" class="invalid-feedback"></div>
+          </div>
+           <div class="mb-3">
+  				<label for="formFile" class="form-label">첨부 사진 :</label>
+  				<input class="form-control" type="file" id="formFile" name="sn_img">
+		   </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" id="new_notice_btn" class="btn btn-primary">등록</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of Modal -->
 
 </div>

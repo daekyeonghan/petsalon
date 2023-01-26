@@ -1,0 +1,78 @@
+<div th:fragment="main">
+<style>
+
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+.card .card-title {
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align:right;
+    border-right:1px solid #c4c4c4;
+}
+.card .card-sub{
+	margin-bottom:10px;
+}
+
+notice-content .card-body {
+  margin-bottom:10px;
+}
+.notice-content div{
+text-align:left;
+}
+
+.notice-img{
+width:300px;
+}
+
+.mb-30 div{
+margin-bottom:30px;
+}
+
+</style>
+
+
+<span class="listtitle">공지사항</span>
+<div class="mygap-sm"></div>
+<div class="container text-center notice-content card">
+  <div class="row card-body">
+    <div class="col-2 card-title">제목</div>
+    <div class="col-10 card-sub" th:text="${sn.sn_title}" ></div>
+  </div>
+  <div class="row card-body">
+    <div class="col-2 card-title">작성자</div>
+    <div class="col-10 card-sub" th:text="${sn.admin_id}" ></div>
+  </div>
+  <div class="row card-body mb-30">
+  	<div class="col-2 card-title">내용</div>
+  	<div class="col-10 card-sub" th:text="${sn.sn_content}"></div>
+  </div>
+<div class="row card-body" th:if="${sn.sn_photo == null}">
+	<div>첨부 사진 없음</div>
+  </div>
+
+<div class="row card-body" th:unless="${sn.sn_photo == null}">
+  	<div class="col-2 card-title">첨부사진</div>
+  	<div class="notice-img col-10 card-sub"><img th:src="'/jyassets/img/'+${sn.sn_photo}" class="rounded mx-auto d-block"></div>
+  </div>
+</div>
+
+
+
+<!-- end of main -->
+</div>

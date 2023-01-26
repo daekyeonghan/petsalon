@@ -20,4 +20,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DELETE FROM resv WHERE resv_no=#{resv_no}
 	</delete>
 	
+	<select id="notFixed" resultType="Resv">
+		SELECT * FROM resv WHERE resv_fix=0;
+	</select>
+	
+	<select id="selectlist" resultType="Resv">
+	SELECT r.resv_no, u.username, d.dog_name, ds.designer_name, i.item_name, r.resv_fix FROM resv r
+	INNER JOIN user u ON u.useremail = r.useremail
+	INNER JOIN dog d on d.dog_id = r.dog_id
+	INNER JOIN designer ds on ds.designer_id = r.designer_id
+	INNER JOIN item i on i.item_id = r.item_id
+	ORDER BY r.resv_no DESC;
+	</select>
 </mapper>

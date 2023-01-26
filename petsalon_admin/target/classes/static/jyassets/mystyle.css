@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 .mygap-xs{
 	
@@ -6,6 +7,11 @@
 .mygap-sm{
 	
 	margin:50px auto;
+}
+
+.mygap-md{
+	
+	margin:100px auto;
 }
 
 .card-title{
@@ -22,8 +28,9 @@
 .card-img-top{
 	width:150px;
 	height:150px;
-margin: auto;
+margin: 10px auto;
     display: block;
+    border-radius:30%;
 }
 
 .text-muted{
@@ -52,7 +59,11 @@ designer-update .card-body{
  }
  .listtitle{
   vertical-align: middle;
- font-size:1.3em;
+ font-size:1.5em;
+ }
+  .listtitle-sm{
+  vertical-align: bottom;
+ font-size:1.2em;
  }
  
  #addItemModal .form-select{
@@ -61,4 +72,17 @@ designer-update .card-body{
  
  .feather-icon{
   align-items: center;
+ }
+ 
+ #sortbtn{
+background:none;
+border:none;
+ }
+ 
+ .itempic{
+ height:30px;
+ width:30px;
+ }
+ .itempic:hover{
+ cursor:pointer;
  }
