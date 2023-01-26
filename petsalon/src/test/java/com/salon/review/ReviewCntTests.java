@@ -4,25 +4,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.salon.dto.Review;
 import com.salon.service.ReviewService;
 
 @SpringBootTest
-class InsertTests {
-
-	@Autowired
-	ReviewService service;
+class ReviewCntTests {
 	
+	@Autowired
+	ReviewService reservice;
+
 	@Test
 	void contextLoads() {
-		
-		Review obj = new Review(0,"test@test.com", "babo", "테스트제목", "테스트내용", null);
+		int cnt = 0;
 		
 		try {
-			service.register(obj);
+			cnt = reservice.review_count("kuro@naver.com");
+			System.out.println(cnt);
 			System.out.println("OK");
 		} catch (Exception e) {
-			System.out.println("FAILED");
+			System.out.println("FAIL");
 			e.printStackTrace();
 		}
 	}

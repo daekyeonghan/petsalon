@@ -40,5 +40,17 @@ public class ReviewService implements MyService<Integer, Review>{
 	public List<Review> get() throws Exception {
 		return mapper.selectall();
 	}
+	
+	public List<Review> reviewselect() throws Exception {
+		return mapper.reviewselect();
+	}
+	
+	public int reviewDelete(int review_no, String useremail) throws Exception {
+		return mapper.reviewDelete(review_no, useremail);
+	}
+	
+	public int review_count(String useremail) throws Exception {
+		return mapper.review_count(useremail);
+	}
 
 }

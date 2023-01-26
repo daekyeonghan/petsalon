@@ -1,29 +1,27 @@
-package com.salon.review;
+package com.salon.resv;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.salon.dto.Review;
-import com.salon.service.ReviewService;
+import com.salon.service.ResvService;
 
 @SpringBootTest
-class SelectTests {
-
-	@Autowired
-	ReviewService service;
+class ResvCntTests {
 	
+	@Autowired
+	ResvService service;
+
 	@Test
 	void contextLoads() {
-		
-		Review obj;
+		int cnt = 0;
 		
 		try {
-			obj = service.get(2);
-			System.out.println(obj);
+			cnt = service.resvcnt("ruler@naver.com");
+			System.out.println(cnt);
 			System.out.println("OK");
 		} catch (Exception e) {
-			System.out.println("FAILED");
+			System.out.println("FAIL");
 			e.printStackTrace();
 		}
 	}

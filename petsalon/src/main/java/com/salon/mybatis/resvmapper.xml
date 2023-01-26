@@ -22,5 +22,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM resv WHERE resv_no=#{resv_no}
 	</delete>
+	<select id="resvcnt" parameterType="String" resultType="Integer">
+		SELECT COUNT(res.resv_fix) resvcnt FROM resv res
+		INNER JOIN user us ON us.useremail = res.useremail WHERE res.resv_fix = 1 and us.useremail=#{useremail}
+	</select>
 	
 </mapper>

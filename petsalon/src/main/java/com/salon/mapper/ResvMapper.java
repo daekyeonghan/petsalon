@@ -12,4 +12,5 @@ import com.salon.frame.MyMapper;
 @Mapper
 public interface ResvMapper extends MyMapper<Integer, Resv>{
 	public List<Resv> userResv(String useremail);
+	public int resvcnt(String useremail) throws Exception;
 }

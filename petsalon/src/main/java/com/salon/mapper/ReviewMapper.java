@@ -1,5 +1,7 @@
 package com.salon.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +11,9 @@ import com.salon.frame.MyMapper;
 @Repository
 @Mapper
 public interface ReviewMapper extends MyMapper<Integer, Review>{
+	//리뷰 페이지 뿌려줄때
+	public List<Review> reviewselect() throws Exception;
+	public int reviewDelete(int review_no, String useremail) throws Exception;
+	public int review_count(String useremail) throws Exception;
 
 }

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.salon.dto.Review;
-import com.salon.dto.User;
 import com.salon.service.ReviewService;
 
 @SpringBootTest
@@ -17,7 +16,7 @@ class UpdateTests {
 	@Test
 	void contextLoads() {
 		
-	Review obj = new Review(0, "helloworld@gmail.com", "babo", 3,"아주 좋군요", "베리굿", "good.jpg");
+	Review obj = new Review(0, "test@test.com", "babo", "아주 좋군요", "베리굿", "good.jpg");
 		
 		try {
 			service.modify(obj);

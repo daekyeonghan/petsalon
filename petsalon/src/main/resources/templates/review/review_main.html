@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>signup form</title>
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="assets/img/logo_adobe_express.svg" />
+	<!-- Font Awesome icons (free version)-->
+	<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+	<!-- fonts-->
+	<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script>
+	
+		$(document).ready(function(){
+			
+			review_check();
+			
+			
+			$('#new_review').click(function(){
+				var c = confirm('등록하시겟습니까?');
+				if(c == true) {
+					$('#review_form').attr({
+						'enctype':'multipart/form-data',
+						'method':'post',
+						'action':'/reviewsendimpl'
+					});
+					$('#review_form').submit();
+					alert("정상등록 되었습니다.");
+				}
+			});
+		});
+		
+		function review_check(){
+			var reviewcnt = '[[${reviewcnt}]]';
+			var resvcnt = '[[${resvcnt}]]';
+			
+			$.ajax({
+				success: function() {
+					if(resvcnt <= reviewcnt) {
+						$("#review_add").prop("disabled", true);   
+						}
+					else  {
+						$("#review_add").prop("disabled", false);
+			   }
+			}
+			});
+		};
+
+	</script>
+</head>
+<meta charset="UTF-8">
+<style>
+	img{display:block; margin:auto;}
+</style>
+</head>
+<body>
+<section style="background-color: #f5dcb7;">
+<div class="container">
+<div class="row mt-5">
+	<img class="img-fluid" th:src="@{/assets/img/background1.jpg}" style=" width:1000px; height:800px;">
+</div>
+</div>
+</section>
+<section class="page-section bg-light" id="review">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">review</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- review item 1-->
+                        <div class="review-item">
+                            <a class="review-link">
+                                <div class="review-hover">
+                                    <div class="review-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/review/1.jpg" alt="..." />
+                            </a>
+                            <div class="review-caption">
+                                <div class="review-caption-heading">Threads</div>
+                                <div class="review-caption-subheading text-muted">Illustration</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4" th:each="o : ${rlist}">
+                        <!-- review item 2-->
+                        <div class="review-item">
+                            <a class="review-link" th:onclick="|location.href='@{/reviewview(no=${o.review_no})}'|">
+                                <div class="review-hover" >
+                                    <div class="review-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" th:src="'/assets/img/'+ ${o.review_photo}" th:if="${o.review_photo != ''}" style="width:430px; height:430px;"/>
+                            </a>
+                            <div class="review-caption">
+                                <div class="review-caption-heading" th:text="${o.dog_name}"></div>
+                                <div class="review-caption-subheading text-muted" th:text="${o.designer_name}"></div>
+                                <div class="review-caption-subheading text-muted" th:text="${o.review_title}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+<section class="page-section bg-light" id="review">
+
+<div class="container">
+	<div class="text-center">
+		<button type="button" id="review_add" name="review_plus" class="btn btn-primary btn-xl text-uppercase" th:href="@{/review_write}" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button>
+	</div>
+</div>
+
+</section>
+
+<div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">후기 작성하기</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="padding-left:50px; padding-right:50px;">
+      
+<form id="review_form">
+         <div class="mb-3">
+    <label for="useremail" class="form-label">작성자 이메일</label>
+    <input type="text" class="form-control" id="useremail" name="useremail">
+  </div>
+  <div class="mb-3">
+    <label for="inputDogName" class="form-label">디자이너 아이디</label>
+    <input type="text" class="form-control" id="designer_id" name="designer_id">
+    <div id="nameFeedback" class="invalid-feedback"></div>
+  </div>
+    <div class="mb-3">
+    <label for="inputDogName" class="form-label">강아지 번호</label>
+    <input type="text" class="form-control" id="dog_id" name="dog_id">
+    <div id="nameFeedback" class="invalid-feedback"></div>
+  </div>
+<!-- <div class="mb-3">
+    <label for="inputDogName" class="form-label">강아지 이름</label>
+    <input type="text" class="form-control" id="designer_id" name="dog_name">
+    <div id="nameFeedback" class="invalid-feedback"></div>
+</div> -->
+  <div class="mb-3">
+    <label for="inputTitle" class="form-label">제목</label><span id="name_span"></span>
+    <input type="text" class="form-control" id="review_title" name="review_title">
+    <div id="titleFeedback" class="invalid-feedback"></div>
+  </div>
+    <div class="mb-3">
+    <label for="inputContent" class="form-label">내용</label>
+    <textarea class="form-control" id="review_content" name="review_content"></textarea>
+  </div>
+    <div class="mb-3">
+  <label for="formFile" class="form-label">사진</label>
+  <input class="form-control" type="file" id="imgname" name="imgname">
+</div>
+<!--   <div class="mb-3">
+    <label for="recent_date" class="form-label">최근 이용내역</label>
+    <input type="text" class="form-control" id="recent_date" name="recent_date" value="2023-01-24 쿠로 대경쌤" readonly>
+  </div> -->
+</form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="canccle-btn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+  <button type="button" id="new_review" class="btn btn-primary">등록</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap core JS-->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<!-- Core theme JS-->
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>

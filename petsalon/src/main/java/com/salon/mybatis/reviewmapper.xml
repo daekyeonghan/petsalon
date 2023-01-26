@@ -5,7 +5,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.salon.mapper.ReviewMapper">
 	
 	<select id="select" parameterType="Integer" resultType="Review">
-		SELECT * FROM review WHERE review_no=#{review_no}
+		SELECT re.review_no, re.useremail, re.review_title, re.review_content, de.designer_id, de.designer_name, d.dog_id, d.dog_name, re.review_photo, re.review_date FROM review re
+        INNER JOIN dog d ON re.dog_id = d.dog_id
+        INNER JOIN resv rv ON rv.dog_id = d.dog_id
+        INNER JOIN schedule sc ON sc.resv_no = rv.resv_no
+        INNER JOIN designer de ON de.designer_id = sc.designer_id WHERE review_no=#{review_no}
 	</select>
 	
 	<select id="selectall" resultType="Review">
@@ -20,8 +24,20 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE review SET review_title=#{review_title}, review_content=#{review_content}, review_photo=#{review_photo} WHERE useremail=#{useremail}
 	</update>
 	
-	<delete id="delete" parameterType="Integer">
+	<delete id="reviewDelete" parameterType="Integer">
 		DELETE FROM review WHERE review_no=#{review_no}
 	</delete>
+	
+	<select id="reviewselect" parameterType="String" resultType="Review">
+		SELECT re.review_no, re.review_title, re.review_content, de.designer_name, d.dog_name, re.review_photo, re.review_date FROM review re
+        INNER JOIN dog d ON re.dog_id = d.dog_id
+        INNER JOIN resv rv ON rv.dog_id = d.dog_id
+        INNER JOIN schedule sc ON sc.resv_no = rv.resv_no
+        INNER JOIN designer de ON de.designer_id = sc.designer_id
+	</select>
+	<select id="review_count" parameterType="String" resultType="Integer">
+		SELECT COUNT(review_title) review_count FROM review
+		WHERE useremail = #{useremail}
+	</select>
 	
 </mapper>
