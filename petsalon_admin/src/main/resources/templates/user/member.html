@@ -1,61 +1,22 @@
 
 <div th:fragment="main">
 <div><span class="listtitle">전체회원목록</span></div>
-
-      
-  
-    
-       
-       <script>
-       /* 체크박스 전체선택, 전체해제 */
-
-function checkAll(){
-    $('#th_checkAll').on('click',function(){
-        if($(this).is(':checked')){
-              $('input[name=checkRow]').prop("checked", true);
-              alert($(this).parent().next().val());
-          }else{
-              $('input[name=checkRow]').prop("checked", false);
-          }
-
-    }) 
-
-}
-  $(document).ready(function(){
-
-     checkAll();
-
-
-  })
-
-
-</script>
 <script>
   $(document).ready(function(){
-	 $('.check1').on('click',function(){
-		 alert($(this).parent().next().text());
-	 });
-	
-			 $('#dbtn').click(function(){
-		var c = confirm('삭제하시겠습니까 ?');
-		alert($(this).parent().next().val());
-		let uemail = $('.check1').parent().next().text();
-		if(c == true){
-			$('#memberdel').attr({
-				'method':'post'
-			});
-			$('#memberdel').submit();
-		}
+	 
+	$('#dbtn').on('click',function(){
+
+		let userdelEmail = $('input[name=delEmail]:checked').val();
+		 $("#delEmail").val(userdelEmail);
+		 var c = confirm('삭제하시겠습니까 ?');
+			if(c == true){
+		$('#memberdel').submit();
+			}
 	});
-	});   
+});   
 	
-	function dbtn(data){
-		if(confirm('해당 예약을 취소하시겠습니까?')){
-			location.href='uDelete?u.useremail='+data;
-		}
-	}	
 	
-</script> 
+</script>
 <style>
 table {
   width: 100%;
@@ -330,7 +291,10 @@ body {
                            	<input type="submit" value="검색"><p><br>
                            	</form>
 							<br>
-                <form id="memberdel" >
+							 <button type="button" id="dbtn">DELETE</button>
+               <form id="memberdel" th:action="@{/uDelete}">
+                <input type="text" name="delEmail" id="delEmail" style="display:none;">
+                  </form>
                 <table >
          
                     <thead>
@@ -350,9 +314,9 @@ body {
                         </tr>
                     </thead>                    
                     <br>                          
-                    <tbody th:each="u:${userlist}">
-                        <tr  class="test" >
-                         <td><input type="checkbox" name="checkRow" class="check1" value="${u.useremail}"/></td>
+                    <tbody>
+                        <tr th:each="u:${userlist}" class="test" >
+                         <td><input type="radio" name="delEmail" class="check1" th:value="${u.useremail}"/></td>
                             <td th:text="${u.useremail}" ></td>
                             <td th:text="${u.username}" ></td>
                             <td th:text="${u.birth}" ></td>
@@ -362,11 +326,8 @@ body {
                             <td th:text="${u.zipcode}" ></td>
                             <td th:text="${u.rdate}" ></td>
                         </tr>
-                        <button th:onclick ="dbtn([[${u.useremail}]]);"
-                	 type="button" id="dbtn">DELETE</button>
                     </tbody>
                 </table>
-               </form>
             </div>
         </div>
         </div>

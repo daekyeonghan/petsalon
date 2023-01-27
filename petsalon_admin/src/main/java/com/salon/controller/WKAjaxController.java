@@ -1,5 +1,7 @@
 package com.salon.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +16,7 @@ public class WKAjaxController {
 	AdminService adservice;
 	
 	@RequestMapping("/loginimpl")
-	public Object loginimpl(String admin_id, String admin_pwd) {
+	public Object loginimpl(String admin_id, String admin_pwd, HttpSession session) {
 		int result = 0;
 
 		Admin admin = null;
@@ -26,6 +28,8 @@ public class WKAjaxController {
 				if (admin.getAdmin_pwd().equals(admin_pwd)) {
 					System.out.println(admin_id);
 					result = 1;
+					session.setAttribute("logemail",admin_id);
+					session.setAttribute("logpwd", admin_pwd);
 				} else
 					result = 0;
 			}
