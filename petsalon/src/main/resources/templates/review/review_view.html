@@ -26,6 +26,7 @@
 
 	$(document).ready(function(){
 		updateck();
+		
 		 $('.filebox .upload-hidden').on('change', function(){  			
 	            if(window.FileReader){
 	                var filename = $(this)[0].files[0].name;
@@ -86,6 +87,19 @@
 		    }
 		}
 		
+		$('#update_review').click(function(){
+			var c = confirm('수정하시겠습니까?');
+			if(c == true) {
+				$("#review_updateform").attr({
+					'enctype':'multipart/form-data',
+					'method':'post',
+					'action':'[[@{/reviewupdate}]]'
+				});
+				$("#review_updateform").submit();
+				alert('정상적으로 수정되었습니다.');
+			}
+		});
+		
 	});	
 	
 	function deleteck(review_no){
@@ -114,10 +128,6 @@
 				}
 			}
 		});
-	};
-	
-	function final_updateck(review_no){
-		alert(review_no);
 	};
 
 
@@ -158,50 +168,51 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">후기 수정하기</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" style="padding-left:50px; padding-right:50px;">
+<div class="modal-body" style="padding-left:50px; padding-right:50px;">
       
-<form id="review_form">
-         <div class="mb-3">
-    <label for="useremail" class="form-label">작성자 이메일</label>
-    <input type="text" class="form-control" id="useremail" name="useremail" th:value="${rvs.useremail}" readonly>
-  </div>
-  <div class="mb-3">
-    <label for="inputDogName" class="form-label" style="display:none;">디자이너 아이디</label>
-    <input type="hidden" class="form-control" id="designer_id" name="designer_id" th:value="${rvs.designer_id}" readonly>
-  </div>
-    <div class="mb-3">
-    <label for="inputDogName" class="form-label" style="display:none;">강아지 번호</label>
-    <input type="hidden" class="form-control" id="dog_id" name="dog_id" th:value="${rvs.dog_id}" readonly>
-  </div>
-<!-- <div class="mb-3">
-    <label for="inputDogName" class="form-label">강아지 이름</label>
-    <input type="text" class="form-control" id="designer_id" name="dog_name">
-    <div id="nameFeedback" class="invalid-feedback"></div>
-</div> -->
-  <div class="mb-3">
-    <label for="inputTitle" class="form-label">제목</label><span id="name_span"></span>
-    <input type="text" class="form-control" id="review_title" name="review_title" th:value="${rvs.review_title}">
-  </div>
-    <div class="mb-3 form-group">
-    <label for="inputContent" class="form-label">내용</label>
-    <textarea class="form-control" id="review_content" name="review_content" th:text="${rvs.review_content}"></textarea>
-  </div>
-    <div class="filebox mb-3">
-  <label for="formFile" class="form-label mr-5">사진</label>
-  <img id="previewImg" class="mx-auto d-block mt-3 mb-3" style="width:300px; height:300px;">
-  <input class="form-control upload-hidden" type="file" id="imgname" name="imgname" accept="image/*" />
-</div>
-<!--   <div class="mb-3">
-    <label for="recent_date" class="form-label">최근 이용내역</label>
-    <input type="text" class="form-control" id="recent_date" name="recent_date" value="2023-01-24 쿠로 대경쌤" readonly>
-  </div> -->
-</form>
+<form id="review_updateform">
+	<div class="mb-3">
+	    <label for="useremail" class="form-label">작성자 이메일</label>
+	    <input type="text" class="form-control" id="useremail" name="useremail" th:value="${rvs.useremail}" readonly>
+	</div>
+	<div class="mb-3">
+	    <label for="inputDogName" class="form-label" style="display:none;">디자이너 아이디</label>
+	    <input type="hidden" class="form-control" id="designer_id" name="designer_id" th:value="${rvs.designer_id}" readonly>
+	</div>
+	<div class="mb-3">
+	    <label for="inputDogName" class="form-label" style="display:none;">강아지 번호</label>
+	    <input type="hidden" class="form-control" id="dog_id" name="dog_id" th:value="${rvs.dog_id}" readonly>
+	</div>
+	<!-- <div class="mb-3">
+	    <label for="inputDogName" class="form-label">강아지 이름</label>
+	    <input type="text" class="form-control" id="designer_id" name="dog_name">
+	    <div id="nameFeedback" class="invalid-feedback"></div>
+	</div> -->
+	<div class="mb-3">
+	    <label for="inputTitle" class="form-label">제목</label>
+	    <input type="text" class="form-control" id="review_title" name="review_title" th:value="${rvs.review_title}">
+	</div>
+	<div class="mb-3 form-group">
+	    <label for="inputContent" class="form-label">내용</label>
+	    <textarea class="form-control" id="review_content" name="review_content" th:text="${rvs.review_content}"></textarea>
+	</div>
+	<div class="filebox mb-3">
+	  <label for="formFile" class="form-label mr-5">사진</label>
+	  <img id="previewImg" class="mx-auto d-block mt-3 mb-3" style="width:300px; height:300px;">
+	   <input class="form-control" type="text" name="originname" th:value="${rvs.review_photo}" style="display:none;">
+	  <input class="form-control upload-hidden" type="file" id="imgname" name="imgname" accept="image/*" />
+	</div>
+	<!--   <div class="mb-3">
+	    <label for="recent_date" class="form-label">최근 이용내역</label>
+	    <input type="text" class="form-control" id="recent_date" name="recent_date" value="2023-01-24 쿠로 대경쌤" readonly>
+	  </div> -->
+	</form>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="canccle-btn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-  <button type="button" th:onclick="final_updateck([[${rvs.review_no}]]);" id="update_review" class="btn btn-primary">등록</button>
-      </div>
+</div>
+<div class="modal-footer">
+	<button type="button" id="canccle-btn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	<button type="button" id="update_review" class="btn btn-primary" >등록</button>
+</div>
     </div>
   </div>
 </div>

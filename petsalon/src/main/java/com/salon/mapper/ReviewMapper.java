@@ -15,5 +15,6 @@ public interface ReviewMapper extends MyMapper<Integer, Review>{
 	public List<Review> reviewselect() throws Exception;
 	public int reviewDelete(int review_no, String useremail) throws Exception;
 	public int review_count(String useremail) throws Exception;
+	public void nopicUpdate(Review review) throws Exception;
 
 }

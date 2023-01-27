@@ -95,24 +95,39 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/reviewupdate")
-	public String reviewupdate(Model model, Integer review_no, String useremail, HttpSession session) {
+	public String reviewupdate(Model model, Review review, String originname) {
+		
+		String blankName = review.getReview_img().getOriginalFilename();
+		
 		try {
-			reviewservice.modify(null);
+			System.out.println("OK");
+			if(review.getReview_img()!= null && blankName.length() != 0) {
+				String newName = Util.saveFile(review.getReview_img(), userdir);
+				review.setReview_photo(newName);
+				reviewservice.modify(review);
+				Util.deleteFile(userdir, originname);
+			}else {
+				reviewservice.nopicUpdate(review);
+			}
+			model.addAttribute("center", reviewdir+"review_ok");
+			
 		} catch (Exception e) {
+			System.out.println("FAIL");
 			e.printStackTrace();
+			
 		}
-		model.addAttribute("center", reviewdir+"review_update");
+		
 		return "index";
 	}
 	
 	
 	@RequestMapping("/reviewsendimpl")
 	public String reviewsendimpl(Model model, Review review) {
-		String img = review.getImgname().getOriginalFilename();
+		String img = review.getReview_img().getOriginalFilename();
 		review.setReview_photo(img);
 		
 		try {
-			Util.saveFile(review.getImgname(), admindir, userdir);
+			Util.saveFile(review.getReview_img(),userdir);
 			reviewservice.register(review);
 			
 		} catch (Exception e) {

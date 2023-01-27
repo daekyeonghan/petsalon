@@ -30,7 +30,7 @@ public class Review {
 	
 	private int review_count;
 	
-	private MultipartFile imgname;
+	private MultipartFile review_img;
 	
 	
 	// reviewmapper.xml INSERT 문 review_date 를 NOW()로 들어가게 해놔서 review_date를 뺀 생성자입니다. 불필요시 삭제해주세요.

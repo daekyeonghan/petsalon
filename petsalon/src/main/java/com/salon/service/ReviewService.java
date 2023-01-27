@@ -52,5 +52,9 @@ public class ReviewService implements MyService<Integer, Review>{
 	public int review_count(String useremail) throws Exception {
 		return mapper.review_count(useremail);
 	}
+	
+	public void nopicUpdate(Review v) throws Exception{
+		mapper.nopicUpdate(v);
+	}
 
 }

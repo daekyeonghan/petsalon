@@ -24,6 +24,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE review SET review_title=#{review_title}, review_content=#{review_content}, review_photo=#{review_photo} WHERE useremail=#{useremail}
 	</update>
 	
+	<update id="nopicUpdate" parameterType="Review">
+		UPDATE review SET review_title=#{review_title}, review_content=#{review_content}, review_photo=#{review_photo} WHERE useremail=#{useremail}
+		
+	</update>
+	
 	<delete id="reviewDelete" parameterType="Integer">
 		DELETE FROM review WHERE review_no=#{review_no}
 	</delete>
@@ -35,6 +40,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         INNER JOIN schedule sc ON sc.resv_no = rv.resv_no
         INNER JOIN designer de ON de.designer_id = sc.designer_id
 	</select>
+	
 	<select id="review_count" parameterType="String" resultType="Integer">
 		SELECT COUNT(review_title) review_count FROM review
 		WHERE useremail = #{useremail}
