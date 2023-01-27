@@ -46,7 +46,7 @@
 			$.ajax({
 				success: function() {
 					if(resvcnt <= reviewcnt) {
-						$("#review_add").prop("disabled", true);   
+						$("#review_add").prop("disabled", true);
 						}
 					else  {
 						$("#review_add").prop("disabled", false);
@@ -99,7 +99,7 @@
                                 <div class="review-hover" >
                                     <div class="review-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" th:src="'/assets/img/'+ ${o.review_photo}" th:if="${o.review_photo != ''}" style="width:430px; height:430px;"/>
+                                <img class="img-thumbnail" th:src="'/assets/img/'+ ${o.review_photo}" th:if="${o.review_photo != ''}" style="width:430px; height:430px;"/>
                             </a>
                             <div class="review-caption">
                                 <div class="review-caption-heading" th:text="${o.dog_name}"></div>
