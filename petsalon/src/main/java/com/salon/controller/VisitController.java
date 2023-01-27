@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.salon.service.ResvService;
 
 @Controller
-public class MyResvController {
+public class VisitController {
 	@Autowired
 	ResvService rservice;
 	
-	String dir = "myresv/";
+	String dir = "visit/";
 	
-	@RequestMapping("/myresv")
-	public String myresv(HttpSession session, Model model) {
+	@RequestMapping("/visit")
+	public String visit(HttpSession session, Model model) {
 		String useremail = (String) session.getAttribute("logemail");
 		try {
-			model.addAttribute("resv",rservice.userResv(useremail));
+			model.addAttribute("visit",rservice.visit(useremail));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

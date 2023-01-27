@@ -21,14 +21,28 @@ public class Resv {
 	private String resv_ask;
 	private int resv_fix;
 	
+	private String dog_name;
+	private String dog_photo;
+	private String designer_name;
+	private String item_name;
+	private int item_price;
+	private String sc_date;
+	
 	public Resv(int resv_no, String resv_ask, int resv_fix) {
 		super();
 		this.resv_no = resv_no;
 		this.resv_ask = resv_ask;
 		this.resv_fix = resv_fix;
 	}
-	
-	
-	
-	
+	public Resv(int resv_no, String useremail, int dog_id, String designer_id, int item_id, String resv_ask,
+			int resv_fix) {
+		super();
+		this.resv_no = resv_no;
+		this.useremail = useremail;
+		this.dog_id = dog_id;
+		this.designer_id = designer_id;
+		this.item_id = item_id;
+		this.resv_ask = resv_ask;
+		this.resv_fix = resv_fix;
+	}
 }

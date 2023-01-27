@@ -47,4 +47,8 @@ public class ResvService implements MyService<Integer, Resv>{
 	public int resvcnt(String useremail) throws Exception {
 		return mapper.resvcnt(useremail);
 	}
+	
+	public List<Resv> visit(String j) throws Exception {
+		return mapper.visit(j);
+	}
 }

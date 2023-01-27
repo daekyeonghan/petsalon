@@ -11486,6 +11486,7 @@ p {
 	margin-bottom:50px;
 	width:780px;
 	height:800px;
+	overflow:auto;
 	border:1px solid #808080;
 }
 .left_myinfo>.menu{
@@ -11536,7 +11537,7 @@ p {
 	background-color:#5F5F5F;
 	color:white;
 }
-#doginfo>#updateform>#updatebtn,#doginfo>#updateform>#delbtn{
+#doginfo>#updateform>#updatebtn,#doginfo>#updateform>#delbtn,#myinfo>#updateform>#updatebtn{
 	width:100px;
 	height:40px;
 	font-size:1.1em;
@@ -11549,7 +11550,7 @@ p {
 #doginfo>#updateform>#delbtn{
 	margin-left:12px;
 }
-#doginfo>#updateform>#updatebtn:hover,#doginfo>#updateform>#delbtn:hover{
+#doginfo>#updateform>#updatebtn:hover,#doginfo>#updateform>#delbtn:hover,#myinfo>#updateform>#updatebtn:hover{
 	background-color:#6633FF;
 	color:white;
 	border:white;
@@ -11655,6 +11656,111 @@ p {
 	color:white;
 	border-color:white;
 }
+#resvtitle,#visittitle{
+	font-family: 'Lobster', cursive;
+	text-align:center;
+	font-size:3.0em;
+	margin-top:50px;
+	margin-bottom:50px;
+}
+#infotitle,#dogtitle{
+	font-family: 'Lobster', cursive;
+	text-align:center;
+	font-size:3.0em;
+	margin-top:50px;
+}
+#userResv{
+	width:600px;
+	margin:0 auto;
+	margin-bottom:50px;	
+}
+#userResv>#dog_photo{
+	width:70px;
+	float:left;
+}
+#userResv>#resv_head{
+	margin-left:80px;
+}
+#userResv>#resv_head>#dog_name{
+	font-size:1.15em;
+	font-weight:bold;
+}
+#userResv>#resv_body{
+	margin-top:40px;
+	height:200px;
+	border:1px solid black;
+	border-radius:15px ;
+}
+#userResv>#resv_body>ul{
+	margin-top:20px;
+}
+#userResv #designer_name, #userResv #item_name{
+	font-weight:bold;
+	font-size:1.1em;
+}
+#userResv #item_name{
+	float:left;
+}
+#userResv #item_price{
+	margin-left:460px;
+}
+#userResv #resv_modify{
+	width:310px;
+	margin:0 auto;
+}
+#userResv #resv_fix{
+	width:100px;
+	height:40px;
+	line-height:39px;
+	margin:0 auto;
+	text-align:center;
+	border:1px solid #ddd;
+	border-radius:10px;
+	background-color:orange;
+	color:white;
+}
+#userResv #resv_modify>#resv_apply, #userResv #resv_modify>#resv_update, #userResv #resv_modify>#resv_del{
+	width:100px;
+	height:40px;
+	line-height:36px;
+	margin:0 auto;
+	text-align:center;
+	border:1px solid #ddd;
+	border-radius:10px;
+	color:white;
+}
+#userResv #resv_modify>#resv_apply{
+	background-color:#5f9ea0;
+}
+#userResv #resv_modify>#resv_update, #userResv #resv_modify>#resv_del{
+	background-color:#909090;
+}
+#visit{
+	width:600px;
+	height:150px;
+	margin:0 auto;
+	margin-bottom:50px;
+	border:1px solid white;
+}
+#visit>#dog_photo{
+	width:150px;
+	margin:0 auto;
+	float:left;
+}
+#visit>#visit_content{
+	width:450px;
+	margin:0 auto;
+	margin-top:50px;
+}
+#visit>#visit_content>#sc_date{
+	margin-left:120px;
+	font-size:1.2em;
+	font-weight:bold;
+	text-decoration:underline;
+}
+#visit>#visit_content>#content{
+	text-align:center;
+}
 footer{
 	width:900px;
 	height:100px;
@@ -11669,16 +11775,16 @@ li{
 .person:hover{
 	cursor:pointer;
 }
-.sub>#mypagesub>li, .sub>#loginsub{
+.sub>#mypagesub>div, .sub>#loginsub{
 	list-style:none;
 	border-radius:25px 25px 25px 25px;
 	background-color:#6633FF;
 	width:100px;
 }
-.sub>#mypagesub>li:nth-child(2){
+.sub>#mypagesub>div:nth-child(2){
 	margin-top:2px;
 }
-.sub>#loginsub>a,.sub>#mypagesub>li>a{
+.sub>#loginsub>a,.sub>#mypagesub>div>a{
 	color:white;
 	text-align:center;
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';

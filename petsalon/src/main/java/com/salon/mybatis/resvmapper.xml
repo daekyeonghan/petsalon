@@ -11,7 +11,24 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM resv
 	</select>
 	<select id="userResv" parameterType="String" resultType="Resv">
-		SELECT * FROM resv WHERE useremail=#{useremail}
+		SELECT d.dog_name,d.dog_photo,de.designer_name,i.item_name,i.item_price,re.resv_no,re.resv_fix,DATE_FORMAT(sc.sc_date, CONCAT('%y','.','%m','.','%d',' | ','%H','시')) sc_date
+		FROM resv re
+		INNER JOIN dog d ON re.dog_id=d.dog_id
+		INNER JOIN item i ON re.item_id=i.item_id
+		INNER JOIN designer de ON re.designer_id=de.designer_id
+		INNER JOIN schedule sc ON re.resv_no=sc.resv_no
+		WHERE re.useremail=#{useremail}
+		ORDER BY sc.sc_date
+	</select>
+	<select id="visit" parameterType="String" resultType="Resv">
+		SELECT d.dog_name,d.dog_photo,de.designer_name,i.item_name,i.item_price,re.resv_no,DATE_FORMAT(sc.sc_date, CONCAT('%Y','년 ','%m','월 ','%d','일')) sc_date
+		FROM resv re
+		INNER JOIN dog d ON re.dog_id=d.dog_id
+		INNER JOIN item i ON re.item_id=i.item_id
+		INNER JOIN designer de ON re.designer_id=de.designer_id
+		INNER JOIN schedule sc ON re.resv_no=sc.resv_no
+		WHERE re.useremail=#{useremail} AND re.resv_fix=1
+		ORDER BY sc.sc_date
 	</select>
 	<insert id="insert" parameterType="Resv">
 		INSERT INTO resv VALUES (#{resv_no}, #{useremail}, #{dog_id}, #{designer_id}, #{item_id}, #{resv_ask}, #{resv_fix})

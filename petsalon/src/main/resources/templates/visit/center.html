@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+</script>
+<div id="visittitle">Story with Haro</div>
+<div id="visit" th:if="${visit!=null}" th:each="visit : ${visit}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
+	<div id="dog_photo">
+		<img th:if="${visit.dog_photo!=null}" th:src="@{${visit.dog_photo}}" style="width:150px;height:150px;border-radius:50%">
+		<img th:unless="${visit.dog_photo!=null}" src="visit/img/logo.svg" style="width:150px;height:150px;border-radius:50%">
+	</div>
+	
+	<div id="visit_content">
+		<div id="sc_date" th:text="${visit.sc_date}"></div>
+		<div id="content" th:text="${visit.dog_name}+' | '+${visit.designer_name}+'디자이너님께 '+${visit.item_name}+'을 받았어요!'"></div>
+	</div>
+</div>

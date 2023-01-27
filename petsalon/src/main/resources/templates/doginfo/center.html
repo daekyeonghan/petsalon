@@ -2,9 +2,10 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 </script>
+<div id="dogtitle">My dog</div>
 <div id="dogmanage" enctype="multipart/form-data">
 	<div class="doginfo" th:each="dog : ${dogList}">
-		<img th:if="${dog.dog_photo!=''}" th:src="@{${dog.dog_photo}}" style="width:100px;height:100px">
+		<img th:if="${dog.dog_photo!=''}" th:src="@{${dog.dog_photo}}" style="width:100px;height:100px;border-radius:50%;">
 		<img th:unless="${dog.dog_photo!=''}" src="assets/img/logo.svg" width="100px;">
 		<table>
 			<tbody>
