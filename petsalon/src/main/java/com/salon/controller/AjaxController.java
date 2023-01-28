@@ -14,28 +14,6 @@ public class AjaxController {
 	@Autowired
 	UserService uservice;
 	
-	@RequestMapping("/loginimpl")
-	public Object loginimpl(String email, String pwd, HttpSession session) {
-		int result = 0;
-		User user = null;
-		try {
-			user = uservice.get(email);
-			if(user==null) {
-				result=0;
-			}else {
-				if(user.getUserpwd().equals(pwd)) {
-					result = 1;
-					session.setAttribute("logemail", email);
-					session.setAttribute("logpwd", pwd);
-				}else {
-					result = 0;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
 	@RequestMapping("/findemail")
 	public Object findemail(String username, String tel) {
 		String useremail = null;

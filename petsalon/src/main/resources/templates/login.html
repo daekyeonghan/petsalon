@@ -2,6 +2,11 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
+$(document).ready(function(){
+	var result = $('#result').val();
+	if(result==1) alert('아이디 혹은 비밀번호를 잘못 입력하셨습니다');
+});
+
 function loginchk(){
 	var form = document.loginform;
 	var email = form.email.value;
@@ -19,24 +24,8 @@ function loginchk(){
 		event.preventDefault();
 		return;
 	}
-	$.ajax({
-		data:{
-			"email":email,
-			"pwd":pwd
-		},
-		url:'[[@{/loginimpl}]]',
-		success:function(data){
-			if(data==1){
-				form.action = "[[@{/}]]";
-				form.submit();
-			}else{
-				alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다. 다시 시도해주세요");
-				form.action = "[[@{/login}]]";
-			}
-		},error:function(){
-			alert("error");
-		}
-	});
+	form.action = '[[@{/loginimpl}]]';
+	form.submit();
 }
 </script>
     <head>
@@ -63,13 +52,29 @@ function loginchk(){
                     Menu
                     <i class="fas fa-bars ms-1"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    	<li class="nav-item"><a class="nav-link" href="#">회원가입</a></li>
+                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                    <ul class="navbar-nav">
+                    	<li th:if="${session.logemail==null}" class="nav-item">
+                    		<a class="nav-link" th:href="@{/register}">회원가입</a>
+                    	</li>
+                    	<li th:unless="${session.logemail==null}" class="nav-item">
+                    		<a class="nav-link" style="color:#6633FF;font-weight:500;" id="welcome" th:text="${session.logname}+'님 환영해요'"></a>
+                    	</li>
                         <li class="nav-item"><a class="nav-link" href="#">예약</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">서비스 소개</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">이용후기</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/login}"><img class="person" src="assets/img/person.svg" width="20px"/></a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/review}">이용후기</a></li>
+                        <li class="nav-item dropdown">
+                        	<img class="person" data-bs-toggle="dropdown" src="assets/img/person.svg" width="20px"/>
+	                        <ul class="dropdown-menu dropdown-menu-dark">
+	                        	<li id="loginsub" th:if="${session.logemail==null}">
+	                        		<a class="dropdown-item" th:href="@{/login}">로그인</a>
+	                        	</li>
+	                        	<li id="mypagesub" th:unless="${session.logemail==null}">
+	                        		<div><a class="dropdown-item" th:href="@{/logout}">로그아웃</a></div>
+	                        		<div><a class="dropdown-item" th:href="@{/mypage}">마이페이지</a></div>
+	                        	</li>
+	                        </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -77,13 +82,14 @@ function loginchk(){
         <!-- Login -->
         <section class="page-section" id="login">
         	<form name="loginform" id="loginform" method="post">
+        		<input type="hidden" id="result" th:value="${session.result}"/>
                 <h3>로그인</h3><br>
                 <input type="text" name="email" id="email" placeholder="이메일"/><br><br>
                 <input type="password" name="pwd" id="pwd" placeholder="비밀번호"/><br><br>
                 <div class="link">
 	                <ul>
 	                	<a th:href="@{/lostinfo}">이메일/비밀번호 찾기 </a>
-	                	<a href="#">회원가입</a>
+	                	<a th:href="@{/register}">회원가입</a>
 	                </ul>
                 </div>
                 <button id="loginbtn" onclick="loginchk()">로그인하기</button>
