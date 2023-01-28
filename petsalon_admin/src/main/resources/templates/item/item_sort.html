@@ -236,7 +236,7 @@ $(document).ready(function() {
 <form id="selectDesigner" style="width:50%;">
            <select class="form-select" aria-label="Default select example" id="designer_id" name="designer_id">
            <option value="all">전체</option>
-  				<option th:each="d:${designerlist}" th:value="${d.designer_id}" th:text="${d.designer_name}"></option>
+  				<option th:each="d:${designerlist}" th:value="${d.designer_id}" th:text="${d.designer_name}" th:selected="${d.designer_name}==${dsname}"></option>
 			</select>
 </form>
 <button type="button" id="sortbtn"><i data-feather="search" id="sortbtn"></i></button>
