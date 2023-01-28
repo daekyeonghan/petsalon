@@ -56,17 +56,16 @@ public class UserController {
 	}
 	
 	@RequestMapping("/uDelete")
-	public String delete(Model model, HttpServletRequest req) {
-		String useremail = 
-				req.getParameter("useremail");
-		System.out.println(useremail);
+	public String delete(Model model, String delEmail) {
+		
+		System.out.println(delEmail);
 		try {
-			userservice.remove(useremail);
+			userservice.remove(delEmail);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "redirect:users";
+		return "redirect:/users";
 	}
 		
 	

@@ -3,25 +3,52 @@
 
 <style>
 
-.text {
-	width:600px;
-	border:1px solid pink;
-	
-	
+
+.row{
+  border-bottom: 1px solid gray;
+   margin: 0;
+   padding: 20px;
 }
-#iimg{
-	width:100px;
+
+
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
 }
 	
 </style>
-<h1>하로 이웃 후기</h1>
-
-<form id="review_modify">
-	<textarea class="text"  rows="10" type="text" name="content" th:text="${rep.review_content}"></textarea><br>	
-	<img id="iimg" th:src="@{/img/}+${rep.review_photo}"><br>
-	<input type="hidden" name="imgname" th:value="${rep.review_photo}"><br>
-	<input type="file" name="img"><br>
-	<a th:href="@{/review_update}" id="updatebtn">UPDATE</a>
-	<a th:href="@{/reviewPage}" id="delbtn">DELETE</a>
-</form>
+<h1>하로 이웃 후기 </h1>
+<br>
+<br>
+<div class="container text-center notice-content card">
+  <div class="row ">
+    <div class="col-2 ">리뷰 제목</div>
+    <div class="col-10" th:text="${rep.review_title}" ></div>
+  </div><br>
+  <div class="row ">
+    <div class="col-2 ">작성자</div>
+    <div class="col-10 " th:text="${rep.useremail}" ></div>
+  </div><br>
+  <div class="row ">
+  	<div class="col-2">리뷰 내용</div>
+  	<div class="col-10 " th:text="${rep.review_content}"></div>
+  </div>
+</div>
+<br>
+<br>
+<!-- <a th:href="@{/review}"><i data-feather="comer-down-left" class="reviewBack"></i></a> --> 
+<a th:href="@{/review_update}"><i data-feather="edit" class="reviewEdit"></i></a>
 </div>

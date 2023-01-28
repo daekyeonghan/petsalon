@@ -44,9 +44,9 @@ public class ReviewController {
 	public String review_update(Model model, Review review) {
 		try {
 			reservice.modify(review);
-			System.out.println("review");
 			
-			model.addAttribute("path", dir+"review_ok");
+			
+			model.addAttribute("path", dir+"review_update");
 			model.addAttribute("content", "main");
 		
 		} catch (Exception e) {

@@ -1,28 +1,30 @@
 <div th:fragment="main">
-<script>
-$(document).ready(function(){
-	$('#updatebtn').click(function(){
-		var rep = confirm('수정하겠습니까 ?');
-		if(rep == true){
-			$('#review_modify').attr({
-				'method':'post',
-				'action':'[[@{/review/review_update}]]'
-			})
-			$('#review_modify').submit();
-		}
-	});
-	
-	$('delbtn').click(function(){
-		
-		var rep = confirm('삭제하시겠습니까?');
-		if (rep == true){
-			var id = $('input[name=""]').val();
-			// /cust/delete?id=2
-			location.href='[[@{/review/delete(no=${re.review_no})}]]';
+<style>
+#review_update > intput{
+size: 20px; 
 
-		}
-	});
-});
+}
+</style>
+
+<script>
+
 
 </script>
+<span class="titleList" style="font-size: 20px;">후기 답변</span><br><br>
+
+<div class="reviewtable">
+<form id="review_update">
+	<div class="retable-1">
+	<!-- <input type="number" class="review 1" th:text="${reu.review_no}" id="review_content" name="review_content"> -->
+	</div>
+	<br>
+	<div><br>
+	<input type="box" >
+	<button type="button" >완료</button>
+	<button type="button" >취소</button>
+	</div>
+	</div>
+	
+</form>
+
 </div>
