@@ -5,8 +5,8 @@
 <div id="visittitle">Story with Haro</div>
 <div id="visit" th:if="${visit!=null}" th:each="visit : ${visit}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
 	<div id="dog_photo">
-		<img th:if="${visit.dog_photo!=null}" th:src="@{${visit.dog_photo}}" style="width:150px;height:150px;border-radius:50%">
-		<img th:unless="${visit.dog_photo!=null}" src="visit/img/logo.svg" style="width:150px;height:150px;border-radius:50%">
+		<img th:if="${visit.dog_photo==null} or ${visit.dog_photo==''}" src="assets/img/logo.svg" style="max-width:150px;height:150px;border-radius:50%;">
+		<img th:unless="${visit.dog_photo==null} or ${visit.dog_photo==''}" th:src="@{${visit.dog_photo}}" style="width:150px;height:150px;border-radius:50%">
 	</div>
 	
 	<div id="visit_content">
