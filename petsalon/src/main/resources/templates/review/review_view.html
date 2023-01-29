@@ -105,7 +105,6 @@
 	function deleteck(review_no){
 		var useremail = '[[${session.logemail}]]';	// 로그인한 사람 이메일
 		var emailmatch = '[[${rvs.useremail}]]';	//후기글 작성자 이메일
-		
 		if(emailmatch == useremail){
 			var c = confirm('삭제 하시겠습니까?');
 			if(c == true){
@@ -117,7 +116,6 @@
 	function updateck(review_no){
 		var useremail = '[[${session.logemail}]]';	// 로그인한 사람 이메일
 		var emailmatch = '[[${rvs.useremail}]]';	//후기글 작성자 이메일
-		
 		$.ajax({
 			success: function() {
 				if(useremail ==  emailmatch){

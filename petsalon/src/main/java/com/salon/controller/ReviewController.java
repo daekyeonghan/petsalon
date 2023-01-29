@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.salon.dto.Resv;
 import com.salon.dto.Review;
 import com.salon.dto.User;
 import com.salon.frame.Util;
@@ -42,6 +43,7 @@ public class ReviewController {
 	public String reviewselect(Model model, Integer resvcnt, String useremail, HttpSession session) {
 		String uemail = (String)session.getAttribute("logemail");
 		List<Review> list = null;
+		List<Resv> resvlist = null;
 		int review_count = 0;
 		int resv_count = 0;
 		
@@ -49,12 +51,14 @@ public class ReviewController {
 			list = reviewservice.reviewselect();
 			review_count = reviewservice.review_count(uemail);
 			resv_count = reservice.resvcnt(uemail);
+			resvlist = reservice.emailselect(uemail);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("resvcnt", resv_count);
 		model.addAttribute("reviewcnt", review_count);
+		model.addAttribute("resvlist", resvlist);
 		model.addAttribute("rlist", list);
 		model.addAttribute("center", reviewdir+"review_main");
 		return "index";
@@ -71,6 +75,7 @@ public class ReviewController {
 			e.printStackTrace();
 		}
 		model.addAttribute("rvs", rvs);
+		System.out.println(rvs);
 		model.addAttribute("center", reviewdir+"review_view");
 		return "index";
 	}

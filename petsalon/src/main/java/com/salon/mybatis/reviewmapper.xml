@@ -7,9 +7,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="select" parameterType="Integer" resultType="Review">
 		SELECT re.review_no, re.useremail, re.review_title, re.review_content, de.designer_id, de.designer_name, d.dog_id, d.dog_name, re.review_photo, re.review_date FROM review re
         INNER JOIN dog d ON re.dog_id = d.dog_id
-        INNER JOIN resv rv ON rv.dog_id = d.dog_id
-        INNER JOIN schedule sc ON sc.resv_no = rv.resv_no
-        INNER JOIN designer de ON de.designer_id = sc.designer_id WHERE review_no=#{review_no}
+        INNER JOIN designer de ON de.designer_id = re.designer_id WHERE review_no=#{review_no}
 	</select>
 	
 	<select id="selectall" resultType="Review">
@@ -38,7 +36,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         INNER JOIN dog d ON re.dog_id = d.dog_id
         INNER JOIN resv rv ON rv.dog_id = d.dog_id
         INNER JOIN schedule sc ON sc.resv_no = rv.resv_no
-        INNER JOIN designer de ON de.designer_id = sc.designer_id
+        INNER JOIN designer de ON de.designer_id = sc.designer_id WHERE rv.resv_fix = 1
 	</select>
 	
 	<select id="review_count" parameterType="String" resultType="Integer">

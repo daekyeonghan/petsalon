@@ -14,4 +14,5 @@ public interface ResvMapper extends MyMapper<Integer, Resv>{
 	public List<Resv> userResv(String useremail);
 	public int resvcnt(String useremail) throws Exception;
 	public List<Resv> visit(String useremail);
+	public List<Resv> emailselect(String useremail) throws Exception;
 }

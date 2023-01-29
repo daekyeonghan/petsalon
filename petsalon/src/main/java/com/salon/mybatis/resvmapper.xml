@@ -43,5 +43,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT COUNT(res.resv_fix) resvcnt FROM resv res
 		INNER JOIN user us ON us.useremail = res.useremail WHERE res.resv_fix = 1 and us.useremail=#{useremail}
 	</select>
+	<select id="emailselect" parameterType="String" resultType="Resv">
+		SELECT * FROM resv WHERE useremail=#{useremail}
+	</select>
 	
 </mapper>

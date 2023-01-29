@@ -131,7 +131,14 @@
       </div>
       <div class="modal-body" style="padding-left:50px; padding-right:50px;">
       
+      
+
 <form id="review_form">
+<select id="num" onchange="selectNum()">
+
+<option th:each="resv : ${resvlist}" th:value="${resv.dog_id}" th:text="|${resv.resv_no},${resv.designer_id}|"></option>
+
+</select>
          <div class="mb-3">
     <label for="useremail" class="form-label">작성자 이메일</label>
     <input type="text" class="form-control" id="useremail" name="useremail">
