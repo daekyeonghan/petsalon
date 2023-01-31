@@ -11312,7 +11312,7 @@ p {
 	height:30px;
 }
 #navbarNavDarkDropdown>.navbar-nav{
-	margin-left:700px;
+	margin-left:auto;
 }
 @media (min-width: 992px) {
   #mainNav {
@@ -11407,7 +11407,7 @@ p {
 }
 #lostinfo{
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-	margin-top:60px;
+	margin-top:100px;
 }
 #lostinfo>#lostid, #lostinfo>#lostpwd{
 	width:700px;
@@ -11417,8 +11417,6 @@ p {
 	/* border:1px solid black;
 	border-width:medium;
 	border-color:#3b365c; */
-	border-left:1px solid #6633FF;
-	
 	/* border-right:1px solid black; */
 	border-width:thick;
 }
@@ -11476,7 +11474,7 @@ p {
 	float:left
 }
 #mypage>#left_aside{
-	margin-top:50px;
+	margin-top:100px;
 	margin-bottom:50px;
 	margin-right:20px;
 	width:200px;
@@ -11484,7 +11482,7 @@ p {
 	border:1px solid #808080;
 }
 #mypage>#right_aside{
-	margin-top:50px;
+	margin-top:100px;
 	margin-bottom:50px;
 	width:780px;
 	height:800px;
@@ -11560,7 +11558,6 @@ p {
 #dogmanage{
 	width:100%;
 	height:82%;
-	;
 	margin:0 auto;
 	margin-top:70px;
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
@@ -11570,9 +11567,9 @@ p {
 	height:200px;
 	margin:0 auto;
 	padding:100px auto;
-	border:2px solid black;
-	border-radius:10px 10px;
-	margin-bottom:20px;
+	border:2px solid #808080;
+	border-radius:5px;
+	margin-bottom:30px;
 }
 #dogmanage>.doginfo>img{
 	width:100px;
@@ -11690,7 +11687,7 @@ p {
 #userResv>#resv_body{
 	margin-top:40px;
 	height:200px;
-	border:1px solid black;
+	border:1px solid #808080;
 	border-radius:15px ;
 }
 #userResv>#resv_body>ul{
@@ -11707,7 +11704,7 @@ p {
 	margin-left:460px;
 }
 #userResv #resv_modify{
-	width:310px;
+	width:319px;
 	margin:0 auto;
 }
 #userResv #resv_fix{
@@ -11736,6 +11733,7 @@ p {
 }
 #userResv #resv_modify>#resv_update, #userResv #resv_modify>#resv_del{
 	background-color:#909090;
+	margin-left:5px;
 }
 #visit{
 	width:600px;

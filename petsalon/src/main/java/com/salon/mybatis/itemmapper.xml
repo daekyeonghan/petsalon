@@ -4,19 +4,19 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.salon.mapper.ItemMapper">
 	<select id="select" parameterType="Integer" resultType="Item">
-		SELECT * FROM Item WHERE item_id=#{item_id}
+		SELECT * FROM item WHERE item_id=#{item_id}
 	</select>
 	<select id="selectall" resultType="Item">
-		SELECT * FROM Item
+		SELECT * FROM item
 	</select>
 	<insert id="insert" parameterType="Item">
-		INSERT INTO Item VALUES(#{item_id},#{designer_id},#{item_name},#{item_price},#{item_photo})
+		INSERT INTO item VALUES(#{item_id},#{designer_id},#{item_name},#{item_price},#{item_photo})
 	</insert>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM Item WHERE item_id=#{item_id}
+		DELETE FROM item WHERE item_id=#{item_id}
 	</delete>
 	<update id="update" parameterType="Item">
-		UPDATE Item SET item_name=#{item_name}, item_price=#{item_price}, item_photo=#{item_photo}
+		UPDATE item SET item_name=#{item_name}, item_price=#{item_price}, item_photo=#{item_photo}
 		WHERE item_id=#{item_id}
 	</update>
 </mapper>
