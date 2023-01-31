@@ -24,8 +24,7 @@
 			
 			review_check();
 			
-			
-			$('#new_review').click(function(){
+			/* $('#new_review').click(function(){
 				var c = confirm('등록하시겟습니까?');
 				if(c == true) {
 					$('#review_form').attr({
@@ -36,7 +35,19 @@
 					$('#review_form').submit();
 					alert("정상등록 되었습니다.");
 				}
-			});
+			});*/
+			
+			/* var num ='[[${checkresv}]]';
+			alert(num);
+			alert(num[0]); */
+			
+			/* for(let i = 0; i < num.length; i++) {
+				alert(num[i]);
+				} */
+			
+
+
+			
 		});
 		
 		function review_check(){
@@ -54,6 +65,22 @@
 			}
 			});
 		};
+		
+		function selectNum(){
+
+			var numSelect = document.getElementById("num");
+
+			var value = numSelect.options[document.getElementById("num").selectedIndex].value;
+			
+			
+			
+			$('#new_review').click(function(){
+				location.href='/review_write?no='+value;
+			});
+
+		};
+		
+		
 
 	</script>
 </head>
@@ -116,75 +143,33 @@
 
 <div class="container">
 	<div class="text-center">
-		<button type="button" id="review_add" name="review_plus" class="btn btn-primary btn-xl text-uppercase" th:href="@{/review_write}" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button>
+		<button type="button" id="review_add" name="review_plus" class="btn btn-primary btn-xl text-uppercase" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button>
 	</div>
 </div>
-
+<!-- th:value="${resv.resv_no}" th:onclick="|location.href='@{/review_write(no=${resv.resv_no})}'|" -->
 </section>
-
 <div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">후기 작성하기</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">최근 이용내역을 선택해주세요</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" style="padding-left:50px; padding-right:50px;">
-      
-      
-
-<form id="review_form">
-<select id="num" onchange="selectNum()">
-
-<option th:each="resv : ${resvlist}" th:value="${resv.dog_id}" th:text="|${resv.resv_no},${resv.designer_id}|"></option>
-
-</select>
-         <div class="mb-3">
-    <label for="useremail" class="form-label">작성자 이메일</label>
-    <input type="text" class="form-control" id="useremail" name="useremail">
-  </div>
-  <div class="mb-3">
-    <label for="inputDogName" class="form-label">디자이너 아이디</label>
-    <input type="text" class="form-control" id="designer_id" name="designer_id">
-    <div id="nameFeedback" class="invalid-feedback"></div>
-  </div>
-    <div class="mb-3">
-    <label for="inputDogName" class="form-label">강아지 번호</label>
-    <input type="text" class="form-control" id="dog_id" name="dog_id">
-    <div id="nameFeedback" class="invalid-feedback"></div>
-  </div>
-<!-- <div class="mb-3">
-    <label for="inputDogName" class="form-label">강아지 이름</label>
-    <input type="text" class="form-control" id="designer_id" name="dog_name">
-    <div id="nameFeedback" class="invalid-feedback"></div>
-</div> -->
-  <div class="mb-3">
-    <label for="inputTitle" class="form-label">제목</label><span id="name_span"></span>
-    <input type="text" class="form-control" id="review_title" name="review_title">
-    <div id="titleFeedback" class="invalid-feedback"></div>
-  </div>
-    <div class="mb-3">
-    <label for="inputContent" class="form-label">내용</label>
-    <textarea class="form-control" id="review_content" name="review_content"></textarea>
-  </div>
-    <div class="mb-3">
-  <label for="formFile" class="form-label">사진</label>
-  <input class="form-control" type="file" id="imgname" name="imgname">
-</div>
-<!--   <div class="mb-3">
-    <label for="recent_date" class="form-label">최근 이용내역</label>
-    <input type="text" class="form-control" id="recent_date" name="recent_date" value="2023-01-24 쿠로 대경쌤" readonly>
-  </div> -->
-</form>
-
+      <form id="selectDesigner">
+		<select class="form-select" id="num" th:onchange="selectNum()">
+			<option value="" selected disabled>--최근이용내역선택--</option>
+			<option th:each="resv : ${checkresv}" th:value="${resv.resv_no}" th:text="|${resv.dog_name} ${resv.designer_name} ${resv.sc_date}|"></option>
+		</select>
+		<div class="modal-footer">
+			<button type="button" id="cancle-btn" class="btn btn-secondary">취소</button>
+			<button type="button" id="new_review" class="btn btn-primary" > 작성하러가기</button>
+		</div>
+		</form>
       </div>
-      <div class="modal-footer">
-        <button type="button" id="canccle-btn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-  <button type="button" id="new_review" class="btn btn-primary">등록</button>
       </div>
-    </div>
-  </div>
-</div>
+      </div>
+      </div>
 
 <!-- Bootstrap core JS-->
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>

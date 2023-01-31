@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon"
+	href="assets/img/logo_adobe_express.svg" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+<!-- fonts-->
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css'
+	rel='stylesheet' type='text/css'>
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<style>
+img #previewImg img {
+	width: 300px;
+	height: 300px;
+	margin: 0 auto;
+}
+</style>
+</head>
+<meta charset="UTF-8">
+<script>
+	$(document).ready(function() {
+		
+				$('#new_review').click(function() {
+					var c = confirm('등록하시겟습니까?');
+					if (c == true) {
+						$('#review_form').attr({
+							'enctype' : 'multipart/form-data',
+							'method' : 'post',
+							'action' : '/reviewsendimpl'
+						});
+						$('#review_form').submit();
+						alert("정상등록 되었습니다.");
+					}
+				});
+
+
+				$('.filebox .upload-hidden').on(
+						'change',
+						function() {
+							if (window.FileReader) {
+								var filename = $(this)[0].files[0].name;
+								if (!validFileType(filename)) {
+									alert("허용하지 않는 확장자 파일입니다.");
+									return false;
+								} else {
+									if (!validFileSize($(this)[0].files[0])) {
+										alert("파일 사이즈가 10MB를 초과합니다.");
+										return false;
+									} else {
+										if (!validFileNameSize(filename)) {
+											alert("파일명이 30자를 초과합니다.");
+											return false;
+										}
+									}
+								}
+							} else {
+								var filename = $(this).val().split('/').pop()
+										.split('\\').pop();
+							}
+							$(this).prev().val(filename); //input upload-name 에 파일명 설정해주기
+
+							readImage($(this)[0]); //미리보기
+						});
+
+				function validFileType(filename) {
+					const fileTypes = [ "png", "jpg", "jpeg" ];
+					return fileTypes.indexOf(filename.substring(
+							filename.lastIndexOf(".") + 1, filename.length)
+							.toLowerCase()) >= 0;
+				}
+
+				function validFileSize(file) {
+					if (file.size > 10000000) { //10MB
+						return false;
+					} else {
+						return true;
+					}
+				}
+
+				function validFileNameSize(filename) {
+					if (filename.length > 30) { //30자
+						return false;
+					} else {
+						return true;
+					}
+				}
+
+				//이미지 띄우기
+				function readImage(input) {
+					if (input.files && input.files[0]) {
+						const reader = new FileReader();
+						reader.onload = function(e) {
+							const previewImage = document
+									.getElementById("previewImg");
+							previewImage.src = e.target.result;
+						}
+						// reader가 이미지 읽도록 하기
+						reader.readAsDataURL(input.files[0]);
+					}
+				}
+
+			});
+
+	
+</script>
+</head>
+<body> 
+	<section class="page-section" style="background-color: #f5dcb7;">
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-lg-5 bg-white m-auto rounded-top">
+					<h2 class="text-center pt-3 mb-5">리뷰 작성하기</h2>
+					<!--  form start -->
+					<form id="review_form" >
+						
+						<div class="mb-3">
+							<label for="useremail" class="form-label">작성자 이메일</label>
+							<input type="text" class="form-control" id="useremail" name="useremail" th:value="${rwresv.useremail}">
+						</div>
+						<div class="mb-3">
+							<label for="resv_no" class="form-label">예약번호</label>
+							<input type="text" class="form-control" id="resv_no" name="resv_no" th:value="${rwresv.resv_no}">
+						</div>
+						<div class="mb-3">
+							<label for="inputDogName" class="form-label">디자이너 아이디</label>
+							<input type="text" class="form-control" id="designer_id" name="designer_id" th:value="${rwresv.designer_id}">
+						</div>
+						<div class="mb-3">
+							<label for="inputDogName" class="form-label">강아지 번호</label>
+							<input type="text" class="form-control" id="dog_id" name="dog_id" th:value="${rwresv.dog_id}">
+						</div>
+						<!-- <div class="mb-3">
+    <label for="inputDogName" class="form-label">강아지 이름</label>
+    <input type="text" class="form-control" id="designer_id" name="dog_name">
+    <div id="nameFeedback" class="invalid-feedback"></div>
+</div> -->
+						<div class="mb-3">
+							<label for="inputTitle" class="form-label">제목</label>
+							<span id="name_span"></span>
+							<input type="text" class="form-control" id="review_title" name="review_title">
+						</div>
+						<div class="mb-3">
+							<label for="inputContent" class="form-label">내용</label>
+							<textarea class="form-control" id="review_content" name="review_content"></textarea>
+						</div>
+						<div class="filebox mb-3">
+							<label for="formFile" class="form-label mr-5">사진</label>
+							<img id="previewImg" class="mx-auto d-block mt-3 mb-3" style="width: 300px; height: 300px;">
+							<input class="form-control" type="text" name="originname" style="display: none;">
+							<input class="form-control upload-hidden" type="file" id="imgname" name="imgname" accept="image/*" />
+						</div>
+						<!--   <div class="mb-3">
+    <label for="recent_date" class="form-label">최근 이용내역</label>
+    <input type="text" class="form-control" id="recent_date" name="recent_date" value="2023-01-24 쿠로 대경쌤" readonly>
+  </div> -->
+					</form>
+
+					<div>
+						<button type="button" id="canccle-btn" class="btn btn-secondary">취소</button>
+						<button type="button" id="new_review" class="btn btn-primary">등록</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Bootstrap core JS-->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<!-- Core theme JS-->
+	<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>

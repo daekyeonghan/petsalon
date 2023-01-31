@@ -40,6 +40,7 @@ public class ReviewController {
 		String uemail = (String)session.getAttribute("logemail");
 		List<Review> list = null;
 		List<Resv> resvlist = null;
+		List<Resv> checkresv = null;
 		int review_count = 0;
 		int resv_count = 0;
 		
@@ -48,12 +49,14 @@ public class ReviewController {
 			review_count = reviewservice.review_count(uemail);
 			resv_count = reservice.resvcnt(uemail);
 			resvlist = reservice.emailselect(uemail);
+			checkresv = reservice.resvcheck(uemail);
 			
 			model.addAttribute("resvcnt", resv_count);
 			model.addAttribute("reviewcnt", review_count);
 			model.addAttribute("resvlist", resvlist);
 			model.addAttribute("rlist", list);
 			model.addAttribute("center", reviewdir+"review_main");
+			model.addAttribute("checkresv", checkresv);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -143,6 +146,23 @@ public class ReviewController {
 		model.addAttribute("center", reviewdir+"review_ok");
 		return "index";
 		/* return "redirect:reviewview?no="+review.getReview_no(); */
+	}
+	
+	@RequestMapping("/review_write")
+	public String reviewwrite(Model model, HttpSession session, int no) {
+		Resv resv;
+		System.out.println(no);
+		
+		try {
+			resv = reservice.get(no);
+			model.addAttribute("rwresv", resv);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("center", reviewdir+"review_write");
+		return "index";
 	}
 	
 	
