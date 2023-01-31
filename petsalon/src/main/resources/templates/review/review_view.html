@@ -25,9 +25,10 @@
 <script>
 
 	$(document).ready(function(){
+		
 		updateck();
 		
-		 $('.filebox .upload-hidden').on('change', function(){  			
+		$('.filebox .upload-hidden').on('change', function(){  			
 	            if(window.FileReader){
 	                var filename = $(this)[0].files[0].name;
 	                if(!validFileType(filename)){
@@ -86,8 +87,8 @@
 		        reader.readAsDataURL(input.files[0]);
 		    }
 		}
-		
-		$('#update_review').click(function(){
+	    
+	    $('#update_review').click(function(){
 			var c = confirm('수정하시겠습니까?');
 			if(c == true) {
 				$("#review_updateform").attr({
@@ -98,6 +99,7 @@
 				$("#review_updateform").submit();
 				alert('정상적으로 수정되었습니다.');
 			}
+			
 		});
 		
 	});	
@@ -105,6 +107,7 @@
 	function deleteck(review_no){
 		var useremail = '[[${session.logemail}]]';	// 로그인한 사람 이메일
 		var emailmatch = '[[${rvs.useremail}]]';	//후기글 작성자 이메일
+		alert(emailmatch);
 		if(emailmatch == useremail){
 			var c = confirm('삭제 하시겠습니까?');
 			if(c == true){
@@ -127,6 +130,7 @@
 			}
 		});
 	};
+
 
 
 </script>
@@ -170,16 +174,20 @@
       
 <form id="review_updateform">
 	<div class="mb-3">
+	    <label for="review_no" class="form-label">후기 번호</label>
+	    <input type="text" class="form-control" id="review_no" name="review_no" th:value="${rvs.review_no}" readonly>
+	</div>
+	<div class="mb-3">
 	    <label for="useremail" class="form-label">작성자 이메일</label>
 	    <input type="text" class="form-control" id="useremail" name="useremail" th:value="${rvs.useremail}" readonly>
 	</div>
 	<div class="mb-3">
 	    <label for="inputDogName" class="form-label" style="display:none;">디자이너 아이디</label>
-	    <input type="hidden" class="form-control" id="designer_id" name="designer_id" th:value="${rvs.designer_id}" readonly>
+	    <input type="text" class="form-control" id="designer_id" name="designer_id" th:value="${rvs.designer_id}" readonly>
 	</div>
 	<div class="mb-3">
 	    <label for="inputDogName" class="form-label" style="display:none;">강아지 번호</label>
-	    <input type="hidden" class="form-control" id="dog_id" name="dog_id" th:value="${rvs.dog_id}" readonly>
+	    <input type="text" class="form-control" id="dog_id" name="dog_id" th:value="${rvs.dog_id}" readonly>
 	</div>
 	<!-- <div class="mb-3">
 	    <label for="inputDogName" class="form-label">강아지 이름</label>
@@ -196,14 +204,11 @@
 	</div>
 	<div class="filebox mb-3">
 	  <label for="formFile" class="form-label mr-5">사진</label>
-	  <img id="previewImg" class="mx-auto d-block mt-3 mb-3" style="width:300px; height:300px;">
+	  <img id="previewImg" class="mx-auto d-block mt-3 mb-3" th:src="'/assets/img/'+ ${rvs.review_photo}" th:if="${rvs.review_photo != ''}" style="width:300px; height:300px;">
 	   <input class="form-control" type="text" name="originname" th:value="${rvs.review_photo}" style="display:none;">
-	  <input class="form-control upload-hidden" type="file" id="imgname" name="imgname" accept="image/*" />
+	  <input class="form-control upload-hidden" type="file" id="formFile" name="review_img"  />
 	</div>
-	<!--   <div class="mb-3">
-	    <label for="recent_date" class="form-label">최근 이용내역</label>
-	    <input type="text" class="form-control" id="recent_date" name="recent_date" value="2023-01-24 쿠로 대경쌤" readonly>
-	  </div> -->
+	<p class="text-center"><b>사진</b></p>
 	</form>
 
 </div>

@@ -19,11 +19,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</insert>
 	
 	<update id="update" parameterType="Review">
-		UPDATE review SET review_title=#{review_title}, review_content=#{review_content}, review_photo=#{review_photo} WHERE useremail=#{useremail}
+		UPDATE review SET review_title=#{review_title}, review_content=#{review_content}, review_photo=#{review_photo} WHERE review_no=#{review_no}
 	</update>
 	
 	<update id="nopicUpdate" parameterType="Review">
-		UPDATE review SET review_title=#{review_title}, review_content=#{review_content}, review_photo=#{review_photo} WHERE useremail=#{useremail}
+		UPDATE review SET review_title=#{review_title}, review_content=#{review_content} WHERE review_no=#{review_no}
 		
 	</update>
 	

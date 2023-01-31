@@ -15,6 +15,7 @@ public class Util {
 		String imgname = mf.getOriginalFilename();
 		
 		String newImgName = imgname+"_"+uuid;
+		
 		try {
 			data = mf.getBytes();
 			FileOutputStream fo = 

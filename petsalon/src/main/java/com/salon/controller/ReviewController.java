@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.salon.dto.Resv;
 import com.salon.dto.Review;
-import com.salon.dto.User;
 import com.salon.frame.Util;
 import com.salon.service.ResvService;
 import com.salon.service.ReviewService;
-import com.salon.service.UserService;
 
 @Controller
 public class ReviewController {
@@ -28,8 +26,6 @@ public class ReviewController {
 	
 	String reviewdir = "review/";
 	
-	@Value("${admindir}")
-	String admindir;
 	@Value("${userdir}")
 	String userdir;
 	
@@ -53,14 +49,16 @@ public class ReviewController {
 			resv_count = reservice.resvcnt(uemail);
 			resvlist = reservice.emailselect(uemail);
 			
+			model.addAttribute("resvcnt", resv_count);
+			model.addAttribute("reviewcnt", review_count);
+			model.addAttribute("resvlist", resvlist);
+			model.addAttribute("rlist", list);
+			model.addAttribute("center", reviewdir+"review_main");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("resvcnt", resv_count);
-		model.addAttribute("reviewcnt", review_count);
-		model.addAttribute("resvlist", resvlist);
-		model.addAttribute("rlist", list);
-		model.addAttribute("center", reviewdir+"review_main");
+		
 		return "index";
 	}
 	
@@ -70,13 +68,13 @@ public class ReviewController {
 		
 		try {
 			rvs = reviewservice.get(no);
+			model.addAttribute("rvs", rvs);
+			model.addAttribute("center", reviewdir+"review_view");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("rvs", rvs);
-		System.out.println(rvs);
-		model.addAttribute("center", reviewdir+"review_view");
+		
 		return "index";
 	}
 	
@@ -102,7 +100,10 @@ public class ReviewController {
 	@RequestMapping("/reviewupdate")
 	public String reviewupdate(Model model, Review review, String originname) {
 		
+		System.out.println(originname);
+		
 		String blankName = review.getReview_img().getOriginalFilename();
+		System.out.println(blankName);
 		
 		try {
 			System.out.println("OK");
@@ -110,11 +111,12 @@ public class ReviewController {
 				String newName = Util.saveFile(review.getReview_img(), userdir);
 				review.setReview_photo(newName);
 				reviewservice.modify(review);
+				System.out.println(newName);
 				Util.deleteFile(userdir, originname);
 			}else {
 				reviewservice.nopicUpdate(review);
 			}
-			model.addAttribute("center", reviewdir+"review_ok");
+			
 			
 		} catch (Exception e) {
 			System.out.println("FAIL");
@@ -122,7 +124,7 @@ public class ReviewController {
 			
 		}
 		
-		return "index";
+		return "redirect:review";
 	}
 	
 	

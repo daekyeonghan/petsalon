@@ -28,6 +28,8 @@ public class Resv {
 	private int item_price;
 	private String sc_date;
 	
+	private String cancel;
+	
 	public Resv(int resv_no, String resv_ask, int resv_fix) {
 		super();
 		this.resv_no = resv_no;
