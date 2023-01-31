@@ -61,6 +61,10 @@ ul.list-style-none li a {
 .w-30px {
     width: 30px;
 }
+
+.card-body img{
+max-width:30%;
+}
 </style>
 
 <script>
@@ -124,6 +128,18 @@ function register(){
 };
 
 
+function setThumbnail(event) {
+ var reader = new FileReader();
+
+ reader.onload = function(event) {
+   var img = document.createElement("img");
+   img.setAttribute("src", event.target.result);
+   document.querySelector("div#image_container").appendChild(img);
+ };
+
+ reader.readAsDataURL(event.target.files[0]);
+}
+
 
 
 $(document).ready(function() {	
@@ -162,32 +178,55 @@ $(document).ready(function() {
 	    
 		  }
 	  })
-	
-	
+	  
+	 $('#cancelbtn').on('click',function(){
+		 history.back();
+	 })
+
 		
-	
+	setThumbnail(event);
 });
 
 </script>
                     
-        <h1 class="mb-50 fs-5">새로운 공지사항 작성하기</h1>
+        <h1 class="mb-50 fs-5">공지사항 수정</h1>
         <div id="liveAlertPlaceholder"></div>
         <form id="notice_register">
       <input type="text" id="staticEmail" value="admin01" name="admin_id" style="display:none;">
           <div class="input-group mb-3">
  		  <span class="input-group-text" id="basic-addon1">제목</span>
-  		  <input type="text" class="form-control" id="sn_title" name="sn_title" aria-label="noticeTitle" aria-describedby="basic-addon1">
+  		  <input type="text" class="form-control" th:value="${sn.sn_title}" id="sn_title" name="sn_title" aria-label="noticeTitle" aria-describedby="basic-addon1">
 		</div>
             <div class="mb-3">
-   		    <textarea class="form-control" id="sn_content" name="sn_content" rows="30"></textarea>
+   		    <textarea class="form-control" th:text="${sn.sn_content}" id="sn_content" name="sn_content" rows="30"></textarea>
             
           </div>
-           <div class="mb-3">
-  				<input class="form-control" type="file" id="formFile" name="sn_img">
+         
+		   
+		   <div class="container card">
+  <div class="row">
+    <div class="col card-body" th:if="${sn.sn_photo == null}">
+      &#8251; 기존 첨부 사진 없음
+    </div>
+    <div class="col card-body" th:unless="${sn.sn_photo == null}">
+     &#8251; 기존 첨부 사진 (파일 미업로드 시 기존 사진)
+     <div class="mygap-xs"></div>
+     
+      <img th:src="'/jyassets/img/'+${sn.sn_photo}">
+       
+    </div>
+      <div class="mb-3">
+  				<input class="form-control" type="file" id="formFile" name="sn_img" accept="image/*" onchange="setThumbnail(event);">
+  				  <input class="form-control" type="text" name="originname" th:value="${sn.sn_photo}" style="display:none;">
 		   </div>
+    
+  </div>
+</div>
         </form>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-50">
-           <button type="button" id="new_notice_btn" class="btn btn-lg btn-primary col-3">등록</button>
+        <div class="mygap-sm"></div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+           <button type="button" id="cancelbtn" class="btn btn-secondary me-md-2 col-md-3">취소</button>
+           <button type="button" id="edit_notice_btn" class="btn btn-primary col-md-3">수정</button>
         </div>
         <div class="mygap-md"></div>
 

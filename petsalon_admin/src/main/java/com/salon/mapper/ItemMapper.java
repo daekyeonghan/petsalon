@@ -12,11 +12,13 @@ import com.salon.frame.MyMapper;
 @Mapper
 public interface ItemMapper extends MyMapper<Integer, Item> {
 
-	public List<Item> selectmenu() throws Exception;
+	public List<Item> dsMenu(String designer_id) throws Exception;
 	
-	public List<Item> sortitem(String designer_id) throws Exception;
+	public List<Item> sortitem(String designer_id, int limit, int offset) throws Exception;
 	
 	public List<Item> pagingitem(Integer limit, Integer offset) throws Exception;
 	
 	public Integer totalitem() throws Exception;
+	
+	public Integer totaldsitem(String designer_id) throws Exception;
 }

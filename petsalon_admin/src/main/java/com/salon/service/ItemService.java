@@ -1,5 +1,6 @@
 package com.salon.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,12 @@ public class ItemService implements MyService<Integer, Item>{
 		return mapper.selectall();
 	}
 	
-	public List<Item> getlist() throws Exception{
-		return mapper.selectmenu();
+	public List<Item> dsMenu(String designer_id) throws Exception{
+		return mapper.dsMenu(designer_id);
 	}
 	
-	public List<Item> sortitem(String k) throws Exception{
-		return mapper.sortitem(k);
+	public List<Item> sortitem(String id, Integer limit, Integer offset) throws Exception{
+		return mapper.sortitem(id, limit, offset);
 	}
 	
 	public List<Item> pagingitem(Integer limit, Integer offset) throws Exception{
@@ -54,5 +55,10 @@ public class ItemService implements MyService<Integer, Item>{
 	public Integer totalitem() throws Exception{
 		return mapper.totalitem();
 	}
+	
+	public Integer totaldsitem(String designer_id) throws Exception{
+		return mapper.totaldsitem(designer_id);
+	}
+
 
 }

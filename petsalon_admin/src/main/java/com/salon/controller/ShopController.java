@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.salon.dto.Item;
 import com.salon.dto.Shop_Notice;
 import com.salon.frame.ImgUtil;
 import com.salon.service.Shop_NoticeService;
@@ -82,15 +83,87 @@ public class ShopController {
 			
 			snservice.register(notice);
 			System.out.println("shop notice register ok");
-			model.addAttribute("path", dir+"shop_ok");
-			model.addAttribute("content", "main");
+			return "redirect:/shop";
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("fail");
 			model.addAttribute("path", "fragments");
 			model.addAttribute("content", "fail");
+			return "main";
 		}
 		
-		return "redirect:/shop";
+		
+	}
+
+	
+
+		
+	@RequestMapping("/noticeUpdatePage")
+	public String uppage(Model model, int sn_no) {
+		Shop_Notice sn = new Shop_Notice();
+		try {
+			sn = snservice.get(sn_no);
+			System.out.println(sn_no);
+			model.addAttribute("sn", sn);
+			model.addAttribute("path", dir + "shop_notice_update");
+			model.addAttribute("content", "main");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+		}
+
+		return "main";
+	}
+	
+	@RequestMapping("/noticeUpdate")
+	public String noticeUpdate(Model model, Shop_Notice sn, String originname) {
+
+		System.out.println(originname);
+
+		String blankName = sn.getSn_img().getOriginalFilename();
+
+		try {
+			if (sn.getSn_img() != null && blankName.length() != 0) {
+				String newName = ImgUtil.saveFile(sn.getSn_img(), admindir);
+				sn.setSn_photo(newName);
+				ImgUtil.deleteFile(admindir, originname);
+			} else {
+				sn.setSn_photo(originname);
+			}
+
+			snservice.modify(sn);
+
+			System.out.println("item updated");
+			
+			return "redirect:/item";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+			return "main";
+		}
+
+		
+	}
+	
+
+	@RequestMapping("/noticeDelete")
+	public String del(Model model, Integer no, String filename) {
+
+		try {
+			snservice.remove(no);
+			ImgUtil.deleteFile(admindir, filename);
+			System.out.println("shop_notice deleted");
+			return "redirect:/shop";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+			return "main";
+		}
+
+		
 	}
 }

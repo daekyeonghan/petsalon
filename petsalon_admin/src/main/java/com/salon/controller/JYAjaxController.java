@@ -1,25 +1,22 @@
 package com.salon.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.salon.dto.Admin;
 import com.salon.dto.Designer;
-import com.salon.service.AdminService;
 import com.salon.service.DesignerService;
+import com.salon.service.ItemService;
 
 @RestController
 public class JYAjaxController {
 
 	@Autowired
 	DesignerService dsservice;
+	
+	@Autowired
+	ItemService iservice;
 
 	@RequestMapping("/designerRegi")
 	public String register(Model model, Designer designer) {
@@ -39,6 +36,81 @@ public class JYAjaxController {
 		model.addAttribute("content", "main");
 		return "main";
 	}
+	
+	
+	 @RequestMapping("/itemTotalPage")
+	    public Object itemTotalPage() {
+	        int recordsPerPage = 6;
+	        int totalPages = 0;
+
+	    	try {
+				int totalRecords = iservice.totalitem();
+		        totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("failed to get total pages");
+			}
+	    	
+	    //	System.out.println(totalPages);
+
+	        return totalPages;
+	    }
+	
+	 @RequestMapping("/dsitemTotalPage")
+	    public Object dsitemTotalPage(String designer_id) {
+	        int recordsPerPage = 6;
+	        int totalPages = 0;
+
+	    	try {
+				int totalRecords = iservice.totaldsitem(designer_id);
+		        totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+		  //    System.out.println(totalPages);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("failed to get total pages");
+			}
+	    	
+	    //	System.out.println(totalPages);
+
+	        return totalPages;
+	    }
+	
+//	 @RequestMapping("/itemPageTest")
+//	    public Object getItemsByPage(int page, Model model) {
+//		 int recordsPerPage = 6;
+//	        
+//	        List<Item> ilist;
+//	    	List<Designer> dlist = null;
+//
+//	    	try {
+//				int totalRecords = iservice.totalitem();
+//		        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+//
+//		        int offset = (page-1)*6;
+//				
+//		        ilist = iservice.pagingitem(recordsPerPage,offset);
+//				
+//				dlist = dsservice.get();
+//				
+//				model.addAttribute("menulist", ilist);
+//				model.addAttribute("designerlist", dlist);
+//				model.addAttribute("totalPages", totalPages);
+//				model.addAttribute("path", "item/item_main");
+//				model.addAttribute("content", "main");
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				model.addAttribute("path", "fragments");
+//				model.addAttribute("content", "fail");
+//			}
+//
+//
+//	        return "main";
+//	    }
+
+	
+	
 	/*
 	 * @RequestMapping("/designerlist") public Object getlist(Model model, Designer
 	 * designer) {

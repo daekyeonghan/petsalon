@@ -1,4 +1,29 @@
 <div th:fragment="main">
+<style>
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0.5px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+    padding:1%;
+}
+
+img{
+width:100px;
+}
+
+</style>
 <script>
 function valid(){
 	$('#designer_id').keyup(function(){
@@ -103,14 +128,20 @@ $(document).ready(function() {
     <label for="inputCareer" class="form-label">경력</label>
     <input type="number" class="form-control" id="designer_career" name="designer_career" th:value="${ds.designer_career}">
   </div>
-    <div class="mb-3">
-  <label for="formFile" class="form-label">사진 (파일 미업로드 시 기존 사진)</label>
+   <div>
+     <label for="formFile" class="form-label">사진</label>
   <input class="form-control" type="text" name="originname" th:value="${ds.designer_photo}" style="display:none;">
   <input class="form-control" type="file" id="formFile" name="designer_img">
 </div>
+    <div class="mb-3">
+  <label for="formFile" class="form-label"> &#8251;기존 사진 (파일 미업로드 시 기존 사진)</label>
+  <br>
+  <img th:src="'/jyassets/img/'+${ds.designer_photo}" class="img-thumbnail">
+  </div>
+ 
    <div class="mb-3">
     <label for="inputIntroduce" class="form-label">간단한 소개</label>
-    <textarea class="form-control" id="designer_introduce" name="designer_introduce" th:value="${ds.designer_introduce}"></textarea>
+    <textarea class="form-control" id="designer_introduce" name="designer_introduce" th:text="${ds.designer_introduce}"></textarea>
   </div>
 </form>
 <button type="button" id="updatebtn" class="btn btn-primary btn-lg">수정</button>

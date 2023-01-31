@@ -20,11 +20,14 @@ public class Resv {
 	private int item_id;
 	private String resv_ask;
 	private int resv_fix;
+
+	private String cancel;
 	
 	private String username;
 	private String dog_name;
 	private String designer_name;
 	private String item_name;
+	
 	
 	public Resv(int resv_no, String resv_ask, int resv_fix) {
 		super();

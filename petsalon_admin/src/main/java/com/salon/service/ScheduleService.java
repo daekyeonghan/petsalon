@@ -45,7 +45,9 @@ public class ScheduleService implements MyService<Integer, Schedule> {
 		return mapper.selectall();
 	}
 
-	
+	public List<Schedule> dsSchedule(String designer_id) throws Exception{
+		return mapper.dsSchedule(designer_id);
+	}
 	
 	
 	

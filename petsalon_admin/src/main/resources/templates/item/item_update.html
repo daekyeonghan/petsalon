@@ -1,5 +1,6 @@
 <div th:fragment="main">
 <script>
+
 function checkItem(){
 	
 	if($('#item_name').val()==''){
@@ -41,7 +42,7 @@ function checkItem(){
 	}else{
 		return false;
 	}
-	
+		
 };
 
 function itemUpdate(){
@@ -56,11 +57,14 @@ function itemUpdate(){
 	alert('수정되었습니다.');
     $('form').find('input[name=item_name], input[name=item_price]').val('');
 };
-
+  
 
 $(document).ready(function() {	
 	
 	checkItem();
+	$('#editCancel').on('click',function(){
+		window.location.replace('[[@{/item?page=1}]]');
+	})
 	
 	$('#edit_item_btn').on('click',function(){
 		let c = confirm('수정하시겠습니까?');
@@ -80,6 +84,7 @@ $(document).ready(function() {
 
 <span class="listtile">메뉴 수정</span>
 <div class="mygap-xs"></div>
+<button type="button" id="testbtn">g2g22g</button>
 <div class="designer-update">
 <form id="item_update">
  		  <div class="mb-3">
@@ -98,11 +103,11 @@ $(document).ready(function() {
           </div>
            <div class="mb-3">
   				<label for="formFile" class="form-label">사진 :</label>
-  				<input type="text" class="form-control" th:value="${it.item_photo}" name="originname" style="display:none;">
+  				<input type="text" class="form-control" th:value="${it.item_photo}" id="originname" name="originname" style="display:none;">
   				<input class="form-control" type="file" id="formFile" name="item_img">
 		   </div>
         </form>
-         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+         <button type="button" id="editCancel" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 		<button type="button" id="edit_item_btn" class="btn btn-primary">수정</button>
 </div>
 </div>

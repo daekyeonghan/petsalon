@@ -207,8 +207,43 @@ body {
 
 <script>
 
+function addLi(totalPages,designer_id){
+	
+	 var pagination = $("#pagination");
+	 
+	pagination.append("<li class='page-item'><a class='page-link' href='#' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>");
+
+	for (var i = 1; i <= totalPages; i++) {
+       var pageItem = $("<li>").addClass("page-item");
+       var pageLink = $("<a>").addClass("page-link").attr("href", "/itemSortByDesigner?designer_id=" + designer_id + "&page=" + i).text(i);
+       pageItem.append(pageLink);
+       pagination.append(pageItem);
+   }
+  pagination.append("<li class='page-item'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>");
+   
+}
+
+
+function testingNowPaging(){
+
+	let designer_id = $('#designer_id').val();
+		$.ajax({
+	       url: '[[@{/dsitemTotalPage}]]',
+	       data: {'designer_id':designer_id},
+	       success: function(data) {
+	           var totalPages = data;
+
+	          addLi(totalPages,designer_id);
+	       }
+	   });
+	   
+}
+
+
 $(document).ready(function() {	
 
+	   testingNowPaging();
+	   
 	$('#sortbtn').on('click',function(){
 		if($('#designer_id').val()=='all'){
 			window.location.replace('[[@{/item}]]');
@@ -238,6 +273,7 @@ $(document).ready(function() {
            <option value="all">전체</option>
   				<option th:each="d:${designerlist}" th:value="${d.designer_id}" th:text="${d.designer_name}" th:selected="${d.designer_name}==${dsname}"></option>
 			</select>
+			<input type="number" name="page" th:value="1" style="display:none;">
 </form>
 <button type="button" id="sortbtn"><i data-feather="search" id="sortbtn"></i></button>
 </div>
@@ -279,16 +315,8 @@ $(document).ready(function() {
                 </table>
                 <div class="mygap-sm"></div>
                 <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
+    <ul class="pagination justify-content-center" id="pagination">
+    
   </ul>
 </nav>
             </div>

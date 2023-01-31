@@ -20,4 +20,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DELETE FROM schedule WHERE sc_id=#{sc_id}
 	</delete>
 	
+	<select id="dsSchedule" parameterType="String" resultType="Schedule">
+		SELECT * FROM schedule WHERE designer_id=#{designer_id}
+	</select>
+	
 </mapper>

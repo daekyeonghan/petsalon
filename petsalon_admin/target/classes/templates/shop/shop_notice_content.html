@@ -44,12 +44,39 @@ width:300px;
 margin-bottom:30px;
 }
 
+.card-body img{
+max-width:100%;
+}
+.card-body div{
+max-width:100%;
+white-space: pre-line;
+}
+
 </style>
 
+<script>
+$(document).ready(function(){
+	
 
-<span class="listtitle">공지사항</span>
+$('.noticepic').on('click',function(){
+	var src = $(this).attr("src");
+	$('#noticePhotoBody').attr("src",src);
+})
+
+$('#backbtn').on('click',function(){
+	history.back();
+})
+
+})
+</script>
+<span class="listtitle">공지사항</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-add" th:href="@{/noticeUpdatePage(sn_no=${sn.sn_no})}"><i data-feather="edit" class="some-add-icon"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-add" th:href="@{/noticeDelete(no=${sn.sn_no},filename=${sn.sn_photo})}"><i data-feather="x-square" class="some-add-icon"></i></a>
 <div class="mygap-sm"></div>
+ <a id="deletebtn" th:href="@{/noticeDelete(no=${sn.sn_no},filename=${sn.sn_photo})}">삭제</a>
 <div class="container text-center notice-content card">
+  <div class="row card-body">
+    <div class="col-2 card-title">NO.</div>
+    <div class="col-10 card-sub" th:text="${sn.sn_no}" ></div>
+  </div>
   <div class="row card-body">
     <div class="col-2 card-title">제목</div>
     <div class="col-10 card-sub" th:text="${sn.sn_title}" ></div>
@@ -63,16 +90,41 @@ margin-bottom:30px;
   	<div class="col-10 card-sub" th:text="${sn.sn_content}"></div>
   </div>
 <div class="row card-body" th:if="${sn.sn_photo == null}">
-	<div>첨부 사진 없음</div>
+	<div class="col-2 card-title">첨부 사진</div>
+  	<div class="notice-img col-10 card-sub">없음</div>
   </div>
 
 <div class="row card-body" th:unless="${sn.sn_photo == null}">
-  	<div class="col-2 card-title">첨부사진</div>
-  	<div class="notice-img col-10 card-sub"><img th:src="'/jyassets/img/'+${sn.sn_photo}" class="rounded mx-auto d-block"></div>
+  	<div class="col-2 card-title">첨부 사진
+  	( 사진 클릭시 확대 )</div>
+  	<div class="notice-img col-10 card-sub"><img th:src="'/jyassets/img/'+${sn.sn_photo}" data-bs-toggle="modal" data-bs-target="#noticePhotoModal" class="rounded mx-auto d-block noticepic"></div>
   </div>
+
+  </div>
+  
+  <div class="mygap-sm"></div>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button class="btn btn-primary col-2" id="backbtn" type="button">돌아가기</button>
 </div>
 
+  <div class="mygap-lg"></div>
 
+
+ <!-- Photo Modal -->
+<div class="modal fade" id="noticePhotoModal" tabindex="-1" aria-labelledby="noticePhotoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="noticePhoto"></h1>
+      </div>
+      <div class="modal-body">
+        <img id="noticePhotoBody" class="img-fluid">
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- end of main -->
 </div>

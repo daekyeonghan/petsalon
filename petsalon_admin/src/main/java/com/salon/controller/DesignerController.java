@@ -59,33 +59,33 @@ public class DesignerController {
 			}
 			dsservice.register(designer);
 			System.out.println("designer register ok");
-			model.addAttribute("path", dir+"designer_ok");
-			model.addAttribute("content", "main");
+		
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("fail");
-			model.addAttribute("path", "fragments");
-			model.addAttribute("content", "fail");
+			System.out.println("designer register fail");
+			
 		}
 		
 		return "redirect:/designer";
 	}
 	
 	@RequestMapping("/designerDelete")
-	public String deldesigner(Model model, String id) {
+	public String deldesigner(Model model, String id, String filename) {
 		
 		try {
 			dsservice.remove(id);
+			if(!filename.equals("haro.png")) {
+			ImgUtil.deleteFile(admindir, filename);
+			}
 			System.out.println("designer deleted");
-			model.addAttribute("path", dir+"designer_ok");
-			model.addAttribute("content", "main");
+			return "redirect:/designer";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("path", "fragments");
 			model.addAttribute("content", "fail");
+			return "main";
 		}
 	
-		return "main";
 	}
 	
 	@RequestMapping("/designerUpdatePage")
@@ -135,5 +135,14 @@ public class DesignerController {
 	
 		return "main";
 	}
+	
+	
+//	@RequestMapping("/designerError")
+//	public String designerError(Model model) {
+//		model.addAttribute("path", "fragments");
+//		model.addAttribute("content", "fail");
+//		
+//		return "main";
+//	}
 }
 

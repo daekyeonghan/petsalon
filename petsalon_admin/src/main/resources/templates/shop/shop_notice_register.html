@@ -124,6 +124,8 @@ function register(){
 };
 
 
+
+
 $(document).ready(function() {	
 	
 	const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
@@ -131,27 +133,34 @@ $(document).ready(function() {
 	const alert = (message, type) => {
 	  const wrapper = document.createElement('div')
 	  wrapper.innerHTML = [
-	    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+	    `<div class="alert alert-${type} alert-dismissible" role="alert" id="alertE">`,
 	    `   <div>${message}</div>`,
 	    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
 	    '</div>'
 	  ].join('')
 
 	  alertPlaceholder.append(wrapper)
+	  
 	}
 
 
+	function gototop(){
+
+		 window.scrollTo(0,0);
+		  if(!$('#alertE').length) {
+			  alert('제목과 내용을 모두 기입하세요.', 'danger');
+			  }
+		 
+	}
 	$('#new_notice_btn').on('click', () => {
 		 
 		  let c = confirm('등록하시겠습니까?');
 			if(c&&checkNoticeContent()){
 				register();
 			}else{
-		  window.scrollTo(0,0);
-		  if(!alert){
-	    alert('제목과 내용을 모두 기입하세요.', 'danger')
+		  gototop();
+	    
 		  }
-			}
 	  })
 	
 	
