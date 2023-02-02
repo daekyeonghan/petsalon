@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.salon.dto.Resv;
+import com.salon.dto.Review;
 import com.salon.service.ResvService;
+import com.salon.service.ReviewService;
 
 @Controller
 public class MainController {
@@ -18,13 +20,20 @@ public class MainController {
 	@Autowired
 	ResvService rservice;
 	
+	@Autowired
+	ReviewService rvservice;
+	
 	@RequestMapping("/")
 	public String main(Model model) {
 		
 		List<Resv> rlist;
+		List<Review> rvlist;
+		
 		try {
 			rlist = rservice.notFixed();
+			rvlist = rvservice.onedayReivew();
 			model.addAttribute("checkresv",rlist.size());
+			model.addAttribute("checkreview",rvlist.size());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

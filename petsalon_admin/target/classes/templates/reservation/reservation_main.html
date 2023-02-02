@@ -177,6 +177,24 @@
     margin: 3px 0 30px 0;
 }                    
 </style>
+<script>
+
+$(document).ready(function(){
+	
+	$('.resvFixed').hover(function(){
+			$(this).children().removeClass('btn-success');
+			$(this).children().removeClass('disabled');
+			$(this).children().addClass('btn-danger');
+			$(this).children().text('예약 취소');
+	},function(){
+		$(this).children().removeClass('btn-danger');
+		$(this).children().addClass('btn-success');
+		$(this).children().addClass('disabled');
+		$(this).children().text('확정된 예약');
+		
+	})
+})
+</script>
 
 <h1>Reservation</h1>
 <table class="table table-hover">
@@ -187,7 +205,8 @@
       <th scope="col">디자이너</th>
       <th scope="col">반려견</th>
       <th scope="col">메뉴</th>
-      <th scope="col">확정 여부</th>
+      <th scope="col">예약일</th>
+      <th scope="col">확정 / 취소</th>
     </tr>
   </thead>
   <tbody class="table-group-divider">
@@ -197,12 +216,23 @@
          <td th:text="${r.designer_name}"></td>
           <td th:text="${r.dog_name}"></td>
       <td th:text="${r.item_name}"></td>
-      <td th:text="${r.resv_fix}"></td>
+      <td th:text="${#dates.format(r.sc_date, 'MM/dd')}"></td>
+      <td th:switch="${r.resv_fix}">
+       <div class="btn-group" th:case="0">
+  			<a th:href="@{/resvFix(no=${r.resv_no},fix=1)}" class="btn btn-success"><i data-feather="check-circle"></i></a>
+ 			<a th:href="@{/resvFix(no=${r.resv_no},fix=2)}" class="btn btn-danger"><i data-feather="x-circle"></i></a>
+		</div>
+		 <div class="btn-group resvFixed" th:case="1">
+  			<a th:href="@{/}" class="btn btn-success disabled" role="button">확정된 예약</a>
+		</div>
+		 <div class="btn-group" th:case="2">
+		 <a class="btn btn-secondary disabled" role="button">취소한 예약</a>
+		</div>
+      </td>
     </tr>
   </tbody>
 </table>
 
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 <div class="container bootstrap snippets bootdey">
     <div class="col-md-8 col-sm-12 col-xs-12">
     	<div class="row">

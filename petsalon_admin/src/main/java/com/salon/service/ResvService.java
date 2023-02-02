@@ -44,9 +44,23 @@ public class ResvService implements MyService<Integer, Resv>{
 		return mapper.notFixed();
 	}
 	
-	public List<Resv> selectlist() throws Exception{
-		return mapper.selectlist();
+	public Resv selectList(Integer resv_no) throws Exception{
+		return mapper.selectList(resv_no);
 	}
 
+	public List<Resv> resvList() throws Exception{
+		return mapper.resvList();
+	}
 
+	public List<Resv> scheduleList() throws Exception{
+		return mapper.scheduleList();
+	}
+
+	public List<Resv> dsScheduleList(String designer_id) throws Exception{
+		return mapper.dsScheduleList(designer_id);
+	}
+	
+	public void resvFixUpdate(int resv_no, int resv_fix) throws Exception{
+		mapper.resvFixUpdate(resv_no, resv_fix);
+	}
 }

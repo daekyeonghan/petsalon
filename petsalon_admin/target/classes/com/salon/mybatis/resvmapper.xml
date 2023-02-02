@@ -24,12 +24,49 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM resv WHERE resv_fix=0;
 	</select>
 	
-	<select id="selectlist" resultType="Resv">
-	SELECT r.resv_no, u.username, d.dog_name, ds.designer_name, i.item_name, r.resv_fix FROM resv r
+	<select id="selectList" parameterType="Integer" resultType="Resv">
+	SELECT r.resv_no, u.username, d.dog_name, ds.designer_name, i.item_name, sc.sc_date, r.resv_fix FROM resv r
 	INNER JOIN user u ON u.useremail = r.useremail
-	INNER JOIN dog d on d.dog_id = r.dog_id
-	INNER JOIN designer ds on ds.designer_id = r.designer_id
-	INNER JOIN item i on i.item_id = r.item_id
+	INNER JOIN dog d ON d.dog_id = r.dog_id
+	INNER JOIN designer ds ON ds.designer_id = r.designer_id
+	INNER JOIN item i ON i.item_id = r.item_id
+    INNER JOIN schedule sc ON sc.resv_no = r.resv_no
+    WHERE r.resv_no = #{resv_no}
 	ORDER BY r.resv_no DESC;
 	</select>
+	
+	<select id="resvList" parameterType="Integer" resultType="Resv">
+	SELECT r.resv_no, u.username, d.dog_name, ds.designer_name, i.item_name, r.resv_fix FROM resv r
+	INNER JOIN user u ON u.useremail = r.useremail
+	INNER JOIN dog d ON d.dog_id = r.dog_id
+	INNER JOIN designer ds ON ds.designer_id = r.designer_id
+	INNER JOIN item i ON i.item_id = r.item_id
+	ORDER BY r.resv_no DESC;
+	</select>
+	
+	<select id="scheduleList" resultType="Resv">
+	SELECT r.resv_no, u.username, d.dog_name, ds.designer_name, i.item_name, sc.sc_date, r.resv_fix FROM resv r
+	INNER JOIN user u ON u.useremail = r.useremail
+	INNER JOIN dog d ON d.dog_id = r.dog_id
+	INNER JOIN designer ds ON ds.designer_id = r.designer_id
+	INNER JOIN item i ON i.item_id = r.item_id
+    INNER JOIN schedule sc ON sc.resv_no = r.resv_no
+	ORDER BY r.resv_no DESC;
+	</select>
+	
+	
+	<select id="dsScheduleList" parameterType="String" resultType="Resv">
+	SELECT r.resv_no, u.username, d.dog_name, ds.designer_name, i.item_name, sc.sc_date, r.resv_fix FROM resv r
+	INNER JOIN user u ON u.useremail = r.useremail
+	INNER JOIN dog d ON d.dog_id = r.dog_id
+	INNER JOIN designer ds ON ds.designer_id = r.designer_id
+	INNER JOIN item i ON i.item_id = r.item_id
+    INNER JOIN schedule sc ON sc.resv_no = r.resv_no
+    WHERE r.designer_id = #{designer_id};
+	</select>
+	
+	
+	<update id="resvFixUpdate" parameterType="Integer">
+	UPDATE resv SET resv_fix=#{resv_fix} WHERE resv_no=#{resv_no}
+	</update>
 </mapper>

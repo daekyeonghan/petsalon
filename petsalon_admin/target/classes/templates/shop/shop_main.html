@@ -163,7 +163,7 @@ $(document).ready(function() {
 });
 
 </script>
-<div><span class="listtitle">공지사항</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i data-feather="plus-circle" data-bs-toggle="modal" data-bs-target="#addNoticeModal" class="some-add-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-add" th:href="@{/noticeAdd}"><i data-feather="alert-circle" class="some-add-icon"></i></a></div>
+<div><span class="listtitle">공지사항</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-add" th:href="@{/noticeAdd}" style="color:black"><i data-feather="plus-circle" class="some-add-icon"></i></a></div>
 
                      <div class="row d-flex justify-content-center mt-50 mb-100">
                         
@@ -191,44 +191,6 @@ $(document).ready(function() {
 
                     </div>
                     
-                    
-<!-- modal -->
-<div class="modal fade" id="addNoticeModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">새로운 공지사항 등록</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="notice_register">
-		  <div class="mb-3">
-             <label for="adminId" class="form-label">작성자 :</label>
-   			 <input type="text" class="form-control" id="admin_id" aria-describedby="adminIdInput" name="admin_id" value="admin01" disabled readonly>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">제목 :</label>
-            <input type="text" class="form-control" id="sn_title" name="sn_title">
-            <div id="titleFeedback" class="invalid-feedback"></div>
-          </div>
-            <div class="mb-3">
-            <label for="message-text" class="col-form-label">내용 :</label>
-   		    <textarea class="form-control" id="sn_content" name="sn_content"></textarea>
-            <div id="contentFeedback" class="invalid-feedback"></div>
-          </div>
-           <div class="mb-3">
-  				<label for="formFile" class="form-label">첨부 사진 :</label>
-  				<input class="form-control" type="file" id="formFile" name="sn_img">
-		   </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="button" id="new_notice_btn" class="btn btn-primary">등록</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end of Modal -->
+
 
 </div>

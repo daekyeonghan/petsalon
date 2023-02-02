@@ -125,7 +125,7 @@ public class ItemController {
 			}
 			iservice.register(item);
 			System.out.println("item register ok");
-			return "redirect:/item";
+			return "redirect:/item?page=1";
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("fail");
@@ -192,7 +192,7 @@ public class ItemController {
 
 			System.out.println("item updated");
 			
-			return "redirect:/item";
+			return "redirect:/item?page=1";
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -55,6 +55,13 @@ white-space: pre-line;
 </style>
 
 <script>
+function delcheck(){
+		let c = confirm('공지사항을 삭제하시겠습니까?');
+		if (!c){
+			alert('글 삭제가 취소되었습니다.');
+			event.preventDefault();
+		}
+}
 $(document).ready(function(){
 	
 
@@ -67,11 +74,11 @@ $('#backbtn').on('click',function(){
 	history.back();
 })
 
+
 })
 </script>
-<span class="listtitle">공지사항</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-add" th:href="@{/noticeUpdatePage(sn_no=${sn.sn_no})}"><i data-feather="edit" class="some-add-icon"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-add" th:href="@{/noticeDelete(no=${sn.sn_no},filename=${sn.sn_photo})}"><i data-feather="x-square" class="some-add-icon"></i></a>
+<span class="listtitle">공지사항</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-update" th:href="@{/noticeUpdatePage(sn_no=${sn.sn_no})}"><i data-feather="edit" class="some-add-icon"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-del" th:href="@{/noticeDelete(no=${sn.sn_no},filename=${sn.sn_photo})}" onclick="delcheck()"><i data-feather="x-square" class="some-add-icon"></i></a>
 <div class="mygap-sm"></div>
- <a id="deletebtn" th:href="@{/noticeDelete(no=${sn.sn_no},filename=${sn.sn_photo})}">삭제</a>
 <div class="container text-center notice-content card">
   <div class="row card-body">
     <div class="col-2 card-title">NO.</div>

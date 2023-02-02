@@ -19,11 +19,29 @@ public class Schedule {
 	private int resv_no;
 	private Date sc_date;
 	
+	private String designer_name;
+	
 	public Schedule(int sc_id, String designer_id, int resv_no) {
 		this.sc_id = sc_id;
 		this.designer_id = designer_id;
 		this.resv_no = resv_no;
 		
 	}
+
+	/**
+	 * @param sc_id
+	 * @param designer_id
+	 * @param resv_no
+	 * @param sc_date
+	 */
+	public Schedule(int sc_id, String designer_id, int resv_no, Date sc_date) {
+		this.sc_id = sc_id;
+		this.designer_id = designer_id;
+		this.resv_no = resv_no;
+		this.sc_date = sc_date;
+	}
+	
+	
+
 }
 

@@ -1,0 +1,36 @@
+<div th:fragment="main">
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+
+			var request = $.ajax({
+				url : '/weekSchedule',
+				type : 'get',
+				dataType : 'json'
+			})
+
+			request.done(function( data ) {
+
+			var calendarEl = document.getElementById('calendar');
+
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				
+				editable : true,
+				selectable : true,
+				businessHours : true,
+				dayMaxEvents : true, // allow "more" link when too many events
+				events: data,
+				eventClick: function(event) {
+					//alert('Event: ' + JSON.stringify(data[4].title));
+				}
+
+			});
+
+			calendar.render();
+		});
+});
+	</script>
+
+
+	<div id='calendar'></div>
+
+</div>

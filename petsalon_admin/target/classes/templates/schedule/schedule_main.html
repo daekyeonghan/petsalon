@@ -1,6 +1,11 @@
 <div th:fragment="main">
 
 <style>
+ #calendar {
+   max-height: 500px; 
+   padding : 5px;
+    margin: 0 auto;
+  }
 .card {
     position: relative;
     display: -webkit-box;
@@ -18,29 +23,203 @@
     border-radius: 10px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
 }
+
+.card-cal{
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
 .card .card-title {
     position: relative;
     font-weight: 600;
-    margin-bottom: 10px;
-    text-align:right;
-    border-right:1px solid #c4c4c4;
+    text-align:center;
 }
+
+.card-body{
+max-width:100%;
+}
+
+
+  #source-calendar,
+  #destination-calendar {
+    max-width: 100%;
+    margin: 0px auto;
+  }
+
+#calendar-box{
+/* 	float:left; */
+}
+/* .card .card-sub{
+border-left:1px solid #c4c4c4;
+} */
+
 </style>
+
+<script>
+
+ /*  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var request = $.ajax({
+		url : '/weekSchedule',
+		type : 'get',
+		dataType : 'json'
+	});
+    
+	request.done(function( data ) {
+		
+		
+	    var calendar = new FullCalendar.Calendar(calendarEl, {
+	
+	      headerToolbar: {
+	        left: 'prev,next today',
+	        center: 'title',
+	        right: 'listDay,listWeek'
+	      },
+	
+	      // customize the button names,
+	      // otherwise they'd all just say "list"
+	      views: {
+	        listDay: { buttonText: 'Day' },
+	        listWeek: { buttonText: 'Week' }
+	      },
+	
+	      initialView: 'dayGridWeek',
+	      //initialDate: '2023-01-12',
+	      navLinks: true, // can click day/week names to navigate views
+	      editable: true,
+	      dayMaxEvents: true, // allow "more" link when too many events
+	      events: data
+		});
+
+		calendar.render();
+	});
+
+});
+ */
+  document.addEventListener('DOMContentLoaded', function() {
+	  
+	  var inputid = document.querySelector('input[name="dsid"]');
+	  var value = inputid.value;
+	  
+	  var request = $.ajax({
+			url : '/dsSchedule',
+			type : 'get',
+			 data: { 'dsid' : value },
+			dataType : 'json'
+		});
+	
+	  var date = new Date();
+	  var d = date.getDate().toString().padStart(2, '0');
+	  var m = (date.getMonth() + 1).toString().padStart(2, '0');
+	  var y = date.getFullYear();
+	  
+	  var today = y+'-'+m+'-'+d;
+	 
+	  var dateNext = new Date();
+	  dateNext.setMonth(dateNext.getMonth() + 1);
+	  var nm = (dateNext.getMonth() + 1).toString().padStart(2, '0');
+	 
+	  var nextmonth = y+'-'+nm+'-'+d;
+	  
+    var srcCalendarEl = document.getElementById('source-calendar');
+    var destCalendarEl = document.getElementById('destination-calendar');
+    
+    var koreanWeek = function (date) {
+  	  let weekList = ["일", "월", "화", "수", "목", "금", "토"];
+	  return weekList[date.dow];
+	}
+    
+	
+    var resvInfo = function(info) {
+  	  var eventTitle = info.event.title;
+  	 var textEl = $('#resv_no');
+  	 
+  	 function disp(resv){
+  		 $('#resv_no').text(resv.resv_no);
+  		$('#resv_name').text('예약자 : '+resv.username);
+ 		$('#resv_dog').text('강아지 : '+resv.dog_name);
+ 		$('#resv_item').text('메뉴 : '+resv.item_name);
+ 		$('#resv_item').text('요청사항 : '+resv.resv_ask);
+  	 }
+	    $.ajax({
+		 	url : '/resvDetail',
+		 	type : 'get',
+		 	data : {'resv_no':eventTitle},
+		 	success: function(resv){
+		 		 if (textEl.text()== resv.resv_no) {
+		 			$('#resvUserInfo').children().empty();
+		 		    }else{
+		 		disp(resv);
+		 		    }
+		 	}
+	  });
+	    
+	   
+	   
+	   
+  }
+ 
+    
+    var testname = "[[${schcnt}]]";
+    
+    request.done(function( data ) {
+    	
+    var srcCalendar = new FullCalendar.Calendar(srcCalendarEl, {
+      editable: true,
+      initialDate: today,
+      events: data,
+      dayHeaderContent: koreanWeek,
+      eventClick: resvInfo
+    });
+
+    var destCalendar = new FullCalendar.Calendar(destCalendarEl, {
+      initialDate: nextmonth,
+      editable: true,
+      droppable: true, // will let it receive events!
+      events: data,
+      dayHeaderContent: koreanWeek,
+      eventClick: resvInfo
+      
+    });
+
+    srcCalendar.render();
+    destCalendar.render();
+  });
+    
+  });
+
+</script>
 <div class="card mb-3">
   <div class="row g-0">
-    <div class="col-md-4 card-img">
+    <div class="col-md-3 card-img">
      <img th:src="'/jyassets/img/'+${ds.designer_photo}" class="card-img-top" alt="...">
+     <input name="dsid" type="text" th:value="${ds.designer_id}" style="display:none;">
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
       <div class="card-body">
         <h4 class="card-title" th:text="${ds.designer_name}"></h4>
         <div class="row card-body">
     <div class="col-2 card-title">경력</div>
-    <div class="col-10 card-sub" th:text="${ds.designer_career}" ></div>
+    <div class="col card-sub" th:text="${ds.designer_career}+' 년'" ></div>
   </div>
   <div class="row card-body">
     <div class="col-2 card-title">소개</div>
-    <div class="col-10 card-sub" th:text="${ds.designer_introduce}" ></div>
+    <div class="col card-sub" th:text="${ds.designer_introduce}" ></div>
+  </div>
+    <div class="row card-body">
+    <div class="col-2 card-title">예약 확정</div>
+    <div class="col card-sub" th:text="${schcnt}+' 건'" >
+    </div>
   </div>
         
       </div>
@@ -49,24 +228,41 @@
 </div>
 <!-- designer info end -->
 
-<div class="card">
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">날짜</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    <tr th:each="sch:${schlist}">
-      <th scope="row" th:text="${sch.resv_no}"></th>
-      <td th:text="${sch.sc_date}"></td>
-    </tr>
-  </tbody>
-</table>
 
+<!--  <div id="calendar" class="card"></div> 
+<div class="mygap-md"></div>-->
+<div class="card  w-auto mb-3">
+  <div class="card-body">
+    <div class="card-title"><div class="date-today">상세 예약 정보</div></div>
+    <hr>
+   
+    <div id="resvUserInfo" style="font-size:1.5em; text-align:center;" class="card-body">
+    	<div id="resv_no" style="display:none;"></div>
+    	<div id="resv_name"></div>
+    	<div id="resv_dog"></div>
+    	<div id="resv_item"></div>
+    </div>
+  </div>
 </div>
 
+<div class="row">
 
+  <div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="card">
+    <div class="card-body">
+  <div id='source-calendar'></div>
+    </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+    <div class="card-body">
+     <div id='destination-calendar'></div>
+     </div>
+    </div>
+  </div>
+</div>
 
+<div class="mygap-md"></div>
+<div id="testdiv"></div>
 </div>

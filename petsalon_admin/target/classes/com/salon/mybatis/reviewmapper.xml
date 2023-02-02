@@ -14,9 +14,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		INNER JOIN dog d ON re.dog_id =d.dog_id
 		INNER JOIN user u ON re.useremail =u.useremail
 		INNER JOIN designer ds ON re.designer_id =ds.designer_id
-		
-		
-		  
 	</select>
 	
 	<insert id="insert" parameterType="Review">
@@ -30,5 +27,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM review WHERE review_no=#{review_no}
 	</delete>
+	
+	<select id="onedayReivew" resultType="Review">
+		SELECT * from review WHERE review_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY ) AND NOW();
+	</select>
 	
 </mapper>

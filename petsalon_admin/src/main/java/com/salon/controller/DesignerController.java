@@ -53,6 +53,7 @@ public class DesignerController {
 			if(designer.getDesigner_img()!=null&&blankName.length()!=0){
 				String newName = ImgUtil.saveFile(designer.getDesigner_img(), admindir);
 				designer.setDesigner_photo(newName);
+				
 			}
 			else {
 				designer.setDesigner_photo("haro.png");
@@ -118,7 +119,9 @@ public class DesignerController {
 				String newName = ImgUtil.saveFile(designer.getDesigner_img(), admindir);
 				designer.setDesigner_photo(newName);
 				dsservice.modify(designer);
-				ImgUtil.deleteFile(admindir, originname);
+					if(!originname.equals("haro.png")) {
+					ImgUtil.deleteFile(admindir, originname);
+					}
 				}
 				else {
 					dsservice.nopicUpdate(designer);
@@ -136,6 +139,7 @@ public class DesignerController {
 		return "main";
 	}
 	
+
 	
 //	@RequestMapping("/designerError")
 //	public String designerError(Model model) {

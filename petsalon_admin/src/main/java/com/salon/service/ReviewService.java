@@ -40,5 +40,9 @@ public class ReviewService implements MyService<Integer, Review>{
 	public List<Review> get() throws Exception {
 		return mapper.selectall();
 	}
+	
+	public List<Review> onedayReivew() throws Exception{
+		return mapper.onedayReivew();
+	}
 
 }

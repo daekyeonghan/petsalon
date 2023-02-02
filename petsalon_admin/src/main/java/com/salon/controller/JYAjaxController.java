@@ -1,13 +1,22 @@
 package com.salon.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.salon.dto.Designer;
+import com.salon.dto.Resv;
+import com.salon.dto.Schedule;
 import com.salon.service.DesignerService;
 import com.salon.service.ItemService;
+import com.salon.service.ResvService;
+import com.salon.service.ScheduleService;
 
 @RestController
 public class JYAjaxController {
@@ -17,6 +26,12 @@ public class JYAjaxController {
 	
 	@Autowired
 	ItemService iservice;
+	
+	@Autowired
+	ScheduleService schservice;
+	
+	@Autowired
+	ResvService resvservice;
 
 	@RequestMapping("/designerRegi")
 	public String register(Model model, Designer designer) {
@@ -76,6 +91,74 @@ public class JYAjaxController {
 
 	        return totalPages;
 	    }
+	 
+	 
+	 @RequestMapping("/weekSchedule")
+	 public Object weekSchedule() {
+			List<Resv> resvlist = null;
+			
+			JSONArray scharr = new JSONArray();
+			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
+			
+			try {
+				resvlist = resvservice.scheduleList();
+
+				for(Resv resv : resvlist) {
+					JSONObject obj = new JSONObject();
+					obj.put("title", resv.getDesigner_name()+"\n[ 예약자 : "+resv.getUsername()+" ]\n[ 강아지 : "+resv.getDog_name()+" ]");
+					obj.put("start", newDtFormat.format(resv.getSc_date()));
+					scharr.add(obj);
+				}
+		//		System.out.println(scharr);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("fail to load schedule");
+			}
+		
+		 return scharr;
+	 }
+	 
+	 @RequestMapping("/dsSchedule")
+	 public Object dsSchedule(String dsid) {
+			List<Resv> resvlist = null;
+			
+			JSONArray dsscharr = new JSONArray();
+			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
+			
+			try {
+				resvlist = resvservice.dsScheduleList(dsid);
+
+				for(Resv resv : resvlist) {
+					JSONObject obj = new JSONObject();
+//					obj.put("title",resv.getUsername()+"("+resv.getDog_name()+")");
+					obj.put("title",resv.getResv_no());
+					obj.put("start", newDtFormat.format(resv.getSc_date()));
+					dsscharr.add(obj);
+				}
+//				System.out.println(dsscharr);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("fail to load schedule");
+			}
+		
+		 return dsscharr;
+	 }
+	 
+	 @RequestMapping("/resvDetail")
+	 public Object resvDetail(Integer resv_no) {
+		 Resv resv = null;
+		 
+		 try {
+			resv = resvservice.selectList(resv_no);
+		//	System.out.println(resv_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+		}
+		 
+		 return resv;
+	 }
+	 
 	
 //	 @RequestMapping("/itemPageTest")
 //	    public Object getItemsByPage(int page, Model model) {

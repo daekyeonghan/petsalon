@@ -1,20 +1,96 @@
 <div th:fragment="main">
 <h1>HOME</h1>
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var request = $.ajax({
+		url : '/weekSchedule',
+		type : 'get',
+		dataType : 'json'
+	});
+
+	request.done(function( data ) {
+        
+	    var calendar = new FullCalendar.Calendar(calendarEl, {
+    	
+      		editable: false,
+      		dayMaxEvents: true, // allow "more" link when too many events
+ 
+    		events: data
+			});
+
+			calendar.render();
+		});
+	
+});
+</script>
+<style>
+  .fc-event-title.fc-sticky{
+   font-size:1em; 
+  }
+  .fc-event-title {
+ white-space:  break-spaces !important;
+}
+
+</style>
 <div class="mygap-sm"></div>
+
+<div class="row">
+
+  <div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="card w-auto mb-3">
+ <div class="card-body">
+    <div style="text-align:right;"><a th:href="@{/reservation}" class="minilink">예약 내역 <i data-feather="arrow-right-circle"></i></a></div>
+    <div class="card-title">
+    	<h4>확인이 필요한 예약</h4>
+    </div>
+    <hr>
+    <span th:text="${checkresv}" style="font-size:1.5em;"></span><span class="card-text"> 건</span>
+  </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+      <div class="card w-auto mb-3">
+ <div class="card-body">
+    <div style="text-align:right;"><a th:href="@{/review}" class="minilink">리뷰 목록 가기 <i data-feather="arrow-right-circle"></i></a></div>
+    <div class="card-title">
+    	<h4>최근 1일간 올라온 후기</h4>
+    </div>
+    <hr>
+    <span th:text="${checkreview}" style="font-size:1.5em;"></span><span class="card-text"> 건</span>
+  </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 
 <div class="card  w-auto mb-3">
   <div class="card-body">
     <div style="text-align:right;"><a th:href="@{/reservation}" class="minilink">예약 내역 <i data-feather="arrow-right-circle"></i></a></div>
-    <div class="card-title"><h2>확인이 필요한 예약</h2><div class="date-today"></div></div>
+    <div class="card-title">
+    <div th:text="${#calendars.format(#calendars.createNow(), 'yyyy - MM - dd')}" class="date-today"></div>
+    	<h2>확인이 필요한 예약</h2>
+    </div>
     <hr>
     <span th:text="${checkresv}" style="font-size:1.5em;"></span><span class="card-text"> 건</span>
   </div>
 </div>
+
+ -->
+
+
+
+
 <div class="card  w-auto mb-3">
-  <div class="card-body">
+  <div class="card-body calendar">
     <div style="text-align:right;"><a href="#" class="minilink">스케줄 확인하기 <i data-feather="arrow-right-circle"></i></a></div>
-    <div class="card-title"><h2>이번주 스케줄</h2><div class="date-today"></div></div>
+    <div class="card-title"><h2>월 스케줄</h2><div class="date-today"></div></div>
     <hr>
     <span></span><span class="card-text"></span>
+    <div id="calendar"></div>
   </div>
 </div>
 </div>

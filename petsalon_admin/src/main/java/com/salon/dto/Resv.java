@@ -1,5 +1,7 @@
 package com.salon.dto;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,7 @@ public class Resv {
 	private String designer_name;
 	private String item_name;
 	
+	private Date sc_date;
 	
 	public Resv(int resv_no, String resv_ask, int resv_fix) {
 		super();
