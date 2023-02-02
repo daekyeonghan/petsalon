@@ -11778,6 +11778,22 @@ li{
 .person:hover{
 	cursor:pointer;
 }
+.accordion-body{
+	height:500px;
+}
+.accordion-body>.dog_info,.accordion-body>.designer_info{
+	height:450px;
+	overflow:auto;
+	margin:0 auto;
+}
+.accordion-body>.dog_info>.card{
+	float:left;
+	margin-top:15px;
+	margin-right:30px;
+}
+.accordion-body>.dog_info>.card:nth-child(2n+1){
+	margin-left:300px;
+}
 header.masthead {
   padding-top: 10.5rem;
   padding-bottom: 6rem;

@@ -10,7 +10,7 @@ import com.salon.frame.MyService;
 import com.salon.mapper.DesignerMapper;
 
 @Service
-public class DesignerService<V> implements MyService<String, Designer>  {
+public class DesignerService implements MyService<String, Designer>  {
 
 		@Autowired
 		DesignerMapper mapper;

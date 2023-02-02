@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.salon.service.DesignerService;
 import com.salon.service.DogService;
 import com.salon.service.ItemService;
+import com.salon.service.ScheduleService;
 
 @Controller
 public class ResvController {
@@ -19,14 +20,17 @@ public class ResvController {
 	DesignerService deservice;
 	@Autowired
 	ItemService iservice;
+	@Autowired
+	ScheduleService scservice;
 	
 	@RequestMapping("/resv")
 	public String resv(Model model, HttpSession session) {
 		String useremail = (String)session.getAttribute("logemail");
 		try {
 			model.addAttribute("dog", dogservice.ownerdog(useremail));
-			model.addAttribute("design",deservice.get());
+			model.addAttribute("designer",deservice.get());
 			model.addAttribute("item", iservice.get());
+			model.addAttribute("schedule", scservice.get());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -2,7 +2,12 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
-
+$(document).ready(function(){
+	$('#dogselectbtn').click(function(){
+		$('#dogaccordion').click();
+		$('#dateaccordion').click();
+	});
+});
 </script>
     <head>
         <meta charset="utf-8" />
@@ -18,20 +23,8 @@
  		<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        
-        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
-	    <script>
-	      document.addEventListener('DOMContentLoaded', function() {
-	        var calendarEl = document.getElementById('calendar');
-	        var calendar = new FullCalendar.Calendar(calendarEl, {
-	          initialView: 'dayGridMonth'
-	        });
-	        calendar.render();
-	      });
-	
-	    </script>
     </head>
-    <body id="page-top">
+    <body id="page-top" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top" id="mainNav">
             <div class="container">
@@ -67,12 +60,106 @@
                 </div>
             </div>
         </nav>
-        <!-- Resv -->
-        <section class="page-section" id="login" style="margin-top:100px;">
-        	<form name="resvform" id="resvform" method="post">
-        		<div id='calendar' style="width:600px;"></div>
-            </form>
-        </section>
+        <!-- Header-->
+        <header class="bg-dark py-5" style="margin-top:130px;">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">이룻집 하로 예약</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">아래에서 예약을 진행하세요</p>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+	        <section class="py-5">
+	        	<div class="accordion" id="accordionExample" style="width:80%;margin:0 auto;">
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="headingOne">
+				      <button id="#dogaccordion" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				        강아지 선택
+				      </button>
+				    </h2>
+				    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+				      <div class="accordion-body">
+					      <div class="dog_info">
+					         <div class="card" style="width:18rem;" th:each="dog:${dog}">
+					         	<input type="hidden" id="dog_id" name="dog_id" th:value="${dog.dog_id}">
+					         	<img th:if="${dog.dog_photo==''} or ${dog.dog_photo==null}" src="assets/img/logo.svg" class="card-img-top" alt="...">
+							  	<img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="@{${dog.dog_photo}}" class="card-img-top" alt="...">
+							    <div class="card-body" style="text-align:center;">
+							    	<h5 class="card-title" th:text="${dog.dog_name}"></h5>
+							    	<p th:text="${dog.dog_breed}+' | '+${dog.dog_age}+'세 | '+${dog.dog_weight}+'kg'"></p>
+							    	<button class="btn btn-primary" id="dogselectbtn">선택</button>
+							  	</div>
+							 </div>
+						  </div>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="headingTwo">
+				      <button id="dateaccordion" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+				        예약 날짜
+				      </button>
+				    </h2>
+				    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+				      <div class="accordion-body">
+				        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+				      </div>
+				    </div>
+				  </div>
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="headingThree">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+				        디자이너 선택
+				      </button>
+				    </h2>
+				    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				      <div class="accordion-body">
+				        <div class="designer_info">
+				        	<div class="row row-cols-1 row-cols-md-3 g-4">
+							  <div class="col" th:each="designer:${designer}">
+							    <div class="card h-100">
+							      <img th:if="${designer.designer_photo=='haro.png'}" src="assets/img/logo.svg" class="card-img-top" alt="...">
+							      <img th:unless="${designer.designer_photo=='haro.png'}" th:src="'assets/img/'+@{${designer.designer_photo}}" class="card-img-top" alt="...">
+							      <div class="card-body" style="text-align:center;">
+							        <h5 class="card-title" th:text="${designer.designer_name}"></h5>
+							        <button class="btn btn-primary">선택</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+						</div>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="headingFour">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+				        컷 종류
+				      </button>
+				    </h2>
+				    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+				      <div class="accordion-body">
+				        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+				      </div>
+				    </div>
+				  </div>
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="headingFive">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+				        예약 요청사항
+				      </button>
+				    </h2>
+				    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+				      <div class="accordion-body">
+				        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<button>예약하기</button>
+	        </section>
+		
         <!-- Footer-->
         <footer class="footer py-4">
             <div class="container">
