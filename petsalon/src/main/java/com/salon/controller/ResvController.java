@@ -28,7 +28,7 @@ public class ResvController {
 		String useremail = (String)session.getAttribute("logemail");
 		try {
 			model.addAttribute("dog", dogservice.ownerdog(useremail));
-			model.addAttribute("designer",deservice.get());
+			model.addAttribute("designer",deservice.designerItem());
 			model.addAttribute("item", iservice.get());
 			model.addAttribute("schedule", scservice.get());
 		} catch (Exception e) {

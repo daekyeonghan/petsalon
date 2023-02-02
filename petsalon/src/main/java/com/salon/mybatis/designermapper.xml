@@ -9,6 +9,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="Designer">
 		SELECT * FROM designer
 	</select>
+	<select id="designerItem" resultType="Designer">
+		SELECT d.designer_id, d.designer_photo, d.designer_name, d.designer_introduce, d.designer_career, i.item_name
+		FROM designer d
+		INNER JOIN item i ON d.designer_id = i.designer_id
+		WHERE i.item_id IN (SELECT MAX(item_id) FROM item GROUP BY designer_id)
+		GROUP BY i.item_id, d.designer_name, d.designer_id, d.designer_photo, d.designer_introduce, d.designer_career, i.item_name;
+	</select>
 	<insert id="insert" parameterType="Designer">
 		INSERT INTO designer VALUES (#{designer_id},#{admin_id},#{designer_name},#{designer_career},#{designer_introduce},#{designer_photo},now())
 	</insert>

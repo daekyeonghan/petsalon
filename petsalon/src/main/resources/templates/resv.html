@@ -2,12 +2,15 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-	$('#dogselectbtn').click(function(){
-		$('#dogaccordion').click();
-		$('#dateaccordion').click();
-	});
-});
+function dogSelect(data){
+	document.getElementById('dog_id').value = data;
+}
+function designerSelect(data){
+	document.getElementById('designer_id').value = data;
+}
+function itemSelect(data){
+	document.getElementById('item_id').value = data;
+}
 </script>
     <head>
         <meta charset="utf-8" />
@@ -24,7 +27,7 @@ $(document).ready(function(){
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
-    <body id="page-top" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
+    <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top" id="mainNav">
             <div class="container">
@@ -61,7 +64,7 @@ $(document).ready(function(){
             </div>
         </nav>
         <!-- Header-->
-        <header class="bg-dark py-5" style="margin-top:130px;">
+        <header class="bg-dark py-5" style="margin-top:120px;font-family:'Spoqa Han Sans Neo', 'sans-serif';">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">이룻집 하로 예약</h1>
@@ -70,95 +73,138 @@ $(document).ready(function(){
             </div>
         </header>
         <!-- Section-->
-	        <section class="py-5">
-	        	<div class="accordion" id="accordionExample" style="width:80%;margin:0 auto;">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="headingOne">
-				      <button id="#dogaccordion" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-				        강아지 선택
-				      </button>
-				    </h2>
-				    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-					      <div class="dog_info">
-					         <div class="card" style="width:18rem;" th:each="dog:${dog}">
-					         	<input type="hidden" id="dog_id" name="dog_id" th:value="${dog.dog_id}">
-					         	<img th:if="${dog.dog_photo==''} or ${dog.dog_photo==null}" src="assets/img/logo.svg" class="card-img-top" alt="...">
-							  	<img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="@{${dog.dog_photo}}" class="card-img-top" alt="...">
-							    <div class="card-body" style="text-align:center;">
-							    	<h5 class="card-title" th:text="${dog.dog_name}"></h5>
-							    	<p th:text="${dog.dog_breed}+' | '+${dog.dog_age}+'세 | '+${dog.dog_weight}+'kg'"></p>
-							    	<button class="btn btn-primary" id="dogselectbtn">선택</button>
-							  	</div>
-							 </div>
+        <section class="py-5" style="margin-top:50px;font-family:'Spoqa Han Sans Neo', 'sans-serif';">
+        	<div class="accordion" id="accordionExample" style="width:70%;margin:0 auto;">
+			  <div class="accordion-item">
+			    <h2 class="accordion-header" id="headingOne">
+			      <button id="#dogaccordion" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			        강아지 선택
+			      </button>
+			    </h2>
+			    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+			      <div class="accordion-body">
+				      <div class="row row-cols-1 row-cols-md-3 g-4">
+						  <div class="col" th:each="dog:${dog}" style="margin-top:45px;">
+						    <div class="card h-100">
+						      <img th:if="${dog.dog_photo==''} or ${dog.dog_photo==null}" src="assets/img/logo.svg" class="card-img-top" alt="...">
+						      <img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="@{${dog.dog_photo}}" class="card-img-top" alt="...">
+						      <div class="card-body bg-light" style="text-align:center;border-top:1px solid #ddd;">
+						        <h5 class="card-title" th:text="${dog.dog_name}"></h5>
+						        <button type="button" class="btn btn-outline-dark" id="dogselectbtn" th:value="${dog.dog_id}" th:onclick="dogSelect([[${dog.dog_id}]]);">선택</button>
+						      </div>
+						    </div>
 						  </div>
-				      </div>
-				    </div>
-				  </div>
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="headingTwo">
-				      <button id="dateaccordion" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-				        예약 날짜
-				      </button>
-				    </h2>
-				    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-				      </div>
-				    </div>
-				  </div>
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="headingThree">
-				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-				        디자이너 선택
-				      </button>
-				    </h2>
-				    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        <div class="designer_info">
-				        	<div class="row row-cols-1 row-cols-md-3 g-4">
-							  <div class="col" th:each="designer:${designer}">
-							    <div class="card h-100">
-							      <img th:if="${designer.designer_photo=='haro.png'}" src="assets/img/logo.svg" class="card-img-top" alt="...">
-							      <img th:unless="${designer.designer_photo=='haro.png'}" th:src="'assets/img/'+@{${designer.designer_photo}}" class="card-img-top" alt="...">
-							      <div class="card-body" style="text-align:center;">
-							        <h5 class="card-title" th:text="${designer.designer_name}"></h5>
-							        <button class="btn btn-primary">선택</button>
-							      </div>
-							    </div>
-							  </div>
-							</div>
+					  </div>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="accordion-item">
+			    <h2 class="accordion-header" id="headingTwo">
+			      <button id="dateaccordion" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+			        예약 날짜
+			      </button>
+			    </h2>
+			    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+			      <div class="accordion-body">
+			        
+			      </div>
+			    </div>
+			  </div>
+			  <div class="accordion-item">
+			    <h2 class="accordion-header" id="headingThree">
+			      <button id="designeraccordion" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+			        디자이너 선택
+			      </button>
+			    </h2>
+			    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+			      <div class="accordion-body" style="height:550px;">
+			        <div class="designer_info" style="margin-top:20px;">
+			        	<div class="card-group" style="width:1800px;">
+						  <div class="card" th:each="designer:${designer}">
+						    <img th:if="${designer.designer_photo==''} or ${designer.designer_photo==null}" src="assets/img/logo.svg" class="card-img-top" alt="...">
+						    <img th:unless="${designer.designer_photo==''} or ${designer.designer_photo==null}" th:src="'assets/img/'+@{${designer.designer_photo}}" style="height:260px;" class="card-img-top" alt="...">
+						    <div class="card-body" style="text-align:center;">
+						      <h5 class="card-title" th:text="${designer.designer_name}"></h5>
+						      <p class="card-text"><small class="text-muted" th:text="${designer.designer_career}+'년 경력'"></small></p>
+						      <i class="card-text" th:text="'[ '+${designer.item_name}+' 전문 ]'"></i><br><br>
+						      <button type="button" class="btn btn-outline-dark" id="designerselectbtn" th:value="${designer.designer_id}" th:onclick="designerSelect([[${designer.designer_id}]]);">선택</button>
+						    </div>
+						  </div>
 						</div>
+			      	</div>
+			      </div>
+			  	</div>
+			  </div>
+			  <div class="accordion-item">
+				<h2 class="accordion-header" id="headingFour">
+			      <button id="itemaccordion" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+			        컷 종류
+			      </button>
+			    </h2>
+				<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+				    <div class="accordion-body">
+					  <div class="row row-cols-1 row-cols-md-3 g-4">
+					  	<div class="col" th:each="item:${item}">
+						  <div class="card h-100">
+						    <img th:src="'assets/img/'+@{${item.item_photo}}" style="height:300px;" class="card-img-top" alt="...">
+						    <div class="card-body bg-light" style="text-align:center;">
+						      <h5 class="card-title" th:text="${item.item_name}"></h5>
+						      <p class="card-text" th:text="${item.item_price}+'원'"></p>
+						      <button type="button" class="btn btn-outline-dark" id="itemselectbtn" th:value="${item.item_id}" th:onclick="itemSelect([[${item.item_id}]]);">선택</button>
+						    </div>
+						  </div>
+						</div> 
 				      </div>
-				    </div>
-				  </div>
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="headingFour">
-				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-				        컷 종류
-				      </button>
-				    </h2>
-				    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-				      </div>
-				    </div>
-				  </div>
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="headingFive">
-				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-				        예약 요청사항
-				      </button>
-				    </h2>
-				    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-				      </div>
-				    </div>
-				  </div>
+					</div>
+			    </div>
+			  </div>
+			  <div class="accordion-item">
+			    <h2 class="accordion-header" id="headingFive">
+			      <button id="askaccordion" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+			        요청사항
+			      </button>
+			    </h2>
+			    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+			      <div class="accordion-body" style="height:150px;text-align:center;">
+			      	<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top:45px;">요청사항이 있으신가요?</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<div style="width:109px;margin:70px auto;">
+				<button type="submit" class="btn btn-info btn-lg btn-info" id="resvbtn" disabled>예약하기</button>
+        	</div>
+        </section>
+        
+        <form id="resvForm" method="post" style="display:none;">
+        	<input type="hidden" id="dog_id" name="dog_id" value=""/>
+        	<input type="hidden" id="sc_date" name="sc_date" value=""/>
+        	<input type="hidden" id="designer_id" name="designer_id" value=""/>
+        	<input type="hidden" id="item_id" name="item_id" value=""/>
+        	<input type="hidden" id="resv_ask" name="resv_ask" value=""/>
+        </form>
+        
+        <!-- Modal-->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">요청사항</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        <div class="mb-3">
+				  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
 				</div>
-				<button>예약하기</button>
-	        </section>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+		        <button type="button" class="btn btn-primary">등록</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 		
         <!-- Footer-->
         <footer class="footer py-4">

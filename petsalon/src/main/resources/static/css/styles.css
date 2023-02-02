@@ -11780,11 +11780,7 @@ li{
 }
 .accordion-body{
 	height:500px;
-}
-.accordion-body>.dog_info,.accordion-body>.designer_info{
-	height:450px;
 	overflow:auto;
-	margin:0 auto;
 }
 .accordion-body>.dog_info>.card{
 	float:left;
@@ -11793,6 +11789,16 @@ li{
 }
 .accordion-body>.dog_info>.card:nth-child(2n+1){
 	margin-left:300px;
+}
+.accordion-body>.menu_info{
+	height:550px;
+	margin:40px auto;
+}
+.accordion-body>.menu_info>.card{
+	margin-right:30px;
+}
+.accordion-body>.menu_info>.card:nth-child(3n+1){
+	margin-left:110px;
 }
 header.masthead {
   padding-top: 10.5rem;

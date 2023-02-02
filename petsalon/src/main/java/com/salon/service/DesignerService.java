@@ -43,5 +43,8 @@ public class DesignerService implements MyService<String, Designer>  {
 			
 			return mapper.selectall();
 		}
-
+		
+		public List<Designer> designerItem() throws Exception {
+			return mapper.designerItem();
+		}
 }
