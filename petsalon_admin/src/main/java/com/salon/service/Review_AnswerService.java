@@ -40,5 +40,8 @@ public class Review_AnswerService implements MyService<Integer, Review_Answer>{
 		return mapper.selectall();
 	}
 	
-	
+	public List<Review_Answer> adminreview(Integer review_no)throws Exception	{
+		return mapper.adminreview(review_no);
+	}
+
 }

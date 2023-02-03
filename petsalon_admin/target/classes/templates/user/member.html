@@ -317,7 +317,7 @@ body {
                     <tbody>
                         <tr th:each="u:${userlist}" class="test" >
                          <td><input type="radio" name="delEmail" class="check1" th:value="${u.useremail}"/></td>
-                            <td th:text="${u.useremail}" ></td>
+                            <td><a th:href="@{/detailPage(useremail=${u.useremail}) }" th:text="${u.useremail}" ></td>
                             <td th:text="${u.username}" ></td>
                             <td th:text="${u.birth}" ></td>
                             <td th:text="${u.tel}" ></td>

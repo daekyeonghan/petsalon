@@ -3,13 +3,22 @@
 
 <style>
 
+.titleList{
+	width: 200px;
+	margin:0 auto;
+	/*border: 1px solid pink;*/
+	text-align: center;
+}
+
 
 .row{
   border-bottom: 1px solid gray;
    margin: 0;
    padding: 20px;
 }
-
+#reviewcard{
+	margin-bottom: 20px;
+}
 
 .card {
     position: relative;
@@ -28,14 +37,150 @@
     border-radius: 10px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
 }
+
+.adreview{
+	position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+
 	
+}
+
+#review_answer{
+	width: 390px;
+	margin:0 auto;
+}
+
+
+#updbtn{
+	position:right;
+	width:100px;
+	height:40px;
+	
+}
+
+#delbtn{
+	width:100px;
+	height:40px;
+}
+#form{
+border-bottom: 0px solid gray;
+   margin: 0;
+   padding: 20px;
+}	
 </style>
+
+<script>
+
+function NotReviewContent(){
+	
+	let ra_content = $('#ra_content');
+	
+	if(ra_content.val()==''){
+		ra_content.addClass('is-invalid');
+		 return false;
+	}else{
+		if(ra_content.hasClass('is-invalid')){
+			raContent.removeClass('is-invalid');
+		}
+		ra_content.addClass('is-valid');
+	};
+	
+	if(ra_content.hasClass('is-invalid')){
+		raContent.focus();
+		return false;
+	}
+		
+	if(ra_content.val()!=''){
+		return true;
+	}else{
+		return false;
+	}
+	
+};
+
+
+function register(){
+	
+	$('#review_answer').attr({
+		'method':'post',
+		'action':'[[@{/reviewregister}]]'
+	});
+	$('#review_answer').submit();
+};
+
+	
+
+
+
+
+
+
+$(document).ready(function() {	
+
+	$('#rebtn').on('click', () => {
+		 
+		  let c = confirm('등록하시겠습니까?');
+		  if(c&&NotReviewContent()){
+			  
+			 
+			  
+              register(); 
+          }else{
+              alert('등록실패');
+			}
+	  });	
+	
+	//삭제 스크립트 //
+	$('#delbtn').on('click',function(){
+	let admindelno = $('input[name=ra]:checked').val();
+	
+	 $("#delno").val(admindelno);
+	 var c = confirm('삭제하시겠습니까 ?');
+		if(c == true){
+	$('#admindel').submit();
+		}
+});
+	
+	// 수정 스크립트 //
+	$('#updbtn').on('click',function(){
+
+		let adminupdate = $('input[name=ra]:checked').val();
+		 
+		 $("#updno").val(adminupdate);
+		 var c = confirm('수정페이지로 이동하시겠습니까?');
+			if(c == true){
+		$('#adminupdate').submit();
+			};
+	});
+	
+	
+	
+	
+	
+	
+});
+</script>
+
+
 <h1>하로 이웃 후기 </h1>
 <br>
 <br>
 <div class="container text-center notice-content card">
   <div class="row ">
-    <div class="col-2 ">리뷰 제목</div>
+    <div class="col-2 ">제목</div>
     <div class="col-10" th:text="${rep.review_title}" ></div>
   </div><br>
   <div class="row ">
@@ -43,12 +188,66 @@
     <div class="col-10 " th:text="${rep.useremail}" ></div>
   </div><br>
   <div class="row ">
-  	<div class="col-2">리뷰 내용</div>
+  	<div class="col-2">내용</div>
   	<div class="col-10 " th:text="${rep.review_content}"></div>
   </div>
 </div>
 <br>
 <br>
-<!-- <a th:href="@{/review}"><i data-feather="comer-down-left" class="reviewBack"></i></a> --> 
-<a th:href="@{/review_update}"><i data-feather="edit" class="reviewEdit"></i></a>
+<div class="titleList" style="font-size: 20px;">관리자 답변</div><br><br>
+
+<div type="text" id="reviewcard" th:each="ar:${adr}" class="adreview">
+		
+		<input type="radio" id="ra" name="ra" class="check1" th:value="${ar.ra_no}"/>
+		<div class="row">
+		<div class="col-2 ">답변글번호</div>
+		<div class="col-10" th:text="${ar.ra_no}" ></div>
+		</div>
+		
+		<div class="row">
+		<div class="col-2 ">답변</div>
+		<div class="col-10" th:text="${ar.ra_content}" ></div>
+		</div>
+		
+		<div class="row">
+		<div class="col-2 ">후기번호</div>
+		<div class="col-10" th:text="${ar.review_no}" ></div>
+		</div>
+		
+		<div class="row">
+		<div class="col-2 ">관리자 아이디</div>
+		<div class="col-10" th:text="${ar.admin_id}" ></div>
+		</div>
+		
+		
+	</div>
+	<button class="btn btn-primary updbtn" tabindex="-1" role="button" aria-disabled="true" id="updbtn">수정</button>
+	<button type="button" id="delbtn" class="btn btn-primary rembtn">삭제</button>
+	<!-- 버튼 폼 -->
+<form id="admindel" th:action="@{/rDelete}">
+<input type="text" name="delno" id="delno" style="display:none;">
+
+</form>
+<form id="adminupdate" th:action="@{/adminUpdatePage}">
+<input type="text" name="updno" id="updno" style="display:none;">
+</form>	
+
+
+<form id="review_answer">
+<div><br>
+
+	<input type="text" id="admin_id" value="admin01" name="admin_id" style="display:none;">
+          <div class="input-group mb-3">
+  		  <input type="number" name="review_no" th:value="${rep.review_no}" style="display:none";>
+		</div>
+            <div class="mb-3">
+	<input type="number" name="review_no" th:value="${rep.review_no}" style="display:none";>
+		
+		
+   		    <textarea class="form-control" id="ra_content" name="ra_content" rows="5"></textarea>
+            
+	<button type="button" id="rebtn" class="btn btn-primary regibtn">등록</button>
+	</div>
+</div>
+</form>
 </div>

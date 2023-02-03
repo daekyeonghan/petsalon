@@ -1,0 +1,91 @@
+<div th:fragment="main">
+	<style>
+.card {
+	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 0px solid transparent;
+	border-radius: 10px;
+	box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+.card .title {
+	position: relative;
+	font-weight: 600;
+	margin-bottom: 10px;
+	text-align: right;
+	border-right: 1px solid #c4c4c4;
+}
+
+.card .sub {
+	margin-bottom: 10px;
+}
+
+notice-content .card-body {
+	margin-bottom: 10px;
+}
+
+.notice-content div {
+	text-align: left;
+}
+
+.notice-img {
+	width: 300px;
+}
+
+.mb-30 div {
+	margin-bottom: 30px;
+}
+</style>
+
+
+	<span class="listtitle">상세페이지</span>
+
+	<div class="detailtable"></div>
+	<div class="container text-center notice-content card" th:each="ud:${userde}">
+		<div class="row useremail">
+			<div class="col-2 email title">보호자 이메일</div>
+			<div class="col-10 email sub" th:text="${ud.useremail}"></div>
+		</div>
+		<div class="row username">
+			<div class="col-2 name title">보호자 이름</div>
+			<div class="col-10 name sub" th:text="${ud.username}"></div>
+		</div>
+
+		<div class="row usertel">
+			<div class="col-2 tel title">전화번호</div>
+			<div class="col-10 tel sub" th:text="${ud.tel}"></div>
+		</div>
+
+		<div class="row dogname">
+			<div class="col-2 dogname title">강아지 이름</div>
+			<div class="col-10 dogname sub" th:text="${ud.dog_name}"></div>
+		</div>
+
+		<div class="row dogGender">
+			<div class="col-2 dogGender title">성별</div>
+			<div class="col-10 dogGender sub" th:text="${ud.dog_gender}"></div>
+		</div>
+
+		<div class="row dogWeight">
+			<div class="col-2 dogWeight title">몸무게</div>
+			<div class="col-10 dogWeight sub" th:text="${ud.dog_weight}"></div>
+		</div>
+
+		<div class="row dogBreed">
+			<div class="col-2 dogBreed title">견종</div>
+			<div class="col-10 dogBreed sub" th:text="${ud.dog_breed}"></div>
+		</div>
+	
+	</div>
+
+</div>

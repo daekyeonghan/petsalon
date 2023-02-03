@@ -45,6 +45,7 @@ public class UserService  implements MyService<String, User>{
 		return mapper.usersearch(k);
 	}
 
-	
-
+	public List<User> detailselect(String useremail)throws Exception{
+		return mapper.detailselect(useremail);
+	}
 }

@@ -25,6 +25,12 @@ public class User {
 	private Date rdate;
 	private String searchValue;
 	private String checkRow;
+	private String dog_name;
+	private int dog_age;
+	private String dog_gender;
+	private float dog_weight;
+	private String dog_breed;
+	private String detailselect;;
 	
 	// usermapper.xml 의 INSERT 쿼리문에서 rdate를 무조건 NOW()로 들어가게 해놔서 rdate를 제외한 생성자를 만들었습니다. 필요없어질 시 삭제해주세요. 
 	public User(String useremail, String userpwd, String username, String birth, String tel, String addr, String detaddr,

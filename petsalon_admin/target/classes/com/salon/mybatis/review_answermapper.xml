@@ -12,6 +12,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM review_answer
 	</select>
 	
+	<select id="adminreview" parameterType="Integer" resultType="Review_Answer">
+		SELECT ra_no, ra_content, review_no, admin_id from review_answer where review_no=#{review_no}
+	</select>
+	
 	<insert id="insert" parameterType="Review_Answer">
 		INSERT INTO review_answer VALUES (0,#{ra_content},#{review_no},#{admin_id},NOW())
 	</insert>

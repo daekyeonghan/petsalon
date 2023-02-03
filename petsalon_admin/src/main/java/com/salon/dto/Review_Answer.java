@@ -31,7 +31,8 @@ public class Review_Answer {
 	 * @param review_no
 	 * @param admin_id
 	 */
-	public Review_Answer(String ra_content, int review_no, String admin_id) {
+	public Review_Answer(int ra_no, String ra_content, int review_no, String admin_id) {
+		this.ra_no = ra_no;
 		this.ra_content = ra_content;
 		this.review_no = review_no;
 		this.admin_id = admin_id;

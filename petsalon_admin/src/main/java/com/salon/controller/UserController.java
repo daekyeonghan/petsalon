@@ -67,9 +67,22 @@ public class UserController {
 		
 		return "redirect:/users";
 	}
-		
 	
+	@RequestMapping("/detailPage")
+	public String detailPage(Model model,String useremail) {
+		List<User> userde = null;
+		try {
+			userde = userservice.detailselect(useremail);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("userde",userde);
+		model.addAttribute("path", dir+"detailPage");
+		model.addAttribute("content", "main");
+		return "main";
 	
+		}
 	/* 임시 확인용
 	@RequestMapping("/userlist")
 	public String userlist(Model model) {

@@ -12,6 +12,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM user WHERE username like CONCAT('%', #{searchValue}, '%');
 	</select>
 	
+	<select id="detailselect" parameterType="String" resultType="User">
+		SELECT u.useremail, u.username, u.tel,d.dog_name, d.dog_gender, d.dog_age, d.dog_weight, d.dog_breed FROM user u
+		INNER JOIN dog d ON d.useremail = u.useremail 
+		WHERE u.useremail = #{useremail}
+	</select>
+	
+	
 	<select id="selectall" resultType="User">
 		SELECT * FROM user
 	</select>
