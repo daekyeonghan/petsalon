@@ -13,8 +13,9 @@ import com.salon.frame.MyMapper;
 public interface ReviewMapper extends MyMapper<Integer, Review>{
 	//리뷰 페이지 뿌려줄때
 	public List<Review> reviewselect() throws Exception;
-	public int reviewDelete(int review_no, String useremail) throws Exception;
+	public int reviewDelete(int review_no) throws Exception;
 	public int review_count(String useremail) throws Exception;
 	public void nopicUpdate(Review review) throws Exception;
+	public List<Review> selectload(String useremail) throws Exception;
 
 }

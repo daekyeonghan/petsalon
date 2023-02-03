@@ -82,17 +82,14 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/reviewdelete")
-	public String reviewdelete(Model model, Integer review_no, HttpSession session) {
-		String uemail = (String)session.getAttribute("logemail");
+	public String reviewdelete(Model model, Integer review_no, String filename) {
 		
 		try {
-			int result = reviewservice.reviewDelete(review_no, uemail);
-			if(result>0) {
-				model.addAttribute("center", reviewdir+"review_main");
-			}else {
-				model.addAttribute("no", review_no);
-				model.addAttribute("center", reviewdir+"review_view");
+			reviewservice.reviewDelete(review_no);
+			if(!filename.equals("haro.png")) {
+				Util.deleteFile(userdir, filename);
 			}
+			return "redirect:/review";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -103,18 +100,14 @@ public class ReviewController {
 	@RequestMapping("/reviewupdate")
 	public String reviewupdate(Model model, Review review, String originname) {
 		
-		System.out.println(originname);
 		
 		String blankName = review.getReview_img().getOriginalFilename();
-		System.out.println(blankName);
 		
 		try {
-			System.out.println("OK");
 			if(review.getReview_img()!= null && blankName.length() != 0) {
 				String newName = Util.saveFile(review.getReview_img(), userdir);
 				review.setReview_photo(newName);
 				reviewservice.modify(review);
-				System.out.println(newName);
 				Util.deleteFile(userdir, originname);
 			}else {
 				reviewservice.nopicUpdate(review);
@@ -127,17 +120,24 @@ public class ReviewController {
 			
 		}
 		
-		return "redirect:review";
+		model.addAttribute("center", reviewdir+"review_updateok");
+		return "index";
 	}
 	
 	
 	@RequestMapping("/reviewsendimpl")
 	public String reviewsendimpl(Model model, Review review) {
 		String img = review.getReview_img().getOriginalFilename();
-		review.setReview_photo(img);
 		
 		try {
-			Util.saveFile(review.getReview_img(),userdir);
+			if(review.getReview_img()!=null && img.length()!=0) {
+				String newName = Util.saveFile(review.getReview_img(),userdir);
+				review.setReview_photo(newName);
+			}
+			else {
+				reviewservice.nopicUpdate(review);
+				review.setReview_photo("haro.png");
+			}
 			reviewservice.register(review);
 			
 		} catch (Exception e) {
@@ -151,7 +151,6 @@ public class ReviewController {
 	@RequestMapping("/review_write")
 	public String reviewwrite(Model model, HttpSession session, int no) {
 		Resv resv;
-		System.out.println(no);
 		
 		try {
 			resv = reservice.get(no);

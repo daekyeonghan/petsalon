@@ -24,6 +24,7 @@ public class Review {
 	private String review_content;
 	private String review_photo;
 	private Date review_date;
+	private int resv_no;
 	
 	private String designer_name;
 	private String dog_name;

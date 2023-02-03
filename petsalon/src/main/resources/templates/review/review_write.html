@@ -33,7 +33,9 @@ img #previewImg img {
 <script>
 	$(document).ready(function() {
 		
+			
 				$('#new_review').click(function() {
+					if(checkinput()){
 					var c = confirm('등록하시겟습니까?');
 					if (c == true) {
 						$('#review_form').attr({
@@ -44,9 +46,10 @@ img #previewImg img {
 						$('#review_form').submit();
 						alert("정상등록 되었습니다.");
 					}
+					}
 				});
-
-
+			
+				
 				$('.filebox .upload-hidden').on(
 						'change',
 						function() {
@@ -113,6 +116,42 @@ img #previewImg img {
 				}
 
 			});
+	
+	function valid(){
+		$('#review_title').keyup(function(){
+			$('#review_title').removeClass('is-invalid');
+			$('#review_title').addClass('is-valid');
+			 $('#titleFeedback').text('');
+		});
+		$('#review_content').keyup(function(){
+			$('#review_content').removeClass('is-invalid');
+			$('#review_content').addClass('is-valid');
+			 $('#contentFeedback').text('');
+		});
+	}
+	
+	function checkinput(){
+		
+		valid();
+		
+		if($('#review_title').val()==''){
+			 $('#review_title').addClass('is-invalid');
+			 $('#titleFeedback').text('제목을 입력하세요');
+			 return false;
+		}
+		
+		if($('#review_content').val()==''){
+			$('#review_content').addClass('is-invalid');
+			 $('#contentFeedback').text('내용을 입력하세요');
+			 return false;
+		}
+
+		if($('#review_title').val()!=''&&$('#review_content').val()!=''){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	
 </script>
@@ -125,42 +164,35 @@ img #previewImg img {
 					<h2 class="text-center pt-3 mb-5">리뷰 작성하기</h2>
 					<!--  form start -->
 					<form id="review_form" >
-						
 						<div class="mb-3">
 							<label for="useremail" class="form-label">작성자 이메일</label>
-							<input type="text" class="form-control" id="useremail" name="useremail" th:value="${rwresv.useremail}">
+							<input type="text" class="form-control" id="useremail" name="useremail" th:value="${rwresv.useremail}" readonly>
 						</div>
 						<div class="mb-3">
-							<label for="resv_no" class="form-label">예약번호</label>
-							<input type="text" class="form-control" id="resv_no" name="resv_no" th:value="${rwresv.resv_no}">
+							<input type="hidden" class="form-control" id="resv_no" name="resv_no" th:value="${rwresv.resv_no}">
 						</div>
 						<div class="mb-3">
-							<label for="inputDogName" class="form-label">디자이너 아이디</label>
-							<input type="text" class="form-control" id="designer_id" name="designer_id" th:value="${rwresv.designer_id}">
+							<input type="hidden" class="form-control" id="designer_id" name="designer_id" th:value="${rwresv.designer_id}">
 						</div>
 						<div class="mb-3">
-							<label for="inputDogName" class="form-label">강아지 번호</label>
-							<input type="text" class="form-control" id="dog_id" name="dog_id" th:value="${rwresv.dog_id}">
+							<input type="hidden" class="form-control" id="dog_id" name="dog_id" th:value="${rwresv.dog_id}">
 						</div>
-						<!-- <div class="mb-3">
-    <label for="inputDogName" class="form-label">강아지 이름</label>
-    <input type="text" class="form-control" id="designer_id" name="dog_name">
-    <div id="nameFeedback" class="invalid-feedback"></div>
-</div> -->
 						<div class="mb-3">
 							<label for="inputTitle" class="form-label">제목</label>
 							<span id="name_span"></span>
 							<input type="text" class="form-control" id="review_title" name="review_title">
+							<div id="titleFeedback" class="invalid-feedback"></div>
 						</div>
 						<div class="mb-3">
 							<label for="inputContent" class="form-label">내용</label>
 							<textarea class="form-control" id="review_content" name="review_content"></textarea>
+							<div id="contentFeedback" class="invalid-feedback"></div>
 						</div>
 						<div class="filebox mb-3">
 							<label for="formFile" class="form-label mr-5">사진</label>
 							<img id="previewImg" class="mx-auto d-block mt-3 mb-3" style="width: 300px; height: 300px;">
 							<input class="form-control" type="text" name="originname" style="display: none;">
-							<input class="form-control upload-hidden" type="file" id="imgname" name="imgname" accept="image/*" />
+							<input class="form-control upload-hidden" type="file" name="review_img" accept="image/*" />
 						</div>
 						<!--   <div class="mb-3">
     <label for="recent_date" class="form-label">최근 이용내역</label>
@@ -169,8 +201,8 @@ img #previewImg img {
 					</form>
 
 					<div>
-						<button type="button" id="canccle-btn" class="btn btn-secondary">취소</button>
-						<button type="button" id="new_review" class="btn btn-primary">등록</button>
+						<button type="button" id="canccle-btn" class="btn btn-secondary" style="float: right; margin-bottom: 10px; ">취소</button>
+						<button type="button" id="new_review" class="btn btn-primary" style="float: right; margin-right: 10px; margin-bottom: 10px;">등록</button>
 					</div>
 				</div>
 			</div>

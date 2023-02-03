@@ -10,12 +10,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         INNER JOIN designer de ON de.designer_id = re.designer_id WHERE review_no=#{review_no}
 	</select>
 	
+	<select id="selectload" parameterType="String" resultType="Review">
+		SELECT * FROM review WHERE useremail=#{useremail}
+	</select>
+	
 	<select id="selectall" resultType="Review">
 		SELECT * FROM review
 	</select>
 	
 	<insert id="insert" parameterType="Review">
-		INSERT INTO review VALUES (0,#{useremail},#{designer_id},#{dog_id},#{review_title},#{review_content},#{review_photo},NOW())
+		INSERT INTO review VALUES (0,#{useremail},#{designer_id},#{dog_id},#{review_title},#{review_content},#{review_photo},#{resv_no},NOW())
 	</insert>
 	
 	<update id="update" parameterType="Review">
@@ -32,9 +36,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</delete>
 	
 	<select id="reviewselect" parameterType="String" resultType="Review">
-		SELECT re.review_no, re.review_title, re.review_content, de.designer_name, d.dog_name, re.review_photo, re.review_date FROM review re
+		SELECT re.review_no, re.review_title, re.review_content, de.designer_name, d.dog_name, re.review_photo, re.resv_no, sc.sc_id, re.review_date FROM review re
+		INNER JOIN resv rv ON rv.resv_no = re.resv_no
         INNER JOIN dog d ON re.dog_id = d.dog_id
-        INNER JOIN resv rv ON rv.dog_id = d.dog_id
         INNER JOIN schedule sc ON sc.resv_no = rv.resv_no
         INNER JOIN designer de ON de.designer_id = sc.designer_id WHERE rv.resv_fix = 1
 	</select>

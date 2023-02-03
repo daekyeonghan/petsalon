@@ -45,16 +45,20 @@ public class ReviewService implements MyService<Integer, Review>{
 		return mapper.reviewselect();
 	}
 	
-	public int reviewDelete(int review_no, String useremail) throws Exception {
-		return mapper.reviewDelete(review_no, useremail);
+	public int reviewDelete(int review_no) throws Exception {
+		return mapper.reviewDelete(review_no);
 	}
 	
 	public int review_count(String useremail) throws Exception {
 		return mapper.review_count(useremail);
 	}
 	
-	public void nopicUpdate(Review v) throws Exception{
+	public void nopicUpdate(Review v) throws Exception {
 		mapper.nopicUpdate(v);
+	}
+	
+	public List<Review> selectload(String useremail) throws Exception {
+		return mapper.selectload(useremail);
 	}
 
 }

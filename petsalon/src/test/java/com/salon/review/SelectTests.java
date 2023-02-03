@@ -19,7 +19,7 @@ class SelectTests {
 		Review obj;
 		
 		try {
-			obj = service.get(2);
+			obj = service.get(30);
 			System.out.println(obj);
 			System.out.println("OK");
 		} catch (Exception e) {

@@ -101,24 +101,9 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">review</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">아이들의 가장 예쁜 모습입니다</h3>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <!-- review item 1-->
-                        <div class="review-item">
-                            <a class="review-link">
-                                <div class="review-hover">
-                                    <div class="review-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="assets/img/review/1.jpg" alt="..." />
-                            </a>
-                            <div class="review-caption">
-                                <div class="review-caption-heading">Threads</div>
-                                <div class="review-caption-subheading text-muted">Illustration</div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-4 col-sm-6 mb-4" th:each="o : ${rlist}">
                         <!-- review item 2-->
                         <div class="review-item">
@@ -126,12 +111,13 @@
                                 <div class="review-hover" >
                                     <div class="review-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-thumbnail" th:src="'/assets/img/'+ ${o.review_photo}" th:if="${o.review_photo != ''}" style="width:430px; height:430px;"/>
+                                <img class="img-thumbnail" th:if="${o.review_photo == ''} or ${o.review_photo == null}" src="assets/img/logo.svg"  style="width:430px; height:430px;"/>
+                                <img class="img-thumbnail" th:unless="${o.review_photo == ''} or ${o.review_photo == null}" th:src="'/assets/img/'+ ${o.review_photo}"  style="width:430px; height:430px;"/>
                             </a>
                             <div class="review-caption">
                                 <div class="review-caption-heading" th:text="${o.dog_name}"></div>
-                                <div class="review-caption-subheading text-muted" th:text="${o.designer_name}"></div>
-                                <div class="review-caption-subheading text-muted" th:text="${o.review_title}"></div>
+                                <div class="review-caption-subheading" th:text="${o.designer_name}"></div>
+                                <div class="review-caption-subheading" th:text="${o.review_title}"></div>
                             </div>
                         </div>
                     </div>
