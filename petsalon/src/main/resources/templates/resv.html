@@ -1,16 +1,88 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 <script>
 function dogSelect(data){
 	document.getElementById('dog_id').value = data;
+	document.getElementById('dateaccordion').click();
 }
 function designerSelect(data){
 	document.getElementById('designer_id').value = data;
+	document.getElementById('itemaccordion').click();
 }
 function itemSelect(data){
 	document.getElementById('item_id').value = data;
+	document.getElementById('askaccordion').click();
 }
+function askregister(){
+	var ask = document.getElementById('exampleFormControlTextarea1').value;
+	document.getElementById('resv_ask').value = ask;
+	document.getElementById('closebtn').click();
+}
+
+var resvdate = "";
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var request = $.ajax({
+		url : '/weekSchedule',
+		type : 'get',
+		dataType : 'json'
+	});
+
+	request.done(function(data) { 
+	    var calendar = new FullCalendar.Calendar(calendarEl, { 
+	    	initialView: 'dayGridMonth',
+      		editable: true,
+      		selectable:true,
+      		dayMaxEvents: true,
+      		titleFormat: function (date) {
+      	      year = date.date.year;
+      	      month = date.date.month + 1;
+      	      return year + "년 " + month + "월";
+      	    },
+	      	dateClick: function(info) {
+			  document.getElementById('resvdate').value = info.dateStr;
+			  resvdate = info.dateStr;
+	      	},
+    		events: data
+		});
+		calendar.render();
+	});
+});
+
+function dateSelect(){
+	document.getElementById('sc_date').value = resvdate;
+	document.getElementById('designeraccordion').click();
+}
+
+$(document).ready(function(){
+	$('#resvbtn').click(function(){
+		var dog_id = $('#resvForm>#dog_id').val();
+		var sc_date = $('#resvForm>#sc_date').val();
+		var designer_id = $('#resvForm>#designer_id').val();
+		var item_id = $('#resvForm>#item_id').val();
+		
+		if(dog_id == ''){
+			alert('강아지는 필수 선택사항입니다');
+			return;
+		}
+		if(sc_date == ''){
+			alert('예약 날짜는 필수 선택사항입니다');
+			return;
+		}
+		if(designer_id == ''){
+			alert('디자이너는 필수 선택사항입니다');
+			return;
+		}
+		if(item_id == ''){
+			alert('컷 메뉴는 필수 선택사항입니다');
+			return;
+		}
+		
+		$('#resvsubmit').click();
+	});
+});
 </script>
     <head>
         <meta charset="utf-8" />
@@ -26,6 +98,9 @@ function itemSelect(data){
  		<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <!-- FullCalendar -->
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
+		<script src='../dist/index.global.js'></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -105,9 +180,16 @@ function itemSelect(data){
 			      </button>
 			    </h2>
 			    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-			      <div class="accordion-body">
-			        
-			      </div>
+			      <div class="card  w-auto mb-3">
+					  <div class="card-body calendar">
+					    <div id="calendar" style="width:60%;font-family:'Spoqa Han Sans Neo', 'sans-serif';float:left;"></div>
+					    <div id="dateinfo">
+					    	<img id="calicon" src="assets/img/calendar3.svg"/>
+					    	<input type="text" id="resvdate" name="resvdate" value=""/><br><br>
+					    	<button type="button" class="btn btn-primary" onclick="dateSelect();">날짜 선택</button>
+					    </div>
+					  </div>
+				  </div>
 			    </div>
 			  </div>
 			  <div class="accordion-item">
@@ -138,7 +220,7 @@ function itemSelect(data){
 			  <div class="accordion-item">
 				<h2 class="accordion-header" id="headingFour">
 			      <button id="itemaccordion" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-			        컷 종류
+			        컷 메뉴
 			      </button>
 			    </h2>
 				<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
@@ -173,16 +255,19 @@ function itemSelect(data){
 			</div>
 			
 			<div style="width:109px;margin:70px auto;">
-				<button type="submit" class="btn btn-info btn-lg btn-info" id="resvbtn" disabled>예약하기</button>
+				<button type="button" class="btn btn-info btn-lg btn-info" id="resvbtn">예약하기</button>
         	</div>
         </section>
         
-        <form id="resvForm" method="post" style="display:none;">
+        <form id="resvForm" method="post" th:action="@{/resvOk}" style="display:none;">
         	<input type="hidden" id="dog_id" name="dog_id" value=""/>
         	<input type="hidden" id="sc_date" name="sc_date" value=""/>
         	<input type="hidden" id="designer_id" name="designer_id" value=""/>
         	<input type="hidden" id="item_id" name="item_id" value=""/>
-        	<input type="hidden" id="resv_ask" name="resv_ask" value=""/>
+        	<input type="hidden" id="resv_ask" name="resv_ask" value="없음"/>
+        	<input type="hidden" id="resv_fix" name="resv_fix" value="0"/>
+        	<input type="hidden" id="cancel" name="cancel" value=""/>
+        	<button id="resvsubmit" type="submit"></button>
         </form>
         
         <!-- Modal-->
@@ -199,8 +284,8 @@ function itemSelect(data){
 				</div>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-		        <button type="button" class="btn btn-primary">등록</button>
+		        <button id="closebtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+		        <button id="askbtn" type="button" class="btn btn-primary" onclick="askregister();">등록</button>
 		      </div>
 		    </div>
 		  </div>

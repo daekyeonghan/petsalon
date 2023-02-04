@@ -59,4 +59,8 @@ public class ResvService implements MyService<Integer, Resv>{
 	public List<Resv> resvcheck(String useremail) throws Exception {
 		return mapper.resvcheck(useremail);
 	}
+	
+	public int resvnoSelect() throws Exception {
+		return mapper.resvnoSelect();
+	}
 }
