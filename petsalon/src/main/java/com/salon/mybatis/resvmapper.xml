@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM resv
 	</select>
 	<select id="userResv" parameterType="String" resultType="Resv">
-		SELECT d.dog_name,d.dog_photo,de.designer_name,i.item_name,i.item_price,re.resv_no,re.resv_fix,DATE_FORMAT(sc.sc_date, CONCAT('%y','.','%m','.','%d',' | ','%H','시')) sc_date
+		SELECT d.dog_name,d.dog_photo,de.designer_name,i.item_name,i.item_price,re.resv_no,re.resv_fix,DATE_FORMAT(sc.sc_date, CONCAT('%y','.','%m','.','%d')) sc_date
 		FROM resv re
 		INNER JOIN dog d ON re.dog_id=d.dog_id
 		INNER JOIN item i ON re.item_id=i.item_id

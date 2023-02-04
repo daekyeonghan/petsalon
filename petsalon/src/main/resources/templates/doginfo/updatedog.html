@@ -89,7 +89,15 @@ function deletechk(){
 		</div>
 		<div class="mb-3">
 			<label for="dog_breed" class="form-label"><b style="color:red;">* </b>무슨 종인가요?</label><br>
-			<input type="text" id="dog_breed" name="dog_breed" th:value="${dog.dog_breed}" class="form-control"/>
+			<select name="dog_breed" style="width:120px;height:40px;border-radius:5px 5px;">
+				<option id="dog_breed" class="form-control" value="푸들">푸들</option>
+				<option id="dog_breed" class="form-control" value="말티즈">말티즈</option>
+				<option id="dog_breed" class="form-control" value="요크셔테리어">요크셔테리어</option>
+				<option id="dog_breed" class="form-control" value="닥스훈트">닥스훈트</option>
+				<option id="dog_breed" class="form-control" value="비숑">비숑</option>
+				<option id="dog_breed" class="form-control" value="리트리버">리트리버</option>
+				<option id="dog_breed" class="form-control" value="스탠다드푸들">스탠다드푸들</option>
+			</select>
 		</div>
 		<div class="mb-3">
 			<label for="dog_special" class="form-label">특이사항이 있다면?</label><br>

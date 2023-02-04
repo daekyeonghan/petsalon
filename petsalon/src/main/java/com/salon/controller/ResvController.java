@@ -32,6 +32,8 @@ public class ResvController {
 	@Autowired
 	ResvService rservice;
 	
+	String dir = "myresv/";
+	
 	@RequestMapping("/resv")
 	public String resv(Model model, HttpSession session) {
 		String useremail = (String)session.getAttribute("logemail");
@@ -50,10 +52,6 @@ public class ResvController {
 	public String resv(HttpServletRequest req, HttpSession session) {
 		Resv resv = new Resv();
 		
-		Schedule sc = new Schedule();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = null;
-		
 		resv.setUseremail((String)session.getAttribute("logemail"));
 		resv.setDog_id(Integer.parseInt(req.getParameter("dog_id")));
 		resv.setDesigner_id(req.getParameter("designer_id"));
@@ -61,6 +59,10 @@ public class ResvController {
 		resv.setResv_ask(req.getParameter("resv_ask"));
 		resv.setResv_fix(Integer.parseInt(req.getParameter("resv_fix")));
 		resv.setCancel(req.getParameter("cancel"));
+		
+		Schedule sc = new Schedule();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
 		
 		try {
 			rservice.register(resv);

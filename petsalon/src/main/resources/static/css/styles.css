@@ -11753,7 +11753,7 @@ p {
 	margin-top:50px;
 }
 #visit>#visit_content>#sc_date{
-	margin-left:120px;
+	margin-left:113px;
 	font-size:1.2em;
 	font-weight:bold;
 	text-decoration:underline;
@@ -11812,10 +11812,8 @@ li{
 .fc-daygrid-day-frame:hover{
 	cursor:pointer;
 }
-.fc-toolbar-chunk:nth-child(1){
-	width:200px;
-	margin:0 auto;
-	text-align:center;
+.fc-toolbar-chunk>button{
+	display:none;
 }
 #dateinfo{
 	width:40%;

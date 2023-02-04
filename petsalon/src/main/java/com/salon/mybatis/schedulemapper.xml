@@ -11,10 +11,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM schedule
 	</select>
 	<insert id="insert" parameterType="Schedule">
-		INSERT INTO schedule VALUES (#{sc_id}, #{designer_id}, #{resv_no}, NOW() )
+		INSERT INTO schedule VALUES (#{sc_id}, #{designer_id}, #{resv_no}, #{sc_date})
 	</insert>
 	<update id="update" parameterType="Schedule">
-		UPDATE schedule SET sc_date=#{sc_date}WHERE sc_id=#{sc_id}
+		UPDATE schedule SET sc_date=#{sc_date} WHERE sc_id=#{sc_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM schedule WHERE sc_id=#{sc_id}
