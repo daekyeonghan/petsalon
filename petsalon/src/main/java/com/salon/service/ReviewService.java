@@ -60,5 +60,13 @@ public class ReviewService implements MyService<Integer, Review>{
 	public List<Review> selectload(String useremail) throws Exception {
 		return mapper.selectload(useremail);
 	}
+	
+	public List<Review> searchreview(String designer_id) throws Exception {
+		return mapper.searchreview(designer_id);
+	}
+	
+	public List<Review> notnullreview() throws Exception {
+		return mapper.notnullreview();
+	}
 
 }

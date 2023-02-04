@@ -10,11 +10,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.salon.dto.Designer;
+import com.salon.dto.Item;
 import com.salon.dto.Resv;
 import com.salon.dto.Review;
+import com.salon.dto.Review_Answer;
 import com.salon.frame.Util;
+import com.salon.service.DesignerService;
+import com.salon.service.ItemService;
 import com.salon.service.ResvService;
 import com.salon.service.ReviewService;
+import com.salon.service.Review_AnswerService;
 
 @Controller
 public class ReviewController {
@@ -23,6 +29,12 @@ public class ReviewController {
 	ReviewService reviewservice;
 	@Autowired
 	ResvService reservice;
+	@Autowired
+	ItemService itemservice;
+	@Autowired
+	Review_AnswerService raservice;
+	@Autowired
+	DesignerService dservice;
 	
 	String reviewdir = "review/";
 	
@@ -39,6 +51,7 @@ public class ReviewController {
 	public String reviewselect(Model model, Integer resvcnt, String useremail, HttpSession session) {
 		String uemail = (String)session.getAttribute("logemail");
 		List<Review> list = null;
+		List<Review> notnullist = null;
 		List<Resv> resvlist = null;
 		List<Resv> checkresv = null;
 		int review_count = 0;
@@ -50,11 +63,13 @@ public class ReviewController {
 			resv_count = reservice.resvcnt(uemail);
 			resvlist = reservice.emailselect(uemail);
 			checkresv = reservice.resvcheck(uemail);
+			notnullist = reviewservice.notnullreview();
 			
 			model.addAttribute("resvcnt", resv_count);
 			model.addAttribute("reviewcnt", review_count);
 			model.addAttribute("resvlist", resvlist);
 			model.addAttribute("rlist", list);
+			model.addAttribute("notnullist", notnullist);
 			model.addAttribute("center", reviewdir+"review_main");
 			model.addAttribute("checkresv", checkresv);
 			
@@ -66,12 +81,19 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/reviewview")
-	public String reviewview(Model model, int no) {
+	public String reviewview(Model model, int no, int resv_no) {
 		Review rvs = null;
+		Item item = null;
+		Review_Answer ra;
 		
 		try {
+			item = itemservice.reviewitemselect(resv_no);
 			rvs = reviewservice.get(no);
+			ra = raservice.get(no);
+			
 			model.addAttribute("rvs", rvs);
+			model.addAttribute("item", item);
+			model.addAttribute("ra", ra);
 			model.addAttribute("center", reviewdir+"review_view");
 
 		} catch (Exception e) {
@@ -161,6 +183,36 @@ public class ReviewController {
 		}
 		
 		model.addAttribute("center", reviewdir+"review_write");
+		return "index";
+	}
+	
+	@RequestMapping("/reviewSearch")
+	public String searchreview(Model model, String designer_id, HttpSession session) {
+		String uemail = (String)session.getAttribute("logemail");
+		List<Review> rlist = null;
+		List<Review> dslist = null;
+		List<Resv> checkresv = null;
+		
+		int review_count = 0;
+		int resv_count = 0;
+		
+		try {
+			rlist = reviewservice.searchreview(designer_id);
+			dslist = reviewservice.notnullreview();
+			checkresv = reservice.resvcheck(uemail);
+			review_count = reviewservice.review_count(uemail);
+			resv_count = reservice.resvcnt(uemail);
+			
+			model.addAttribute("searchlist", rlist);
+			model.addAttribute("dsearchlist", dslist);
+			model.addAttribute("checkresv", checkresv);
+			model.addAttribute("resvcnt", resv_count);
+			model.addAttribute("reviewcnt", review_count);
+			model.addAttribute("center", reviewdir+"review_search");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "index";
 	}
 	

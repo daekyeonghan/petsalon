@@ -19,4 +19,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE item SET item_name=#{item_name}, item_price=#{item_price}, item_photo=#{item_photo}
 		WHERE item_id=#{item_id}
 	</update>
+	<select id="reviewitemselect" parameterType="Integer" resultType="Item">
+		SELECT i.item_id, i.item_name FROM item i
+		INNER JOIN resv res ON i.item_id = res.item_id WHERE res.resv_no = #{resv_no}
+	</select>
 </mapper>

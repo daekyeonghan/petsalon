@@ -1,26 +1,28 @@
-package com.salon.review_answer;
+package com.salon.review;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.salon.dto.Review_Answer;
-import com.salon.service.Review_AnswerService;
+import com.salon.dto.Review;
+import com.salon.service.ReviewService;
 
 @SpringBootTest
-class SelectTests {
+class SearchReviewTests {
 
 	@Autowired
-	Review_AnswerService service;
+	ReviewService service;
 	
 	@Test
 	void contextLoads() {
 		
-		Review_Answer obj;
+		List<Review> objs = null;
 		
 		try {
-			obj = service.get(25);
-			System.out.println(obj);
+			objs = service.searchreview("sejong");
+			System.out.println(objs);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("FAILED");

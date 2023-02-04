@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.salon.mapper.Review_AnswerMapper">
 	
 	<select id="select" parameterType="Integer" resultType="Review_Answer">
-		SELECT * FROM review_answer WHERE ra_no=#{ra_no}
+		SELECT * FROM review_answer WHERE review_no=#{review_no}
 	</select>
 	
 	<select id="selectall" resultType="Review_Answer">

@@ -19,16 +19,54 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<style>
 		img #previewImg img{width:300px; height:300px; margin: 0 auto;}
+		#review-text .review-center {height: 250px; width: 600px;}
+		#review-text {
+			font-family: 'MonoplexKR-Regular';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_Monoplex-kr@1.0/MonoplexKR-Regular.woff2') format('woff2');
+			font-weight: 400;
+			font-style: normal;
+		}
+		
 	</style>
 </head>
 <meta charset="UTF-8">
 <script>
 
 	$(document).ready(function(){
+		var title = document.querySelector('input[name=review_title]').value.length;
+		var content = document.querySelector('textarea[name=review_content]').value.length;
 		
-		var useremail = '[[${session.logemail}]]';	// 로그인한 사람 이메일
-		var emailmatch = '[[${rvs.useremail}]]';	//후기글 작성자 이메일
+		var myModal = document.getElementById('updateReviewModal')
+		var myInput = document.getElementById('review_title')
+
+		myModal.addEventListener('shown.bs.modal', function () {
+		  myInput.focus()
+		})
 		
+		$('#review_title').focusin(function (){
+			$('#textCount').html("("+title+" / 90)");
+			$('#textCount2').html("("+content+" / 300)");
+		});
+		
+		$('#review_title').keyup(function (e) {
+	        $('#textCount').html("("+$(this).val().length+" / 90)");
+	 
+	        if($(this).val().length > 90) {
+	            $(this).val($(this).val().substring(0, 90));
+	            alert('글자수는 90자까지 입력 가능합니다.');
+	            $('#textCount').html("(90 / 90)");
+	        }
+	});
+	
+	$('#review_content').keyup(function (e) {
+        $('#textCount2').html("("+$(this).val().length+" / 300)");
+ 
+        if($(this).val().length > 300) {
+            $(this).val($(this).val().substring(0, 300));
+            alert('글자수는 300자까지 입력 가능합니다.');
+            $('#textCount2').html("(300 / 300)");
+        }
+});
 		
 		updateck();
 		
@@ -188,20 +226,29 @@
 
 <section class="page-section bg-light" id="review">
 <form>
-<h1 class="text-center">리뷰페이지</h1>
-<div class="container" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
+<div class="container" >
 	<div class="row mt-5 col-lg-12 bg-white m-auto rounded-top">
-		<div class="col">
+		<div class="col-lg-6">
 			<img class="img-thumbnail" th:if="${rvs.review_photo == ''} or ${rvs.review_photo == null}" src="assets/img/logo.svg"  style="width:600px; height:600px;"/>
 			<img class="img-thumbnail" th:unless="${rvs.review_photo == ''} or ${rvs.review_photo == null}" th:src="'/assets/img/'+ ${rvs.review_photo}"  style="width:600px; height:600px;"/>
 		</div>
-		<div class="col text-center">
-			<div>
-				<h1><span th:text="${rvs.dog_name}"></span><br/></h1>
-				<p th:text="'제목 : '+ ${rvs.review_title}"></p>
-				<p th:text="'선생님 : '+${rvs.designer_name}"></p>
-				<p th:text="'내용 : '+${rvs.review_content}"></p>
-				<p th:text="'작성일자 : '+${#dates.format(rvs.review_date,'yyyy-MM-dd HH:mm')}"></p>
+		<div id="review-text" class="col-lg-6">
+			<div class="mt-3">
+				<h3><span th:text="${rvs.dog_name}"></span></h3></br>
+				<span th:text="'시술명 : '+ ${item.item_name}"></span>&nbsp;｜&nbsp;<span th:text="'선생님 : '+${rvs.designer_name}"></span></br></br>
+				<p th:text="${rvs.review_title}"></p>
+				<hr style="border:1px color= silver;" width="100%">
+				<div class="review-center">
+					<p th:text="${rvs.review_content}"></p>
+				</div>
+				<div class="review-answer" style="background-color: #DCDCDC">
+					<p th:if="${ra == null}" th:value="1" ></p>
+					<p th:unless="${ra == null}" th:utext="|가게 답변 ｜ <b>${#dates.format(ra.ra_date,'yyyy-MM-dd')}</b> </br> ${ra.ra_content}|" ></p>
+				</div>
+				<div class="review-bottom">
+					<hr style="border:1px color= silver;" width="100%">
+					<span th:text="${#strings.substring(rvs.useremail,0,(#strings.indexOf(rvs.useremail,'@')-1))+'****님'}"></span>&nbsp;｜&nbsp;<span th:utext="|<b>${#dates.format(rvs.review_date,'yyyy-MM-dd')}</b>|"></span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -246,18 +293,23 @@
 	</div> -->
 	<div class="mb-3">
 	    <label for="inputTitle" class="form-label">제목</label>
+	    <div class="textLengthWrap" style="float:right;">
+			<span id="textCount" >( 0 / 90)</span>
+		</div>
 	    <input type="text" class="form-control" id="review_title" name="review_title" th:value="${rvs.review_title}">
 	    <div id="titleFeedback" class="invalid-feedback"></div>
 	</div>
 	<div class="mb-3 form-group">
 	    <label for="inputContent" class="form-label">내용</label>
-	    <textarea class="form-control" id="review_content" name="review_content" th:text="${rvs.review_content}"></textarea>
+	    <div class="textLengthWrap" style="float:right;">
+			<span id="textCount2" >( 0 / 300)</span>
+		</div>
+	    <textarea class="form-control" id="review_content" name="review_content" th:text="${rvs.review_content}" rows="7"></textarea>
 	    <div id="contentFeedback" class="invalid-feedback"></div>
 	</div>
 	<div class="filebox mb-3">
 	  <label for="formFile" class="form-label mr-5">사진</label>
-	  <img  class="mx-auto d-block mt-3 mb-3" th:if="${rvs.review_photo == ''} or ${rvs.review_photo == null}" src="assets/img/logo.svg" style="width:300px; height:300px;">
-	  <img id="previewImg" class="mx-auto d-block mt-3 mb-3" th:unless="${rvs.review_photo == ''} or ${rvs.review_photo == null}" th:src="'/assets/img/'+ ${rvs.review_photo}"  style="width:300px; height:300px;"/>
+	  <img id="previewImg" class="mx-auto d-block mt-3 mb-3" style="width: 300px; height: 300px;">
 	   <input class="form-control" type="text" name="originname" th:value="${rvs.review_photo}" style="display:none;">
 	  <input class="form-control upload-hidden" type="file" id="formFile" name="review_img"  />
 	</div>

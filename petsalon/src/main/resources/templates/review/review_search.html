@@ -23,7 +23,7 @@
 		$(document).ready(function(){
 			
 			review_check();
-			
+			window.scrollTo({ left: 0, top: 1050, behavior: "smooth" });
 		});
 		
 		function review_check(){
@@ -97,13 +97,13 @@
                     <form id="selectDesignerReview">
 						<select class="form-select mt-3 mb-3" id="designer_id" name="designer_id" th:onchange="selectDesigner()" style="position: static; width:300px;">
 							<option value="" selected disabled>--디자이너별 후기검색--</option>
-							<option value="all" disabled>전체</option>
-							<option th:each="d : ${notnullist}" th:value="${d.designer_id}" th:text="|${d.designer_name}|"></option>
+							<option value="all">전체</option>
+							<option th:each="d : ${dsearchlist}" th:value="${d.designer_id}" th:text="|${d.designer_name}|"></option>
 						</select>
 					</form>
 					</div>
                 <div class="row">
-                    <div class="col-lg-4 mb-4" th:each="o : ${rlist}">
+                    <div class="col-lg-4 mb-4" th:each="o : ${searchlist}">
                         <!-- review item 2-->
                         <div class="review-item">
                             <a class="review-link" th:onclick="|location.href='@{/reviewview(no=${o.review_no},resv_no=${o.resv_no})}'|">
@@ -127,6 +127,11 @@
             </div>
         </section>
         
+<section class="page-section bg-light" id="review">
+
+
+<!-- th:value="${resv.resv_no}" th:onclick="|location.href='@{/review_write(no=${resv.resv_no})}'|" -->
+</section>
 <div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

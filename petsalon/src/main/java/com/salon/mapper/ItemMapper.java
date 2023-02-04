@@ -9,5 +9,5 @@ import com.salon.frame.MyMapper;
 @Repository
 @Mapper
 public interface ItemMapper extends MyMapper<Integer, Item> {
-
+	public Item reviewitemselect(Integer resv_no) throws Exception;
 }

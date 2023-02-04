@@ -43,9 +43,21 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         INNER JOIN designer de ON de.designer_id = sc.designer_id WHERE rv.resv_fix = 1
 	</select>
 	
+	<select id="searchreview" resultType="Review">
+		SELECT re.review_no, re.review_title, re.review_content,de.designer_id, de.designer_name, d.dog_name, re.review_photo, re.resv_no, sc.sc_id, re.review_date FROM review re
+		INNER JOIN resv rv ON rv.resv_no = re.resv_no
+        INNER JOIN dog d ON re.dog_id = d.dog_id
+        INNER JOIN schedule sc ON sc.resv_no = rv.resv_no
+        INNER JOIN designer de ON de.designer_id = sc.designer_id WHERE rv.resv_fix = 1 and de.designer_id=#{designer_id}
+	</select>
+	
 	<select id="review_count" parameterType="String" resultType="Integer">
 		SELECT COUNT(review_title) review_count FROM review
 		WHERE useremail = #{useremail}
+	</select>
+	<select id="notnullreview" resultType="Review">
+		SELECT de.designer_id, de.designer_name FROM review re
+		INNER JOIN designer de ON de.designer_id = re.designer_id WHERE re.designer_id is not null
 	</select>
 	
 </mapper>

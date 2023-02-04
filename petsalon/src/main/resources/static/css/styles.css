@@ -11753,7 +11753,7 @@ p {
 	margin-top:50px;
 }
 #visit>#visit_content>#sc_date{
-	margin-left:113px;
+	margin-left:120px;
 	font-size:1.2em;
 	font-weight:bold;
 	text-decoration:underline;
@@ -11799,28 +11799,6 @@ li{
 }
 .accordion-body>.menu_info>.card:nth-child(3n+1){
 	margin-left:110px;
-}
-.fc-day-sun a{
-	color:red;
-}
-.fc-day-sat a{
-	color:blue;
-}
-.fc-daygrid-day-number,.fc-col-header-cell-cushion { 
-	color:#000000; 
-}
-.fc-daygrid-day-frame:hover{
-	cursor:pointer;
-}
-.fc-toolbar-chunk>button{
-	display:none;
-}
-#dateinfo{
-	width:40%;
-	height:150px;
-	float:right;
-	text-align:center;
-	margin-top:20%;
 }
 header.masthead {
   padding-top: 10.5rem;
@@ -11907,8 +11885,11 @@ header.masthead .masthead-heading {
   margin-bottom: 0;
 }
 #review .review-item .review-caption .review-caption-subheading {
-  font-style: italic;
-  font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: 'MonoplexKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_Monoplex-kr@1.0/MonoplexKR-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+
 }
 
 .review-modal .modal-dialog {
