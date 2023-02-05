@@ -45,9 +45,7 @@ public class ScheduleService implements MyService<Integer, Schedule> {
 		return mapper.selectall();
 	}
 
-	
-	
-	
-	
-
+	public Schedule userSchedule(int resv_no) throws Exception {
+		return mapper.userSchedule(resv_no);
+	}
 }

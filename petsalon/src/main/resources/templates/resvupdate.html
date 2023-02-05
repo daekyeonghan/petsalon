@@ -2,10 +2,11 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<script>
+<script th:inline="javascript">
+const dog_id = '[[${resv.dog_id}]]';
+
 function dogSelect(data){
 	document.getElementById('dog_id').value = data;
-	document.getElementById('dogselectbtn').className = 'btn btn-dark';
 	document.getElementById('dateaccordion').click();
 }
 function designerSelect(data){
@@ -210,7 +211,7 @@ $(document).ready(function(){
 					    <div id="calendar" style="width:60%;float:left;"></div>
 					    <div id="dateinfo">
 					    	<img id="calicon" src="assets/img/calendar3.svg"/>
-					    	<input type="text" id="resvdate" name="resvdate" value=""/><br><br>
+					    	<input type="text" id="resvdate" name="resvdate" th:value="${#dates.format(schedule.sc_date, 'yyyy-MM-dd')}"/><br><br>
 					    	<button type="button" class="btn btn-success" onclick="dateSelect();">날짜 선택</button>
 					    </div>
 					  </div>
@@ -280,16 +281,17 @@ $(document).ready(function(){
 			</div>
 			
 			<div style="width:109px;margin:70px auto;">
-				<button type="button" class="btn btn-primary btn-lg" id="resvbtn">예약하기</button>
+				<button type="button" class="btn btn-primary btn-lg" id="resvbtn">예약수정</button>
         	</div>
         </section>
         
-        <form id="resvForm" method="post" th:action="@{/resvOk}" style="display:none;">
-        	<input type="hidden" id="dog_id" name="dog_id" value=""/>
-        	<input type="hidden" id="sc_date" name="sc_date" value=""/>
-        	<input type="hidden" id="designer_id" name="designer_id" value=""/>
-        	<input type="hidden" id="item_id" name="item_id" value=""/>
-        	<input type="hidden" id="resv_ask" name="resv_ask" value="없음"/>
+        <form id="resvForm" method="post" th:action="@{/resvupdateOk}" style="display:none;">
+        	<input type="hidden" id="dog_id" name="dog_id" th:value="${resv.dog_id}"/>
+        	<input type="hidden" id="sc_date" name="sc_date" th:value="${#dates.format(schedule.sc_date,'yyyy-MM-dd')}"/>
+        	<input type="hidden" id="designer_id" name="designer_id" th:value="${resv.designer_id}"/>
+        	<input type="hidden" id="item_id" name="item_id" th:value="${resv.item_id}"/>
+        	<input th:if="${resv.resv_ask=='없음'}" type="hidden" id="resv_ask" name="resv_ask" value="없음"/>
+        	<input th:unless="${resv.resv_ask=='없음'}" type="hidden" id="resv_ask" name="resv_ask" th:value="${resv.resv_ask}"/>
         	<input type="hidden" id="resv_fix" name="resv_fix" value="0"/>
         	<input type="hidden" id="cancel" name="cancel" value=""/>
         	<button id="resvsubmit" type="submit"></button>

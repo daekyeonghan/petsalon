@@ -6,6 +6,11 @@ function delchk(data){
 		location.href='/resvdel?resv_no='+data;
 	}
 }
+function updatechk(data){
+	if(confirm('해당 예약을 수정하시겠습니까?')){
+		location.href='/resvupdate?resv_no='+data;
+	}
+}
 </script>
 <div id="resvtitle">Reservation</div>
 <div id="userResv" th:if="${resv!=null}" th:each="resv : ${resv}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
@@ -29,7 +34,7 @@ function delchk(data){
 			<li th:if="${resv.resv_fix==1}" id="resv_fix">예약 확정</li>
 			<li th:unless="${resv.resv_fix==1}" id="resv_modify">
 				<button id="resv_apply" disabled>예약 신청 중</button>
-				<button id="resv_update" th:onclick="|location.href='@{/resvupdate}'|">예약 수정</button>
+				<button id="resv_update" th:onclick="updatechk([[${resv.resv_no}]])">예약 수정</button>
 				<button id="resv_del" th:onclick="delchk([[${resv.resv_no}]]);">예약 취소</button>
 			</li>
 		</ul>

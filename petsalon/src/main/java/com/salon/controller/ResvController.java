@@ -77,4 +77,51 @@ public class ResvController {
 		}
 		return "index";
 	}
+	
+	@RequestMapping("/resvupdate")
+	public String resvupdate(Model model, HttpSession session, HttpServletRequest req) {
+		String useremail = (String)session.getAttribute("logemail");
+		int resv_no = Integer.parseInt(req.getParameter("resv_no"));
+		try {
+			model.addAttribute("dog", dogservice.ownerdog(useremail));
+			model.addAttribute("designer",deservice.designerItem());
+			model.addAttribute("item", iservice.get());
+			model.addAttribute("schedule", scservice.userSchedule(resv_no));
+			model.addAttribute("resv", rservice.get(resv_no));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "resvupdate";
+	}
+	
+	@RequestMapping("/resvupdateOk")
+	public String resvupdateOk(HttpServletRequest req, HttpSession session) {
+		Resv resv = new Resv();
+		
+		resv.setUseremail((String)session.getAttribute("logemail"));
+		resv.setDog_id(Integer.parseInt(req.getParameter("dog_id")));
+		resv.setDesigner_id(req.getParameter("designer_id"));
+		resv.setItem_id(Integer.parseInt(req.getParameter("item_id")));
+		resv.setResv_ask(req.getParameter("resv_ask"));
+		resv.setResv_fix(Integer.parseInt(req.getParameter("resv_fix")));
+		resv.setCancel(req.getParameter("cancel"));
+		
+		Schedule sc = new Schedule();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		
+		try {
+			rservice.modify(resv);
+			System.out.println(resv);
+			date = sdf.parse(req.getParameter("sc_date"));
+			sc.setDesigner_id(req.getParameter("designer_id"));
+			sc.setResv_no(rservice.resvnoSelect());
+			sc.setSc_date(date);
+			scservice.modify(sc);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Register Error");
+		}
+		return "index";
+	}
 }

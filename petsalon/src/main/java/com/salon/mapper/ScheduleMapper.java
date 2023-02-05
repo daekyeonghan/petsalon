@@ -9,5 +9,5 @@ import com.salon.frame.MyMapper;
 @Repository
 @Mapper
 public interface ScheduleMapper extends MyMapper<Integer,Schedule>{
-
+	public Schedule userSchedule(int resv_no);
 }
