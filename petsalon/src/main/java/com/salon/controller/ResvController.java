@@ -2,6 +2,7 @@ package com.salon.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -49,7 +50,7 @@ public class ResvController {
 	}
 	
 	@RequestMapping("/resvOk")
-	public String resv(HttpServletRequest req, HttpSession session) {
+	public String resv(HttpServletRequest req, HttpSession session, Model model) {
 		Resv resv = new Resv();
 		
 		resv.setUseremail((String)session.getAttribute("logemail"));
@@ -61,7 +62,7 @@ public class ResvController {
 		resv.setCancel(req.getParameter("cancel"));
 		
 		Schedule sc = new Schedule();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH"+"시");
 		Date date = null;
 		
 		try {
@@ -71,11 +72,16 @@ public class ResvController {
 			sc.setResv_no(rservice.resvnoSelect());
 			sc.setSc_date(date);
 			scservice.register(sc);
+			
+			List<Resv> resvList = rservice.userResv((String)session.getAttribute("logemail"));
+			model.addAttribute("resv",resvList);
+			model.addAttribute("left", dir+"left");
+			model.addAttribute("center", dir+"center");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Register Error");
 		}
-		return "index";
+		return "mypage";
 	}
 	
 	@RequestMapping("/resvupdate")
@@ -95,9 +101,10 @@ public class ResvController {
 	}
 	
 	@RequestMapping("/resvupdateOk")
-	public String resvupdateOk(HttpServletRequest req, HttpSession session) {
+	public String resvupdateOk(HttpServletRequest req, HttpSession session, Model model) {
 		Resv resv = new Resv();
 		
+		resv.setResv_no(Integer.parseInt(req.getParameter("resv_no")));
 		resv.setUseremail((String)session.getAttribute("logemail"));
 		resv.setDog_id(Integer.parseInt(req.getParameter("dog_id")));
 		resv.setDesigner_id(req.getParameter("designer_id"));
@@ -107,21 +114,42 @@ public class ResvController {
 		resv.setCancel(req.getParameter("cancel"));
 		
 		Schedule sc = new Schedule();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH"+"시");
 		Date date = null;
 		
 		try {
 			rservice.modify(resv);
-			System.out.println(resv);
 			date = sdf.parse(req.getParameter("sc_date"));
+			sc.setSc_id(Integer.parseInt(req.getParameter("sc_id")));
 			sc.setDesigner_id(req.getParameter("designer_id"));
 			sc.setResv_no(rservice.resvnoSelect());
 			sc.setSc_date(date);
 			scservice.modify(sc);
+			
+			List<Resv> resvList = rservice.userResv((String)session.getAttribute("logemail"));
+			model.addAttribute("resv",resvList);
+			model.addAttribute("left", dir+"left");
+			model.addAttribute("center", dir+"center");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Register Error");
 		}
+		return "mypage";
+	}
+	
+	@RequestMapping("resvdel")
+	public String resvdel(HttpServletRequest req) {
+		Resv resv = new Resv();
+		int resv_no = Integer.parseInt(req.getParameter("resv_no"));
+		resv.setResv_no(resv_no);
+		
+		try {
+			scservice.remove(resv_no);
+			rservice.remove(resv_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "index";
 	}
 }

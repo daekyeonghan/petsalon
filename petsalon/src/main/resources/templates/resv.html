@@ -2,10 +2,9 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<script>
+<script th:inline="javascript">
 function dogSelect(data){
 	document.getElementById('dog_id').value = data;
-	document.getElementById('dogselectbtn').className = 'btn btn-dark';
 	document.getElementById('dateaccordion').click();
 }
 function designerSelect(data){
@@ -23,6 +22,7 @@ function askregister(){
 }
 
 var resvdate = "";
+
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var request = $.ajax({
@@ -68,6 +68,18 @@ function dateSelect(){
 	if(resvdate == '예약이 불가한 날입니다'){
 		alert('예약 날짜를 다시 선택해주세요');
 	}else{
+		if(document.getElementById('btnradio1').checked){
+			resvdate += ' 11시';
+		}
+		if(document.getElementById('btnradio2').checked){
+			resvdate += ' 13시';
+		}
+		if(document.getElementById('btnradio3').checked){
+			resvdate += ' 15시';
+		}
+		if(document.getElementById('btnradio4').checked){
+			resvdate += ' 17시';
+		}
 		document.getElementById('sc_date').value = resvdate;
 		document.getElementById('designeraccordion').click();
 	}
@@ -182,7 +194,7 @@ $(document).ready(function(){
 			    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 			      <div class="accordion-body">
 				      <div class="row row-cols-1 row-cols-md-3 g-4">
-						  <div class="col" th:each="dog:${dog}" style="margin-top:2%;">
+						  <div class="col" th:each="dog:${dog}" style="margin-top:4%;">
 						    <div class="card h-100">
 						      <img th:if="${dog.dog_photo==''} or ${dog.dog_photo==null}" src="assets/img/logo.svg" class="card-img-top" alt="...">
 						      <img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="@{${dog.dog_photo}}" class="card-img-top" alt="...">
@@ -211,6 +223,20 @@ $(document).ready(function(){
 					    <div id="dateinfo">
 					    	<img id="calicon" src="assets/img/calendar3.svg"/>
 					    	<input type="text" id="resvdate" name="resvdate" value=""/><br><br>
+					    	<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="11" autocomplete="off" checked>
+							  <label class="btn btn-outline-dark" for="btnradio1">11시</label>
+							
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="13" autocomplete="off">
+							  <label class="btn btn-outline-dark" for="btnradio2">13시</label>
+							
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="15" autocomplete="off">
+							  <label class="btn btn-outline-dark" for="btnradio3">15시</label>
+							
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio4" value="17" autocomplete="off">
+							  <label class="btn btn-outline-dark" for="btnradio4">17시</label>
+							 </div>
+							 <br><br>
 					    	<button type="button" class="btn btn-success" onclick="dateSelect();">날짜 선택</button>
 					    </div>
 					  </div>

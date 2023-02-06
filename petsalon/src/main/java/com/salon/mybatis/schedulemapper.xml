@@ -11,16 +11,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM schedule
 	</select>
 	<select id="userSchedule" parameterType="Integer" resultType="Schedule">
-		SELECT sc_id, designer_id, resv_no, DATE_FORMAT(sc_date, "%Y-%m-%d") sc_date FROM schedule WHERE resv_no=#{resv_no}
+		SELECT sc_id, designer_id, resv_no, DATE_FORMAT(sc_date, CONCAT('%Y-%m-%d %H','시')) sc_date FROM schedule WHERE resv_no=#{resv_no}
 	</select>
 	<insert id="insert" parameterType="Schedule">
 		INSERT INTO schedule VALUES (#{sc_id}, #{designer_id}, #{resv_no}, #{sc_date})
 	</insert>
 	<update id="update" parameterType="Schedule">
-		UPDATE schedule SET sc_date=#{sc_date} WHERE sc_id=#{sc_id}
+		UPDATE schedule SET designer_id=#{designer_id}, sc_date=#{sc_date} WHERE sc_id=#{sc_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM schedule WHERE sc_id=#{sc_id}
+		DELETE FROM schedule WHERE resv_no=#{resv_no}
 	</delete>
 	
 </mapper>

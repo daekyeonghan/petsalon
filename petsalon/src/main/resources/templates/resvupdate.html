@@ -286,6 +286,8 @@ $(document).ready(function(){
         </section>
         
         <form id="resvForm" method="post" th:action="@{/resvupdateOk}" style="display:none;">
+        	<input type="hidden" id="resv_no" name="resv_no" th:value="${resv.resv_no}"/>
+        	<input type="hidden" id="sc_id" name="sc_id" th:value="${schedule.sc_id}"/>
         	<input type="hidden" id="dog_id" name="dog_id" th:value="${resv.dog_id}"/>
         	<input type="hidden" id="sc_date" name="sc_date" th:value="${#dates.format(schedule.sc_date,'yyyy-MM-dd')}"/>
         	<input type="hidden" id="designer_id" name="designer_id" th:value="${resv.designer_id}"/>
