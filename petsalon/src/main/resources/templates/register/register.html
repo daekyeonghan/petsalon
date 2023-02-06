@@ -16,7 +16,16 @@
 	<link th:href="@{/css/styles.css}" rel="stylesheet" />
 	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<style>
+	@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+	#signup_form {font-family: 'SUIT-Regular';}
+	</style>
 	<script>
 	
 		function regMemberid(useremail) {
@@ -52,6 +61,7 @@
 		var birthCheck = 0;
 		var addressCheck = 0;
 		var detaddressCheck = 0;
+		var checkagree = 0;
 		
 		function checkId() {
 			   var inputed = $('#useremail').val();
@@ -67,7 +77,7 @@
 			            $("#mailcon").css("display","none");
 			            $(".joinbtn").prop("disabled", true);
 			            $(".joinbtn").css("background-color", "#aaaaaa");
-			            $("#useremail").css("background-color", "#FFCECE");
+			            /* $("#useremail").css("background-color", "#FFCECE"); */
 			            idCheck = 0;
 			         } else if (regMemberid(inputed) == false) {
 			            $("#mailform").css("display","block");
@@ -75,10 +85,10 @@
 			            $("#fail").css("display","none");
 			            $(".joinbtn").prop("disabled", true);
 			            $(".joinbtn").css("background-color", "#aaaaaa");
-			            $("#useremail").css("background-color", "#FFCECE");
+			            /* $("#useremail").css("background-color", "#FFCECE"); */
 			            idCheck = 0;
 			         } else if( data == '0' && regMemberid(inputed)) { //중복되지않고, 정규식을 통과할 때
-			            $("#useremail").css("background-color", "#B0F6AC");
+			            /* $("#useremail").css("background-color", "white"); */
 			            $("#mailform").css("display","none");
 			            $("#fail").css("display","none");
 			            $("#mailcon").css("display","block");
@@ -97,12 +107,12 @@
 			            $(".joinbtn").prop("disabled", true);
 			            $(".joinbtn").css("background-color", "#aaaaaa");
 			            $("#failpwd").css("display", "block");
-			            $("#userpwd").css("background-color", "#FFCECE");
+			            /* $("#userpwd").css("background-color", "#FFCECE"); */
 			            pwdCheck = 0;
 			         } else if(regPassword(inputed) == true) {
-			            $("#userpwd").css("background-color", "#B0F6AC");
+			            /* $("#userpwd").css("background-color", "#B0F6AC"); */
 			            $("#failpwd").css("display", "none");
-			            $("#userpwdok").css("display", "block");
+			            /* $("#userpwdok").css("display", "block"); */
 			            pwdCheck = 1;
 			         }
 			      }
@@ -117,12 +127,12 @@
 			         if(inputed != inputed1) {
 			            $(".joinbtn").prop("disabled", true);
 			            $(".joinbtn").css("background-color", "#aaaaaa");
-			            $("#userpwd2").css("background-color", "#FFCECE");
+			            /* $("#userpwd2").css("background-color", "#FFCECE"); */
 			            $("#userpwd2no").css("display", "block");
 			            $("#userpwd2ok").css("display", "none");
 			            pwCheck = 0;
 			         } else if(inputed == inputed1) {
-			            $("#userpwd2").css("background-color", "#B0F6AC");
+			            /* $("#userpwd2").css("background-color", "#B0F6AC"); */
 			            $("#userpwd2ok").css("display", "block");
 			            $("#userpwd2no").css("display", "none");
 			            pwCheck = 1;
@@ -138,11 +148,11 @@
 				         if(regMemberName(inputed) == false || inputed.length > 18) { //입력한 값이 정규표현식에 해당되지 않을 때와 18자 이상이 넘을 때 
 				            $(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
 				            $(".joinbtn").css("background-color", "#aaaaaa"); //버튼 회색으로 바꾸기 
-				            $("#username").css("background-color", "#FFCECE");  // input 배경 붉은색으로 바꾸기
+				           /*  $("#username").css("background-color", "#FFCECE"); */  // input 배경 붉은색으로 바꾸기
 				            $("#usernameck").css("display", "block");
 				            nameCheck = 0; // 회원 가입 전 값들 체크하기 위해 (0은 불가, 1은 가능)
 				         } else if(regMemberName(inputed) == true) { //정규표현식에 해당할 때
-				            $("#username").css("background-color", "#B0F6AC"); // input 배경 초록색으로 바꾸기
+				            /* $("#username").css("background-color", "#B0F6AC"); */ // input 배경 초록색으로 바꾸기
 				            $("#usernameck").css("display", "none");
 				            nameCheck = 1;
 				         }
@@ -157,13 +167,13 @@
 				      success: function() {
 				         if(regPhoneNumber(inputed) ==  false) {
 				        	$(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
-				            $("#tel").css("background-color", "#FFCECE");
+				            /* $("#tel").css("background-color", "#FFCECE"); */
 				            inputed = $('#tel').val();
 				            $("#telck").css("display", "block");
 				            phoneCheck = 0;
 				         }
 				         else if(regPhoneNumber(inputed)== true) {
-				            $("#tel").css("background-color", "#B0F6AC");
+				            /* $("#tel").css("background-color", "#B0F6AC"); */
 				            $("#telck").css("display", "none");
 				            phoneCheck = 1;
 				         }
@@ -178,13 +188,13 @@
 				      success: function() {
 				         if(regUserBirth(inputed) ==  false) {
 				        	$(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
-				            $("#birth").css("background-color", "#FFCECE");
+				            /* $("#birth").css("background-color", "#FFCECE"); */
 				            inputed = $('#birth').val();
 				            $("#birthck").css("display", "block");
 				            birthCheck = 0;
 				         }
 				         else if(regUserBirth(inputed)== true || inputed.length == 8) {
-				            $("#birth").css("background-color", "#B0F6AC");
+				            /* $("#birth").css("background-color", "#B0F6AC"); */
 				            $("#birthck").css("display", "none");
 				            birthCheck = 1;
 				         }
@@ -197,10 +207,17 @@
 				   $.ajax({
 				      success: function() {
 				         if(inputed == true) {
-				        	 $("#detaddr").css("background-color", "#B0F6AC"); 
+				        	 /* $("#detaddr").css("background-color", "#B0F6AC");  */
 					            $("#detaddrck").css("display", "none");
 					            detaddressCheck = 1;
-				         };
+				         }
+				         else if(inputed == false) {
+				        	 $(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+					            /* $("#detaddr").css("background-color", "#FFCECE"); */
+					            inputed = $('#detaddr').val();
+					            $("#detaddrck").css("display", "block");
+					            detaddressCheck = 0;
+				         }
 				            
 				         }
 				      
@@ -224,15 +241,28 @@
 			} */
 			
 			$(document).ready(function(){
-				
-				activateJoinbtn()
-				/* checkDetaddr()
-				
-				var inputed = $('#addr').val();
 
-				if(inputed == false) {
-					checkAddress();
-				} */
+					activateJoinbtn();
+					
+					
+				/* // 체크박스 전체 선택
+				$(".checkbox_group").on("click", "#check_all", function () {
+				    $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
+				});
+				
+				// 체크박스 개별 선택
+				$(".checkbox_group").on("click", ".normal", function() {
+				    var is_checked = true;
+				
+				    $(".checkbox_group .normal").each(function(){
+				        is_checked = is_checked && $(this).is(":checked");
+				        
+				    });
+				
+				    $("#check_all").prop("checked", is_checked);
+				    d = 1;
+				    console.log(d);
+				}); */
 				
 				
 				
@@ -255,16 +285,18 @@
 			
 			$.ajax({
 			      success: function() {
-			   
-			   if( idCheck == 1 && pwdCheck == 1  && nameCheck == 1 && phoneCheck == 1 && pwCheck == 1 && birthCheck == 1 && addressCheck == 1 && detaddressCheck == 1) {
-				   
-			      $("#joinbtn").prop("disabled", false);   
-			      $("#joinbtn").css("background-color", "#B0F6AC");
-			   }
-			   else  {
-			      $("#joinbtn").css("background-color", "#aaaaaa");
-			      $("#joinbtn").prop("disabled", true);
-			   }
+			    	
+
+				   if( idCheck == 1 && pwdCheck == 1  && nameCheck == 1 && phoneCheck == 1 && pwCheck == 1 && birthCheck == 1 && addressCheck == 1 && detaddressCheck == 1 && checkagree == 1 ) {
+					   
+					      $("#joinbtn").prop("disabled", false);   
+					      /* $("#joinbtn").css("background-color", "#B0F6AC"); */
+					   }
+					   else  {
+					      $("#joinbtn").css("background-color", "#aaaaaa");
+					      $("#joinbtn").prop("disabled", true);
+					   }
+
 			}
 			});
 		}
@@ -398,9 +430,9 @@
 		                document.getElementById('zipcode').value = data.zonecode;
 		                document.getElementById("addr").value = addr;
 		                
-		                $("#addr").css("background-color", "#B0F6AC");
+		                /* $("#addr").css("background-color", "#B0F6AC");
 		                $("#zipcode").css("background-color", "#B0F6AC");
-		                $("#readaddr").css("background-color", "#B0F6AC");
+		                $("#readaddr").css("background-color", "#B0F6AC"); */
 		                $("#addrck").css("display", "none");
 		                
 			            addressCheck = 1;
@@ -409,15 +441,78 @@
 			}).open(); 
 		};
 		
+		function checkSelectAll()  {
+			  // 전체 체크박스
+			  const checkboxes 
+			    = document.querySelectorAll('input[name="agree"]');
+			  // 선택된 체크박스
+			  const checked 
+			    = document.querySelectorAll('input[name="agree"]:checked');
+			  // select all 체크박스
+			  const selectAll 
+			    = document.querySelector('input[name="agreeall"]');
+			  
+			  if(checkboxes.length === checked.length)  {
+			    selectAll.checked = true;
+			  }else {
+			    selectAll.checked = false;
+			  }
+			  
+			  const checkbox1 = document.getElementById('check_1');
+			  const checkbox2 = document.getElementById('check_2');
+			  const checkbox3 = document.getElementById('check_3');
+			  const checkbox4 = document.getElementById('check_all');
+			  
+			  const is_checked1 = checkbox1.checked;
+			  const is_checked2 = checkbox2.checked;
+			  const is_checked3 = checkbox3.checked;
+			  const is_checked4 = checkbox4.checked;
+			  
+			  
+			  if(is_checked1 && is_checked2 && is_checked3 && is_checked4) {
+				  $("#agreeck").css("display", "none");
+				  $("#joinbtn").prop("disabled", false);
+				  checkagree = 1;
+			  }else{
+				  $(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				  $(".joinbtn").css("background-color", "#aaaaaa"); //버튼 회색으로 바꾸기
+				  $("#agreeck").css("display", "block");
+				  checkagree = 0;
+			  }
+			}
+
+			function selectAll(selectAll)  {
+			  const checkboxes 
+			     = document.getElementsByName('agree');
+			  
+			  checkboxes.forEach((checkbox) => {
+			    checkbox.checked = selectAll.checked
+			  })
+			  
+			  if($('#check_all').is(':checked')) {
+				  $("#agreeck").css("display", "none");
+				  $("#joinbtn").prop("disabled", false);
+				  checkagree = 1;
+			  }else {
+				  $(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				  $(".joinbtn").css("background-color", "#aaaaaa"); //버튼 회색으로 바꾸기
+				  $("#agreeck").css("display", "block");
+				  checkagree = 0;
+			  }
+			  
+			}
+		
+
+		
 
     </script>
 </head>
 <body class="bg-light">
 	
-	<section class="page-section" id="signup_form" style="background-color: #f5dcb7;">
+	<section class="page-section" id="signup_form" style="background-color: white;">
 		<div class="container">
 			<div class="row mt-5">
-				<div class="col-lg-5 bg-white m-auto rounded-top">
+				<div class="col-lg-5 m-auto rounded-top" style="background-color: #f8f8f8;">
 					<h2 class="text-center pt-3 mb-5">회원가입</h2>
 					<!--  form start -->
 					<form id="join_form" class="validation-form" novalidate>
@@ -467,43 +562,138 @@
 							<input type="text" id="detaddr" name="detaddr" class="form-control" placeholder="상세 주소" oninput="checkDetaddr(), activateJoinbtn()"/>
 							<font color="red" id="detaddrck" style="display:none">상세주소를 입력해주세요</font>
 						</div>
-						
-						<div class="form-check mb-3">
-							<input class="form-check-input check" type="checkbox" value="" id="flexCheckDefault checkAll">
-							<label class="form-check-label" for="flexCheckDefault" >
-								모두 동의
-							</label>
-						</div>
-						<div class="form-check mb-3">
-							<input class="form-check-input check" type="checkbox" value="" id="flexCheckDefault">
-							<label class="form-check-label" for="flexCheckDefault">
-								서비스 이용약관에 동의
-							</label>
-						</div>
-						<div class="form-check mb-3">
-							<input class="form-check-input check" type="checkbox" value="" id="flexCheckDefault">
-							<label class="form-check-label" for="flexCheckDefault">
-								개인정보의 수집 및 이용에 대한 동의
-							</label>
-						</div>
-						<div class="form-check mb-3">
-							<input class="form-check-input check" type="checkbox" value="" id="flexCheckDefault">
-							<label class="form-check-label" for="flexCheckDefault">
-								만 14세 이상입니다.
-							</label>
+						<a href="#" id="agree2" data-bs-toggle="modal" data-bs-target="#agree2Modal" style="text-decoration: none; float:right;"> 서비스 이용약관</a><a href="#" id="agree1" data-bs-toggle="modal" data-bs-target="#agree1Modal" style="text-decoration: none; float:right;">개인정보 처리방침 ｜</a></br>
+						<div class="checkbox_group">
+							<input type="checkbox" name="agreeall" onclick="selectAll(this)" onchange="activateJoinbtn()" id="check_all" class="mb-3">
+							<label for="check-all">전체 동의</label></br>
+							<input type="checkbox" name="agree" onclick="checkSelectAll()" onchange="activateJoinbtn()" id="check_1" class="normal mb-3" >
+							<label for="check_1">개인정보 처리방침 동의 (필수)</label></br>
+							<input type="checkbox" name="agree" onclick="checkSelectAll()" onchange="activateJoinbtn()" id="check_2" class="normal mb-3">
+							<label for="check_2">서비스 이용약관 동의 (필수)</label></br>
+							<input type="checkbox" name="agree" onclick="checkSelectAll()" onchange="activateJoinbtn()" id="check_3" class="normal mb-3">
+							<label for="check_3">만 14세 이상입니다 (필수)</label>
+							<font color = "red" id = "agreeck" style = "display:none">필수항목 체크여부를 확인해주세요</font>
 						</div>
 						<p class="text-center mt-2"><b>모든 항목을 입력하셔야 회원가입이 가능합니다</b></p>
 						<div id="btn22" class="d-grid"><!-- onclick="join_check();" -->
 							<button type="button" id="joinbtn" class="btn btn-secondary">회원가입</button>
-							<p class="text-center mt-2"><b>이미 가입된 계정이 존재하나요 ?</b><a th:href="@{/login}"> 로그인</a></p>
+							<p class="text-center mt-2"><b>이미 가입된 계정이 존재하나요 ?</b><a th:href="@{/login}" style="text-decoration: none;"> 로그인</a></p>
 						</div>
 					</form>
 					<!--  form end -->
 				</div>
 			</div>
 		</div>
-	
-		
+
+
+
+		<!-- 개인정보 처리방침 모달 -->
+		<div class="modal fade" id="agree1Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">개인정보 처리방침</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" style="padding-left: 50px; padding-right: 50px; overflow: scroll; height:500px;">
+						<b>제1조(목적)</b></br>
+						이웃집하로(이하 ‘회사'라고 함)는 회사가 제공하고자 하는 서비스(이하 ‘회사 서비스’)를 이용하는 개인(이하 ‘이용자’ 또는 ‘개인’)의 정보(이하 ‘개인정보’)를 보호하기 위해, 개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률(이하 '정보통신망법') 등 관련 법령을 준수하고, 서비스 이용자의 개인정보 보호 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보처리방침(이하 ‘본 방침’)을 수립합니다.</br></br>
+						
+						<b>제2조(개인정보 처리의 원칙)</b></br>
+						개인정보 관련 법령 및 본 방침에 따라 회사는 이용자의 개인정보를 수집할 수 있으며 수집된 개인정보는 개인의 동의가 있는 경우에 한해 제3자에게 제공될 수 있습니다. 단, 법령의 규정 등에 의해 적법하게 강제되는 경우 회사는 수집한 이용자의 개인정보를 사전에 개인의 동의 없이 제3자에게 제공할 수도 있습니다.</br></br>
+						
+						<b>제3조(본 방침의 공개)</b></br>
+						본 방침은 개인정보 관련 법령, 지침, 고시 또는 정부나 회사 서비스의 정책이나 내용의 변경에 따라 개정될 수 있습니다.
+						회사는 제1항에 따라 본 방침을 개정하는 경우 다음 각 호 하나 이상의 방법으로 공지합니다.
+						회사가 운영하는 인터넷 홈페이지의 첫 화면의 공지사항란 또는 별도의 창을 통하여 공지하는 방법
+						서면·모사전송·전자우편 또는 이와 비슷한 방법으로 이용자에게 공지하는 방법
+						회사는 제2항의 공지는 본 방침 개정의 시행일로부터 최소 7일 이전에 공지합니다. 다만, 이용자 권리의 중요한 변경이 있을 경우에는 최소 30일 전에 공지합니다.
+						회사는 이용자의 회원 가입을 위하여 다음과 같은 정보를 수집합니다.</br></br>
+						
+						<b>제4조(회원 가입을 위한 정보)</b></br>
+						필수 수집 정보: 이름, 핸드폰 번호, 이메일, 비밀번호
+						회사는 이용자의 본인인증을 위하여 다음과 같은 정보를 수집합니다.</br></br>
+						
+						<b>제5조(본인 인증을 위한 정보)</b></br>
+						필수 수집 정보: 이름, 핸드폰 번호, 이메일, 비밀번호
+						회사는 이용자의 현금영수증을 발행하기 위하여 다음과 같은 정보를 수집합니다.</br></br>
+						
+						<b>제6조(현금 영수증 발행을 위한 정보)</b></br>
+						필수 수집 정보: 현금영수증 발행 대상자 이름,  휴대폰 번호 및 현금영수증 카드번호
+						회사는 이용자에게 회사의 서비스를 제공하기 위하여 다음과 같은 정보를 수집합니다.</br></br>
+						
+						<b>제7조(회사 서비스 제공을 위한 정보)</b></br>
+						필수 수집 정보: 이름, 핸드폰 번호, 이메일
+						선택 수집 정보: 성별, 생년월일, 여행취향 정보, 여행관심사 정보
+						회사는 이용자의 서비스 이용 및 부정이용의 확인 및 분석을 위하여 다음과 같은 정보를 수집합니다.</br></br>
+						
+						<b>제8조(서비스 이용 및 부정 이용 확인을 위한 정보)</b></br>
+						필수 수집 정보: 서비스 이용기록, 쿠키, 접속지 정보 및 기기정보※ 부정이용 : 회원탈퇴 후 재가입, 상품구매 후 구매취소 등을 반복적으로 행하는 등 회사가 제공하는 할인쿠폰, 이벤트 혜택 등의 경제상 이익을 불·편법적으로 수취하는 행위, 이용약관 등에서 금지하고 있는 행위, 명의도용 등의 불·편법행위 등을 말합니다. 수집되는 정보는 회사 서비스 이용에 따른 통계∙분석에 이용될 수 있습니다.
+						회사는 다음과 같은 방법으로 이용자의 개인정보를 수집합니다.</br></br>
+						
+						<b>제9조(회사 서비스 제공을 위한 정보)</b></br>
+						이용자가 회사의 홈페이지에 자신의 개인정보를 입력하는 방식
+						어플리케이션 등 회사가 제공하는 홈페이지 외의 서비스를 통해 이용자가 자신의 개인정보를 입력하는 방식
+						회사 명의 발송의 이메일을 수신한 이용자가 이에 대해 응답하는 방식
+						이용자가 고객센터의 상담, 게시판에서의 활동 등 회사의 서비스를 이용하는 과정에서 이용자가 입력하는 방식
+						회사는 개인정보를 다음 각 호의 경우에 이용합니다.</br></br>
+						
+						<b>제10조(개인정보 이용)</b></br>
+						공지사항의 전달 등 회사의 운영에 필요한 경우
+						이용문의에 대한 회신, 불만의 처리 등 이용자에 대한 서비스 개선을 위한 경우
+						회사의 서비스를 제공하기 위한 경우
+						신규 서비스 개발을 위한 경우
+						이벤트 및 행사 안내 등 마케팅을 위한 경우
+						인구통계학적 분석, 서비스 방문 및 이용기록의 분석을 위한 경우
+						개인정보 및 관심에 기반한 이용자간 관계의 형성을 위한 경우
+						법령 및 회사 약관을 위반하는 회원에 대한 이용 제한 조치, 부정 이용 행위를 포함하여 서비스의 원활한 운영에 지장을 주는 행위에 대한 방지 및 제재를 위한 경우
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="canccle-btn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 서비스 이용약관 모달 -->
+		<div class="modal fade" id="agree2Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">서비스 이용약관</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" style="padding-left: 50px; padding-right: 50px; overflow: scroll; height: 500px;">
+					<b>제 1조 (목적)</b></br>
+					이 약관은 주식회사 이웃집하로(이하 "당사"이라 합니다)이 운영하는 웹사이트(https://www.com/) 및 어플리케이션(Application, 이하 웹사이트와 어플리케이션을 통칭하여 "이웃집하로 플랫폼")에서 제공하는 서비스(이하 "서비스"라 합니다)를 이용함에 있어 "당사"와 이용자의 권리 및 의무 및 책임사항을 규정함을 목적으로 합니다.</br></br>
+					
+					<b>제 1조 (정의)</b></br>
+					"당사"란 서비스를 제공하는 이웃집하로를 말하며, 이웃집하로가 중개 및 판매하는 재화 또는 용역(이하 "재화 등"이라 합니다)을 이용자에게 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 재화 등을 거래할 수 있도록 설정한 가상의 영업장인 사이버 몰의 의미로도 사용합니다.
+					"이용자"란 "당사"에 접속하여 이 약관에 따라 "당사"가 제공하는 서비스를 받는 회원을 말합니다.
+					"회원"이라 함은 "당사"에 개인정보를 제공하여 회원등록을 한 자로서,"당사"의 정보를 지속적으로 제공받으며,"당사"가 제공하는 서비스를 계속적으로 이용할 수 있는 자를 말합니다.
+					“파트너"라고 함은 당사가 여행자에게 중개한 자로서 여행자에게 각종 여행 서비스를 제공하는 자를 말합니다.
+					"가이드"라고 함은 파트너 중 이웃집하로 플랫폼을 통해 직접 여행지에서 여행자에게 투어 서비스를 제공하는 자를 말합니다.</br></br>
+					
+					<b>제 3조 (약관의 명시와 개정)</b></br>
+					"당사"는 이 약관의 내용과 상호 및 대표자 성명, 영업소 소재지, 주소(소비자의 불만을 처리할 수 있는 곳의 주소를 포함), 전화번호, 전자우편주소, 사업자등록번호, 통신판매업신고번호, 개인정보관리책임자 등을 이용자가 쉽게 알 수 있도록 “당사” 웹사이트의 초기 서비스화면(전면)에 게시합니다. 다만, 약관의 내용은 이용자가 연결화면을 통하여 볼 수 있도록 할 수 있습니다.
+					"당사"는 전자상거래 등에서의 소비자 보호에 관한 법률, 약관의 규제에 관한 법률, 전자거래기본법, 전자서명법, 정보통신망 이용 촉진 등에 관한 법률, 소비자기본법 등 관련법을 위배하지 않는 범위에서 이 약관을 개정할 수 있습니다.
+					"당사"가 약관을 개정할 경우에는 적용일자 및 개정내용, 개정사유 등을 명시하여 현행 약관과 함께 "당사" 웹사이트의 초기화면이나 초기화면과의 연결화면에 그 적용일자 7 일 이전부터 적용일자 전일까지 공지합니다. 다만, 이용자에게 불리하게 약관내용을 변경하는 경우에는 최소한 30 일 이전의 유예기간을 두고 공지합니다. 이 경우 "당사"는 중요내용에 관하여 개정 전 내용과 개정 후 내용을 명확하게 비교하여 이용자가 알기 쉽도록 표시합니다.
+					"당사"가 약관을 개정할 경우에는 그 개정약관은 그 적용일자 이후에 체결되는 계약에만 적용되고 그 이전에 이미 체결된 계약에 대해서는 개정 전의 약관조항이 그대로 적용됩니다. 다만 이용자가 개정약관 조항의 적용을 받기를 원하는 뜻을 제 3 항에 의한 개정 약관의 공지기간 내에 "당사"에 송신하여 동의를 받은 경우에는 개정일자부터 개정약관 조항이 적용됩니다.
+					“당사”가 약관을 개정하는 경우 이용자는 개정약관에 동의하지 않을 권리가 있습니다. 이용자가 개정약관에 동의하지 않을 경우에는 서비스 이용을 중단하고 “당사”에 탈퇴를 요청할 수 있습니다. 다만 이용자가 제3항의 방법 등으로 고지한 개정약관의 개정 유예기간 내에 “당사”의 개정약관에 동의하지 않겠다는 명시적인 의사표시를 하지 않는 경우 개정 약관에 동의한 것으로 간주합니다.
+					이 약관은 “당사”와 이용자간에 성립되는 서비스 이용 관련 기본약정입니다. “당사”는 필요한 경우 특정 서비스에 관하여 적용될 사항(이하 "개별약관"이라고 합니다)을 정하여 미리 공지할 수 있으며, 이러한 개별약관에 동의하고 특정 서비스를 이용하는 경우에는 개별약관이 우선적으로 적용되고, 이 약관은 보충적인 효력을 갖습니다. 개별약관의 변경에 관해서는 위 제 3 항 및 제 4 항을 준용합니다.
+					이용자가 가입시 동의한 약관에 관하여 열람을 요구할 경우, “당사”는 이용자가 가입시 기재한 전자우편 주소로 링크형태로 전송합니다.
+					"당사"는 제공하는 서비스의 구체적 내용에 따라 개별 서비스에 대한 약관 및 이용조건을 각 개별 서비스마다 별도로 정하여 회원의 동의를 얻을 수 있습니다. 이 경우 개별 서비스에 대한 이용약관 등이 본 약관에 우선합니다.
+					이 약관과 개별약관에도 정하지 아니한 사항과 “당사" 약관의 해석에 관하여는 전자상거래 등에서의 소비자보호에 관한 법률, 약관의 규제 등에 관한 법률, 정부가 제정한 전자 상거래 등에서의 소비자보호 지침 등 관계법령, 정부기관의 해석 또는 상관례에 따릅니다.
+					
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="canccle-btn" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 	</section>
 		
 	<!-- Bootstrap core JS-->
