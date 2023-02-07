@@ -1,5 +1,13 @@
 package com.salon.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.salon.dto.User;
+import com.salon.frame.CryptoUtil;
 import com.salon.service.UserService;
 
 @Controller
@@ -23,9 +32,13 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/loginimpl")
-	public ModelAndView loginimpl(HttpServletRequest req, HttpSession session, Model model, ModelAndView mav) {
+	public ModelAndView loginimpl(HttpServletRequest req, HttpSession session, Model model, ModelAndView mav) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException,
+	NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
 		String email = req.getParameter("email");
 		String pwd = req.getParameter("pwd");
+		
+		String enc_plainText = CryptoUtil.sha512(pwd);
+		
 		User user = null;
 		try {
 			user = uservice.get(email);
@@ -33,7 +46,7 @@ public class LoginController {
 				session.setAttribute("result", 1);
 				mav.setViewName("redirect:login");
 			}else {
-				if(user.getUserpwd().equals(pwd)) {
+				if(user.getUserpwd().equals(enc_plainText)) {
 					session.setAttribute("logemail", email);
 					session.setAttribute("logname", user.getUsername());
 					mav.setViewName("redirect:/");
