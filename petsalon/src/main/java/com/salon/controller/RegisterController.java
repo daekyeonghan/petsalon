@@ -39,8 +39,9 @@ public class RegisterController {
 	NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
 		String useremail = user.getUseremail();
 		String userpwd = user.getUserpwd();
-		System.out.println(userpwd);
+		
 		String enc_userpwd = CryptoUtil.sha512(userpwd);
+		
 		String username = user.getUsername();
 		String birth = user.getBirth();
 		String tel = user.getTel();
@@ -49,7 +50,6 @@ public class RegisterController {
 		String zipcode = user.getZipcode();
 		
 		user.setUserpwd(enc_userpwd);
-		System.out.println(enc_userpwd);
 		
 		try {
 			service.register(user);

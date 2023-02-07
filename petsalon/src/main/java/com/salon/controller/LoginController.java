@@ -37,7 +37,8 @@ public class LoginController {
 		String email = req.getParameter("email");
 		String pwd = req.getParameter("pwd");
 		
-		String enc_plainText = CryptoUtil.sha512(pwd);
+		
+		/* String enc_plainText = CryptoUtil.sha512(pwd); */
 		
 		User user = null;
 		try {
@@ -46,7 +47,7 @@ public class LoginController {
 				session.setAttribute("result", 1);
 				mav.setViewName("redirect:login");
 			}else {
-				if(user.getUserpwd().equals(enc_plainText)) {
+				if(user.getUserpwd().equals(pwd)) {
 					session.setAttribute("logemail", email);
 					session.setAttribute("logname", user.getUsername());
 					mav.setViewName("redirect:/");
