@@ -75,6 +75,9 @@
 <meta charset="UTF-8">
 <style>
 	img{display:block; margin:auto;}
+	#selectDesignerReview{width:250px; height:40px; float:right; padding-right: 35px;}
+	#review-thumbnail{margin: auto;}
+	#add-button{padding-left: 10px; width:150px; height:40px; float:left;}
 
 </style>
 </head>
@@ -87,23 +90,21 @@
 </div>
 </section>
 <section class="page-section bg-light" id="review">
-            <div class="container">
+            <div class="container col-lg-12">
                 <div class="text-center mb-3">
                     <h2 class="section-heading text-uppercase">review</h2>
                     <h3 class="section-subheading text-muted">아이들의 가장 예쁜 모습입니다</h3>
                 </div>
-                <div>
-                    <span><button type="button" id="review_add" name="review_plus" class="btn btn-primary btn-xl text-uppercase" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button></span>
-                    <form id="selectDesignerReview">
-						<select class="form-select mt-3 mb-3" id="designer_id" name="designer_id" th:onchange="selectDesigner()" style="position: static; width:300px;">
+                <div id="add-button"><button type="button" id="review_add" name="review_plus" class="btn btn-primary text-uppercase mb-3" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button></div>
+                    <form id="selectDesignerReview" class="mb-3">
+						<select class="form-select" id="designer_id" name="designer_id" th:onchange="selectDesigner()">
 							<option value="" selected disabled>--디자이너별 후기검색--</option>
-							<option value="all">전체</option>
-							<option th:each="d : ${dsearchlist}" th:value="${d.designer_id}" th:text="|${d.designer_name}|"></option>
+							<option value="all" >전체</option>
+							<option th:each="d : ${notnullist}" th:value="${d.designer_id}" th:text="|${d.designer_name}|"></option>
 						</select>
 					</form>
-					</div>
-                <div class="row">
-                    <div class="col-lg-4 mb-4" th:each="o : ${searchlist}">
+                <div class="row col-lg-12">
+                    <div id="review-thumbnail" class="col-lg-4 mb-4" th:each="o : ${searchlist}">
                         <!-- review item 2-->
                         <div class="review-item">
                             <a class="review-link" th:onclick="|location.href='@{/reviewview(no=${o.review_no},resv_no=${o.resv_no})}'|">
