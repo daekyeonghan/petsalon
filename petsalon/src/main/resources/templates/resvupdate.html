@@ -2,9 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<script th:inline="javascript">
-const dog_id = '[[${resv.dog_id}]]';
-
+<script>
 function dogSelect(data){
 	document.getElementById('dog_id').value = data;
 	document.getElementById('dateaccordion').click();
@@ -23,8 +21,9 @@ function askregister(){
 	document.getElementById('closebtn').click();
 }
 
-var resvdate = "";
+var resvdate = ""
 document.addEventListener('DOMContentLoaded', function() {
+	resvdate = document.getElementById('sc_date').value;
     var calendarEl = document.getElementById('calendar');
     var request = $.ajax({
 		url : '/weekSchedule',
@@ -51,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	      		 success:function(data){
 	      			 if(data>0){
 	      				document.getElementById('resvdate').value = info.dateStr;
-	      	      	    resvdate = info.dateStr;
+	      	      	    resvdate = info.dateStr+' 11시';
 	      			 }else{
 	      				document.getElementById('resvdate').value = '예약이 불가한 날입니다';
 	      				resvdate = '예약이 불가한 날입니다';
@@ -69,12 +68,55 @@ function dateSelect(){
 	if(resvdate == '예약이 불가한 날입니다'){
 		alert('예약 날짜를 다시 선택해주세요');
 	}else{
+		if(document.getElementById('btnradio1').checked){
+			resvdate = resvdate.replace(' 13시', ' 11시');
+			resvdate = resvdate.replace(' 15시', ' 11시');
+			resvdate = resvdate.replace(' 17시', ' 11시');
+		}
+		if(document.getElementById('btnradio2').checked){
+			resvdate = resvdate.replace(' 11시', ' 13시');
+			resvdate = resvdate.replace(' 15시', ' 13시');
+			resvdate = resvdate.replace(' 17시', ' 13시');
+		}
+		if(document.getElementById('btnradio3').checked){
+			resvdate = resvdate.replace(' 11시', ' 15시');
+			resvdate = resvdate.replace(' 13시', ' 15시');
+			resvdate = resvdate.replace(' 17시', ' 15시');
+		}
+		if(document.getElementById('btnradio4').checked){
+			resvdate = resvdate.replace(' 11시', ' 17시');
+			resvdate = resvdate.replace(' 13시', ' 17시');
+			resvdate = resvdate.replace(' 15시', ' 17시');
+		}
 		document.getElementById('sc_date').value = resvdate;
 		document.getElementById('designeraccordion').click();
 	}
 }
 
 $(document).ready(function(){
+	$('.dogselect').on('click',function(){
+		  $(this).attr('class','btn dogselect btn-dark').css('color','white');
+		  if($('.dogselect').not($(this)).hasClass('btn-dark')){
+		  	$('.dogselect').not($(this)).attr('class','btn dogselect btn-outline-dark').css('color','black');
+		  }
+	});
+	/* $('#timeselect').on('click',function(){
+		  if($('#timeselect').not($(this)).hasClass('btn-dark')){
+		  	$('#timeselect').not($(this)).attr('class','btn btn-outline-dark');
+		  }
+	}); */
+	$('.designerselect').on('click',function(){
+		  $(this).attr('class','btn designerselect btn-dark').css('color','white');
+		  if($('.designerselect').not($(this)).hasClass('btn-dark')){
+		  	$('.designerselect').not($(this)).attr('class','btn designerselect btn-outline-dark').css('color','black');
+		  }
+	});
+	$('.menuselect').on('click',function(){
+		  $(this).attr('class','btn menuselect btn-dark').css('color','white');
+		  if($('.menuselect').not($(this)).hasClass('btn-dark')){
+		  	$('.menuselect').not($(this)).attr('class','btn menuselect btn-outline-dark').css('color','black');
+		  }
+	});
 	$('#resvbtn').click(function(){
 		var dog_id = $('#resvForm>#dog_id').val();
 		var sc_date = $('#resvForm>#sc_date').val();
@@ -189,7 +231,8 @@ $(document).ready(function(){
 						      <img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="@{${dog.dog_photo}}" class="card-img-top" alt="...">
 						      <div class="card-body bg-light" style="text-align:center;border-top:1px solid #ddd;">
 						        <h5 class="card-title" th:text="${dog.dog_name}"></h5>
-						        <button type="button" class="btn btn-outline-dark" id="dogselectbtn" th:value="${dog.dog_id}" th:onclick="dogSelect([[${dog.dog_id}]]);">선택</button>
+						        <button th:if="${dog.dog_id}==${resv.dog_id}" type="button" class="btn dogselect btn-dark" id="dogselectbtn" th:value="${dog.dog_id}" th:onclick="dogSelect([[${dog.dog_id}]]);">선택</button>
+						        <button th:unless="${dog.dog_id}==${resv.dog_id}" type="button" class="btn dogselect btn-outline-dark" id="dogselectbtn" th:value="${dog.dog_id}" th:onclick="dogSelect([[${dog.dog_id}]]);">선택</button>
 						      </div>
 						    </div>
 						  </div>
@@ -212,6 +255,24 @@ $(document).ready(function(){
 					    <div id="dateinfo">
 					    	<img id="calicon" src="assets/img/calendar3.svg"/>
 					    	<input type="text" id="resvdate" name="resvdate" th:value="${#dates.format(schedule.sc_date, 'yyyy-MM-dd')}"/><br><br>
+					    	<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+							  <input th:if="${#dates.format(schedule.sc_date,'HH')}==11" type="radio" class="btn-check" name="btnradio" id="btnradio1" value="11" autocomplete="off" checked>
+							  <input th:unless="${#dates.format(schedule.sc_date,'HH')}==11" type="radio" class="btn-check" name="btnradio" id="btnradio1" value="11" autocomplete="off">
+							  <label class="btn btn-outline-dark" for="btnradio1">11시</label>
+							
+							  <input th:if="${#dates.format(schedule.sc_date,'HH')}==13" type="radio" class="btn-check" name="btnradio" id="btnradio2" value="13" autocomplete="off" checked>
+							  <input th:unless="${#dates.format(schedule.sc_date,'HH')}==13" type="radio" class="btn-check" name="btnradio" id="btnradio2" value="13" autocomplete="off">
+							  <label class="btn btn-outline-dark" for="btnradio2">13시</label>
+							 
+							  <input th:if="${#dates.format(schedule.sc_date,'HH')}==15" type="radio" class="btn-check" name="btnradio" id="btnradio3" value="15" autocomplete="off" checked>
+							  <input th:unless="${#dates.format(schedule.sc_date,'HH')}==15" type="radio" class="btn-check" name="btnradio" id="btnradio3" value="15" autocomplete="off">
+							  <label class="btn btn-outline-dark" for="btnradio3">15시</label>
+							 
+							  <input th:if="${#dates.format(schedule.sc_date,'HH')}==17" type="radio" class="btn-check" name="btnradio" id="btnradio4" value="17" autocomplete="off" checked>
+							  <input th:unless="${#dates.format(schedule.sc_date,'HH')}==17" type="radio" class="btn-check" name="btnradio" id="btnradio4" value="17" autocomplete="off">
+							  <label class="btn btn-outline-dark" for="btnradio4">17시</label>
+							 </div>
+							 <br><br>
 					    	<button type="button" class="btn btn-success" onclick="dateSelect();">날짜 선택</button>
 					    </div>
 					  </div>
@@ -235,7 +296,8 @@ $(document).ready(function(){
 						      <h5 class="card-title" th:text="${designer.designer_name}"></h5>
 						      <p class="card-text"><small class="text-muted" th:text="${designer.designer_career}+'년 경력'"></small></p>
 						      <i class="card-text" th:text="'[ '+${designer.item_name}+' 전문 ]'"></i><br><br>
-						      <button type="button" class="btn btn-outline-dark" id="designerselectbtn" th:value="${designer.designer_id}" th:onclick="designerSelect([[${designer.designer_id}]]);">선택</button>
+						      <button th:if="${designer.designer_id}==${resv.designer_id}" type="button" class="btn designerselect btn-dark" id="designerselectbtn" th:value="${designer.designer_id}" th:onclick="designerSelect([[${designer.designer_id}]]);">선택</button>
+						      <button th:unless="${designer.designer_id}==${resv.designer_id}" type="button" class="btn designerselect btn-outline-dark" id="designerselectbtn" th:value="${designer.designer_id}" th:onclick="designerSelect([[${designer.designer_id}]]);">선택</button>
 						    </div>
 						  </div>
 						</div>
@@ -258,7 +320,8 @@ $(document).ready(function(){
 						    <div class="card-body bg-light" style="text-align:center;">
 						      <h5 class="card-title" th:text="${item.item_name}"></h5>
 						      <p class="card-text" th:text="${item.item_price}+'원'"></p>
-						      <button type="button" class="btn btn-outline-dark" id="itemselectbtn" th:value="${item.item_id}" th:onclick="itemSelect([[${item.item_id}]]);">선택</button>
+						      <button th:if="${item.item_id}==${resv.item_id}" type="button" class="btn menuselect btn-dark" id="itemselectbtn" th:value="${item.item_id}" th:onclick="itemSelect([[${item.item_id}]]);">선택</button>
+						      <button th:unless="${item.item_id}==${resv.item_id}" type="button" class="btn menuselect btn-outline-dark" id="itemselectbtn" th:value="${item.item_id}" th:onclick="itemSelect([[${item.item_id}]]);">선택</button>
 						    </div>
 						  </div>
 						</div> 
@@ -289,7 +352,7 @@ $(document).ready(function(){
         	<input type="hidden" id="resv_no" name="resv_no" th:value="${resv.resv_no}"/>
         	<input type="hidden" id="sc_id" name="sc_id" th:value="${schedule.sc_id}"/>
         	<input type="hidden" id="dog_id" name="dog_id" th:value="${resv.dog_id}"/>
-        	<input type="hidden" id="sc_date" name="sc_date" th:value="${#dates.format(schedule.sc_date,'yyyy-MM-dd')}"/>
+        	<input type="hidden" id="sc_date" name="sc_date" th:value="${#dates.format(schedule.sc_date,'yyyy-MM-dd HH시')}"/>
         	<input type="hidden" id="designer_id" name="designer_id" th:value="${resv.designer_id}"/>
         	<input type="hidden" id="item_id" name="item_id" th:value="${resv.item_id}"/>
         	<input th:if="${resv.resv_ask=='없음'}" type="hidden" id="resv_ask" name="resv_ask" value="없음"/>

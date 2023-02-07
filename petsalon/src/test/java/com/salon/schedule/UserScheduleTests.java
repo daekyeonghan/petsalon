@@ -17,7 +17,7 @@ class UserScheduleTests {
 	void contextLoads() {
 		Schedule shd = null;
 		try {
-			shd = service.userSchedule(1014);
+			shd = service.userSchedule(1026);
 			System.out.println(shd);
 			System.out.println("OK");
 		} catch (Exception e) {

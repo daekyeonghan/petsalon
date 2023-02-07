@@ -1,116 +1,43 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-function updatechk(){
-	/* form의 name을 받아옴 */
-	var form = document.updateform;
-	var userpwd = form.userpwd.value;
-	var username = form.username.value;
-	var birth = form.birth.value;
-	var tel = form.tel.value;
-	var addr = form.addr.value;
-	var zipcode = form.zipcode.value;
-	var detaddr = form.detaddr.value;
-	
-	if(userpwd==""){
-		alert("비밀번호가 비어있습니다");
-		form.userpwd.focus();
-		event.preventDefault();
-		return false;
-	}
-	if(username==""){
-		alert("이름이 비어있습니다");
-		form.username.focus();
-		event.preventDefault();
-		return false;
-	}
-	if(birth==""){
-		alert("생년월일이 비어있습니다");
-		form.birth.focus();
-		event.preventDefault();
-		return false;
-	}
-	if(tel==""){
-		alert("연락처가 비어있습니다");
-		form.tel.focus();
-		event.preventDefault();
-		return false;
-	}
-	if(addr==""){
-		alert("주소가 비어있습니다");
-		form.addr.focus();
-		event.preventDefault();
-		return false;
-	}
-	if(zipcode==""){
-		alert("우편번호가 비어있습니다");
-		form.zipcode.focus();
-		event.preventDefault();
-		return false;
-	}
-	if(detaddr==""){
-		alert("상세주소가 비어있습니다");
-		form.detaddr.focus();
-		event.preventDefault();
-		return false;
+function delchk(data){
+	if(confirm('해당 예약을 취소하시겠습니까?')){
+		alert('예약이 취소되었습니다. 홈으로 이동합니다')
+		location.href='/resvdel?resv_no='+data;
 	}
 }
-
-function open_Postcode(){  //다음 카카오 주소찾기 
-	  new daum.Postcode({ 
-	    oncomplete: function(data) { 
-	    	 var addr = ''; // 주소 변수
-              //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-              if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                  addr = data.roadAddress;
-              } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                  addr = data.jibunAddress;
-              }
-              // 우편번호와 주소 정보를 해당 필드에 넣는다.
-              document.getElementById('zipcode').value = data.zonecode;
-              document.getElementById("addr").value = addr;
-	  } 
-	}).open(); 
-};
+function updatechk(data){
+	if(confirm('해당 예약을 수정하시겠습니까?')){
+		location.href='/resvupdate?resv_no='+data;
+	}
+}
 </script>
-<div id="infotitle">Information</div>
-<section class="page-section" id="myinfo">
-	<form name="updateform" id="updateform" class="validation-form" method="post" th:action="@{/updateuser}" novalidate>
-		<div class="mb-3">
-			<label for="useremail" class="form-label">이메일</label>
-			<input type="text" id="useremail" th:value="${user.useremail}" class="form-control" readonly/>
-			<div class="invalid-feedback">이메일주소를 입력하세요</div>
-		</div>
-		<div class="mb-3">
-			<label for="userpwd" class="form-label">비밀번호</label>
-			<input type="password" id="userpwd" name="userpwd" th:value="${user.userpwd}" class="form-control" style="width:250px;" readonly/>
-			<div class="invalid-feedback">비밀번호를 입력하세요</div>
-		</div> 
-		<div class="mb-3">
-			<label for="username" class="form-label">이름</label>
-			<input type="text" id="username" name="username" th:value="${user.username}" class="form-control"/>
-			<div class="invalid-feedback">이름을 입력하세요</div>
-		</div>
-		<div class="mb-3">
-			<label for="birth" class="form-label">생년월일</label>
-			<input type="text" id="birth" th:value="${user.birth}" class="form-control" maxlength="8" readonly/>
-			<div class="invalid-feedback">생년월일을 입력하세요</div>
-		</div>
-		<div class="mb-3">
-			<label for="tel" class="form-label">연락처</label>
-			<input type="text" id="tel" name="tel" th:value="${user.tel}" class="form-control"/>
-			<div class="invalid-feedback">전화번호를 입력하세요</div>
-		</div>
-		<div class="mb-3">
-			<label for="zipcode" class="form-label">우편번호 <input type="button" class="btn btn-secondary" id="postcode_button" onclick="open_Postcode()" value="우편번호 찾기"><br></label>
-			<input type="text" id="zipcode" name="zipcode" th:value="${user.zipcode}" class="form-control" style="background-color:white" readonly />
-			<div class="invalid-feedback">우편번호를 입력하세요</div>
-			<label class="form-label mt-3">주소</label>
-			<input type="text" id="addr" name="addr" th:value="${user.addr}" class="form-control mb-1" style="background-color:white" readonly />
-			<!-- <input type="text" id="jibun_address" name="jibun_address" class="form-control mb-1" placeholder="지번 주소" readonly required/> -->
-			<input type="text" id="detaddr" name="detaddr" th:value="${user.detaddr}" class="form-control"/>
-			<div class="invalid-feedback">주소를 입력하세요</div>
-		</div>
-		<button id="updatebtn" onclick="updatechk()">정보 수정</button>
-    </form>
-</section>
+<div id="resvtitle">Reservation</div>
+<div id="userResv" th:if="${resv!=null}" th:each="resv : ${resv}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
+	<div id="dog_photo">
+		<img th:if="${resv.dog_photo==null} or ${resv.dog_photo==''}" src="assets/img/logo.svg" style="width:70px;height:70px;border-radius:50%">
+		<img th:unless="${resv.dog_photo==null} or ${resv.dog_photo==''}" th:src="@{${resv.dog_photo}}" style="width:70px;height:70px;border-radius:50%">
+	</div>
+	
+	<div id="resv_head">
+		<div id="dog_name" th:text="${resv.dog_name}"></div>
+		<div id="sc_date" th:text="${resv.sc_date}"></div>
+	</div>
+	
+	<div id="resv_body">
+		<ul>
+			<li id="designer_name" th:text="${resv.designer_name}+' 디자이너'"></li>
+			<hr style="background-color:#808080;width:530px;height:2px;"/>
+			<li id="item_name" th:text="${resv.item_name}"></li>
+			<li id="item_price" th:text="${resv.item_price}+'원'"></li>
+			<hr style="background-color:#808080;width:530px;height:3px;"/>
+			<li th:if="${resv.resv_fix==1}" id="resv_fix">예약 확정</li>
+			<li th:unless="${resv.resv_fix==1}" id="resv_modify">
+				<button id="resv_apply" disabled>예약 신청 중</button>
+				<button id="resv_update" th:onclick="updatechk([[${resv.resv_no}]])">예약 수정</button>
+				<button id="resv_del" th:onclick="delchk([[${resv.resv_no}]])">예약 취소</button>
+			</li>
+		</ul>
+	</div>
+</div>

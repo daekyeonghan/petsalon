@@ -5,6 +5,7 @@
 <script th:inline="javascript">
 function dogSelect(data){
 	document.getElementById('dog_id').value = data;
+	document.getElementById('dogselectbtn').value.className = 'btn btn-dark';
 	document.getElementById('dateaccordion').click();
 }
 function designerSelect(data){
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	      		 success:function(data){
 	      			 if(data>0){
 	      				document.getElementById('resvdate').value = info.dateStr;
-	      	      	    resvdate = info.dateStr;
+	      	      	    resvdate = info.dateStr+ ' 11시';
 	      			 }else{
 	      				document.getElementById('resvdate').value = '예약이 불가한 날입니다';
 	      				resvdate = '예약이 불가한 날입니다';
@@ -69,16 +70,24 @@ function dateSelect(){
 		alert('예약 날짜를 다시 선택해주세요');
 	}else{
 		if(document.getElementById('btnradio1').checked){
-			resvdate += ' 11시';
+			resvdate = resvdate.replace(' 13시', ' 11시');
+			resvdate = resvdate.replace(' 15시', ' 11시');
+			resvdate = resvdate.replace(' 17시', ' 11시');
 		}
 		if(document.getElementById('btnradio2').checked){
-			resvdate += ' 13시';
+			resvdate = resvdate.replace(' 11시', ' 13시');
+			resvdate = resvdate.replace(' 15시', ' 13시');
+			resvdate = resvdate.replace(' 17시', ' 13시');
 		}
 		if(document.getElementById('btnradio3').checked){
-			resvdate += ' 15시';
+			resvdate = resvdate.replace(' 11시', ' 15시');
+			resvdate = resvdate.replace(' 13시', ' 15시');
+			resvdate = resvdate.replace(' 17시', ' 15시');
 		}
 		if(document.getElementById('btnradio4').checked){
-			resvdate += ' 17시';
+			resvdate = resvdate.replace(' 11시', ' 17시');
+			resvdate = resvdate.replace(' 13시', ' 17시');
+			resvdate = resvdate.replace(' 15시', ' 17시');
 		}
 		document.getElementById('sc_date').value = resvdate;
 		document.getElementById('designeraccordion').click();
@@ -86,6 +95,24 @@ function dateSelect(){
 }
 
 $(document).ready(function(){
+	$('.dogselect').on('click',function(){
+		  $(this).attr('class','btn dogselect btn-dark').css('color','white');
+		  if($('.dogselect').not($(this)).hasClass('btn-dark')){
+		  	$('.dogselect').not($(this)).attr('class','btn dogselect btn-outline-dark').css('color','black');
+		  }
+	});
+	$('.designerselect').on('click',function(){
+		  $(this).attr('class','btn designerselect btn-dark').css('color','white');
+		  if($('.designerselect').not($(this)).hasClass('btn-dark')){
+		  	$('.designerselect').not($(this)).attr('class','btn designerselect btn-outline-dark').css('color','black');
+		  }
+	});
+	$('.menuselect').on('click',function(){
+		  $(this).attr('class','btn menuselect btn-dark').css('color','white');
+		  if($('.menuselect').not($(this)).hasClass('btn-dark')){
+		  	$('.menuselect').not($(this)).attr('class','btn menuselect btn-outline-dark').css('color','black');
+		  }
+	});
 	$('#resvbtn').click(function(){
 		var dog_id = $('#resvForm>#dog_id').val();
 		var sc_date = $('#resvForm>#sc_date').val();
@@ -200,7 +227,7 @@ $(document).ready(function(){
 						      <img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="@{${dog.dog_photo}}" class="card-img-top" alt="...">
 						      <div class="card-body bg-light" style="text-align:center;border-top:1px solid #ddd;">
 						        <h5 class="card-title" th:text="${dog.dog_name}"></h5>
-						        <button type="button" class="btn btn-outline-dark" id="dogselectbtn" th:value="${dog.dog_id}" th:onclick="dogSelect([[${dog.dog_id}]]);">선택</button>
+						        <button type="button" class="btn dogselect btn-outline-dark" id="dogselectbtn" th:value="${dog.dog_id}" th:onclick="dogSelect([[${dog.dog_id}]]);">선택</button>
 						      </div>
 						    </div>
 						  </div>
@@ -215,7 +242,6 @@ $(document).ready(function(){
 			      </button>
 			    </h2>
 			    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-			      
 			      <div style="width:400px;height:50px;margin-top:2.5%;margin-left:2%;"><img id="warning" src="assets/img/warning.svg" style="margin-bottom:0.8%;margin-right:2%;"/>오늘 기준 2일 뒤부터 예약 가능합니다</div>
 			      <div class="card  w-auto mb-3">
 					  <div class="card-body calendar">
@@ -260,7 +286,7 @@ $(document).ready(function(){
 						      <h5 class="card-title" th:text="${designer.designer_name}"></h5>
 						      <p class="card-text"><small class="text-muted" th:text="${designer.designer_career}+'년 경력'"></small></p>
 						      <i class="card-text" th:text="'[ '+${designer.item_name}+' 전문 ]'"></i><br><br>
-						      <button type="button" class="btn btn-outline-dark" id="designerselectbtn" th:value="${designer.designer_id}" th:onclick="designerSelect([[${designer.designer_id}]]);">선택</button>
+						      <button type="button" class="btn designerselect btn-outline-dark" id="designerselectbtn" th:value="${designer.designer_id}" th:onclick="designerSelect([[${designer.designer_id}]]);">선택</button>
 						    </div>
 						  </div>
 						</div>
@@ -283,7 +309,7 @@ $(document).ready(function(){
 						    <div class="card-body bg-light" style="text-align:center;">
 						      <h5 class="card-title" th:text="${item.item_name}"></h5>
 						      <p class="card-text" th:text="${item.item_price}+'원'"></p>
-						      <button type="button" class="btn btn-outline-dark" id="itemselectbtn" th:value="${item.item_id}" th:onclick="itemSelect([[${item.item_id}]]);">선택</button>
+						      <button type="button" class="btn menuselect btn-outline-dark" id="itemselectbtn" th:value="${item.item_id}" th:onclick="itemSelect([[${item.item_id}]]);">선택</button>
 						    </div>
 						  </div>
 						</div> 
