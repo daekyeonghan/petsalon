@@ -75,9 +75,11 @@
 <meta charset="UTF-8">
 <style>
 	img{display:block; margin:auto;}
-	#selectDesignerReview{width:250px; height:40px; float:right; padding-right: 35px;}
 	#review-thumbnail{margin: auto;}
-	#add-button{padding-left: 10px; width:150px; height:40px; float:left;}
+	#review-bar{padding-left:15px; margin-bottom:10px;}
+	.form-select{ width: 230px;}
+	#selectdiv{float:right;  padding-right: 36px;}
+	
 
 </style>
 </head>
@@ -95,15 +97,18 @@
                     <h2 class="section-heading text-uppercase">review</h2>
                     <h3 class="section-subheading text-muted">아이들의 가장 예쁜 모습입니다</h3>
                 </div>
-                <div id="add-button"><button type="button" id="review_add" name="review_plus" class="btn btn-primary text-uppercase mb-3" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button></div>
-                    <form id="selectDesignerReview" class="mb-3">
-						<select class="form-select" id="designer_id" name="designer_id" th:onchange="selectDesigner()">
-							<option value="" selected disabled>--디자이너별 후기검색--</option>
-							<option value="all" disabled>전체</option>
-							<option th:each="d : ${notnullist}" th:value="${d.designer_id}" th:text="|${d.designer_name}|"></option>
-						</select>
-					</form>
-
+                <div class="col-lg-12" id="review-bar">
+	                	<button type="button" id="review_add" name="review_plus" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button>
+	                	<div id="selectdiv">
+		                    <form id="selectDesignerReview">
+								<select class="form-select" id="designer_id" name="designer_id" th:onchange="selectDesigner()">
+									<option value="" selected disabled>--디자이너별 후기검색--</option>
+									<option value="all" disabled>전체</option>
+									<option th:each="d : ${notnullist}" th:value="${d.designer_id}" th:text="|${d.designer_name}|"></option>
+								</select>
+							</form>
+						</div>
+				</div>
                 <div class="row col-lg-12">
                     <div id="review-thumbnail" class="row col-xl-4 mb-4" th:each="o : ${rlist}">
                         <!-- review item 2-->
