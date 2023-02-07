@@ -26,17 +26,31 @@ public class UserController {
 	String dir = "user/";
 	
 	@RequestMapping("/users")
-	public String usermain(Model model) {
+	public String usermain(Model model,  @RequestParam(value = "page", defaultValue = "1") int page) {
 		List<User> ulist = null;
-		try {	
-		ulist = userservice.get();
-		} catch (Exception e) {
 		
-			e.printStackTrace();
-		}
+		
+		int paging = 6;
+		
+		int offset = (page -1) * 6; 
+		
+		System.out.println(page);
+		
+		try {	
+			
+		
+		ulist = userservice.paginguser(paging, offset);
+		
+		
+		model.addAttribute("page", page);
 		model.addAttribute("userlist",ulist);
-		model.addAttribute("path",dir+"member");
+		model.addAttribute("path","user/member");
 		model.addAttribute("content","main");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path","fragments");
+			model.addAttribute("content","fail");
+		}
 		return "main";
 	}
 	

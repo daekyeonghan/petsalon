@@ -45,4 +45,21 @@ public class ReviewService implements MyService<Integer, Review>{
 		return mapper.onedayReivew();
 	}
 
+	public List<Review> pagingreview(int limit, int offset) throws Exception {
+		return mapper.pagingreview(limit, offset);
+	}
+
+	public List<Review> reviewsearch(String k) throws Exception{
+		return mapper.reviewsearch(k);
+	}
+
+
+	public List<Review> pagingreview1(Integer paging, Integer offset)throws Exception {
+		return mapper.pagingreview1(paging,offset); 
+	}
+
+	public Integer totalreview() throws Exception {
+		return mapper.totalreview();
+	}
+
 }

@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salon.dto.Designer;
 import com.salon.dto.Dog;
+import com.salon.dto.Item;
 import com.salon.dto.Review;
 import com.salon.dto.Review_Answer;
 import com.salon.dto.Shop_Notice;
@@ -31,19 +33,51 @@ public class ReviewController {
 	String dir = "review/";
 	
 	@RequestMapping("/review")
-	public String main(Model model) {
+	public String main(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		List<Review> revlist = null;
+
+		
+
+		int paging = 6;
+
+		int offset= (page - 1) * 6; //한페이지의 시작번호
+
+		System.out.println(page);
 		try {
-			revlist = reservice.get();
+
+			revlist = reservice.pagingreview1(paging, offset);
 			
-		} catch(Exception e) {
+
+			model.addAttribute("review", revlist);
+			model.addAttribute("page", page);
+			model.addAttribute("path", "review/review_main");
+			model.addAttribute("content", "main");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+		}
+
+		return "main";
+	}
+	
+	@RequestMapping("/reviewsearch")
+	public String reviewsearch(Model model, String searchValue, String useremail) {
+		List<Review> revlist = null;
+		try {	
+		revlist = reservice.reviewsearch(searchValue);
+		
+		System.out.println(useremail);
+		} catch (Exception e) {
+		
 			e.printStackTrace();
 		}
 		model.addAttribute("review",revlist);
-		model.addAttribute("path", dir+"review_main");
-		model.addAttribute("content", "main");
+		model.addAttribute("path",dir+"review_main");
+		model.addAttribute("content","main");
 		return "main";
 	}
+	
 	
 	@RequestMapping("/reviewPage")
 	public String reviewPage(Model model,Integer no) {
@@ -62,10 +96,7 @@ public class ReviewController {
 		return "main";
 	}
 	
-	
-	
-	
-	
+		
 	
 	@RequestMapping("/reviewregister")
 	public String reviewregister(Model model,Review_Answer review_answer) {
@@ -108,6 +139,38 @@ public class ReviewController {
 
 		return "main";
 	}
+	
+	
+	/*@RequestMapping("/reviewSort")
+	public String sortreview(Model model,String designer_id ,@RequestParam(value = "page", defaultValue = "1") int page) {
+		List<Review> revlist = null;
+		
+		
+
+		int paging = 6;
+
+		int offset = (page - 1) * 6;
+
+		try {
+			System.out.println(designer_id);
+
+			revlist = reservice.sortreview(designer_id,paging, offset);	
+					
+			
+			model.addAttribute("menulist", revlist);
+			
+			model.addAttribute("content", "main");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+		}
+
+		return "main";
+	}*/
+	
+	
+	
 	
 	
 	@RequestMapping("/reviewAns_Update")

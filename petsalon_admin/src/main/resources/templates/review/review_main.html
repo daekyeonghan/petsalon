@@ -1,6 +1,10 @@
 <div th:fragment="main">
 <div><span class="reviewtitle">고객후기</span></div>
 <style>
+
+#content{
+	overflow: hidden;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -58,15 +62,64 @@ table tbody tr td svg,table tbody tr td img {
 	font-size: 15px;
 }
 
+
+
+
+
+
 </style>
 <script>
 
+function addLi(totalPage){
+
+	var pagination = $("#pagination");
+	for (var i = 1; i <= totalPage; i++) {
+        var pageReview = $("<li>").addClass("page-review");
+        var pageLink = $("<a>").addClass("page-link").attr("href", "/review?page=" + i).text(i);
+        pageReview.append(pageLink);
+        pagination.append(pageReview);
+    }
+   pagination.append("<li class='page-review'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>");
+    
+}
+
+
+
+function  testingNowPaging(){
+	
+
+	$.ajax({ 
+		url: '[[@{/reviewTotalPage}]]',
+		success: function (data) {
+		   var totalPage = data;
+		  
+		   addLi(totalPage);
+	       }
+		});
+
+	
+}
+
+
+
+$(document).ready(function () {
+ 
+	 testingNowPaging();
+	 
+ $('.page-next').on('click',function(){
+	 alert('next');
+ })
+ 
+});
 </script>
 <div class="row">
             <div class="col-12">
                 <p class="mobile text-muted"></p>
-
-
+<form th:action="@{/reviewsearch}" method="POST" >
+                            <input type="text"   name="searchValue" placeholder=" "/>
+                           	<input type="submit" value="검색"><p><br>
+                           	<input type="number" name="page" th:value="1" style="display:none;">
+                           	</form>
 	<table>
 		<thead>
 		<tr class="table-header">
@@ -88,13 +141,24 @@ table tbody tr td svg,table tbody tr td img {
 			<td th:text="${re.designer_id}"></td>
 			<td th:text="${re.dog_id}"></td>
 			<td><a th:href="@{/reviewPage(no=${re.review_no})}" th:text="${re.review_title}"></a></td>
-			<td th:text="${re.review_content}"></td>
+			<td id="content" th:text="${re.review_content}"></td>
 			<td th:if="${re.review_photo == null}"><img src="/wkassets/img/logo.png"></td>
 			<td th:unless="${re.review_photo == null}"><img th:src="${re.review_photo}"></td>
 			<td th:text="${re.review_date}"></td>
 			</tr>
+		
 	</tbody>
 	</table>
+	<div class="mygap-sm"></div>
+	  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center" id="pagination">
+	 <li class="page-review">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true" >&laquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 	</div>
 </div>
 </div>

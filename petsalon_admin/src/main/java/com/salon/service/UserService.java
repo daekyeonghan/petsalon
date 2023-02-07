@@ -48,4 +48,12 @@ public class UserService  implements MyService<String, User>{
 	public List<User> detailselect(String useremail)throws Exception{
 		return mapper.detailselect(useremail);
 	}
+
+	public List<User> paginguser(Integer paging, Integer offset)throws Exception {
+		return mapper.paginguser(paging,offset);
+	}
+
+	public int totaluser() throws Exception {
+		return mapper.totaluser();
+	}
 }

@@ -35,4 +35,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DELETE FROM user WHERE useremail=#{useremail}
 	</delete>
 	
+	<select id="paginguser" resultType="User">
+	SELECT useremail,username,birth,tel,addr,detaddr,zipcode,rdate
+	FROM user
+	Limit #{paging} offset #{offset}
+	</select>
+	
+	<select id="totaluser" resultType="Integer">
+		SELECT COUNT(*) cnt FROM user
+	</select>
+	
 </mapper>

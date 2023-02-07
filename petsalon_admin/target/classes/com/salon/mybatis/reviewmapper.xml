@@ -15,7 +15,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		INNER JOIN user u ON re.useremail =u.useremail
 		INNER JOIN designer ds ON re.designer_id =ds.designer_id
 	</select>
+		
+	<select id="totalreview" resultType="Integer">
+		SELECT COUNT(*) cnt FROM review
+	</select>	
 	
+	<select id="reviewsearch" parameterType="String" resultType="Review">
+		SELECT * FROM review WHERE useremail like CONCAT('%', #{searchValue}, '%');
+	</select>
+
 	<insert id="insert" parameterType="Review">
 		INSERT INTO review VALUES (0,#{useremail},#{designer_id},#{review_title},#{review_content},#{review_photo},NOW())
 	</insert>
@@ -31,5 +39,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="onedayReivew" resultType="Review">
 		SELECT * from review WHERE review_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY ) AND NOW();
 	</select>
-	
+	<select id="pagingreview1" resultType="Review">
+	SELECT review_no,useremail,designer_id,dog_id,review_title,review_content,review_photo,review_date
+		FROM review
+		Limit #{paging} offset #{offset}
+	</select> 
 </mapper>
