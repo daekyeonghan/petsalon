@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.salon.dto.Designer;
+import com.salon.dto.Item;
 import com.salon.dto.Resv;
-import com.salon.dto.Schedule;
 import com.salon.service.DesignerService;
 import com.salon.service.ItemService;
 import com.salon.service.ResvService;
 import com.salon.service.ScheduleService;
+import com.salon.service.Shop_NoticeService;
 
 @RestController
 public class JYAjaxController {
@@ -32,6 +33,9 @@ public class JYAjaxController {
 	
 	@Autowired
 	ResvService resvservice;
+	
+	@Autowired
+	Shop_NoticeService snservice;
 
 	@RequestMapping("/designerRegi")
 	public String register(Model model, Designer designer) {
@@ -92,8 +96,45 @@ public class JYAjaxController {
 	        return totalPages;
 	    }
 	 
+	 @RequestMapping("/resvTotalPage")
+	    public Object resvTotalPage() {
+	        int recordsPerPage = 15;
+	        int totalPages = 0;
+
+	    	try {
+				int totalRecords = resvservice.get().size();
+		        totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("failed to get total pages");
+			}
+	    	
+	    //	System.out.println(totalPages);
+
+	        return totalPages;
+	    }
 	 
-	 @RequestMapping("/weekSchedule")
+	 @RequestMapping("/noticeTotalPage")
+	    public Object noticeTotalPage() {
+	        int recordsPerPage = 7;
+	        int totalPages = 0;
+
+	    	try {
+				int totalRecords = snservice.get().size();
+		        totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("failed to get total pages");
+			}
+	    	
+	    //	System.out.println(totalPages);
+
+	        return totalPages;
+	    }
+	 
+	 @RequestMapping("/monthSchedule")
 	 public Object weekSchedule() {
 			List<Resv> resvlist = null;
 			
@@ -107,6 +148,9 @@ public class JYAjaxController {
 					JSONObject obj = new JSONObject();
 					obj.put("title", resv.getDesigner_name()+"\n[ 예약자 : "+resv.getUsername()+" ]\n[ 강아지 : "+resv.getDog_name()+" ]");
 					obj.put("start", newDtFormat.format(resv.getSc_date()));
+					obj.put("id",resv.getResv_no());
+					obj.put("url", "/resvInfo?no="+resv.getResv_no());
+					obj.put("backgroundColor", "#313257");
 					scharr.add(obj);
 				}
 		//		System.out.println(scharr);
@@ -131,8 +175,10 @@ public class JYAjaxController {
 				for(Resv resv : resvlist) {
 					JSONObject obj = new JSONObject();
 //					obj.put("title",resv.getUsername()+"("+resv.getDog_name()+")");
-					obj.put("title",resv.getResv_no());
+					obj.put("title",resv.getUsername()+"\n("+resv.getDog_name()+")");
 					obj.put("start", newDtFormat.format(resv.getSc_date()));
+					obj.put("url", "/resvInfo?no="+resv.getResv_no());
+					obj.put("id", resv.getResv_no());
 					dsscharr.add(obj);
 				}
 //				System.out.println(dsscharr);
@@ -150,6 +196,7 @@ public class JYAjaxController {
 		 
 		 try {
 			resv = resvservice.selectList(resv_no);
+
 		//	System.out.println(resv_no);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -159,6 +206,163 @@ public class JYAjaxController {
 		 return resv;
 	 }
 	 
+	 @RequestMapping("/monthChart")
+	 public Object monthChart(Integer chartYear) {
+		 System.out.println(chartYear);
+			JSONArray rFix = new JSONArray(); 
+			JSONArray rCheck = new JSONArray(); 
+			JSONArray rCancel = new JSONArray(); 
+			
+			JSONArray chartData = new JSONArray();
+			
+			JSONObject joF = new JSONObject();
+			JSONObject joCcl = new JSONObject();
+			JSONObject joChk = new JSONObject();
+		 
+			try {
+
+				
+				for(int i = 1; i<=12; i++) {
+					rFix.add(resvservice.resvMonthChart(chartYear, i, 1));
+					rCancel.add(resvservice.resvMonthChart(chartYear, i, 2));
+					rCheck.add(resvservice.resvMonthChart(chartYear, i, 0));
+				}
+				
+				
+				joF.put("name", "예약 확정");
+				joF.put("data", rFix);
+				joCcl.put("name", "예약 취소");
+				joCcl.put("data", rCancel);
+				joChk.put("name", "미확인");
+				joChk.put("data", rCheck);
+				
+				chartData.add(joF);
+				chartData.add(joCcl);
+				chartData.add(joChk);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("fail to load chartdata");
+			}
+		
+		 return chartData;
+		 
+	 }
+	 
+	 @RequestMapping("/styleChart")
+	 public Object styleChart() {
+		 List<Resv> resvlist = null;
+			
+			JSONArray chartData = new JSONArray();
+			
+			try {
+				resvlist = resvservice.styleChart();
+
+				for(Resv resv : resvlist) {
+					JSONObject obj = new JSONObject();
+					obj.put("name",resv.getItem_name());
+					obj.put("y", resv.getRatio());
+					obj.put("drilldown", resv.getItem_name());
+					chartData.add(obj);
+				}
+//				System.out.println(dsscharr);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("fail to load chartData");
+			}
+		
+		 return chartData;
+	 }
+
+	 @RequestMapping("/styleDogChart")
+		public Object styleDogChart(Integer item_id) {
+			
+			//{'m':[1,2,3,4,5], 'data':[{'name':'female','data':[]},{'name':'male','data':[]}]}
+		 	//{name:'방울컷',id: '140',data:[[말티즈,10],[푸들,20],[요크셔테리어,30]]}
+		 
+			List<Resv> resvlist = null;
+			JSONArray doglist = new JSONArray();
+			JSONArray chartData = new JSONArray();		
+			
+				try {
+					resvlist = resvservice.styleDogChart(item_id);
+					 
+						
+						for(int i = 0; i<resvlist.size(); i++) {
+						
+							doglist.add(resvlist.get(i).getDog_breed());
+							doglist.add(resvlist.get(i).getRatio());
+						}
+						
+						
+						        
+						for (int i = 0; i < doglist.size(); i+=2) {
+					            JSONArray subArray = new JSONArray();
+					            subArray.add(doglist.get(i));
+					            subArray.add(doglist.get(i+1));
+					            chartData.add(subArray);
+					        }
+				
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		
+		 return chartData;
+		}
+	 
+	 
+	 @RequestMapping("/dogChart")
+	 public Object dogChart() {
+		 List<Resv> resvlist = null;
+			
+			JSONArray finalChartData = new JSONArray();
+			
+			try {
+				resvlist = resvservice.styleChart();
+				
+				
+				
+				List<Resv> subResvlist = null;
+			
+				for(Resv resv : resvlist) {
+					subResvlist = resvservice.styleDogChart(resv.getItem_id());
+					JSONObject obj = new JSONObject();
+					JSONArray subChartData = new JSONArray();	
+					JSONArray doglist = new JSONArray();
+						for(int i = 0; i<subResvlist.size(); i++) {
+						
+							doglist.add(subResvlist.get(i).getDog_breed());
+							doglist.add(subResvlist.get(i).getRatio());
+						
+						}
+						
+						for (int i = 0; i < doglist.size(); i+=2) {
+				            JSONArray subArray = new JSONArray();
+				            
+				            subArray.add(doglist.get(i));
+				            subArray.add(doglist.get(i+1));
+				            subChartData.add(subArray);
+				        }
+						obj.put("name", resv.getItem_name());
+						obj.put("id", resv.getItem_name());
+						obj.put("data", subChartData);
+						
+						finalChartData.add(obj);
+//						}
+//						
+//				        		[{name:'',id:'',data:[[],[],[],[],[]]},{},{},...]
+//							
+						
+					//	System.out.println(finalChartData);
+			}
+				System.out.println(finalChartData);
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+			}
+			
+			return finalChartData;
+	 }
 	
 //	 @RequestMapping("/itemPageTest")
 //	    public Object getItemsByPage(int page, Model model) {

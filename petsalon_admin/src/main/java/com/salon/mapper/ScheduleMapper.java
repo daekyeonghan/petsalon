@@ -13,4 +13,8 @@ import com.salon.frame.MyMapper;
 public interface ScheduleMapper extends MyMapper<Integer,Schedule>{
 
 	public List<Schedule> dsSchedule(String designer_id) throws Exception;
+	
+	public void scheduleDel(Integer sc_id) throws Exception;
+	
+	public List<Schedule> dateData(String chartYear, String chartMonth) throws Exception;
 }

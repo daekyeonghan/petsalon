@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salon.dto.Designer;
 import com.salon.dto.Item;
@@ -30,7 +30,7 @@ public class ItemController {
 	String admindir;
 
 	@RequestMapping("/item")
-	public String main(Model model, int page) {
+	public String main(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		List<Item> ilist = null;
 
 		List<Designer> dlist = null;

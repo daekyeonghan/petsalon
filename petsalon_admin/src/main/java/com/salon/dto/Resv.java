@@ -29,8 +29,12 @@ public class Resv {
 	private String dog_name;
 	private String designer_name;
 	private String item_name;
+	private String dog_breed;
 	
 	private Date sc_date;
+	
+	private int cnt;
+	private float ratio;
 	
 	public Resv(int resv_no, String resv_ask, int resv_fix) {
 		super();

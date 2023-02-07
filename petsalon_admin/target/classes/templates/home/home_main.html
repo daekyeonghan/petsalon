@@ -6,7 +6,7 @@
     var calendarEl = document.getElementById('calendar');
 
     var request = $.ajax({
-		url : '/weekSchedule',
+		url : '/monthSchedule',
 		type : 'get',
 		dataType : 'json'
 	});
@@ -17,8 +17,9 @@
     	
       		editable: false,
       		dayMaxEvents: true, // allow "more" link when too many events
- 
+ 			locale:'kr',
     		events: data
+    		
 			});
 
 			calendar.render();
@@ -30,10 +31,9 @@
   .fc-event-title.fc-sticky{
    font-size:1em; 
   }
-  .fc-event-title {
+ .fc-event-title {
  white-space:  break-spaces !important;
 }
-
 </style>
 <div class="mygap-sm"></div>
 
@@ -86,8 +86,8 @@
 
 <div class="card  w-auto mb-3">
   <div class="card-body calendar">
-    <div style="text-align:right;"><a href="#" class="minilink">스케줄 확인하기 <i data-feather="arrow-right-circle"></i></a></div>
-    <div class="card-title"><h2>월 스케줄</h2><div class="date-today"></div></div>
+<!--     <div style="text-align:right;"><a href="#" class="minilink">스케줄 확인하기 <i data-feather="arrow-right-circle"></i></a></div>
+ -->    <div class="card-title text-center"><h2>월 스케줄</h2><div class="date-today"></div></div>
     <hr>
     <span></span><span class="card-text"></span>
     <div id="calendar"></div>

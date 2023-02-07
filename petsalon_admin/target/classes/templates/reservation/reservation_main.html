@@ -1,5 +1,16 @@
 <div th:fragment="main">
 <style>
+
+.tickets-container{
+
+ box-shadow: 0 0 3px rgba(0,0,0,.2);
+    border: 2px solid #fff;
+}
+th, td{
+	line-height:35px;
+	 box-shadow: 0 0 3px rgba(0,0,0,.2);
+}
+
 .tickets-container .tickets-list .ticket-item .ticket-state i {
     font-size: 13px;
     color: #fff;
@@ -56,6 +67,7 @@
     height: 50px;
     padding: 10px;
 }
+
 .tickets-container .tickets-list .ticket-item .ticket-user .user-company {
     margin-left: 2px;
     color: #999;
@@ -179,13 +191,55 @@
 </style>
 <script>
 
+
+window.onpageshow = function(event) {
+    if ( event.persisted ) {
+    	document.location.reload();
+    }
+};
+
+
+function addLi(totalPages){
+	 urlParams = new URLSearchParams(window.location.search);
+		var pValue = parseInt(urlParams.get('page'));
+
+	var pagination = $("#pagination");
+    for (var i = 1; i <= totalPages; i++) {
+    	if(pValue==i) {
+    		var pageItem = $("<li>").addClass("page-item active");
+    		
+    	}else{
+    		var pageItem = $("<li>").addClass("page-item");
+    	}
+        
+        var pageLink = $("<a>").addClass("page-link").attr("href", "/reservation?page=" + i).text(i);
+        pageItem.append(pageLink);
+        pagination.append(pageItem);
+    }
+   
+	
+}
+
+
+function testingNowPaging(){
+
+	$.ajax({
+	       url: '[[@{/resvTotalPage}]]',
+	       success: function(totalPages) {
+				
+	          addLi(totalPages);
+	       }
+	   });
+	   
+}
+
 $(document).ready(function(){
 	
 	$('.resvFixed').hover(function(){
 			$(this).children().removeClass('btn-success');
 			$(this).children().removeClass('disabled');
-			$(this).children().addClass('btn-danger');
-			$(this).children().text('예약 취소');
+			$(this).children().addClass('btn-primary');
+			$(this).children().html('예약 확인  &raquo;');
 	},function(){
 		$(this).children().removeClass('btn-danger');
 		$(this).children().addClass('btn-success');
@@ -193,37 +247,39 @@ $(document).ready(function(){
 		$(this).children().text('확정된 예약');
 		
 	})
+	
+	testingNowPaging();
+
 })
 </script>
 
-<h1>Reservation</h1>
-<table class="table table-hover">
+<div class="listtitle">예약 목록</div>
+  <ul id="pagination" class="pagination justify-content-center">
+  </ul>
+<table class="table table-hover tickets-container">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">예약자</th>
-      <th scope="col">디자이너</th>
-      <th scope="col">반려견</th>
-      <th scope="col">메뉴</th>
-      <th scope="col">예약일</th>
-      <th scope="col">확정 / 취소</th>
+      <th scope="col" width="10%">#</th>
+      <th scope="col" width="15%">예약자</th>
+         <th scope="col" width="15%">반려견</th>
+      <th scope="col" width="15%">디자이너</th>
+      <th scope="col" width="15%">메뉴</th>
+      <th scope="col" width="20%">예약 확인 &nbsp;&nbsp;<span class="badge bg-danger" th:text="${rcheck}">New</span></th>
     </tr>
   </thead>
-  <tbody class="table-group-divider">
-    <tr th:each="r:${rlist}">
+  <tbody class="table-group-divider tickets-list">
+    <tr th:each="r:${rlist}" class="ticket-item">
       <th scope="row" th:text="${r.resv_no}"></th>
-       <td th:text="${r.username}"></td>
+       <td th:text="${r.username}" class="ticket-user"></td>
+         <td th:text="${r.dog_name}"></td>
          <td th:text="${r.designer_name}"></td>
-          <td th:text="${r.dog_name}"></td>
       <td th:text="${r.item_name}"></td>
-      <td th:text="${#dates.format(r.sc_date, 'MM/dd')}"></td>
       <td th:switch="${r.resv_fix}">
        <div class="btn-group" th:case="0">
-  			<a th:href="@{/resvFix(no=${r.resv_no},fix=1)}" class="btn btn-success"><i data-feather="check-circle"></i></a>
- 			<a th:href="@{/resvFix(no=${r.resv_no},fix=2)}" class="btn btn-danger"><i data-feather="x-circle"></i></a>
+  			<a th:href="@{/resvInfo(no=${r.resv_no})}" class="btn btn-primary">예약 확인 &raquo;</a>
 		</div>
 		 <div class="btn-group resvFixed" th:case="1">
-  			<a th:href="@{/}" class="btn btn-success disabled" role="button">확정된 예약</a>
+  			<a th:href="@{/resvInfo(no=${r.resv_no})}" class="btn btn-success disabled" role="button">확정된 예약</a>
 		</div>
 		 <div class="btn-group" th:case="2">
 		 <a class="btn btn-secondary disabled" role="button">취소한 예약</a>
@@ -233,138 +289,8 @@ $(document).ready(function(){
   </tbody>
 </table>
 
-<div class="container bootstrap snippets bootdey">
-    <div class="col-md-8 col-sm-12 col-xs-12">
-    	<div class="row">
-		    <div class="col-md-12">
-		        <div class="widget-box">
-		            <div class="widget-header bordered-bottom bordered-themesecondary">
-		                <i class="widget-icon fa fa-tags themesecondary"></i>
-		                <h5 class="widget-caption themesecondary">Ticket Board</h5>
-		            </div><!--Widget Header-->
-		            <div class="widget-body">
-		                <div class="widget-main no-padding">
-		                    <div class="tickets-container">
-		                        <ul class="tickets-list">
-		                            <li class="ticket-item">
-		                                <div class="row">
-		                                    <div class="ticket-user col-md-6 col-sm-12">
-		                                        <img src="https://bootdey.com/img/Content/user_1.jpg" class="user-avatar">
-		                                        <span class="user-name">Adam Johnson</span>
-		                                        <span class="user-at">at</span>
-		                                        <span class="user-company">Microsoft</span>
-		                                    </div>
-		                                    <div class="ticket-time  col-md-4 col-sm-6 col-xs-12">
-		                                        <div class="divider hidden-md hidden-sm hidden-xs"></div>
-		                                        <i class="fa fa-clock-o"></i>
-		                                        <span class="time">1 Hours Ago</span>
-		                                    </div>
-		                                    <div class="ticket-type  col-md-2 col-sm-6 col-xs-12">
-		                                        <span class="divider hidden-xs"></span>
-		                                        <span class="type">Issue</span>
-		                                    </div>
-		                                    <div class="ticket-state bg-palegreen">
-		                                        <i class="fa fa-check"></i>
-		                                    </div>
-		                                </div>
-		                            </li>
-		                            <li class="ticket-item">
-		                                <div class="row">
-		                                    <div class="ticket-user col-md-6 col-sm-12">
-		                                        <img src="https://bootdey.com/img/Content/user_2.jpg" class="user-avatar">
-		                                        <span class="user-name">Divyia Phillips</span>
-		                                        <span class="user-at">at</span>
-		                                        <span class="user-company">Dribbble</span>
-		                                    </div>
-		                                    <div class="ticket-time  col-md-4 col-sm-6 col-xs-12">
-		                                        <div class="divider hidden-md hidden-sm hidden-xs"></div>
-		                                        <i class="fa fa-clock-o"></i>
-		                                        <span class="time">3 Hours Ago</span>
-		                                    </div>
-		                                    <div class="ticket-type  col-md-2 col-sm-6 col-xs-12">
-		                                        <span class="divider hidden-xs"></span>
-		                                        <span class="type">Payment</span>
-		                                    </div>
-		                                    <div class="ticket-state bg-palegreen">
-		                                        <i class="fa fa-check"></i>
-		                                    </div>
-		                                </div>
-		                            </li>
-		                            <li class="ticket-item">
-		                                <div class="row">
-		                                    <div class="ticket-user col-md-6 col-sm-12">
-		                                        <img src="https://bootdey.com/img/Content/user_3.jpg" class="user-avatar">
-		                                        <span class="user-name">Nicolai Larson</span>
-		                                        <span class="user-at">at</span>
-		                                        <span class="user-company">Google</span>
-		                                    </div>
-		                                    <div class="ticket-time  col-md-4 col-sm-6 col-xs-12">
-		                                        <div class="divider hidden-md hidden-sm hidden-xs"></div>
-		                                        <i class="fa fa-clock-o"></i>
-		                                        <span class="time">18 Hours Ago</span>
-		                                    </div>
-		                                    <div class="ticket-type  col-md-2 col-sm-6 col-xs-12">
-		                                        <span class="divider hidden-xs"></span>
-		                                        <span class="type">Issue</span>
-		                                    </div>
-		                                    <div class="ticket-state bg-darkorange">
-		                                        <i class="fa fa-times"></i>
-		                                    </div>
-		                                </div>
-		                            </li>
-		                            <li class="ticket-item">
-		                                <div class="row">
-		                                    <div class="ticket-user col-md-6 col-sm-12">
-		                                        <img src="https://bootdey.com/img/Content/user_1.jpg" class="user-avatar">
-		                                        <span class="user-name">Bill Jackson</span>
-		                                        <span class="user-at">at</span>
-		                                        <span class="user-company">Mabna</span>
-		                                    </div>
-		                                    <div class="ticket-time  col-md-4 col-sm-6 col-xs-12">
-		                                        <div class="divider hidden-md hidden-sm hidden-xs"></div>
-		                                        <i class="fa fa-clock-o"></i>
-		                                        <span class="time">2 days Ago</span>
-		                                    </div>
-		                                    <div class="ticket-type  col-md-2 col-sm-6 col-xs-12">
-		                                        <span class="divider hidden-xs"></span>
-		                                        <span class="type">Payment</span>
-		                                    </div>
-		                                    <div class="ticket-state bg-palegreen">
-		                                        <i class="fa fa-check"></i>
-		                                    </div>
-		                                </div>
-		                            </li>
-		                            <li class="ticket-item">
-		                                <div class="row">
-		                                    <div class="ticket-user col-md-6 col-sm-12">
-		                                        <img src="https://bootdey.com/img/Content/user_2.jpg" class="user-avatar">
-		                                        <span class="user-name">Eric Clapton</span>
-		                                        <span class="user-at">at</span>
-		                                        <span class="user-company">Musicker</span>
-		                                    </div>
-		                                    <div class="ticket-time  col-md-4 col-sm-6 col-xs-12">
-		                                        <div class="divider hidden-md hidden-sm hidden-xs"></div>
-		                                        <i class="fa fa-clock-o"></i>
-		                                        <span class="time">2 days Ago</span>
-		                                    </div>
-		                                    <div class="ticket-type  col-md-2 col-sm-6 col-xs-12">
-		                                        <span class="divider hidden-xs"></span>
-		                                        <span class="type">Info</span>
-		                                    </div>
-		                                    <div class="ticket-state bg-yellow">
-		                                        <i class="fa fa-info"></i>
-		                                    </div>
-		                                </div>
-		                            </li>
-		                        </ul>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-	</div>
-</div>                    
+
+               
 
 
 </div>

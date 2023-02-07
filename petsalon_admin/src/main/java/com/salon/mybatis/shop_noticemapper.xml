@@ -19,4 +19,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM shop_notice WHERE sn_no=#{sn_no}
 	</delete>
+	
+	<select id="noticePaging" resultType="Shop_Notice">
+	SELECT * FROM shop_notice ORDER BY sn_no DESC LIMIT #{limit} OFFSET #{offset}
+	</select>
 </mapper>

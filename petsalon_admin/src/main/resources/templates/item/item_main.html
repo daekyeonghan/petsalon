@@ -291,14 +291,21 @@ function itemUpdate(){
 
 function addLi(totalPages){
 
+	 urlParams = new URLSearchParams(window.location.search);
+		var pValue = parseInt(urlParams.get('page'));
+		
 	var pagination = $("#pagination");
     for (var i = 1; i <= totalPages; i++) {
-        var pageItem = $("<li>").addClass("page-item");
+    	if(pValue==i) {
+    		var pageItem = $("<li>").addClass("page-item active");
+    		
+    	}else{
+    		var pageItem = $("<li>").addClass("page-item");
+    	}
         var pageLink = $("<a>").addClass("page-link").attr("href", "/item?page=" + i).text(i);
         pageItem.append(pageLink);
         pagination.append(pageItem);
     }
-   pagination.append("<li class='page-item'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>");
     
 }
 
@@ -374,8 +381,32 @@ $(document).ready(function() {
 		window.location.replace('[[@{/item?page=1}]]');
 	})
 	
-	
+	$('#itemPhotoBody').on('click',function(){
+		$(this).attr('data-bs-dismiss','modal');
+	})
 
+	/* var urlParams = new URLSearchParams(window.location.search);
+	var pValue = parseInt(urlParams.get('page'));
+	
+	var currentPage = 1;
+	
+	if(pValue==1){
+		$('#page-prev').addClass('disabled');
+	}
+	
+	if(pValue==$('#page-next').prev().text()){
+		$('page-next').addClass('disabled');
+	}
+	$('#page-prev').on('click',function(){
+		var pValue = parseInt(urlParams.get('page'))-1;
+		$('#go-prev').attr('href','/item?page='+pValue);
+	})
+	
+	$('#page-next').on('click',function(){
+		
+		var pValue = parseInt(urlParams.get('page'))+1;
+		$('#go-next').attr('href','/item?page='+pValue);
+	}) */
 });
 	
 </script>
@@ -419,25 +450,29 @@ $(document).ready(function() {
                             <td th:text="${#numbers.formatCurrency(i.item_price)}"></td>
                             <th class="mobile-header">사진</th>
                             <td  th:if="${i.item_photo == null}">사진 없음</td>
-                            <td  th:unless="${i.item_photo == null}"><img th:src="'/jyassets/img/'+${i.item_photo}" data-bs-toggle="modal" data-bs-target="#itemPhotoModal" class="itempic"></td>
+                            <td  th:unless="${i.item_photo == null}"><img th:src="'/jyassets/img/'+${i.item_photo}" data-bs-toggle="modal" data-bs-target="#itemPhotoModal" class="itempic" title="사진을 클릭하시면 크게 볼 수 있습니다."></td>
                             <td class="c"><a th:href="@{/itemUpdatePage(id=${i.item_id})}"><i data-feather="edit" class="some-add-icon"></i></a></td>
                             <td class="c"><a th:href="@{/itemDelete(id=${i.item_id},filename=${i.item_photo})}" onclick="return confirm('삭제하시겠습니까?');"><i data-feather="x-square" class="some-add-icon"></i></a></td>
                         </tr>
                       
                         <tr class='total'>
-                            <th>MENU</th>
-                            <td class="total-val" colspan="4">MENU</td>
+                            <th></th>
+                            <td class="total-val" colspan="4"></td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="mygap-sm"></div>
                 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center" id="pagination">
-     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+ <!--     <li class="page-item" id="page-prev">
+      <a class="page-link" href="#" id="go-prev" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
+      <li class="page-item" id="page-next">
+      	<a class="page-link" href="#" id="go-next" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+      </li> -->
+    
   </ul>
   
 </nav>
@@ -551,7 +586,7 @@ $(document).ready(function() {
         <h1 class="modal-title fs-5" id="itemPhoto"></h1>
       </div>
       <div class="modal-body">
-        <img id="itemPhotoBody" class="img-fluid">
+        <img id="itemPhotoBody" class="img-fluid" title="사진을 클릭하시면 창을 닫을 수 있습니다.">
       </div>
       <div class="modal-footer">
       </div>

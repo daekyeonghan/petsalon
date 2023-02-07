@@ -48,8 +48,8 @@ public class ResvService implements MyService<Integer, Resv>{
 		return mapper.selectList(resv_no);
 	}
 
-	public List<Resv> resvList() throws Exception{
-		return mapper.resvList();
+	public List<Resv> resvList(Integer limit, Integer offset) throws Exception{
+		return mapper.resvList(limit, offset);
 	}
 
 	public List<Resv> scheduleList() throws Exception{
@@ -62,5 +62,21 @@ public class ResvService implements MyService<Integer, Resv>{
 	
 	public void resvFixUpdate(int resv_no, int resv_fix) throws Exception{
 		mapper.resvFixUpdate(resv_no, resv_fix);
+	}
+	
+	public void resvCancel(int resv_no, String cancel) throws Exception{
+		mapper.resvCancel(resv_no, cancel);
+	}
+	
+	public int resvMonthChart(Integer chartYear, Integer chartMonth, Integer resv_fix) throws Exception{
+		return mapper.resvMonthChart(chartYear, chartMonth, resv_fix);
+	}
+	
+	public List<Resv> styleChart() throws Exception{
+		return mapper.styleChart();
+	}
+	
+	public List<Resv> styleDogChart(Integer item_id) throws Exception{
+		return mapper.styleDogChart(item_id);
 	}
 }

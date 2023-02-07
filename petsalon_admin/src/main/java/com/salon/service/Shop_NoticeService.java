@@ -40,5 +40,6 @@ public class Shop_NoticeService implements MyService<Integer, Shop_Notice>{
 		return mapper.selectall();
 	}
 	
+	
 
 }

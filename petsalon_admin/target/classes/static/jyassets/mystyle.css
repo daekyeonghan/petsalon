@@ -78,6 +78,9 @@
 designer-update .card-body{
 	text-align:center;
 }
+#itemPhotoBody:hover{
+	cursor:pointer;
+}
 
 #updatebtn{
 	margin-top:30px;
@@ -114,3 +117,4 @@ border:none;
  .noticepic:hover, .itempic:hover{
  cursor:pointer;
  }
+ 

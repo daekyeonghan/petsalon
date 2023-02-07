@@ -112,6 +112,40 @@ function checkNotice(){
 	
 };
 
+function addLi(totalPages){
+
+	 urlParams = new URLSearchParams(window.location.search);
+		var pValue = parseInt(urlParams.get('page'));
+		
+	var pagination = $("#pagination");
+   for (var i = 1; i <= totalPages; i++) {
+   	if(pValue==i) {
+   		var pageItem = $("<li>").addClass("page-item active");
+   		
+   	}else{
+   		var pageItem = $("<li>").addClass("page-item");
+   	}
+       var pageLink = $("<a>").addClass("page-link").attr("href", "/shop?page=" + i).text(i);
+       pageItem.append(pageLink);
+       pagination.append(pageItem);
+   }
+   
+}
+
+
+function testingNowPaging(){
+
+	$.ajax({
+	       url: '[[@{/noticeTotalPage}]]',
+	       success: function(data) {
+	           var totalPages = data;
+
+	          addLi(totalPages);
+	       }
+	   });
+	   
+}
+
 function noticeSubmit(){
 	if(checkNotice()){
 		alert('추가되었습니다.');}
@@ -158,7 +192,7 @@ $(document).ready(function() {
 		
 	});
 	
-	
+	testingNowPaging();
 	
 });
 
@@ -187,10 +221,15 @@ $(document).ready(function() {
                                 </li>
                                     
                             </ul>
+                            <nav aria-label="...">
+  <ul id="pagination" class="pagination justify-content-center mb-4">
+    
+  </ul>
+</nav>
                         </div>
 
                     </div>
                     
 
-
+<!-- end of fragment -->
 </div>

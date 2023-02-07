@@ -49,6 +49,13 @@ public class ScheduleService implements MyService<Integer, Schedule> {
 		return mapper.dsSchedule(designer_id);
 	}
 	
+	public void scheduleDel(Integer sc_id) throws Exception{
+		mapper.scheduleDel(sc_id);
+	}
+	
+	public List<Schedule> dateData(String chartYear,String chartMonth) throws Exception{
+		return mapper.dateData(chartYear, chartMonth);
+	}
 	
 	
 

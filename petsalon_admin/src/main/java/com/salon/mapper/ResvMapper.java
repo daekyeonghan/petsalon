@@ -16,11 +16,19 @@ public interface ResvMapper extends MyMapper<Integer, Resv>{
 	
 	public Resv selectList(Integer resv_no) throws Exception;
 	
-	public List<Resv> resvList() throws Exception;
+	public List<Resv> resvList(Integer limit, Integer offset) throws Exception;
 
 	public List<Resv> scheduleList() throws Exception;
 	
 	public List<Resv> dsScheduleList(String designer_id) throws Exception;
 	
-	public void resvFixUpdate(int resv_no, int resv_fix) throws Exception;
+	public void resvFixUpdate(Integer resv_no, Integer resv_fix) throws Exception;
+	
+	public void resvCancel(Integer resv_no, String cancel) throws Exception;
+	
+	public int resvMonthChart(Integer chartYear, Integer chartMonth, Integer resv_fix) throws Exception;
+	
+	public List<Resv> styleChart() throws Exception;
+	
+	public List<Resv> styleDogChart(Integer item_id) throws Exception;
 }

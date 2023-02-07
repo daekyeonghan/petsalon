@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	INNER JOIN dog d ON d.dog_id = r.dog_id
 	INNER JOIN designer ds ON ds.designer_id = r.designer_id
 	INNER JOIN item i ON i.item_id = r.item_id
-	ORDER BY r.resv_no DESC;
+	ORDER BY r.resv_no DESC LIMIT #{limit} OFFSET #{offset}
 	</select>
 	
 	<select id="scheduleList" resultType="Resv">
@@ -69,4 +69,44 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<update id="resvFixUpdate" parameterType="Integer">
 	UPDATE resv SET resv_fix=#{resv_fix} WHERE resv_no=#{resv_no}
 	</update>
+	
+	<update id="resvCancel">
+	UPDATE resv SET resv_fix=2, cancel=#{cancel} WHERE resv_no=#{resv_no}
+	</update>
+	
+	<select id="pagingResv" parameterType="Integer" resultType="Resv">
+	SELECT r.resv_no, u.username, d.dog_name, ds.designer_name, i.item_name, r.resv_fix FROM resv r
+	INNER JOIN user u ON u.useremail = r.useremail
+	INNER JOIN dog d ON d.dog_id = r.dog_id
+	INNER JOIN designer ds ON ds.designer_id = r.designer_id
+	INNER JOIN item i ON i.item_id = r.item_id
+	ORDER BY r.resv_no DESC LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<select id="resvMonthChart" resultType="Integer">
+	SELECT COUNT(*) cnt FROM (SELECT r.resv_no no, r.resv_fix rf, sc.sc_date date FROM resv r
+	INNER JOIN schedule sc ON sc.resv_no = r.resv_no) rs 
+	WHERE DATE_FORMAT(rs.date, '%Y-%c') = CONCAT(#{chartYear},'-',#{chartMonth}) AND rs.rf=#{resv_fix};
+	</select>
+	
+	<select id="styleChart" resultType="Resv">
+	SELECT item_name, item_id, (c.total/SUM(c.total) over() * 100) AS ratio
+	FROM (SELECT i.item_name as item_name, i.item_id as item_id, COUNT(resv_no) AS total FROM resv 
+	INNER JOIN item i ON i.item_id = resv.item_id
+	GROUP BY i.item_id) AS c
+	GROUP BY c.item_id
+	</select>
+	
+	<select id="styleDogChart" resultType="Resv">
+	SELECT dog_breed, (c.cnt/SUM(c.cnt) over() * 100) AS ratio
+	FROM (SELECT d.dog_breed dog_breed, COUNT(i.item_id) AS cnt FROM resv
+	INNER JOIN dog d ON d.dog_id = resv.dog_id
+	INNER JOIN item i ON i.item_id = resv.item_id
+	WHERE i.item_id = #{i.item_id}
+	GROUP BY d.dog_breed) AS c
+	GROUP BY c.dog_breed;
+	</select>
+	
+	
+	
 </mapper>
