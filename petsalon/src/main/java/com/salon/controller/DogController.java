@@ -32,7 +32,11 @@ public class DogController {
 		List<Dog> dogList = null;
 		try {
 			dogList = dservice.ownerdog(useremail);
-			model.addAttribute("dogList", dogList);
+			if(dogList.isEmpty()) {
+				model.addAttribute("nodogList", 1);
+			}else {
+				model.addAttribute("dogList", dogList);
+			}
 			model.addAttribute("left", dir+"left");
 			model.addAttribute("center", dir+"center");
 		} catch (Exception e) {

@@ -1,5 +1,7 @@
 package com.salon.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.salon.dto.Resv;
 import com.salon.service.ResvService;
 
 @Controller
@@ -20,7 +23,12 @@ public class VisitController {
 	public String visit(HttpSession session, Model model) {
 		String useremail = (String) session.getAttribute("logemail");
 		try {
-			model.addAttribute("visit",rservice.visit(useremail));
+			List<Resv> list = rservice.visit(useremail);
+			if(list.isEmpty()) {
+				model.addAttribute("novisit",1);
+			}else {
+				model.addAttribute("visit",list);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

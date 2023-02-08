@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.salon.dto.Dog;
 import com.salon.dto.Resv;
 import com.salon.dto.Schedule;
 import com.salon.service.DesignerService;
@@ -37,7 +38,13 @@ public class ResvController {
 	public String resv(Model model, HttpSession session) {
 		String useremail = (String)session.getAttribute("logemail");
 		try {
-			model.addAttribute("dog", dogservice.ownerdog(useremail));
+			List<Dog> dogList = dogservice.ownerdog(useremail);
+			if(dogList.isEmpty()) {
+				model.addAttribute("nodog", 1);
+			}else {
+				model.addAttribute("dog", dogList);
+				model.addAttribute("yesdog", 1);
+			}
 			model.addAttribute("designer",deservice.designerItem());
 			model.addAttribute("item", iservice.get());
 			model.addAttribute("schedule", scservice.get());
