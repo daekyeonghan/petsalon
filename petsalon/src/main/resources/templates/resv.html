@@ -281,7 +281,7 @@ $(document).ready(function(){
 			        	<div class="card-group" style="width:1800px;margin:0 auto;">
 						  <div class="card" th:each="designer:${designer}">
 						    <img th:if="${designer.designer_photo==''} or ${designer.designer_photo==null}" src="assets/img/logo.svg" class="card-img-top" alt="...">
-						    <img th:unless="${designer.designer_photo==''} or ${designer.designer_photo==null}" th:src="'assets/img/'+@{${designer.designer_photo}}" style="height:50%;" class="card-img-top" alt="...">
+						    <img th:unless="${designer.designer_photo==''} or ${designer.designer_photo==null}" th:src="'assets/img/'+@{${designer.designer_photo}}" style="width:224px;height:250px;object-fit:fill;" class="card-img-top" alt="...">
 						    <div class="card-body" style="text-align:center;">
 						      <h5 class="card-title" th:text="${designer.designer_name}"></h5>
 						      <p class="card-text"><small class="text-muted" th:text="${designer.designer_career}+'년 경력'"></small></p>

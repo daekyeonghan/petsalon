@@ -11668,39 +11668,47 @@ p {
 	font-size:3.0em;
 	margin-top:50px;
 }
-#userResv{
+#userResv,#resvDel{
 	width:600px;
 	margin:0 auto;
 	margin-bottom:50px;	
 }
-#userResv>#dog_photo{
+#userResv>#dog_photo,#resvDel>#dog_photo{
 	width:70px;
 	float:left;
 }
-#userResv>#resv_head{
+#userResv>#resv_head,#resvDel>#resv_head{
 	margin-left:80px;
 }
-#userResv>#resv_head>#dog_name{
+#userResv>#resv_head>#dog_name,#resvDel>#resv_head>#dog_name{
 	font-size:1.15em;
 	font-weight:bold;
 }
-#userResv>#resv_body{
+#resvDel>#resv_head>#statuscancel{
+	width:90px;
+	height:35px;
+	border-radius:5px;
+	border:1px solid #ddd;
+	background-color:red;
+	color:white;
+}
+#userResv>#resv_body,#resvDel>#resv_body{
 	margin-top:40px;
 	height:200px;
 	border:1px solid #808080;
 	border-radius:15px ;
 }
-#userResv>#resv_body>ul{
+#userResv>#resv_body>ul,#resvDel>#resv_body>ul{
 	margin-top:20px;
 }
-#userResv #designer_name, #userResv #item_name{
+#userResv #designer_name,#userResv #item_name,#resvDel #designer_name,#resvDel #item_name{
 	font-weight:bold;
 	font-size:1.1em;
 }
-#userResv #item_name{
+#userResv #item_name,#resvDel #item_name{
 	float:left;
 }
-#userResv #item_price{
+#userResv #item_price,#resvDel #item_price{
 	margin-left:460px;
 }
 #userResv #resv_modify{
@@ -11728,7 +11736,7 @@ p {
 	border-radius:10px;
 	color:white;
 }
-#userResv #resv_modify>#resv_apply{
+#userResv #resv_modify>#resv_apply,#userResv #resv_modify>#resv_update, #userResv #resv_modify>#resv_del{
 	background-color:#5f9ea0;
 }
 #userResv #resv_modify>#resv_update, #userResv #resv_modify>#resv_del{
@@ -11753,7 +11761,7 @@ p {
 	margin-top:50px;
 }
 #visit>#visit_content>#sc_date{
-	margin-left:120px;
+	margin-left:25%;
 	font-size:1.2em;
 	font-weight:bold;
 	text-decoration:underline;

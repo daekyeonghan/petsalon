@@ -33,8 +33,6 @@ public class ResvController {
 	@Autowired
 	ResvService rservice;
 	
-	String dir = "myresv/";
-	
 	@RequestMapping("/resv")
 	public String resv(Model model, HttpSession session) {
 		String useremail = (String)session.getAttribute("logemail");
@@ -75,8 +73,6 @@ public class ResvController {
 			
 			List<Resv> resvList = rservice.userResv((String)session.getAttribute("logemail"));
 			model.addAttribute("resv",resvList);
-			model.addAttribute("left", dir+"left");
-			model.addAttribute("center", dir+"center");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Register Error");
@@ -128,8 +124,6 @@ public class ResvController {
 			
 			List<Resv> resvList = rservice.userResv((String)session.getAttribute("logemail"));
 			model.addAttribute("resv",resvList);
-			model.addAttribute("left", dir+"left");
-			model.addAttribute("center", dir+"center");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Register Error");

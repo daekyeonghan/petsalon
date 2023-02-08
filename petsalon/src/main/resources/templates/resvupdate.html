@@ -370,9 +370,9 @@ $(document).ready(function(){
 		        <h1 class="modal-title fs-5" id="exampleModalLabel">요청사항</h1>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
-		      <div class="modal-body">
+		      <div class="modal-body" th:each="resv:${resv}">
 		        <div class="mb-3">
-				  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
+				  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" th:text="${resv.resv_ask}"></textarea>
 				</div>
 		      </div>
 		      <div class="modal-footer">

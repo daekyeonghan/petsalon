@@ -1,6 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
+<script th:inline="javascript">
 function delchk(data){
 	if(confirm('해당 예약을 취소하시겠습니까?')){
 		alert('예약이 취소되었습니다. 홈으로 이동합니다')
@@ -12,8 +12,41 @@ function updatechk(data){
 		location.href='/resvupdate?resv_no='+data;
 	}
 }
+
 </script>
 <div id="resvtitle">Reservation</div>
+<div id="resvDel" th:if="${resvdel!=null}" th:each="resvdel : ${resvdel}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
+	<input type="hidden" id="hidden" th:value="${resvdel.cancel}"/>
+	<div id="dog_photo">
+		<img th:if="${resvdel.dog_photo==null} or ${resvdel.dog_photo==''}" src="assets/img/logo.svg" style="width:70px;height:70px;border-radius:50%">
+		<img th:unless="${resvdel.dog_photo==null} or ${resvdel.dog_photo==''}" th:src="@{${resvdel.dog_photo}}" style="width:70px;height:70px;border-radius:50%">
+	</div>
+	
+	<div id="resv_head">
+		<div id="dog_name" th:text="${resvdel.dog_name}"></div>
+		<button type="button" id="statuscancel" disabled>예약 취소</button>
+	</div>
+	
+	<div id="resv_body">
+		<ul>
+			<li id="designer_name" th:text="${resvdel.designer_name}+' 디자이너'"></li>
+			<hr style="background-color:#808080;width:530px;height:2px;"/>
+			<li id="item_name" th:text="${resvdel.item_name}"></li>
+			<li id="item_price" th:text="${resvdel.item_price}+'원'"></li>
+			<hr style="background-color:#808080;width:530px;height:3px;"/>
+			<li id="cancel" style="width:106px;margin:4% auto;">
+				<div class="dropdown" style="width:400px;height:200px;">
+				  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				    취소 사유
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li th:text="${resvdel.cancel}"></li>
+				  </ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
 <div id="userResv" th:if="${resv!=null}" th:each="resv : ${resv}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
 	<div id="dog_photo">
 		<img th:if="${resv.dog_photo==null} or ${resv.dog_photo==''}" src="assets/img/logo.svg" style="width:70px;height:70px;border-radius:50%">

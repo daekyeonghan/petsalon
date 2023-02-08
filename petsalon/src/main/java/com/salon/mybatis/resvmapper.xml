@@ -20,6 +20,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE re.useremail=#{useremail}
 		ORDER BY sc.sc_date desc
 	</select>
+	<select id="resvdelchk" parameterType="String" resultType="Resv">
+		SELECT d.dog_name,d.dog_photo,de.designer_name,i.item_name,i.item_price,re.resv_no,re.resv_fix,re.cancel
+		FROM resv re
+		INNER JOIN dog d ON re.dog_id=d.dog_id
+		INNER JOIN item i ON re.item_id=i.item_id
+		INNER JOIN designer de ON re.designer_id=de.designer_id
+		WHERE re.useremail=#{useremail} AND re.resv_fix=2
+	</select>
 	<select id="visit" parameterType="String" resultType="Resv">
 		SELECT d.dog_name,d.dog_photo,de.designer_name,i.item_name,i.item_price,re.resv_no,DATE_FORMAT(sc.sc_date, CONCAT('%Y','년 ','%m','월 ','%d','일')) sc_date
 		FROM resv re
