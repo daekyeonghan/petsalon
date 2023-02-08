@@ -40,6 +40,10 @@ public class Shop_NoticeService implements MyService<Integer, Shop_Notice>{
 		return mapper.selectall();
 	}
 	
+	public List<Shop_Notice> noticePaging(Integer limit, Integer offset) throws Exception {
+		return mapper.noticePaging(limit, offset);
+	}
+	
 	
 
 }

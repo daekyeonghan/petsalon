@@ -107,6 +107,8 @@ public class DesignerController {
 		return "main";
 	}
 	
+	
+	
 	@RequestMapping("/designerUpdate")
 	public String updateDesigner(Model model, Designer designer,String originname) {
 

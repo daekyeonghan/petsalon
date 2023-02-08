@@ -330,7 +330,6 @@ window.onpageshow = function(event) {
 };
   
 $(document).ready(function() {	
-	   
 
 	const myAddModal = document.getElementById('addItemModal')
 	const myInput = document.getElementById('item_name')
@@ -449,8 +448,8 @@ $(document).ready(function() {
                             <th class="mobile-header">가격</th>
                             <td th:text="${#numbers.formatCurrency(i.item_price)}"></td>
                             <th class="mobile-header">사진</th>
-                            <td  th:if="${i.item_photo == null}">사진 없음</td>
-                            <td  th:unless="${i.item_photo == null}"><img th:src="'/jyassets/img/'+${i.item_photo}" data-bs-toggle="modal" data-bs-target="#itemPhotoModal" class="itempic" title="사진을 클릭하시면 크게 볼 수 있습니다."></td>
+                            <td  th:if="${i.item_photo == null || i.item_photo == ''}">사진 없음</td>
+                            <td  th:unless="${i.item_photo == null || i.item_photo == ''}"><img th:src="'/jyassets/img/'+${i.item_photo}" data-bs-toggle="modal" data-bs-target="#itemPhotoModal" class="itempic" title="사진을 클릭하시면 크게 볼 수 있습니다."></td>
                             <td class="c"><a th:href="@{/itemUpdatePage(id=${i.item_id})}"><i data-feather="edit" class="some-add-icon"></i></a></td>
                             <td class="c"><a th:href="@{/itemDelete(id=${i.item_id},filename=${i.item_photo})}" onclick="return confirm('삭제하시겠습니까?');"><i data-feather="x-square" class="some-add-icon"></i></a></td>
                         </tr>

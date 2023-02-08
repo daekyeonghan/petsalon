@@ -28,8 +28,15 @@ public class MainController {
 	@Autowired
 	AdminService adservice;
 	
+	
+	
 	@RequestMapping("/")
-	public String login() {
+	public String login(HttpSession session) {
+		
+		if(session != null) {
+			session.removeAttribute("admin");
+			
+		}
 		
 		return "login_index";
 	}
@@ -37,6 +44,7 @@ public class MainController {
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
+		
 		if(session != null) {
 			session.invalidate();
 		}
@@ -74,12 +82,11 @@ public class MainController {
 		
 		return "redirect:/";
 	}
-/*	
-	@RequestMapping("/")
-	public String login_index() {
-		return "login_index";	
-	}
 	
-*/	
+	@RequestMapping("/ERROR")
+	public String authoError() {
+		return "error/403";
+	}
+
 
 }

@@ -65,52 +65,6 @@ ul.list-style-none li a {
 
 <script>
 
-function checkNotice(){
-	
-	let snTitle = $('#sn_title');
-	let snContent = $('#sn_content');
-	
-	if(snTitle.val()==''){
-		 snTitle.addClass('is-invalid');
-		 $('#titleFeedback').text('공지 제목을 입력하세요.');
-		 return false;
-	}else{
-		if(snTitle.hasClass('is-invalid')){
-		 snTitle.removeClass('is-invalid');
-		}
-		 snTitle.addClass('is-valid');
-		 $('#titleFeedback').text('');
-	};
-	
-	if(snTitle.hasClass('is-invalid')){
-		snTitle.focus();
-		return false;
-	}
-	
-	if(snContent.val()==''){
-		snContent.addClass('is-invalid');
-		 $('#contentFeedback').text('공지 내용을 입력하세요.');
-		 return false;
-	}else{
-		if(snContent.hasClass('is-invalid')){
-			snContent.removeClass('is-invalid');
-		}
-		snContent.addClass('is-valid');
-		 $('#contentFeedback').text('');
-	};
-	
-	if(snContent.hasClass('is-invalid')){
-		snContent.focus();
-		return false;
-	}
-		
-	if(snTitle.val()!=''&&snContent.val()!=''){
-		return true;
-	}else{
-		return false;
-	}
-	
-};
 
 function addLi(totalPages){
 
@@ -146,51 +100,8 @@ function testingNowPaging(){
 	   
 }
 
-function noticeSubmit(){
-	if(checkNotice()){
-		alert('추가되었습니다.');}
-	else{
-		alert('실패하였습니다.');
-	}
-}
-
-function register(){
-	
-		$('#notice_register').attr({
-			'enctype':'multipart/form-data',
-			'method':'post',
-			'action':'[[@{/noticeRegister}]]'
-		});
-		$('#notice_register').submit();
-		
-		alert('등록되었습니다.');
-	    $('form').find('input[name=sn_title], textarea').val('');
-	    $('#contentFeedback').removeClass('is-valid');
-	    $('#titleFeedback').removeClass('is-valid');
-};
-
 
 $(document).ready(function() {	
-	
-		const myModal = document.getElementById('addNoticeModal')
-		const myInput = document.getElementById('sn_title')
-
-		myModal.addEventListener('shown.bs.modal', () => {
-			myInput.focus();
-		})
-		
-		let title = $('#sn_title');
-		
-	$('#new_notice_btn').click(function(){
-		let c = confirm('등록하시겠습니까?');
-		if(c&&checkNotice()){
-			register();
-		}else{
-			$('.is-invalid').focus();
-			return;
-		}
-		
-	});
 	
 	testingNowPaging();
 	

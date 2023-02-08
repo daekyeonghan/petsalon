@@ -65,6 +65,9 @@ ul.list-style-none li a {
 .card-body img{
 max-width:30%;
 }
+#image_container{
+width:200px;
+}
 </style>
 
 <script>
@@ -112,38 +115,41 @@ function checkNoticeContent(){
 	
 };
 
-function register(){
+function update(){
 	
-		$('#notice_register').attr({
+		$('#notice_update').attr({
 			'enctype':'multipart/form-data',
 			'method':'post',
-			'action':'[[@{/noticeRegister}]]'
+			'action':'[[@{/noticeUpdate}]]'
 		});
-		$('#notice_register').submit();
+		$('#notice_update').submit();
 		
-		alert('등록되었습니다.');
+		alert('수정되었습니다.');
 	    $('form').find('input[name=sn_title], textarea').val('');
 	    $('#contentFeedback').removeClass('is-valid');
 	    $('#titleFeedback').removeClass('is-valid');
 };
 
 
-function setThumbnail(event) {
+/* function setThumbnail(event) {
  var reader = new FileReader();
 
  reader.onload = function(event) {
    var img = document.createElement("img");
    img.setAttribute("src", event.target.result);
-   document.querySelector("div#image_container").appendChild(img);
+   document.querySelector("#image_container").appendChild(img);
  };
 
  reader.readAsDataURL(event.target.files[0]);
 }
-
+ */
 
 
 $(document).ready(function() {	
 	
+	if('[[${sn.admin_id}]]'!='[[${session.admin.admin_id}]]'){
+		window.location.href='/ERROR';
+	}
 	const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 
 	const alert = (message, type) => {
@@ -159,7 +165,6 @@ $(document).ready(function() {
 	  
 	}
 
-
 	function gototop(){
 
 		 window.scrollTo(0,0);
@@ -168,11 +173,11 @@ $(document).ready(function() {
 			  }
 		 
 	}
-	$('#new_notice_btn').on('click', () => {
+	$('#edit_notice_btn').on('click', () => {
 		 
 		  let c = confirm('등록하시겠습니까?');
 			if(c&&checkNoticeContent()){
-				register();
+				update();
 			}else{
 		  gototop();
 	    
@@ -184,16 +189,16 @@ $(document).ready(function() {
 	 })
 
 		
-	setThumbnail(event);
+//	setThumbnail(event);
 });
 
 </script>
                     
         <h1 class="mb-50 fs-5">공지사항 수정</h1>
         <div id="liveAlertPlaceholder"></div>
-        <form id="notice_register">
-      <input type="text" id="staticEmail" th:value="${session.admin.admin_id}" name="admin_id" style="display:none;">
+        <form id="notice_update">
           <div class="input-group mb-3">
+          <input type="number" th:value="${sn.sn_no}" name="sn_no" style="display:none;">
  		  <span class="input-group-text" id="basic-addon1">제목</span>
   		  <input type="text" class="form-control" th:value="${sn.sn_title}" id="sn_title" name="sn_title" aria-label="noticeTitle" aria-describedby="basic-addon1">
 		</div>
@@ -205,15 +210,17 @@ $(document).ready(function() {
 		   
 		   <div class="container card">
   <div class="row">
-    <div class="col card-body" th:if="${sn.sn_photo == null}">
+    <div class="col card-body" th:if="${sn.sn_photo == null || sn.sn_photo == ''}">
       &#8251; 기존 첨부 사진 없음
     </div>
-    <div class="col card-body" th:unless="${sn.sn_photo == null}">
+    <div class="col card-body" th:unless="${sn.sn_photo == null || sn.sn_photo == ''}">
      &#8251; 기존 첨부 사진 (파일 미업로드 시 기존 사진)
      <div class="mygap-xs"></div>
      
       <img th:src="'/jyassets/img/'+${sn.sn_photo}">
        
+    </div>
+    <div id="image_container">
     </div>
       <div class="mb-3">
   				<input class="form-control" type="file" id="formFile" name="sn_img" accept="image/*" onchange="setThumbnail(event);">

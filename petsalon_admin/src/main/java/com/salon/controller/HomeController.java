@@ -24,10 +24,8 @@ public class HomeController {
 	ReviewService rvservice;
 
 	@RequestMapping("/home")
-	public String main(Model model, HttpSession session) {
-		if(session == null) {
-			return "redirect:/";
-		}
+	public String main(Model model) {
+		
 		List<Resv> rlist;
 		List<Review> rvlist;
 		

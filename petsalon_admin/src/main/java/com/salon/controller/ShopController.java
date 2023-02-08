@@ -28,8 +28,14 @@ public class ShopController {
 	@RequestMapping("/shop")
 	public String main(Model model,@RequestParam(value = "page", defaultValue = "1") int page) {
 		List<Shop_Notice> snlist = null;
+
+		int recordsPerPage = 7;
+
+		int offset = (page - 1) * 7;
+		
 		try {
-			snlist = snservice.get();
+			
+			snlist = snservice.noticePaging(recordsPerPage, offset);
 			
 			model.addAttribute("snlist",snlist);
 			model.addAttribute("path", dir+"shop_main");
@@ -120,8 +126,6 @@ public class ShopController {
 	@RequestMapping("/noticeUpdate")
 	public String noticeUpdate(Model model, Shop_Notice sn, String originname) {
 
-		System.out.println(originname);
-
 		String blankName = sn.getSn_img().getOriginalFilename();
 
 		try {
@@ -135,9 +139,9 @@ public class ShopController {
 
 			snservice.modify(sn);
 
-			System.out.println("item updated");
+			System.out.println("notice updated");
 			
-			return "redirect:/item";
+			return "redirect:/shop";
 			
 		} catch (Exception e) {
 			e.printStackTrace();

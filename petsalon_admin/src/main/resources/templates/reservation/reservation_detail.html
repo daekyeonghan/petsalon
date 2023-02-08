@@ -73,7 +73,8 @@ $(document).ready(function(){
         <hr>
         <div class="card-text mb-3" th:text="'특이사항 : '+${d.dog_special}"></div>
         <div class="card-text mb-3" th:text="'컷 종류 : '+${r.item_name}"></div>
-        <div class="card-text mb-3" th:text="'요청사항 : '+${r.resv_ask}"></div>
+        <div th:if="${r.resv_ask == null}"class="card-text mb-3" th:text="'요청사항 : 없음'"></div>
+        <div th:unless="${r.resv_ask == null}"class="card-text mb-3" th:text="'요청사항 : '+${r.resv_ask}"></div>
       </div>
     </div>
   </div>
@@ -133,7 +134,7 @@ $(document).ready(function(){
   
    <div class="col">
  <div class="d-grid gap-2">
-<a id="fixbtn" class="btn btn-outline-success btn-lg text-center" th:href="@{/resvFix(no=${r.resv_no},useremail=${u.useremail})}" role="button" style="height:148px;"><div style="line-height: 128px; font-size:1.2em;">예약 확정  <i data-feather="check-circle"></i></div></a>
+<a id="fixbtn" class="btn btn-outline-success btn-lg text-center" th:href="@{/resvFix(no=${r.resv_no})}" role="button" style="height:148px;"><div style="line-height: 128px; font-size:1.2em;">예약 확정  <i data-feather="check-circle"></i></div></a>
 <a id="cancelbtn" class="btn btn-outline-danger btn-lg mt-3" th:href="@{/resvCancel(no=${r.resv_no})}" role="button" style="height:148px;"><div style="line-height: 128px; font-size:1.2em;">예약 취소  <i data-feather="x-circle"></i></div></a>
 </div>
   

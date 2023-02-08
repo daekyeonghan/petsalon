@@ -206,7 +206,10 @@ $(document).ready(function() {
 	        <p class="card-text" th:text="${d.designer_introduce}"></p>
 	      </div>
 	     	<div class="card-footer">
-	        <small class="text-muted"><a th:href="@{/designerUpdatePage(id=${d.designer_id})}">수정</a>&nbsp;&nbsp;&nbsp;&nbsp; <a id="deletebtn" th:href="@{/designerDelete(id=${d.designer_id},filename=${d.designer_photo})}">삭제</a></small>
+	        <small  th:if="${session.admin.admin_id==d.admin_id}" class="text-muted"><a th:href="@{/designerUpdatePage(id=${d.designer_id})}">수정</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+	        <a id="deletebtn" th:href="@{/designerDelete(id=${d.designer_id},filename=${d.designer_photo})}">삭제</a></small>
+	        <small th:unless="${session.admin.admin_id==d.admin_id}" class="text-muted"><a href="#" onclick="alert('권한이 없습니다.')">수정</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+	        <a href="#" onclick="alert('권한이 없습니다.')">삭제</a></small>
 	      	</div>
 	    </div>
 	    </form>
