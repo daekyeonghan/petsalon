@@ -277,8 +277,6 @@ public class JYAjaxController {
 	 @RequestMapping("/styleDogChart")
 		public Object styleDogChart(Integer item_id) {
 			
-			//{'m':[1,2,3,4,5], 'data':[{'name':'female','data':[]},{'name':'male','data':[]}]}
-		 	//{name:'방울컷',id: '140',data:[[말티즈,10],[푸들,20],[요크셔테리어,30]]}
 		 
 			List<Resv> resvlist = null;
 			JSONArray doglist = new JSONArray();
@@ -363,7 +361,56 @@ public class JYAjaxController {
 			
 			return finalChartData;
 	 }
-	
+	 
+	 @RequestMapping("/userChart")
+	 public Object userChart() {
+		 List<Resv> resvlist = null;
+			
+			JSONArray chartData = new JSONArray();
+			
+			try {
+				resvlist = resvservice.userChart();
+
+				for(Resv resv : resvlist) {
+					JSONObject obj = new JSONObject();
+					obj.put("name",resv.getUsername());
+					obj.put("y", resv.getCnt());
+					obj.put("drilldown", resv.getUseremail());
+					chartData.add(obj);
+				}
+				System.out.println(chartData);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("fail to load chartData");
+			}
+		
+		 return chartData;
+	 }	
+	 
+	 @RequestMapping("/designerChart")
+	 public Object designerChart() {
+		 List<Resv> resvlist = null;
+			
+			JSONArray chartData = new JSONArray();
+			
+			try {
+				resvlist = resvservice.designerChart(4);
+
+				for(Resv resv : resvlist) {
+					JSONObject obj = new JSONObject();
+					obj.put("name",resv.getDesigner_name());
+					obj.put("y", resv.getCnt());
+					obj.put("drilldown", resv.getDesigner_id());
+					chartData.add(obj);
+				}
+				System.out.println(chartData);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("fail to load chartData");
+			}
+		
+		 return chartData;
+	 }
 //	 @RequestMapping("/itemPageTest")
 //	    public Object getItemsByPage(int page, Model model) {
 //		 int recordsPerPage = 6;

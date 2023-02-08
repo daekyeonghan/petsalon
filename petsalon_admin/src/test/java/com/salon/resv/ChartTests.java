@@ -27,24 +27,18 @@ class ChartTests {
 	@Test
 	void contextLoads() {
 
-		List<Resv> resvlist = null;
-		
 		JSONArray finalChartData = new JSONArray();
 		
+		List<Resv> resvlist = null;
 		try {
-			resvlist = resvservice.styleChart();
-
-	
+			resvlist = resvservice.designerChart(4);
+			
+			
 			
 			List<Resv> subResvlist = null;
 		
-				
-			
-			
-			
-					
 			for(Resv resv : resvlist) {
-				subResvlist = resvservice.styleDogChart(resv.getItem_id());
+				subResvlist = resvservice.designerItemChart(resv.getDesigner_id());
 				JSONObject obj = new JSONObject();
 				JSONArray subChartData = new JSONArray();	
 				JSONArray doglist = new JSONArray();
@@ -63,7 +57,7 @@ class ChartTests {
 			            subChartData.add(subArray);
 			        }
 					obj.put("name", resv.getItem_name());
-					obj.put("id", resv.getItem_id());
+					obj.put("id", resv.getItem_name());
 					obj.put("data", subChartData);
 					
 					finalChartData.add(obj);
@@ -71,15 +65,15 @@ class ChartTests {
 //					
 //			        		[{name:'',id:'',data:[[],[],[],[],[]]},{},{},...]
 //						
-
 					
 				//	System.out.println(finalChartData);
 		}
-			System.out.println(finalChartData);
 		} catch (Exception e) {
 			e.printStackTrace();
 			
 		}
+		
 				
+		System.out.println(finalChartData);
 				
 }}

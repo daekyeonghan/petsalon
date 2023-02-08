@@ -1,0 +1,144 @@
+<div th:fragment="main">
+
+<!-- 고객별 차트 -->
+<style>
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+#container {
+    height: 600px;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+</style>
+<script>
+function displayChart(chartData){
+Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        align: 'left',
+        text: '이웃집 하로 방문 고객'
+    },
+    subtitle: {
+        align: 'left',
+        text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+    },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Total percent market share'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{y} 건'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: '고객',
+            colorByPoint: true,
+            data: chartData
+        }
+    ]
+   
+});
+}
+	 function getdata(){
+		
+		
+		$.ajax({
+			url:'[[@{/userChart}]]',
+			success:function(chartData){
+				displayChart(chartData);
+			}
+		});
+	}
+ 
+
+	$(document).ready(function(){
+		getdata();
+	});
+
+</script>
+
+<div class="d-grid gap-2 col-6 mx-auto">
+<div class="btn-group">
+  <a th:href="@{/statistics}" class="btn btn-outline-secondary">월 통계</a>
+   <a th:href="@{/statistics/designer}" class="btn btn-outline-secondary">디자이너 통계</a>
+  <a th:href="@{/statistics/user}" class="btn btn-outline-secondary  active" aria-current="page">고객 통계</a>
+  <a th:href="@{/statistics/styles}" class="btn btn-outline-secondary">스타일 / 견종 통계</a>
+</div>
+</div>
+
+<figure class="highcharts-figure">
+  <div class="card" id="container"></div>
+  <p class="highcharts-description">
+   
+  </p>
+</figure>
+
+
+
+</div>

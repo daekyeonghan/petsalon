@@ -50,7 +50,7 @@
   
       <div class="sidebar-body">
         <nav class="nav-sidebar style-one">
-          <a th:href="@{/}" class="nav-link"><i data-feather="home"></i><span>홈</span></a>
+          <a th:href="@{/home}" class="nav-link"><i data-feather="home"></i><span>홈</span></a>
           <a th:href="@{/reservation}" class="nav-link"><i data-feather="calendar"></i><span>예약</span></a>
           <a th:href="@{/statistics}" class="nav-link"><i data-feather="bar-chart-2"></i><span>통계</span></a>
           <a th:href="@{/review}" class="nav-link"><i data-feather="message-square"></i><span>고객 후기</span></a>
@@ -75,7 +75,7 @@
         <a href="" class="avatar online"><span class="avatar-initial">a</span></a>
         <div class="avatar-body">
           <div class="d-flex align-items-center justify-content-between">
-            <h6>admin01</h6>
+            <h6 th:text="${session.admin.admin_id}"></h6>
             <a th:href="@{/logout}" class="footer-menu"><i data-feather="log-out"></i></a>
           </div>
           <span>관리자</span>

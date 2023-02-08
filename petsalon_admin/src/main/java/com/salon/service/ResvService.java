@@ -79,4 +79,20 @@ public class ResvService implements MyService<Integer, Resv>{
 	public List<Resv> styleDogChart(Integer item_id) throws Exception{
 		return mapper.styleDogChart(item_id);
 	}
+	
+	public List<Resv> userChart() throws Exception{
+		return mapper.userChart();
+	}
+	
+	public List<Resv> userResvChart(Integer resv_fix) throws Exception{
+		return mapper.userResvChart(resv_fix);
+	}
+	
+	public List<Resv> designerChart(Integer resv_fix) throws Exception{
+		return mapper.designerChart(resv_fix);
+	}
+	
+	public List<Resv> designerItemChart(String designer_id) throws Exception{
+		return mapper.designerItemChart(designer_id);
+	}
 }

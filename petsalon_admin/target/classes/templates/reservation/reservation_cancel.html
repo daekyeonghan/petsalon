@@ -145,8 +145,8 @@ $(document).ready(function(){
       <div class="modal-body" style="padding-left:50px; padding-right:50px;">
         <form id="resvCancel">
          <div class="mb-3">
-    <label for="adminId" class="form-label">등록자</label>
-    <input type="text" class="form-control" id="admin_id" aria-describedby="adminIdInput" name="admin_id" value="admin01" readonly="readonly">
+    <label for="adminId" class="form-label">관리자 아이디</label>
+    <input type="text" class="form-control" id="admin_id" aria-describedby="adminIdInput" name="admin_id" th:value="${session.admin.admin_id}" readonly="readonly">
 
   </div>
   <div class="mb-3">

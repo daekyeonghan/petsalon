@@ -51,48 +51,42 @@ footer {
 }
 </style>
 <script>
-
 function loginchk(){
-	/*ID 비밀번호 정보 받아오기*/
-	var form = document.querySelector('#login_form'); 
-	var id =  form.admin_id.value;
-	var pwd = form.admin_pwd.value;
-	/*ID 혹은 비밀번호 공백일때 */
+
+	if($('#admin_id').val()==''){
+		 alert("아이디를 입력하세요.");
+		 return false;
+	}
 	
-	if(id == ''){
-		alert("아이디를 입력하세요.");
-		form.id.focus();
-		event.preventDefault();
-		return ;
-		}
-	
-	if(pwd == ''){
+	if($('#admin_pwd').val()==''){
 		alert("비밀번호를 입력하세요.");
-		form.pwd.focus();
-		event.preventDefault();
-		return ;
+		 return false;
 	}
 
-	$.ajax({
-		
-		data:{
-			"admin_id":id,
-			"admin_pwd":pwd
-		},
-		
-		url:'[[@{/loginimpl}]]',
-			success:function(data){
-				if(data == 1){
-					form.action = "[[@{/user}]]";
-					alert("로그인에 성공하셨습니다! 환영합니다!");
-					form.submit();
-				}else{
-					alert("아이디와 비밀번호를 잘못입력하셨습니다. 다시 시도해주세요");
-					form.action = "[[@{/login_index}]]";
-				}
-			}
-	}); 
+	if($('#designer_id').val()!=''&&$('#designer_name').val()!=''){
+		return true;
+	}else{
+		return false;
+	}
 };
+
+$(document).ready(function(){
+	
+	var result = $('#result').val();
+	if(result==1) alert('아이디 혹은 비밀번호를 잘못 입력하셨습니다');
+
+
+$('#loginbtn').on('click',function(){
+	if(loginchk()){
+	$('#login_form').attr({
+		'method':'post',
+		'action':'[[@{/loginimpl}]]'
+	});
+	$('#login_form').submit();
+	}
+})
+
+});
 </script>
 
 <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
@@ -106,9 +100,10 @@ function loginchk(){
 	<h1 id="h1">관리자 전용 페이지</h1>
 	
 	<form id="login_form" method="post" >
+	<input type="hidden" id="result" th:value="${session.result}"/>
 	<p><input type="text" id="admin_id" name="admin_id" placeholder="아이디"  maxlength="41"/>
 	<input type="password" id="admin_pwd" name="admin_pwd" placeholder="비밀번호"  maxlength="16"/><br>
-	<button onclick="loginchk()">로그인하기</button>
+	<button type="button" id="loginbtn">로그인하기</button>
 	</form>	
 	<footer id="ft">
 	(주)퍼스트클래스: 서울특별시 강남구 언주로 508 14층(역삼동, 서울상록빌딩)<p>

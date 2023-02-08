@@ -192,7 +192,7 @@ $(document).ready(function() {
         <h1 class="mb-50 fs-5">공지사항 수정</h1>
         <div id="liveAlertPlaceholder"></div>
         <form id="notice_register">
-      <input type="text" id="staticEmail" value="admin01" name="admin_id" style="display:none;">
+      <input type="text" id="staticEmail" th:value="${session.admin.admin_id}" name="admin_id" style="display:none;">
           <div class="input-group mb-3">
  		  <span class="input-group-text" id="basic-addon1">제목</span>
   		  <input type="text" class="form-control" th:value="${sn.sn_title}" id="sn_title" name="sn_title" aria-label="noticeTitle" aria-describedby="basic-addon1">

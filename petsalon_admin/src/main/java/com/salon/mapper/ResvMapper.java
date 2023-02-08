@@ -31,4 +31,12 @@ public interface ResvMapper extends MyMapper<Integer, Resv>{
 	public List<Resv> styleChart() throws Exception;
 	
 	public List<Resv> styleDogChart(Integer item_id) throws Exception;
+	
+	public List<Resv> userChart() throws Exception;
+	
+	public List<Resv> userResvChart(Integer resv_fix) throws Exception;
+	
+	public List<Resv> designerChart(Integer resv_fix) throws Exception;
+	
+	public List<Resv> designerItemChart(String designer_id) throws Exception;
 }

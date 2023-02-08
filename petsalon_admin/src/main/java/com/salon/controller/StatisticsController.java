@@ -19,9 +19,9 @@ public class StatisticsController {
 	}
 	
 	
-	@RequestMapping("/userdog")
+	@RequestMapping("/user")
 	public String userdog(Model model) {
-		model.addAttribute("path", dir+"statistics_userdog");
+		model.addAttribute("path", dir+"statistics_user");
 		model.addAttribute("content", "main");
 		return "main";
 	}
@@ -29,6 +29,21 @@ public class StatisticsController {
 	@RequestMapping("/styles")
 	public String styles(Model model) {
 		model.addAttribute("path", dir+"statistics_item");
+		model.addAttribute("content", "main");
+		return "main";
+	}
+	
+	@RequestMapping("/designer")
+	public String designer(Model model) {
+		model.addAttribute("path", dir+"statistics_designer");
+		model.addAttribute("content", "main");
+		return "main";
+	}
+	
+	
+	@RequestMapping("/temp")
+	public String temp(Model model) {
+		model.addAttribute("path", dir+"statistics_temp");
 		model.addAttribute("content", "main");
 		return "main";
 	}
