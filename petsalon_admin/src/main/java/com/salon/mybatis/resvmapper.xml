@@ -139,8 +139,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- daekyeong add -->
 	<select id="mailinformation" parameterType="Integer" resultType="Resv">
-		SELECT d.dog_name, de.designer_name, i.item_name FROM resv res
+		SELECT d.dog_name, de.designer_name, i.item_name, res.cancel FROM resv res
 		INNER JOIN dog d ON res.useremail = d.useremail
+		INNER JOIN designer de ON de.designer_id = res.designer_id
+		INNER JOIN item i ON i.item_id = res.item_id WHERE res.resv_no =#{resv_no}
+	</select>
+	
+	<select id="cancelmailinfo" parameterType="Integer" resultType="Resv">
+		SELECT res.resv_no, d.dog_name, de.designer_name, i.item_name, res.cancel FROM resv res
+		INNER JOIN dog d ON res.dog_id = d.dog_id
 		INNER JOIN designer de ON de.designer_id = res.designer_id
 		INNER JOIN item i ON i.item_id = res.item_id WHERE res.resv_no =#{resv_no}
 	</select>

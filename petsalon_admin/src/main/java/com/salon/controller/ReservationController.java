@@ -168,12 +168,35 @@ public class ReservationController {
 	
 	@RequestMapping("/resvCancelFix")
 	public String resvCancelFix(Model model, int resv_no, String cancel) {
+		Schedule shd = null;
+		Date date = null;
+		Resv resv = null;
 		
+		String dog_name;
+		String designer_name;
+		String item_name;
+		String useremail;
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 h시");
 		
 		try {
+			shd = schservice.dateselect(resv_no);
+			date = shd.getSc_date();
+			useremail = shd.getUseremail();
+			String dateToStr = dateFormat.format(date);
+			
+			resv = rservice.cancelmailinfo(resv_no);
+			dog_name = resv.getDog_name();
+			designer_name = resv.getDesigner_name();
+			item_name = resv.getItem_name();
+			
 			rservice.resvCancel(resv_no, cancel);
 			
 			schservice.scheduleDel(resv_no);
+			/*
+			 * MailUtil.cancelEmail(dateToStr, useremail, dog_name, designer_name,
+			 * item_name, cancel);
+			 */
 			
 		} catch (Exception e) {
 			e.printStackTrace();

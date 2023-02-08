@@ -28,6 +28,7 @@ class CancelMailTests {
 	@Test
 	void contextLoads() {
 		String useremail = "hdk1008@gmail.com";
+		String cancel = "취소해서 미안해요";
 		Schedule shd = null;
 		Date date = null;
 		Resv resv = null;
@@ -36,21 +37,23 @@ class CancelMailTests {
 		String item_name;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 h시");
 		try {
-			shd = service.dateselect(1032);
+			shd = service.dateselect(1035);
 			date = shd.getSc_date();
-			resv = rservice.mailinformation(1034);
+			resv = rservice.cancelmailinfo(1035);
 			String dateToStr = dateFormat.format(date);
 			System.out.println(shd);
 			System.out.println(date);
 			System.out.println(dateToStr);
 			System.out.println("메일정보" + resv);
-			dog_name = resv.getDog_name();
-			designer_name = resv.getDesigner_name();
-			item_name = resv.getItem_name();
-			System.out.println("강아지정보" + dog_name);
-			System.out.println("디자이너정보" + designer_name);
-			System.out.println("컷정보" + item_name);
-			MailUtil.confirmEmail(dateToStr, useremail, dog_name, designer_name, item_name);
+			
+			 dog_name = resv.getDog_name();
+			 designer_name = resv.getDesigner_name();
+			 item_name = resv.getItem_name();
+			 System.out.println("강아지정보" + dog_name);
+			 System.out.println("디자이너정보" + designer_name);
+			 System.out.println("컷정보" + item_name);
+			 
+			MailUtil.cancelEmail(dateToStr, useremail, dog_name, designer_name, item_name, cancel);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("FAIL");

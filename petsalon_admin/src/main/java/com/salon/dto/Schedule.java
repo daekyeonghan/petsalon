@@ -20,6 +20,7 @@ public class Schedule {
 	private Date sc_date;
 	
 	private String designer_name;
+	private String useremail;
 	
 	public Schedule(int sc_id, String designer_id, int resv_no) {
 		this.sc_id = sc_id;

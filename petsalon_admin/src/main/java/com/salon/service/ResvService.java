@@ -100,4 +100,8 @@ public class ResvService implements MyService<Integer, Resv>{
 	public Resv mailinformation(Integer resv_no) throws Exception {
 		return mapper.mailinformation(resv_no);
 	}
+	
+	public Resv cancelmailinfo(Integer resv_no) throws Exception {
+		return mapper.cancelmailinfo(resv_no);
+	}
 }

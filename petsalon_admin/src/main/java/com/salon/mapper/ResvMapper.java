@@ -42,4 +42,6 @@ public interface ResvMapper extends MyMapper<Integer, Resv>{
 	
 	/* daekyeong add */
 	public Resv mailinformation(Integer resv_no) throws Exception;
+	
+	public Resv cancelmailinfo(Integer resv_no) throws Exception;
 }

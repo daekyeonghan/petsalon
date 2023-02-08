@@ -35,7 +35,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- daekyeong add -->
 	<select id="dateselect" resultType="Schedule">
-		SELECT * FROM schedule WHERE resv_no=#{resv_no}
+		SELECT res.useremail, sc.sc_date FROM schedule sc
+		INNER JOIN resv res ON res.resv_no = sc.resv_no WHERE sc.resv_no=#{resv_no}
 	</select>
 
 	
