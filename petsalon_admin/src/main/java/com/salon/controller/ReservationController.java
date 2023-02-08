@@ -122,7 +122,10 @@ public class ReservationController {
 			
 			String dateToStr = dateFormat.format(date);
 			
-			MailUtil.confirmEmail(dateToStr, useremail, dog_name, designer_name, item_name);
+			/*
+			 * MailUtil.confirmEmail(dateToStr, useremail, dog_name, designer_name,
+			 * item_name);
+			 */
 			
 		} catch (Exception e) {
 			e.printStackTrace();
