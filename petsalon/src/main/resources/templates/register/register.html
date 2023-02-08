@@ -62,6 +62,7 @@
 		var addressCheck = 0;
 		var detaddressCheck = 0;
 		var checkagree = 0;
+		var emailCheck = 0;
 		
 		function checkId() {
 			   var inputed = $('#useremail').val();
@@ -243,28 +244,6 @@
 			$(document).ready(function(){
 
 					activateJoinbtn();
-					
-					
-				/* // 체크박스 전체 선택
-				$(".checkbox_group").on("click", "#check_all", function () {
-				    $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
-				});
-				
-				// 체크박스 개별 선택
-				$(".checkbox_group").on("click", ".normal", function() {
-				    var is_checked = true;
-				
-				    $(".checkbox_group .normal").each(function(){
-				        is_checked = is_checked && $(this).is(":checked");
-				        
-				    });
-				
-				    $("#check_all").prop("checked", is_checked);
-				    d = 1;
-				    console.log(d);
-				}); */
-				
-				
 				
 				$('#joinbtn').click(function(){
 					var c = confirm('입력 하시겠습니까?');
@@ -277,6 +256,45 @@
 						$('#join_form').submit();
 					};
 				});
+				
+				$('#mail-Check-Btn').click(function() {
+					const eamil = $('#useremail').val(); // 이메일 주소값 얻어오기!
+					console.log('완성된 이메일 : ' + eamil); // 이메일 오는지 확인
+					const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+					
+					$.ajax({
+						type : 'get',
+						url : '/mailCheck?email='+eamil, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+						success : function (data) {
+							console.log("data : " +  data);
+							checkInput.attr('disabled',false);
+							code =data;
+							alert('인증번호가 전송되었습니다.')
+						}			
+					}); // end ajax
+				}); // end send eamil
+				
+				// 인증번호 비교 
+				// blur -> focus가 벗어나는 경우 발생
+				$('.mail-check-input').blur(function () {
+					const inputCode = $(this).val();
+					const $resultMsg = $('#mail-check-warn');
+					
+					if(inputCode === code){
+						$resultMsg.html('인증번호가 일치합니다.');
+						$resultMsg.css('color','green');
+						$('#mail-Check-Btn').attr('disabled',true);
+						$('#useremail').attr('readonly',true);
+						$('#useremail').attr('readonly',true);
+				         $("#joinbtn").prop("disabled", false);
+				         emailCheck = 1;
+					}else{
+						$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+						$resultMsg.css('color','red');
+						$("#joinbtn").prop("disabled", true);
+						emailCheck = 0;
+					}
+				});
 
 			});
 
@@ -287,7 +305,7 @@
 			      success: function() {
 			    	
 
-				   if( idCheck == 1 && pwdCheck == 1  && nameCheck == 1 && phoneCheck == 1 && pwCheck == 1 && birthCheck == 1 && addressCheck == 1 && detaddressCheck == 1 && checkagree == 1 ) {
+				   if( idCheck == 1 && pwdCheck == 1  && nameCheck == 1 && phoneCheck == 1 && pwCheck == 1 && birthCheck == 1 && addressCheck == 1 && detaddressCheck == 1 && checkagree == 1 && emailCheck == 1) {
 					   
 					      $("#joinbtn").prop("disabled", false);   
 					      /* $("#joinbtn").css("background-color", "#B0F6AC"); */
@@ -501,6 +519,8 @@
 			  }
 			  
 			}
+			
+			
 		
 
 		
@@ -521,18 +541,24 @@
 							<input type="text" id="useremail" name="useremail" class="form-control" placeholder="예) id@example.com" oninput="checkId(), activateJoinbtn()"/>
 							<font color = "red" id = "mailform" style = "display:none">올바른 이메일 형식이 아닙니다</font>
 							<font color = "red" id = "fail" style = "display:none">이미 존재하는 이메일입니다</font>
-							<font color = "black" id = "mailcon" style = "display:none">사용 가능한 이메일입니다</font>
+							<font color = "green" id = "mailcon" style = "display:none">사용 가능한 이메일입니다</font>
 						</div>
-						<div class="mb-3">
+						<div class="input-group">
+							<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요" disabled="disabled">
+							<span><input type="button" class="form-control btn btn-secondary" id="mail-Check-Btn" value="본인인증"></span>
+						</div>
+						<span class="mb-3" id="mail-check-warn"></span>
+
+						<div class="mt-3 mb-3">
 							<label for="userpwd" class="form-label">비밀번호</label>
 							<input type="password" id="userpwd" name="userpwd" class="form-control" placeholder="영문자+숫자+특수조합(8~25자리 입력)" oninput="checkPwd(), activateJoinbtn()"/>
 							<font color = "red" id = "failpwd" style = "display:none">비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다</font>
-							<font color = "black" id = "userpwdok" style = "display:none">사용 가능한 비밀번호입니다</font>
-						</div>         
+							<font color = "green" id = "userpwdok" style = "display:none">사용 가능한 비밀번호입니다</font>
+						</div>        
 						<div class="mb-3">
 							<label for="userpwd2" class="form-label">비밀번호 재확인</label>
 							<input type="password" id="userpwd2" name="userpwd2" class="form-control" placeholder="비밀번호 재확인" oninput ="checkPwd2(), activateJoinbtn()"/>
-							<font color = "black" id = "userpwd2ok" style = "display:none">비밀번호가 일치합니다</font>
+							<font color = "green" id = "userpwd2ok" style = "display:none">비밀번호가 일치합니다</font>
 							<font color = "red" id = "userpwd2no" style = "display:none">비밀번호가 일치하지 않습니다</font>
 						</div>
 						<div class="mb-3">
