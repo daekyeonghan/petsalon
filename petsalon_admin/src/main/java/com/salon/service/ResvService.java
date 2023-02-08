@@ -95,4 +95,9 @@ public class ResvService implements MyService<Integer, Resv>{
 	public List<Resv> designerItemChart(String designer_id) throws Exception{
 		return mapper.designerItemChart(designer_id);
 	}
+	
+	/* daekyeong add */
+	public Resv mailinformation(Integer resv_no) throws Exception {
+		return mapper.mailinformation(resv_no);
+	}
 }

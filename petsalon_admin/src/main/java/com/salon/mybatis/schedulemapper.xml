@@ -32,6 +32,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="dateData" parameterType="String" resultType="Schedule">
 		SELECT * FROM schedule WHERE DATE_FORMAT(sc_date, '%Y-%m') = CONCAT(#{chartYear},#{chartMonth})
 	</select>
+	
+	<!-- daekyeong add -->
+	<select id="dateselect" resultType="Schedule">
+		SELECT * FROM schedule WHERE resv_no=#{resv_no}
+	</select>
 
 	
 	

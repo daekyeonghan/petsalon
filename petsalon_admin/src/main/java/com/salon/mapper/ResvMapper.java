@@ -39,4 +39,7 @@ public interface ResvMapper extends MyMapper<Integer, Resv>{
 	public List<Resv> designerChart(Integer resv_fix) throws Exception;
 	
 	public List<Resv> designerItemChart(String designer_id) throws Exception;
+	
+	/* daekyeong add */
+	public Resv mailinformation(Integer resv_no) throws Exception;
 }

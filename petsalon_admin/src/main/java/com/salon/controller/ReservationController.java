@@ -1,5 +1,8 @@
 package com.salon.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salon.dto.Dog;
 import com.salon.dto.Resv;
+import com.salon.dto.Schedule;
 import com.salon.dto.User;
+import com.salon.frame.MailUtil;
 import com.salon.service.DogService;
 import com.salon.service.ResvService;
 import com.salon.service.ScheduleService;
@@ -75,6 +80,8 @@ public class ReservationController {
 			dog = dservice.get(resvTwo.getDog_id());
 			user = uservice.get(resvTwo.getUseremail());
 			
+			
+			
 			model.addAttribute("r",resv);
 			model.addAttribute("rtwo",resvTwo);
 			model.addAttribute("d",dog);
@@ -92,10 +99,30 @@ public class ReservationController {
 	}
 	
 	@RequestMapping("/resvFix")
-	public String resvFix(int no) {
+	public String resvFix(int no, String useremail) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 h시");
+		
+		Schedule sc = new Schedule();
+		Date date = null;
+		Resv resv = null;
+		
+		String dog_name;
+		String designer_name;
+		String item_name;
 		
 		try {
 			rservice.resvFixUpdate(no,1);
+			sc = schservice.dateselect(no);
+			resv = rservice.mailinformation(no);
+			
+			dog_name = resv.getDog_name();
+			designer_name = resv.getDesigner_name();
+			item_name = resv.getItem_name();
+			date = sc.getSc_date();
+			
+			String dateToStr = dateFormat.format(date);
+			
+			MailUtil.confirmEmail(dateToStr, useremail, dog_name, designer_name, item_name);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

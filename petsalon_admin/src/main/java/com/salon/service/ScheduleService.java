@@ -57,6 +57,10 @@ public class ScheduleService implements MyService<Integer, Schedule> {
 		return mapper.dateData(chartYear, chartMonth);
 	}
 	
+	public Schedule dateselect(int resv_no) throws Exception {
+		return mapper.dateselect(resv_no);
+	}
+	
 	
 
 }

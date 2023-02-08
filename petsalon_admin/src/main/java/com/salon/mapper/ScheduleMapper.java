@@ -17,4 +17,6 @@ public interface ScheduleMapper extends MyMapper<Integer,Schedule>{
 	public void scheduleDel(Integer sc_id) throws Exception;
 	
 	public List<Schedule> dateData(String chartYear, String chartMonth) throws Exception;
+	
+	public Schedule dateselect(int resv_no) throws Exception;
 }

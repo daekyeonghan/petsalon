@@ -130,11 +130,19 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
     ORDER BY cnt DESC;
 	</select>
 	
-	<select id="designerItemChart" resultType="Resv">
+	<select id="designerItemChart" parameterType="Integer" resultType="Resv">
 	SELECT i.item_id, i.item_name, COUNT(resv.item_id) cnt from resv
     INNER JOIN item i ON i.item_id = resv.item_id
     WHERE resv.designer_id = #{designer_id}
     GROUP BY resv.item_id;
+	</select>
+	
+	<!-- daekyeong add -->
+	<select id="mailinformation" parameterType="Integer" resultType="Resv">
+		SELECT d.dog_name, de.designer_name, i.item_name FROM resv res
+		INNER JOIN dog d ON res.useremail = d.useremail
+		INNER JOIN designer de ON de.designer_id = res.designer_id
+		INNER JOIN item i ON i.item_id = res.item_id WHERE res.resv_no =#{resv_no}
 	</select>
 	
 	
