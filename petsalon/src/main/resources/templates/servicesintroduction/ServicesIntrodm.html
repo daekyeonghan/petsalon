@@ -11,11 +11,6 @@
 	
 }
 
-.btn btn-primary-link{
-/* background-color: red; */
-
-}
-
 #button {
 	margin: 0 auto;
 	/*border: 1px solid green;*/
@@ -179,7 +174,7 @@ $(document).ready(function(){
                     		<a class="nav-link" style="color:white;font-weight:500;" id="welcome" th:text="${session.logname}+'님 환영해요'"></a>
                     	</li>
                         <li class="nav-item"><a class="nav-link" th:href="@{/resv}">예약</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/servicesintroduction}">서비스 소개</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/servicesintroduction}">이웃집하로 소개</a></li>
                         <li class="nav-item"><a class="nav-link" th:href="@{/review}">이용후기</a></li>
                         <li class="nav-item dropdown">
                         	<img class="person" data-bs-toggle="dropdown" src="assets/img/person.svg" width="20px"/>
@@ -209,7 +204,7 @@ $(document).ready(function(){
         <!-- Section-->
         <section class="py-5" >
         <div id="button">
-        <button onclick="intro()" type="button" class="btn btn-warning btn-lg" id="servicebtn">서비스 소개</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button onclick="intro()" type="button" class="btn btn-warning btn-lg" id="servicebtn">회사소개</button>&nbsp;&nbsp;&nbsp;&nbsp;
   		<button onclick="alldesigner()" type="button" class="btn btn-warning btn-lg" id="designerbtn" >디자이너소개</button>&nbsp;&nbsp;&nbsp;&nbsp;
   		<button onclick="IntroMap" type="button" class="btn btn-warning btn-lg" id="mapsbtn"  >위치소개</button>
   		</div>
@@ -220,6 +215,7 @@ $(document).ready(function(){
       <div class="d-grid gap-2 col-6 mx-auto">
 </div>
       </div>
+      <div></div>
         </section>
          
 		

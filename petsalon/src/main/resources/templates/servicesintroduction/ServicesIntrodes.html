@@ -4,56 +4,56 @@
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0aca2208ef59a13d0f48ca4f18598707"></script>
 <style>
 
-#introduction-img{
-	width: 800px;
-	border: 1px solid pink;
-	margin: 0 auto;
-}
 
- #img-a{
-  position: relative;
+/*  #img-a{
+   position: relative; 
   width: 500px;
-  height: 500px;
-  margin: 10px auto;
+  height:500px; 
+  margin:  10px auto;
   overflow: hidden;
  background-color:transparent;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   border: 1px solid red;
+}
 
-} 
+ */
+ 
 #name-f {
-color:#333333;
+color:#2A0400;
 font-family:Namum Pen Script;
 text-align: center;
+font-size:25px;
  font-weight: bold;
  background-color:transparent;
 }
 
+#name-f1 {
+color:#333333;
+font-family:Namum Pen Script;
+text-align: center;
+font-size:18px;
+ font-weight: bold;
+ background-color:transparent;
+}
 
 #button {
 	margin: 0 auto;
-	/*border: 1px solid green;*/
 	text-align: center;
 }
 
-#service{
+#servicebtn{
 	width:200px;
 
 }
 
-#designer{
+#designerbtn{
 	width:200px;
 }
 
-#maps{
+#mapsbtn{
 	width:200px;
 }
 
-#map{
-	width: 1000px;
-  	height: 600px;
-	border: 1px solid blue;
-}
 </style>
 <script>
 function alldesigner(){
@@ -103,7 +103,7 @@ function intromap(){
                     		<a class="nav-link" style="color:white;font-weight:500;" id="welcome" th:text="${session.logname}+'님 환영해요'"></a>
                     	</li>
                         <li class="nav-item"><a class="nav-link" th:href="@{/resv}">예약</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/servicesintroduction}">서비스 소개</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/servicesintroduction}">이웃집하로 소개</a></li>
                         <li class="nav-item"><a class="nav-link" th:href="@{/review}">이용후기</a></li>
                         <li class="nav-item dropdown">
                         	<img class="person" data-bs-toggle="dropdown" src="assets/img/person.svg" width="20px"/>
@@ -131,9 +131,9 @@ function intromap(){
             </div>
         </header>
         <!-- Section-->
-        <section class="py-5" style='height:700px; border: 1px solid green;'>
+        <section class="py-5" style='height:900px; '>
 		 <div id="button">
-        <button onclick="intro()" type="button" class="btn btn-warning btn-lg" id="servicebtn">서비스 소개</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button onclick="intro()" type="button" class="btn btn-warning btn-lg" id="servicebtn">회사소개</button>&nbsp;&nbsp;&nbsp;&nbsp;
   		<button onclick="alldesigner()" type="button" class="btn btn-warning btn-lg" id="designerbtn" >디자이너소개</button>&nbsp;&nbsp;&nbsp;&nbsp;
   		<button onclick="intromap()" type="button" class="btn btn-warning btn-lg" id="mapsbtn"  >위치소개</button>
   		</div>
@@ -142,16 +142,17 @@ function intromap(){
 
 
 
-		<div id="carouselExampleAutoplaying" class="carousel slide"
+		<div id="carouselExampleAutoplaying" class="carousel carousel-dark slide"
 			data-bs-ride="carousel">
-			<div class="carousel-inner" id="img-a">
+			<div class="carousel-inner">
 				<div class="carousel-item active">
 					<h5 id="name-f">디자이너들을 소개합니다</h5>
-					<img src="assets/img/haro.png" class="d-block w-100" alt="...">
+					<div id="img-a"><img src="assets/img/haro.png" style="width:700px; height:600px; margin:  0px auto;"  class="d-block w-40" ></div>
 				</div>
 				<div class="carousel-item" th:each="designer:${designer}">
 				<h5 th:text="${designer.designer_name}" id="name-f"></h5>
-					<img th:src="'assets/img/'+@{${designer.designer_photo}}" class="d-block w-100" alt="..." >
+				<p th:text="${designer.designer_introduce}" id="name-f1"></p>
+					<div id="img-a"><img th:src="'assets/img/'+@{${designer.designer_photo}}" style="width:700px;height:600px; margin:  0px auto;  border-radius: 60%;"  class="d-block w-40 " ></div>
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button"
