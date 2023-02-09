@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
+<!-- FullCalendar -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
+<script src='../dist/index.global.js'></script>
 <script th:inline="javascript">
 function movedoginfo(){
 	location.href = '/doginfo';
 }
 function dogSelect(data){
 	document.getElementById('dog_id').value = data;
-	document.getElementById('dogselectbtn').value.className = 'btn btn-dark';
-	document.getElementById('dateaccordion').click();
+	document.getElementById('designeraccordion').click();
 }
 function designerSelect(data){
 	document.getElementById('designer_id').value = data;
@@ -93,7 +94,6 @@ function dateSelect(){
 			resvdate = resvdate.replace(' 15시', ' 17시');
 		}
 		document.getElementById('sc_date').value = resvdate;
-		document.getElementById('designeraccordion').click();
 	}
 }
 
@@ -163,9 +163,6 @@ $(document).ready(function(){
  		<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        <!-- FullCalendar -->
-        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
-		<script src='../dist/index.global.js'></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -214,6 +211,29 @@ $(document).ready(function(){
         </header>
         <!-- Section-->
         <section class="py-5" style="margin-top:50px;font-family:'Spoqa Han Sans Neo', 'sans-serif';">
+		    <div style="width:350px;margin:0 auto;margin-bottom:5%;text-align:center;font-size:1.2em;text-decoration:underline;"><img id="warning" src="assets/img/warning.svg" style="margin-bottom:0.8%;"/> 오늘 기준 2일 뒤부터 예약 가능합니다</div>
+		    <div style="width:600px;margin:0 auto;margin-bottom:3%;text-align:center;">
+			    <div id="calendar"></div>
+		    </div>
+		    <div id="dateinfo" style="width:500px;margin:0 auto;margin-bottom:5%;text-align:center;">
+		    	<img id="calicon" src="assets/img/calendar3.svg" style="text-align:center;"/>
+		    	<input type="text" id="resvdate" name="resvdate" value="달력에서 날짜를 선택하세요" style="width:200px;"/><br><br>
+		    	<div style="width:400px;" class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="11" autocomplete="off" checked>
+				  <label class="btn btn-outline-dark" for="btnradio1">11시</label>
+				
+				  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="13" autocomplete="off">
+				  <label class="btn btn-outline-dark" for="btnradio2">13시</label>
+				
+				  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="15" autocomplete="off">
+				  <label class="btn btn-outline-dark" for="btnradio3">15시</label>
+				
+				  <input type="radio" class="btn-check" name="btnradio" id="btnradio4" value="17" autocomplete="off">
+				  <label class="btn btn-outline-dark" for="btnradio4">17시</label>
+				  
+				  <button style="margin-left:3%;" type="button" class="btn btn-success" onclick="dateSelect();">날짜 선택</button>
+				</div>
+		    </div>
         	<div class="accordion" id="accordionExample" style="width:70%;margin:0 auto;">
 			  <div th:if="${yesdog==1}" class="accordion-item">
 			    <h2 class="accordion-header" id="headingOne">
@@ -249,40 +269,7 @@ $(document).ready(function(){
 				  <button type="button" class="btn btn-light" onclick="movedoginfo();">강아지 정보 등록하기</button>
 				</div>
 			  </div>
-			  <div class="accordion-item">
-			    <h2 class="accordion-header" id="headingTwo">
-			      <button id="dateaccordion" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-			        예약 날짜
-			      </button>
-			    </h2>
-			    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-			      <div style="width:400px;height:50px;margin-top:2.5%;margin-left:2%;"><img id="warning" src="assets/img/warning.svg" style="margin-bottom:0.8%;margin-right:2%;"/>오늘 기준 2일 뒤부터 예약 가능합니다</div>
-			      <div class="card  w-auto mb-3">
-					  <div class="card-body calendar">
-					    <div id="calendar" style="width:60%;float:left;"></div>
-					    <div id="dateinfo">
-					    	<img id="calicon" src="assets/img/calendar3.svg"/>
-					    	<input type="text" id="resvdate" name="resvdate" value=""/><br><br>
-					    	<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-							  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="11" autocomplete="off" checked>
-							  <label class="btn btn-outline-dark" for="btnradio1">11시</label>
-							
-							  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="13" autocomplete="off">
-							  <label class="btn btn-outline-dark" for="btnradio2">13시</label>
-							
-							  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="15" autocomplete="off">
-							  <label class="btn btn-outline-dark" for="btnradio3">15시</label>
-							
-							  <input type="radio" class="btn-check" name="btnradio" id="btnradio4" value="17" autocomplete="off">
-							  <label class="btn btn-outline-dark" for="btnradio4">17시</label>
-							 </div>
-							 <br><br>
-					    	<button type="button" class="btn btn-success" onclick="dateSelect();">날짜 선택</button>
-					    </div>
-					  </div>
-				  </div>
-			    </div>
-			  </div>
+			  
 			  <div class="accordion-item">
 			    <h2 class="accordion-header" id="headingThree">
 			      <button id="designeraccordion" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">

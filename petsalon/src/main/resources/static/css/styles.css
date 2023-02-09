@@ -11819,13 +11819,6 @@ li{
 .fc-toolbar-chunk>button{
 	display:none;
 }
-#dateinfo{
-	width:40%;
-	height:150px;
-	float:right;
-	text-align:center;
-	margin-top:20%;
-}
 header.masthead {
   padding-top: 10.5rem;
   padding-bottom: 6rem;
