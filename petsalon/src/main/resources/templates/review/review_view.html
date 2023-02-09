@@ -19,7 +19,10 @@
 	<script th:replace="fragments :: boot"></script>
 	<style>
 		img #previewImg img{width:300px; height:300px; margin: 0 auto;}
-		#review-text .review-center {height: 250px; width: 600px;}
+		#review-text .review-center {padding-left: 5px; height: 250px; width: 100%;}
+		.review-answer {padding-left: 5px;}
+		.review-title {padding-left: 5px;}
+		.review-head {padding-left: 5px;}
 		@font-face {
 		    font-family: 'SUIT-Regular';
 		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
@@ -227,8 +230,9 @@
 
 
 <section class="page-section bg-light" id="review">
+<div style="height: 100px;"></div>
 <form>
-<div class="container" >
+<div class="container">
 	<div class="row mt-5 col-lg-12 bg-white m-auto rounded-top">
 		<div class="col-lg-6">
 			<img class="img-thumbnail" th:if="${rvs.review_photo == ''} or ${rvs.review_photo == null}" src="assets/img/logo.svg"  style="width:600px; height:600px;"/>
@@ -236,28 +240,31 @@
 		</div>
 		<div id="review-text" class="col-lg-6">
 			<div class="mt-3">
-				<h3><span th:text="${rvs.dog_name}"></span></h3></br>
-				<span th:text="'시술명 : '+ ${item.item_name}"></span>&nbsp;｜&nbsp;<span th:text="'선생님 : '+${rvs.designer_name}"></span></br></br>
-				<p th:text="${rvs.review_title}"></p>
+				<div class="review-head">
+					<h3><span th:text="${rvs.dog_name}"></span></h3></br>
+					<span th:text="'시술명 : '+ ${item.item_name}"></span>&nbsp;｜&nbsp;<span th:text="'선생님 : '+${rvs.designer_name}"></span></br></br>
+					<p th:text="${rvs.review_title}"></p>
+				</div>
 				<hr style="border:1px color= silver;" width="100%">
 				<div class="review-center">
-					<p th:text="${rvs.review_content}"></p>
+					<div th:text="${rvs.review_content}"> </div>
 				</div>
-				<div class="review-answer" style="background-color: #DCDCDC">
+				<div class="review-answer mt-2" style="background-color: #DCDCDC;">
 					<p th:if="${ra == null}" th:value="1" ></p>
 					<p th:unless="${ra == null}" th:utext="|가게 답변 ｜ <b>${#dates.format(ra.ra_date,'yyyy-MM-dd')}</b> </br> ${ra.ra_content}|" ></p>
 				</div>
-				<div class="review-bottom">
+				<div class="review-bottom mb-3">
 					<hr style="border:1px color= silver;" width="100%">
 					<span th:text="${#strings.substring(rvs.useremail,0,(#strings.indexOf(rvs.useremail,'@')-1))+'****님'}"></span>&nbsp;｜&nbsp;<span th:utext="|<b>${#dates.format(rvs.review_date,'yyyy-MM-dd')}</b>|"></span>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col-md-12 order-md-last " style="padding-right : 0;">
+		<div class="col-md-12 order-md-last mb-3">
 		<button id="rlist" type="button" th:onclick="|location.href='@{/review}'|" class="btn btn-primary mt-2" style="float: right;"> 목록</button>
 		<button id="uptbtn" type="button" th:onclick="updateck([[${rvs.review_no}]]);" data-bs-toggle="modal" data-bs-target="#updateReviewModal" class="btn btn-primary mt-2" style="float: right; margin-right: 10px;"> 수정</button>
+		</div>
 	</div>
+	
 </div>
 </form>
 </section>

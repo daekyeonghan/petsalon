@@ -77,30 +77,56 @@
 <style>
 	img{display:block; margin:auto;}
 	#review-thumbnail{margin: auto;}
-	#review-bar{padding-left:15px; margin-bottom:10px;}
+	#review-bar{padding-left:15px; margin-top:20px; margin-bottom:20px;}
 	#designer_id{ width: 230px;}
 	#selectdiv{float:right;  padding-right: 36px;}
+	.review-header{margin-bottom: 60px;}
 	
 
 </style>
 </head>
 <body id="page-top">
 <!-- <nav th:replace="fragments :: nav-top"></nav> -->
-<section style="background-color: #f5dcb7;">
+<section style="width: 100%; height: 800px;">
 <div class="container">
-<div class="row mt-5">
-	<img class="img-fluid" th:src="@{/assets/img/background1.jpg}" style=" width:800px; height:600px;">
-</div>
+	<div class="row mt-5">
+		<div id="carouselExampleIndicators" class="carousel slide mx-auto d-block" data-bs-ride="carousel" style="width: 923px; height: 600px;">
+		  <div class="carousel-indicators">
+		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+		  </div>
+		  <div class="carousel-inner">
+		    <div class="carousel-item active">
+		      <img src="assets/img/background1.jpg" class="d-block w-100" alt="...">
+		    </div>
+		    <div class="carousel-item">
+		      <img src="assets/img/miyongsil.jpg" class="d-block w-100" alt="...">
+		    </div>
+		    <div class="carousel-item">
+		      <img src="assets/img/miyongsil2.jpg" class="d-block w-100" alt="...">
+		    </div>
+		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
+		</div>
+	</div>
 </div>
 </section>
-<section class="page-section bg-light" id="review">
-            <div class="container col-lg-12">
-                <div class="text-center mb-3">
+<section class="page-section" id="review" >
+            <div class="container" style="max-width: 90%;">
+                <div class="text-center review-header">
                     <h2 class="section-heading text-uppercase">review</h2>
-                    <h3 class="section-subheading text-muted">아이들의 가장 예쁜 모습입니다</h3>
+                    <h5>아이들의 가장 예쁜 모습들입니다</h5>
                 </div>
                 <div class="col-lg-12" id="review-bar">
-	                	<button type="button" id="review_add" name="review_plus" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button>
+	                	<button type="button" id="review_add" name="review_plus" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button>
 	                	<div id="selectdiv">
 		                    <form id="selectDesignerReview">
 								<select class="form-select" id="designer_id" name="designer_id" th:onchange="selectDesigner()">
@@ -112,8 +138,7 @@
 						</div>
 				</div>
                 <div class="row col-lg-12">
-                    <div id="review-thumbnail" class="row col-xl-4 mb-4" th:each="o : ${rlist}">
-                        <!-- review item 2-->
+                    <div id="review-thumbnail" class="row col-xl-3 mb-4" th:each="o : ${rlist}">
                         <div class="review-item">
                             <a class="review-link" th:onclick="|location.href='@{/reviewview(no=${o.review_no},resv_no=${o.resv_no})}'|">
                                 <div class="review-hover" >
@@ -122,7 +147,7 @@
                                 <img class="img-thumbnail" th:if="${o.review_photo == ''} or ${o.review_photo == null}" src="assets/img/logo.svg"  style="width:430px; height:430px;"/>
                                 <img class="img-thumbnail" th:unless="${o.review_photo == ''} or ${o.review_photo == null}" th:src="'/assets/img/'+ ${o.review_photo}"  style="width:430px; height:430px;"/>
                             </a>
-                            <div class="review-caption">
+                            <div class="review-caption rounded-top" style="border:1px double #f8f8f8">
 	                            <div class="col mb-2">
 	                            	<span class="review-caption-heading" th:text="${o.dog_name}"></span>｜<span class="review-caption-subheading" th:text="${o.designer_name}"></span>
 	                            </div>

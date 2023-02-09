@@ -21,6 +21,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script th:replace="fragments :: boot"></script>
 <style>
 img #previewImg img {
 	width: 300px;
@@ -180,11 +181,11 @@ img #previewImg img {
 </script>
 </head>
 <body> 
-	<section class="page-section" style="background-color: #f5dcb7;">
+	<section class="page-section">
 		<div class="container">
 			<div class="row mt-5">
-				<div class="col-lg-5 bg-white m-auto rounded-top">
-					<h2 class="text-center pt-3 mb-5">리뷰 작성하기</h2>
+				<div class="col-lg-5 m-auto rounded-top" style="background-color: #f8f8f8;">
+					<h2 class="text-center pt-3 mb-5">리뷰 작성</h2>
 					<!--  form start -->
 					<form id="review_form" >
 						<div class="mb-3">
