@@ -70,8 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function dateSelect(){
+	if(document.getElementById('resvdate').value == '달력에서 날짜를 선택하세요'){
+		alert('예약 날짜를 선택하지 않았습니다');
+	}
 	if(resvdate == '예약이 불가한 날입니다'){
-		alert('예약 날짜를 다시 선택해주세요');
+		alert('예약이 불가한 날입니다. 다시 선택해주세요');
 	}else{
 		if(document.getElementById('btnradio1').checked){
 			resvdate = resvdate.replace(' 13시', ' 11시');
@@ -250,28 +253,37 @@ $(document).ready(function(){
         </header>
         <!-- Section-->
         <section class="py-5" style="margin-top:50px;font-family:'Spoqa Han Sans Neo', 'sans-serif';">
-		    <div style="width:350px;margin:0 auto;margin-bottom:5%;text-align:center;font-size:1.2em;text-decoration:underline;"><img id="warning" src="assets/img/warning.svg" style="margin-bottom:0.8%;"/> 오늘 기준 2일 뒤부터 예약 가능합니다</div>
-		    <div style="width:600px;margin:0 auto;margin-bottom:3%;text-align:center;">
-			    <div id="calendar"></div>
-		    </div>
-		    <div id="dateinfo" style="width:500px;margin:0 auto;margin-bottom:5%;text-align:center;">
-		    	<img id="calicon" src="assets/img/calendar3.svg" style="text-align:center;"/>
-		    	<input type="text" id="resvdate" name="resvdate" value="달력에서 날짜를 선택하세요" style="width:200px;"/><br><br>
-		    	<div style="width:400px;" class="btn-group" role="group" aria-label="Basic radio toggle button group">
-				  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="11" autocomplete="off" checked>
-				  <label class="btn btn-outline-dark" for="btnradio1">11시</label>
-				
-				  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="13" autocomplete="off">
-				  <label class="btn btn-outline-dark" for="btnradio2">13시</label>
-				
-				  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="15" autocomplete="off">
-				  <label class="btn btn-outline-dark" for="btnradio3">15시</label>
-				
-				  <input type="radio" class="btn-check" name="btnradio" id="btnradio4" value="17" autocomplete="off">
-				  <label class="btn btn-outline-dark" for="btnradio4">17시</label>
-				  
-				  <button style="margin-left:3%;" type="button" class="btn btn-success" onclick="dateSelect();">날짜 선택</button>
-				</div>
+		    <div style="width:350px;margin:0 auto;margin-bottom:3%;text-align:center;font-size:1.2em;text-decoration:underline;"><img id="warning" src="assets/img/warning.svg" style="margin-bottom:0.8%;"/> 오늘 기준 2일 뒤부터 예약 가능합니다</div>
+		    <div style="width:80%;height:500px;margin:0 auto;margin-bottom:5%;border:1px solid #ddd;">
+			    <div style="width:55%;margin:0 auto;margin-bottom:3%;text-align:center;float:left;">
+				    <div id="calendar"></div>
+			    </div>
+			    <div id="dateinfo" style="width:45%;height:500px;margin:0 auto;margin-bottom:5%;text-align:center;border-left:1px solid #ddd;float:left;padding-top:12%;">
+			    	<div style="height:70%;">
+				    	<img id="calicon" src="assets/img/calendar3.svg" style="text-align:center;"/>
+				    	<input type="text" id="resvdate" name="resvdate" value="달력에서 날짜를 선택하세요" style="width:200px;"/><br><br>
+				    	<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				    	  <span>오전</span>&nbsp;
+						  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="11" autocomplete="off" checked>
+						  <label class="btn btn-outline-dark" for="btnradio1">11시</label>
+						</div>
+						<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+						  <span>오후</span>&nbsp;
+						  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="13" autocomplete="off">
+						  <label class="btn btn-outline-dark" for="btnradio2">13시</label>
+						
+						  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="15" autocomplete="off">
+						  <label class="btn btn-outline-dark" for="btnradio3">15시</label>
+						
+						  <input type="radio" class="btn-check" name="btnradio" id="btnradio4" value="17" autocomplete="off">
+						  <label class="btn btn-outline-dark" for="btnradio4">17시</label>
+						</div>
+					</div>
+					<hr>
+					<div style="height:30%;padding-top:2%;">
+			    		<button style="margin-left:3%;" type="button" class="btn btn-success" onclick="dateSelect();">날짜 선택</button>
+			    	</div>
+			    </div>
 		    </div>
         	<div class="accordion" id="accordionExample" style="width:70%;margin:0 auto;">
 			  <div th:if="${yesdog==1}" class="accordion-item">
