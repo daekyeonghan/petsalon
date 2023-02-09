@@ -67,4 +67,12 @@ public class ResvService implements MyService<Integer, Resv>{
 	public List<Resv> resvdelchk(String useremail) throws Exception {
 		return mapper.resvdelchk(useremail);
 	}
+	
+	public List<Resv> reviewvisit(String useremail) throws Exception {
+		return mapper.reviewvisit(useremail);
+	}
+	
+	public List<Resv> reviewvisitcheck(String useremail) throws Exception {
+		return mapper.reviewvisitcheck(useremail);
+	}
 }

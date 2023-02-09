@@ -29,6 +29,7 @@ public class Resv {
 	private String sc_date;
 	
 	private String cancel;
+	private int review_no;
 	
 	public Resv(int resv_no, String resv_ask, int resv_fix) {
 		super();

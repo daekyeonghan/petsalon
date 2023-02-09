@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.salon.dto.Designer;
 import com.salon.dto.Item;
 import com.salon.dto.Resv;
 import com.salon.dto.Review;
@@ -191,6 +190,7 @@ public class ReviewController {
 		String uemail = (String)session.getAttribute("logemail");
 		List<Review> rlist = null;
 		List<Review> dslist = null;
+		List<Review> notnullist = null;
 		List<Resv> checkresv = null;
 		
 		int review_count = 0;
@@ -202,12 +202,14 @@ public class ReviewController {
 			checkresv = reservice.resvcheck(uemail);
 			review_count = reviewservice.review_count(uemail);
 			resv_count = reservice.resvcnt(uemail);
+			notnullist = reviewservice.notnullreview();
 			
 			model.addAttribute("searchlist", rlist);
 			model.addAttribute("dsearchlist", dslist);
 			model.addAttribute("checkresv", checkresv);
 			model.addAttribute("resvcnt", resv_count);
 			model.addAttribute("reviewcnt", review_count);
+			model.addAttribute("notnullist", notnullist);
 			model.addAttribute("center", reviewdir+"review_search");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

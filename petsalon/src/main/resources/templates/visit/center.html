@@ -6,6 +6,19 @@ function moveresv(){
 }
 </script>
 <div id="visittitle">Story with Haro</div>
+<div id="visit" th:if="${noreview!=null}" th:each="noreview : ${noreview}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
+	<div id="dog_photo">
+		<img th:if="${noreview.dog_photo==null} or ${noreview.dog_photo==''}" src="assets/img/logo.svg" style="max-width:150px;height:150px;border-radius:50%;">
+		<img th:unless="${noreview.dog_photo==null} or ${noreview.dog_photo==''}" th:src="@{${noreview.dog_photo}}" style="width:150px;height:150px;border-radius:50%">
+	</div>
+	
+	<div id="visit_content">
+		<div id="sc_date" th:text="${noreview.sc_date}" style="margin-left:22%;"></div>
+		<div id="content" th:text="${noreview.dog_name}+' | '+${noreview.designer_name}+'디자이너님께 '+${noreview.item_name}+'을 받았어요!'"></div>
+		<button type="button" class="btn btn-primary mx-auto d-block mt-3" th:onclick="|location.href='@{/review_write(no=${noreview.resv_no})}'|">리뷰작성</button>
+	</div>
+</div>
+<!--  -->
 <div id="visit" th:if="${visit!=null}" th:each="visit : ${visit}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
 	<div id="dog_photo">
 		<img th:if="${visit.dog_photo==null} or ${visit.dog_photo==''}" src="assets/img/logo.svg" style="max-width:150px;height:150px;border-radius:50%;">
@@ -15,8 +28,12 @@ function moveresv(){
 	<div id="visit_content">
 		<div id="sc_date" th:text="${visit.sc_date}" style="margin-left:22%;"></div>
 		<div id="content" th:text="${visit.dog_name}+' | '+${visit.designer_name}+'디자이너님께 '+${visit.item_name}+'을 받았어요!'"></div>
+		<button type="button" class="btn btn-light mx-auto d-block mt-3" th:onclick="|location.href='@{/reviewview(no=${visit.review_no},resv_no=${visit.resv_no})}'|">리뷰확인</button>
 	</div>
 </div>
+
+
+
 <div id="noVisit" th:if="${novisit==1}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
 	<div class="alert alert-danger" role="alert" style="width:500px;margin:10% auto;text-align:center;">
 	  아직 이웃집 하로를 이용하지 않으셨습니다. &nbsp;&nbsp;

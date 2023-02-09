@@ -22,12 +22,16 @@ public class VisitController {
 	@RequestMapping("/visit")
 	public String visit(HttpSession session, Model model) {
 		String useremail = (String) session.getAttribute("logemail");
+		
 		try {
-			List<Resv> list = rservice.visit(useremail);
+			List<Resv> list = rservice.reviewvisit(useremail);
+			List<Resv> noreview = rservice.reviewvisitcheck(useremail);
+
 			if(list.isEmpty()) {
 				model.addAttribute("novisit",1);
 			}else {
 				model.addAttribute("visit",list);
+				model.addAttribute("noreview",noreview);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

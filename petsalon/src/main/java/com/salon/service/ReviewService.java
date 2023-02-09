@@ -68,5 +68,9 @@ public class ReviewService implements MyService<Integer, Review>{
 	public List<Review> notnullreview() throws Exception {
 		return mapper.notnullreview();
 	}
+	
+	public Review reviewcount(Integer resv_no) throws Exception {
+		return mapper.reviewcount(resv_no);
+	}
 
 }

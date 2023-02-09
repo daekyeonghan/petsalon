@@ -30,6 +30,7 @@ public class Review {
 	private String dog_name;
 	
 	private int review_count;
+	private int reviewcount;
 	
 	private MultipartFile review_img;
 	

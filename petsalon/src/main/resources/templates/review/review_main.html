@@ -14,15 +14,16 @@
 	<!-- fonts-->
 	<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 	<!-- Core theme CSS (includes Bootstrap)-->
-	<link th:href="@{/css/styles.css}" rel="stylesheet" />
-	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+	<link href="css/styles.css" rel="stylesheet" />
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script th:replace="fragments :: boot"></script>
 	<script>
 	
 		$(document).ready(function(){
-			
 			review_check();
+			
 			
 		});
 		
@@ -77,17 +78,18 @@
 	img{display:block; margin:auto;}
 	#review-thumbnail{margin: auto;}
 	#review-bar{padding-left:15px; margin-bottom:10px;}
-	.form-select{ width: 230px;}
+	#designer_id{ width: 230px;}
 	#selectdiv{float:right;  padding-right: 36px;}
 	
 
 </style>
 </head>
-<body>
+<body id="page-top">
+<!-- <nav th:replace="fragments :: nav-top"></nav> -->
 <section style="background-color: #f5dcb7;">
 <div class="container">
 <div class="row mt-5">
-	<img class="img-fluid" th:src="@{/assets/img/background1.jpg}" style=" width:1000px; height:800px;">
+	<img class="img-fluid" th:src="@{/assets/img/background1.jpg}" style=" width:800px; height:600px;">
 </div>
 </div>
 </section>
@@ -158,8 +160,8 @@
       </div>
 
 <!-- Bootstrap core JS-->
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-<script th:src="@{/js/scripts.js}"></script>
+<script src="js/scripts.js"></script>
 </body>
 </html>

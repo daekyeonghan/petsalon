@@ -16,16 +16,18 @@
 	<link th:href="@{/css/styles.css}" rel="stylesheet" />
 	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script th:replace="fragments :: boot"></script>
 	<style>
 		img #previewImg img{width:300px; height:300px; margin: 0 auto;}
 		#review-text .review-center {height: 250px; width: 600px;}
-		#review-text {
-			font-family: 'MonoplexKR-Regular';
-			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_Monoplex-kr@1.0/MonoplexKR-Regular.woff2') format('woff2');
-			font-weight: 400;
-			font-style: normal;
+		@font-face {
+		    font-family: 'SUIT-Regular';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
 		}
+		#review-text {font-family: 'SUIT-Regular';}
+		
 		
 	</style>
 </head>

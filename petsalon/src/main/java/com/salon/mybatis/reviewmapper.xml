@@ -59,5 +59,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT de.designer_id, de.designer_name FROM review re
 		INNER JOIN designer de ON de.designer_id = re.designer_id WHERE re.designer_id is not null GROUP BY re.designer_id
 	</select>
+	<select id="reviewcount" parameterType="Integer" resultType="Review">
+		SELECT resv_no, COUNT(review_no) AS reviewcount FROM review WHERE resv_no = #{resv_no}
+	</select>
 	
 </mapper>
