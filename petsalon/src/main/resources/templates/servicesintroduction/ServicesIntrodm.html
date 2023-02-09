@@ -79,8 +79,8 @@ function setMarker(lat, lng){
 	marker.setMap(map);
 	
 	// 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
-	var iwContent = '<div style="padding:5px; text-align:center;">이웃집 하로</div>' + '<img src="assets/img/haro.png" style="width:80px; margin: 0 auto;">'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다 (마커위에 띄울 정보)
-
+	var iwContent = '<div style="padding:5px; text-align:center; font-weight:bold">이웃집 하로</div>' // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다 (마커위에 띄울 정보)
+	
 	// 인포윈도우를 생성합니다
 	var infowindow = new kakao.maps.InfoWindow({
 	    content : iwContent
@@ -211,11 +211,12 @@ $(document).ready(function(){
   		<br><br>
  		<div id="introduction-a">
     	<div id="map"></div>
-     
       <div class="d-grid gap-2 col-6 mx-auto">
 </div>
       </div>
-      <div></div>
+     	<img src="assets/img/stime.png" style="width:350px; height:200px; margin:0px auto;" class="d-block w-40 h-40 ">
+        <br><br>
+      	<img src="assets/img/haro.png" style="width:200px; height:200px; margin:0px auto;" class="d-block w-40 h-40 ">
         </section>
          
 		

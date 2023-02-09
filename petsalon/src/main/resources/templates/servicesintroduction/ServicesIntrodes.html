@@ -152,7 +152,7 @@ function intromap(){
 				<div class="carousel-item" th:each="designer:${designer}">
 				<h5 th:text="${designer.designer_name}" id="name-f"></h5>
 				<p th:text="${designer.designer_introduce}" id="name-f1"></p>
-					<div id="img-a"><img th:src="'assets/img/'+@{${designer.designer_photo}}" style="width:700px;height:600px; margin:  0px auto;  border-radius: 60%;"  class="d-block w-40 " ></div>
+					<div id="img-a"><img th:src="'assets/img/'+@{${designer.designer_photo}}" style="width:700px;height:600px; margin:  0px auto; border-radius: 50%;"  class="d-block w-30 " ></div>
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button"
