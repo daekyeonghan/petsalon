@@ -1,5 +1,25 @@
 
 @charset "UTF-8";
+
+.myfont{
+	font-family: 'Gowun Dodum', sans-serif;
+}
+
+.myfont-b{
+	font-family: 'Gowun Dodum', sans-serif;
+	font-weight:'bold';
+}
+
+.mybg-color-light{
+	background-color:#f8f2e277;
+}
+
+.mybg-color{
+	background-color:#ece2c4;
+}
+.mybg-blue{
+	background-color:#c5d0ed;
+}
 .mygap-xs{
 	
 	margin:30px auto;

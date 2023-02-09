@@ -55,7 +55,7 @@ var d = date.getDate().toString().padStart(2, '0');
 var m = (date.getMonth() + 1).toString().padStart(2, '0');
 var y = date.getFullYear();
 
-var monthChartTitle = y+'년 ';
+var monthChartTitle = y+'년 예약 현황';
 
 
 function displaychart(chartData){
@@ -65,7 +65,7 @@ function displaychart(chartData){
 		    type: 'column'
 		  },
 		  title: {
-		    text: '2023',
+		    text: monthChartTitle,
 		    align: 'center'
 		  },
 		  xAxis: {
@@ -136,20 +136,32 @@ function getdata(){
 }
 
 $(document).ready(function(){
+
 	getdata();
+	
 });
 
 </script>
 
-
+<div class="listtitle">이웃집 하로 통계</div>
 <div class="d-grid gap-2 col-6 mx-auto">
 <div class="btn-group">
-  <a th:href="@{/statistics}" class="btn btn-outline-secondary active" aria-current="page">월 통계</a>
-   <a th:href="@{/statistics/designer}" class="btn btn-outline-secondary">디자이너 통계</a>
-  <a th:href="@{/statistics/user}" class="btn btn-outline-secondary">고객 통계</a>
-  <a th:href="@{/statistics/styles}" class="btn btn-outline-secondary">스타일 / 견종 통계</a>
+<!-- <div class="btn-group">
+  <a th:href="@{/statistics}" class="btn btn-outline-secondary active">월 예약</a>
+   <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="visually-hidden">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="" id="last-year">작년 월 예약</a></li>
+  </ul>
+  </div> -->
+   <a th:href="@{/statistics}" class="btn btn-outline-secondary active">월 예약</a>
+   <a th:href="@{/statistics/designer}" class="btn btn-outline-secondary">디자이너</a>
+  <a th:href="@{/statistics/user}" class="btn btn-outline-secondary">고객</a>
+  <a th:href="@{/statistics/styles}" class="btn btn-outline-secondary">스타일 / 견종</a>
 </div>
 </div>
+
 
 
 <figure class="highcharts-figure">

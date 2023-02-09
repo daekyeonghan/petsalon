@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
-<title>Login Page</title>
+<head th:replace="fragments :: admin_head">
+</head>
 <style>
 /***********/
 .center{
@@ -17,7 +13,7 @@
 
 /*************header CSS*****************/
 header{
-	margin:50px auto 0px ;
+	margin:20px auto 0px ;
 }  
 	img {
 	width: 200px;
@@ -27,30 +23,48 @@ header{
 
 /***************footer CSS***************/
 footer {
-	width: 300px;
+	width: 600px;
 	height: 10px;
 	/*background: #8BBDFF;*/
-	margin: 250px auto;
+	margin: 50px auto;
 }
 /************div center**************/
 #cn{
-	width:300px;
-	height:200px;
+	width:400px;
+	padding:30px;
 	margin: 0px auto;
-	/*border: 2px solid #F0CA61;*/
+	background-color:#fff;
+/* 	border: 2px solid #F0CA61; */
 
 }
 /***************footer*****************/
 #ft{
 	font-size: 12px;
 	font-style: inherit;
+	text-align: center;
+
 }
 /****************font************/
-#h1{
-	font-family: 'Spoqa Han Sans Neo', 'sans-serif'; 
+/* #title, #loginbtn{
+	font-family: 'Gowun Dodum', sans-serif;
 }
+ */
+.login{
+height:55px;
+
+}
+
+#loginbtn{
+height:50px;
+background-color:#ece2c4;
+border:1px solid #ccc;}
+
+body{
+background-color:#f8f2e277;}
 </style>
+
 <script>
+
 function loginchk(){
 
 	if($('#admin_id').val()==''){
@@ -75,7 +89,7 @@ $(document).ready(function(){
 	var result = $('#result').val();
 	if(result==1) alert('아이디 혹은 비밀번호를 잘못 입력하셨습니다');
 
-
+	$('#admin_id').focus();
 $('#loginbtn').on('click',function(){
 	if(loginchk()){
 	$('#login_form').attr({
@@ -89,22 +103,33 @@ $('#loginbtn').on('click',function(){
 });
 </script>
 
-<link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
-</head>
 <body>
-	<div class="center">
+	<div class="container-fluid center">
 	<header>
 	<img src="wkassets/img/logo.png">
 	</header>
-	<div id="cn">
-	<h1 id="h1">관리자 전용 페이지</h1>
+	</div>
+	<div id="cn" class="card">
+	<span id="title" class="text-center h2 myfont">이웃집 하로</span>
+	<span id="title" class="text-center mb-4 h4 myfont">관리자 페이지</span>
 	
-	<form id="login_form" method="post" >
-	<input type="hidden" id="result" th:value="${session.result}"/>
-	<p><input type="text" id="admin_id" name="admin_id" placeholder="아이디"  maxlength="41"/>
-	<input type="password" id="admin_pwd" name="admin_pwd" placeholder="비밀번호"  maxlength="16"/><br>
-	<button type="button" id="loginbtn">로그인하기</button>
-	</form>	
+
+<form id="login_form" method="post">
+<input type="hidden" id="result" th:value="${session.result}"/>
+  <div class="mb-3">
+    <input type="text" class="form-control login" id="admin_id" name="admin_id" placeholder="아이디를 입력해주세요" aria-label="admin_id" maxlength="41">
+  </div>
+  <div class="mb-3">
+    <input type="password" class="form-control login" id="admin_pwd" name="admin_pwd" placeholder="비밀번호를 입력해주세요" aria-label="password" maxlength="16" >
+  </div>
+ <div class="mygap-sm"></div>
+ <div class="d-grid gap-2">
+   <button type="button" id="loginbtn" class="btn myfont-b">로그인</button>
+</div>
+
+</form>
+</div>
+
 	<footer id="ft">
 	(주)퍼스트클래스: 서울특별시 강남구 언주로 508 14층(역삼동, 서울상록빌딩)<p>
 	대표이사 : 한대경 | 사업자등록번호 : 123-45-67890 | 통신판매신고번호 : 제2023-서울강남-12345호 개인정보관리<p>
@@ -113,7 +138,6 @@ $('#loginbtn').on('click',function(){
 	최고책임자 : 한대경 이사<p>
 	Copyright by firstClass, Ltd. All rights reserved.
 	</footer>
-	</div>
-	</div>
+	
 </body>
 </html>

@@ -89,9 +89,10 @@ $(document).ready(function(){
        <h5 class="card-header">예약일</h5>
     <div class="card-body">
     <div class="text-center" style="border:1px solid #ddd">
-  			<div style="background-color:#c5d0ed; height:60px; line-height:60px; font-size:1.2em" th:text="${#calendars.format(r.sc_date, 'EEEE')}"></div>
-  			<div id="resv-date"style="background-color:#ffffff; height:127px; line-height:140px; font-size:3em;" th:text="${#calendars.format(r.sc_date, 'MM')}+' / '+${#dates.format(r.sc_date, 'dd')}" ></div>
-  			<div style="background-color:#c5d0ed; height:60px; line-height:60px; font-size:1.2em" th:text="${#calendars.format(r.sc_date, 'YYYY')}"></div>
+  			<div class="myfont-b mybg-color" style="height:60px; line-height:60px; font-size:1.2em" th:text="${#calendars.format(r.sc_date, 'EEEE')}"></div>
+  			<div id="resv-date"  style="background-color:#ffffff; height:80px; line-height:80px; font-size:3em;" th:text="${#calendars.format(r.sc_date, 'MM')}+' / '+${#dates.format(r.sc_date, 'dd')}" ></div>
+  			<div id="resv-date" class="myfont-b" style="background-color:#ffffff; height:47px; line-height:20px; font-size:2em;" th:text="${#dates.format(r.sc_date, 'hh')}+' : '+${#dates.format(r.sc_date, 'mm')}"></div>
+  			<div class="myfont-b mybg-color" style="height:60px; line-height:60px; font-size:1.2em" th:text="${#calendars.format(r.sc_date, 'YYYY')}"></div>
   			</div>
     </div>
     </div>

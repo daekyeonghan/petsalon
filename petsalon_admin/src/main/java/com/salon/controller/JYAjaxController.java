@@ -150,7 +150,7 @@ public class JYAjaxController {
 					obj.put("start", newDtFormat.format(resv.getSc_date()));
 					obj.put("id",resv.getResv_no());
 					obj.put("url", "/resvInfo?no="+resv.getResv_no());
-					obj.put("backgroundColor", "#313257");
+					obj.put("backgroundColor", "#c9d9ff");
 					scharr.add(obj);
 				}
 		//		System.out.println(scharr);

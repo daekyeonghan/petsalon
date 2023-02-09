@@ -30,6 +30,13 @@
 	<!-- JY CSS, JavaScript -->
     <link rel="stylesheet" th:href="@{/jyassets/mystyle.css}">
    	<script th:src="@{/jyassets/myjs.js}"></script>
+   	
+   	<!-- fonts -->
+   	<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+<link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
 <!-- highcharts -->
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -72,7 +79,7 @@
         </nav>
       </div><!-- sidebar-body -->
       <div class="sidebar-footer">
-        <a href="" class="avatar online"><span class="avatar-initial">a</span></a>
+        <a th:href="@{/home}" class="avatar online"><span class="avatar-initial" th:text="${#strings.substring(session.admin.admin_id, 0, 1)}"></span></a>
         <div class="avatar-body">
           <div class="d-flex align-items-center justify-content-between">
             <h6 th:text="${session.admin.admin_id}"></h6>

@@ -61,7 +61,7 @@ Highcharts.chart('container', {
     },
     subtitle: {
         align: 'left',
-        text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+        text: '클릭'
     },
     accessibility: {
         announceNewData: {
@@ -122,13 +122,13 @@ Highcharts.chart('container', {
 	});
 
 </script>
-
+<div class="listtitle">이웃집 하로 통계</div>
 <div class="d-grid gap-2 col-6 mx-auto">
 <div class="btn-group">
-  <a th:href="@{/statistics}" class="btn btn-outline-secondary">월 통계</a>
-   <a th:href="@{/statistics/designer}" class="btn btn-outline-secondary">디자이너 통계</a>
-  <a th:href="@{/statistics/user}" class="btn btn-outline-secondary  active" aria-current="page">고객 통계</a>
-  <a th:href="@{/statistics/styles}" class="btn btn-outline-secondary">스타일 / 견종 통계</a>
+  <a th:href="@{/statistics}" class="btn btn-outline-secondary">월 예약</a>
+   <a th:href="@{/statistics/designer}" class="btn btn-outline-secondary">디자이너</a>
+  <a th:href="@{/statistics/user}" class="btn btn-outline-secondary  active" aria-current="page">고객</a>
+  <a th:href="@{/statistics/styles}" class="btn btn-outline-secondary">스타일 / 견종</a>
 </div>
 </div>
 
