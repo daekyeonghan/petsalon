@@ -76,7 +76,7 @@ public class ReviewController {
 			e.printStackTrace();
 		}
 		
-		return "index";
+		return "main";
 	}
 	
 	@RequestMapping("/reviewview")
@@ -99,7 +99,7 @@ public class ReviewController {
 			e.printStackTrace();
 		}
 		
-		return "index";
+		return "main";
 	}
 	
 	@RequestMapping("/reviewdelete")
@@ -115,7 +115,7 @@ public class ReviewController {
 			e.printStackTrace();
 		}
 		
-		return "index";
+		return "main";
 	}
 	
 	@RequestMapping("/reviewupdate")
@@ -142,7 +142,7 @@ public class ReviewController {
 		}
 		
 		model.addAttribute("center", reviewdir+"review_updateok");
-		return "index";
+		return "main";
 	}
 	
 	
@@ -165,7 +165,7 @@ public class ReviewController {
 			e.printStackTrace();
 		}
 		model.addAttribute("center", reviewdir+"review_ok");
-		return "index";
+		return "main";
 		/* return "redirect:reviewview?no="+review.getReview_no(); */
 	}
 	
@@ -182,7 +182,7 @@ public class ReviewController {
 		}
 		
 		model.addAttribute("center", reviewdir+"review_write");
-		return "index";
+		return "main";
 	}
 	
 	@RequestMapping("/reviewSearch")
@@ -215,7 +215,7 @@ public class ReviewController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "index";
+		return "main";
 	}
 	
 	

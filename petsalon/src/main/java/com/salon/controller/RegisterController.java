@@ -31,7 +31,7 @@ public class RegisterController {
 	@RequestMapping("/register")
 	public String register(Model model)  {
 		model.addAttribute("center", regidir+"register");
-		return "index";
+		return "main";
 	}
 	
 	@RequestMapping("/registerimpl")
@@ -61,7 +61,7 @@ public class RegisterController {
 			e.printStackTrace();
 		}
 		
-		return "index";
+		return "main";
 	}
 	
 	@RequestMapping(value = "/checkid", method = {RequestMethod.GET})
