@@ -28,6 +28,8 @@
 } */
 
 #map{
+	max-width:100% ;
+	max-height:100% ;
 	width:800px;
 	height:400px;
 	/* border:1px solid red; */
@@ -218,7 +220,49 @@ $(document).ready(function(){
       </div>
      	<img src="assets/img/stime.png" style="width:350px; height:200px; margin:0px auto;" class="d-block w-40 h-40 ">
         <br><br>
-      	<img src="assets/img/haro.png" style="width:200px; height:200px; margin:0px auto;" class="d-block w-40 h-40 ">
+      	<div class="location-wrap">
+      		<table class="c-table c-table--row" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif'; margin:0 auto;">
+      			<tbody>
+      			<tr>
+      			<th scope="row">주소</th>
+      			<td style="">서울특별시 강남구 언주로 508(역삼동 701번지) 서울상록빌딩 12~17층</td>
+      			</tr>
+      			</tbody>
+      		</table>
+      	</div>
+      	<div class="sub-title-wrap" >
+      		<h2 class="title " style="font-family:'Spoqa Han Sans Neo', 'sans-serif'; text-align: center;" >교통편</h2>
+      		<div class="c-table-wrap">
+      		<table class="c-table c-table-row" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';margin:0 auto;">
+      			<colgroup>
+      				<col style="width:17%">
+      				<col style="width:83%">
+      			</colgroup>
+      			<tbody>
+      			<tr>
+      			<th scope="row" style="border: 0.5px solid #D5D5D5;">지하철</th>
+      			<td style="border: 0.5px solid #D5D5D5;">
+      			"2호선, 분당선 선릉역 5번출구 (역삼역 방향으로 도보 5분거리)"
+      			<br style="border-collapse: collapse;">
+      			"2호선 역삼역 8번출구 (선릉역 방향으로 도보 10분거리)"
+      			</td>
+      			</tr>
+      			<tr>
+      			<th scope="row" style="border: 0.5px solid #D5D5D5;">버스</th>
+      			<td style="border: 0.5px solid #D5D5D5;">
+      			"KT영동지사 하차(141번,3422번, 41번)"
+      			<br>
+      			"서울상록빌딩 한국기술센터 하차(146번,341번,360번,740번)"
+      			</td>
+      			</tr>
+      			<tr>
+      			<th scope="row" style="border: 0.5px solid #D5D5D5;">승용차</th>
+      			<td style="border: 0.5px solid #D5D5D5;">양재 IC 진입 → 양재대로 → 매봉터널 → 영동세브란스병원 → (구)르네상스호텔 → 서울상록빌딩</td>
+      			</tr>
+      			</tbody>
+      		</table>
+      		</div>
+      	</div>
         </section>
          
 		
