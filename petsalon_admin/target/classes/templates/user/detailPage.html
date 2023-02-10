@@ -45,47 +45,128 @@ notice-content .card-body {
 .mb-30 div {
 	margin-bottom: 30px;
 }
+
+.user-info *{
+	border-radius: 0px !important;
+}
+
+.user-info span{
+	display: inline-block;
+	text-align:center;
+}
+
+.userinfo-box{
+	padding:5px;
+}
 </style>
-
-
-	<span class="listtitle">상세페이지</span>
-
-	<div class="detailtable"></div>
-	<div class="container text-center notice-content card" th:each="ud:${userde}">
-		<div class="row useremail">
-			<div class="col-2 email title">보호자 이메일</div>
-			<div class="col-10 email sub" th:text="${ud.useremail}"></div>
-		</div>
-		<div class="row username">
-			<div class="col-2 name title">보호자 이름</div>
-			<div class="col-10 name sub" th:text="${ud.username}"></div>
-		</div>
-
-		<div class="row usertel">
-			<div class="col-2 tel title">전화번호</div>
-			<div class="col-10 tel sub" th:text="${ud.tel}"></div>
-		</div>
-
-		<div class="row dogname">
-			<div class="col-2 dogname title">강아지 이름</div>
-			<div class="col-10 dogname sub" th:text="${ud.dog_name}"></div>
-		</div>
-
-		<div class="row dogGender">
-			<div class="col-2 dogGender title">성별</div>
-			<div class="col-10 dogGender sub" th:text="${ud.dog_gender}"></div>
-		</div>
-
-		<div class="row dogWeight">
-			<div class="col-2 dogWeight title">몸무게</div>
-			<div class="col-10 dogWeight sub" th:text="${ud.dog_weight}"></div>
-		</div>
-
-		<div class="row dogBreed">
-			<div class="col-2 dogBreed title">견종</div>
-			<div class="col-10 dogBreed sub" th:text="${ud.dog_breed}"></div>
-		</div>
+<script>
+$(document).ready(function(){
+	if('[[${session.admin.admin_id}]]'!='admin01'){
+		window.location.href='/ERROR';
+	}
 	
-	</div>
+	$('#backbtn').on('click',function(){
+		window.location.href="/users";
+	})
+	
 
+	$('#dbtn').on('click',function(){
+		
+		 var c = confirm('해당 유저의 정보를 삭제하시겠습니까?');
+			if(c == true){
+				$('#memberdel').attr({
+					'method':'post',
+					'action':'[[@{/uDelete}]]'
+				});
+		$('#memberdel').submit();
+			} 
+	});
+	
+})
+</script>
+<form id="memberdel">
+<input type="text" id="uemail" name="delEmail" th:value="${u.useremail}" style="display:none;">
+</form>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end user-info">
+  <button class="btn btn-danger me-md-2" type="button" id="dbtn">강제 탈퇴</button>
+</div>
+	<i data-feather="user-check"></i>&nbsp;&nbsp;<span class="listtitle" th:text="${u.username}+' 님 '"></span><span class="listtitle-sm">&nbsp;&nbsp;상세 정보</span>
+
+	<div class="mygap-xs"></div>
+	<div class="container text-center notice-content card mb-5">
+	<div class="userinfo-box mt-3 mb-3">
+			<div class="input-group user-info">
+  <span class="input-group-text col-1" id="basic-addon1">회원 이름</span>
+  <input type="text" class="form-control" th:value="${u.username}" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+  <span class="input-group-text col-1" id="basic-addon1">이메일</span>
+  <input type="text" id="useremail" class="form-control" th:value="${u.useremail}" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+</div>
+	<div class="input-group user-info">
+  <span class="input-group-text col-1" id="basic-addon1">전화번호</span>
+  <input type="text" class="form-control" th:value="${u.tel}" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+  <span class="input-group-text col-1" id="basic-addon1">생년월일</span>
+  <input type="text" class="form-control" th:value="${u.birth}" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+</div>
+<div class="input-group user-info">
+  <span class="input-group-text col-1" id="basic-addon1">주소</span>
+  <input type="text" class="form-control" th:value="${u.addr}" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+  <span class="input-group-text col-1" id="basic-addon1">우편번호</span>
+  <input type="text" class="form-control" th:value="${u.zipcode}" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+</div>
+<div class="input-group user-info">
+  <span class="input-group-text col-1" id="basic-addon1">상세 주소</span>
+  <input type="text" class="form-control" th:value="${u.detaddr}" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+</div>
+	<div class="input-group user-info">
+  <span class="input-group-text col-1" id="basic-addon1">이용 횟수</span>
+  <input type="text" class="form-control" th:value="${resvCnt}+' 건'" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+  <span class="input-group-text col-1" id="basic-addon1">작성 리뷰</span>
+  <input type="text" class="form-control" th:value="${review}+' 건'" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+</div>
+	<div class="input-group user-info">
+  <span class="input-group-text col-1" id="basic-addon1">가입일</span>
+  <input type="text" class="form-control" th:value="${#calendars.format(u.rdate, 'YYYY / MM / dd')}" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+</div>
+
+</div>
+	</div>
+	
+
+	
+	
+	
+	
+	
+		<i data-feather="heart"></i>&nbsp;&nbsp;<span class="listtitle">강아지 정보</span>
+		<div class="mygap-xs"></div>
+		<div class="row row-cols-1 row-cols-md-4 g-4">
+
+		<div class="col" th:each="d:${doglist}">
+			<div class="card h-100">
+				<img th:if="${d.dog_photo == null || d.dog_photo == ''}" src="/jyassets/img/haro.png" class="card-img-top" alt="...">
+				<img th:unless="${d.dog_photo == null || d.dog_photo == ''}" th:src="'/jyassets/img/'+${d.dog_photo}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="text-center" th:text="${d.dog_name}"></h5>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><span>나이 : </span><span th:text="${d.dog_age}+' 세'"></span></li>
+						<li class="list-group-item"><span>성별 : </span><span th:text="${d.dog_gender}"></span></li>
+						<li class="list-group-item"><span>무게 : </span><span th:text="${d.dog_weight}+' kg'"></span></li>
+						<li class="list-group-item"><span>견종 : </span><span th:text="${d.dog_breed}"></span></li>
+						<li class="list-group-item" th:if="${d.dog_special == null || d.dog_special == ''}"><span>특이사항 : </span><span>없음</span></li>
+						<li class="list-group-item" th:unless="${d.dog_special == null || d.dog_special == ''}"><span>특이사항 : </span><span th:text="${d.dog_special}"></span></li>
+					</ul>
+				</div>
+				<div class="card-footer">
+					<small class="text-muted" th:text="${#calendars.format(d.dog_rdate, 'YY-MM-dd')}+' 등록'"></small>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<div class="mygap-sm"></div>
+	 <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-5">
+  <button class="btn btn-secondary col-2" id="backbtn" type="button">돌아가기</button>
+</div>
+
+<!-- end of fragment -->
 </div>

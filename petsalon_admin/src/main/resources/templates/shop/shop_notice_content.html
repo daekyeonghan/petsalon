@@ -73,11 +73,13 @@ $('.noticepic').on('click',function(){
 $('#backbtn').on('click',function(){
 	history.back();
 })
-
+$('#noticePhotoBody').on('click',function(){
+		$(this).attr('data-bs-dismiss','modal');
+	})
 
 })
 </script>
-<span class="listtitle">공지사항</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-update" th:if="${session.admin.admin_id == sn.admin_id}" th:href="@{/noticeUpdatePage(sn_no=${sn.sn_no})}"><i data-feather="edit" class="some-add-icon"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-del" th:if="${session.admin.admin_id == sn.admin_id}" th:href="@{/noticeDelete(no=${sn.sn_no},filename=${sn.sn_photo})}" onclick="delcheck()"><i data-feather="x-square" class="some-add-icon"></i></a>
+<span class="listtitle">공지사항</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-update" th:if="${session.admin.admin_id == sn.admin_id || session.admin.admin_id=='admin01'}" th:href="@{/noticeUpdatePage(sn_no=${sn.sn_no})}"><i data-feather="edit" class="some-add-icon"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="notice-del" th:if="${session.admin.admin_id == sn.admin_id || session.admin.admin_id=='admin01'}" th:href="@{/noticeDelete(no=${sn.sn_no},filename=${sn.sn_photo})}" onclick="delcheck()"><i data-feather="x-square" class="some-add-icon"></i></a>
 <div class="mygap-sm"></div>
 <div class="container text-center notice-content card">
   <div class="row card-body">
@@ -116,13 +118,14 @@ $('#backbtn').on('click',function(){
 
   <div class="mygap-md"></div>
 
-
  <!-- Photo Modal -->
 <div class="modal fade" id="noticePhotoModal" tabindex="-1" aria-labelledby="noticePhotoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="noticePhoto"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        
       </div>
       <div class="modal-body">
         <img id="noticePhotoBody" class="img-fluid">

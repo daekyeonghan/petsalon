@@ -2,19 +2,18 @@ package com.salon.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.salon.dto.Dog;
+import com.salon.dto.Review;
 import com.salon.dto.User;
+import com.salon.service.DogService;
+import com.salon.service.ResvService;
+import com.salon.service.ReviewService;
 import com.salon.service.UserService;
 
 @Controller
@@ -22,6 +21,15 @@ public class UserController {
 	
 	@Autowired
 	UserService userservice;
+	
+	@Autowired
+	DogService dogservice;
+	
+	@Autowired
+	ReviewService rservice;
+	
+	@Autowired
+	ResvService rsvservice;
 	
 	String dir = "user/";
 	
@@ -34,7 +42,7 @@ public class UserController {
 		
 		int offset = (page -1) * 6; 
 		
-		System.out.println(page);
+	//	System.out.println(page);
 		
 		try {	
 			
@@ -72,7 +80,7 @@ public class UserController {
 	@RequestMapping("/uDelete")
 	public String delete(Model model, String delEmail) {
 		
-		System.out.println(delEmail);
+	//	System.out.println(delEmail);
 		try {
 			userservice.remove(delEmail);
 		} catch (Exception e) {
@@ -84,14 +92,26 @@ public class UserController {
 	
 	@RequestMapping("/detailPage")
 	public String detailPage(Model model,String useremail) {
-		List<User> userde = null;
+		User user = null;
+		List <Dog> doglist = null;
+		List <Review> rlist = null;
+		int resvCnt = 0;
+		int review = 0;
+		
 		try {
-			userde = userservice.detailselect(useremail);
+			user = userservice.get(useremail);
+			doglist = dogservice.userDog(useremail);
+			rlist = rservice.reviewsearch(useremail);
+			resvCnt = rsvservice.userResvCnt(useremail);
+			review = rlist.size();
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("userde",userde);
+		model.addAttribute("u",user);
+		model.addAttribute("doglist", doglist);
+		model.addAttribute("review",review);
+		model.addAttribute("resvCnt",resvCnt);
 		model.addAttribute("path", dir+"detailPage");
 		model.addAttribute("content", "main");
 		return "main";

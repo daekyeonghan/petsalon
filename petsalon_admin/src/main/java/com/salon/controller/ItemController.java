@@ -39,7 +39,7 @@ public class ItemController {
 
 		int offset = (page - 1) * 6;
 
-		System.out.println(page);
+	//	System.out.println(page);
 		try {
 
 			ilist = iservice.pagingitem(recordsPerPage, offset);
@@ -89,7 +89,7 @@ public class ItemController {
 		int offset = (page - 1) * 6;
 
 		try {
-			System.out.println(designer_id);
+	//		System.out.println(designer_id);
 
 			ilist = iservice.sortitem(designer_id, recordsPerPage, offset);
 			dlist = dsservice.get();
@@ -159,7 +159,7 @@ public class ItemController {
 		Item it = new Item();
 		try {
 			it = iservice.get(id);
-			System.out.println(id);
+	//		System.out.println(id);
 			model.addAttribute("it", it);
 			model.addAttribute("path", dir + "item_update");
 			model.addAttribute("content", "main");

@@ -9,13 +9,13 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.salon.dto.Admin;
 import com.salon.service.AdminService;
@@ -83,10 +83,11 @@ public class MainController {
 		return "redirect:/";
 	}
 	
+
 	@RequestMapping("/ERROR")
-	public String authoError() {
+	public String errorForbidden(HttpServletResponse response, HttpServletRequest request) {
+		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		return "error/403";
 	}
-
-
+	
 }

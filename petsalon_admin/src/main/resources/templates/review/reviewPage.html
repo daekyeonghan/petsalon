@@ -3,23 +3,6 @@
 
 <style>
 
-.titleList{
-	width: 200px;
-	margin:0 auto;
-	/*border: 1px solid pink;*/
-	text-align: center;
-}
-
-
-.row{
-  border-bottom: 1px solid gray;
-   margin: 0;
-   padding: 20px;
-}
-#reviewcard{
-	margin-bottom: 20px;
-}
-
 .card {
     position: relative;
     display: -webkit-box;
@@ -38,48 +21,40 @@
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
 }
 
-.adreview{
-	position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 0px solid transparent;
-    border-radius: 10px;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-
-	
+.card .card-title {
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align:right;
+    border-right:1px solid #c4c4c4;
+}
+.card .card-sub{
+	margin-bottom:10px;
 }
 
-#review_answer{
-	width: 390px;
-	margin:0 auto;
+notice-content .card-body {
+  margin-bottom:10px;
+}
+.notice-content div{
+text-align:left;
 }
 
-
-#updbtn{
-	position:right;
-	width:100px;
-	height:40px;
-	
+.notice-img{
+width:300px;
 }
 
-#delbtn{
-	width:100px;
-	height:40px;
+.mb-30 div{
+margin-bottom:30px;
 }
-#form{
-border-bottom: 0px solid gray;
-   margin: 0;
-   padding: 20px;
-}	
+
+.card-body img{
+max-width:100%;
+}
+.card-body div{
+max-width:100%;
+white-space: pre-line;
+}
+
 </style>
 
 <script>
@@ -121,12 +96,6 @@ function register(){
 	$('#review_answer').submit();
 };
 
-	
-
-
-
-
-
 
 $(document).ready(function() {	
 
@@ -135,11 +104,10 @@ $(document).ready(function() {
 		  let c = confirm('등록하시겠습니까?');
 		  if(c&&NotReviewContent()){
 			  
-			 
 			  
               register(); 
           }else{
-              alert('등록실패');
+              alert('리뷰 답변 등록에 실패하였습니다.');
 			}
 	  });	
 	
@@ -167,87 +135,167 @@ $(document).ready(function() {
 	});
 	
 	
+
+	$('.reviewpic').on('click',function(){
+		var src = $(this).attr("src");
+		$('#reviewPhotoBody').attr("src",src);
+	})
+
+	$('#backbtn').on('click',function(){
+		history.back();
+	})
 	
+	$('#reviewPhotoBody').on('click',function(){
+		$(this).attr('data-bs-dismiss','modal');
+	})
 	
-	
+	$('#read-answer-btn').on('click',function(){
+		 $('#review_answer').on('shown.bs.collapse', function() {
+			    $('html, body').animate({ scrollTop: $(document).height() }, 1);
+			  });
+	})
+	$('#add-answer-btn').on('click',function(){
+		 $('#review_answer_add').on('shown.bs.collapse', function() {
+			    $('html, body').animate({ scrollTop: $(document).height() }, 1);
+			  });
+	})
 	
 });
 </script>
 
 
-<h1>하로 이웃 후기 </h1>
-<br>
-<br>
+<div class="listtitle">고객 후기</div>
+<div class="mygap-sm"></div>
+
 <div class="container text-center notice-content card">
-  <div class="row ">
-    <div class="col-2 ">제목</div>
-    <div class="col-10" th:text="${rep.review_title}" ></div>
-  </div><br>
-  <div class="row ">
-    <div class="col-2 ">작성자</div>
-    <div class="col-10 " th:text="${rep.useremail}" ></div>
-  </div><br>
-  <div class="row ">
-  	<div class="col-2">내용</div>
-  	<div class="col-10 " th:text="${rep.review_content}"></div>
+  <div class="row card-body">
+    <div class="col-2 card-title">NO.</div>
+    <div class="col-10 card-sub" th:text="${rep.review_no}" ></div>
+  </div>
+  <div class="row card-body">
+    <div class="col-2 card-title">제목</div>
+    <div class="col-10 card-sub" th:text="${rep.review_title}" ></div>
+  </div>
+  <div class="row card-body">
+    <div class="col-2 card-title">작성자</div>
+    <div class="col-10 card-sub" th:text="${rep.useremail}" ></div>
+  </div>
+  <div class="row card-body mb-30">
+  	<div class="col-2 card-title">내용</div>
+  	<div class="col-10 card-sub" th:text="${rep.review_content}"></div>
+  </div>
+<div class="row card-body" th:if="${rep.review_photo == null || rep.review_photo == ''}">
+	<div class="col-2 card-title">첨부 사진</div>
+  	<div class="notice-img col-10 card-sub">없음</div>
+  </div>
+
+<div class="row card-body" th:unless="${rep.review_photo == null || rep.review_photo == ''}">
+  	<div class="col-2 card-title">첨부 사진
+  	( 사진 클릭시 확대 )</div>
+  	<div class="notice-img col-10 card-sub"><img th:src="'/jyassets/img/'+${rep.review_photo}" data-bs-toggle="modal" data-bs-target="#reviewPhotoModal" class="rounded mx-auto d-block reviewpic"></div>
+  </div>
+
+  </div>
+  
+  <!-- <div class="mygap-sm"></div>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button class="btn btn-secondary col-2" id="backbtn" type="button">돌아가기</button>
+</div>
+ -->
+  <div class="mygap-sm"></div>
+<div th:if="${noAnswer!=1}">
+<div class="d-grid gap-2">
+  <button class="btn btn-dark listtitle" id="read-answer-btn" type="button" data-bs-toggle="collapse" data-bs-target="#review_answer" aria-expanded="false" aria-controls="collapseAnswer">관리자 답변 보기</button>
+</div>
+<div class="collapse" id="review_answer">
+  <div class="card card-body">
+  
+<div type="text" id="reviewcard" th:each="ar:${adr}" class="adreview">
+		 <div class="row card-body">
+    <div class="col-2 card-title">리뷰 번호</div>
+    <div class="col-10 card-sub" th:text="${ar.review_no}" ></div>
+  </div>
+  <div class="row card-body">
+    <div class="col-2 card-title">답변 글번호</div>
+    <div class="col-10 card-sub" th:text="${ar.ra_no}" ></div>
+  </div>
+  <div class="row card-body">
+    <div class="col-2 card-title">관리자 아이디</div>
+    <div class="col-10 card-sub" th:text="${ar.admin_id}" ></div>
+  </div>
+  <div class="row card-body mb-30">
+  	<div class="col-2 card-title">답변 내용</div>
+  	<div class="col-10 card-sub" th:text="${ar.ra_content}"></div>
+  </div>
+  
+	</div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button class="btn btn-primary me-md-2" type="button" id="updbtn">수정</button>
+  <button class="btn btn-primary" type="button" id="delbtn">삭제</button>
+</div>
   </div>
 </div>
-<br>
-<br>
-<div class="titleList" style="font-size: 20px;">관리자 답변</div><br><br>
+<div class="mygap-sm"></div>
 
-<div type="text" id="reviewcard" th:each="ar:${adr}" class="adreview">
-		
-		<input type="radio" id="ra" name="ra" class="check1" th:value="${ar.ra_no}"/>
-		<div class="row">
-		<div class="col-2 ">답변글번호</div>
-		<div class="col-10" th:text="${ar.ra_no}" ></div>
-		</div>
-		
-		<div class="row">
-		<div class="col-2 ">답변</div>
-		<div class="col-10" th:text="${ar.ra_content}" ></div>
-		</div>
-		
-		<div class="row">
-		<div class="col-2 ">후기번호</div>
-		<div class="col-10" th:text="${ar.review_no}" ></div>
-		</div>
-		
-		<div class="row">
-		<div class="col-2 ">관리자 아이디</div>
-		<div class="col-10" th:text="${ar.admin_id}" ></div>
-		</div>
-		
-		
-	</div>
-	<button class="btn btn-primary updbtn" tabindex="-1" role="button" aria-disabled="true" id="updbtn">수정</button>
-	<button type="button" id="delbtn" class="btn btn-primary rembtn">삭제</button>
 	<!-- 버튼 폼 -->
 <form id="admindel" th:action="@{/rDelete}">
 <input type="text" name="delno" id="delno" style="display:none;">
-
 </form>
 <form id="adminupdate" th:action="@{/adminUpdatePage}">
 <input type="text" name="updno" id="updno" style="display:none;">
 </form>	
+<!-- 버튼 폼 끝 -->
+</div>
 
 
+<div th:unless="${noAnswer!=1}">
+<div class="d-grid gap-2">
+  <button class="btn btn-dark listtitle" id="add-answer-btn" type="button" data-bs-toggle="collapse" data-bs-target="#review_answer_add" aria-expanded="false" aria-controls="collapseWrite">관리자 답변 쓰기</button>
+</div>
+
+
+<div id="review_answer_add" class="collapse">
+<div class="card card-body">
 <form id="review_answer">
-<div><br>
+<div class="input-group">
 
 	<input type="text" id="admin_id" value="admin01" name="admin_id" style="display:none;">
-          <div class="input-group mb-3">
-  		  <input type="number" name="review_no" th:value="${rep.review_no}" style="display:none";>
-		</div>
-            <div class="mb-3">
-	<input type="number" name="review_no" th:value="${rep.review_no}" style="display:none";>
+	<input type="number" name="review_no" th:value="${rep.review_no}" style="display:none">
 		
 		
-   		    <textarea class="form-control" id="ra_content" name="ra_content" rows="5"></textarea>
+   		    <textarea class="form-control" id="ra_content" name="ra_content" rows="7"></textarea>
             
 	<button type="button" id="rebtn" class="btn btn-primary regibtn">등록</button>
-	</div>
 </div>
 </form>
+</div>
+</div>
+
+</div>
+
+
+<div class="mygap-md"></div>
+
+
+
+ <!-- Photo Modal -->
+<div class="modal fade" id="reviewPhotoModal" tabindex="-1" aria-labelledby="reviewPhotoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="noticePhoto"></h1>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+      <div class="modal-body">
+        <img id="reviewPhotoBody" class="img-fluid">
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- end of fragment -->
 </div>

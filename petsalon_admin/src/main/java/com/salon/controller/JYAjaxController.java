@@ -220,7 +220,7 @@ public class JYAjaxController {
 			JSONObject joChk = new JSONObject();
 		 
 			try {
-
+ 
 				
 				for(int i = 1; i<=12; i++) {
 					rFix.add(resvservice.resvMonthChart(chartYear, i, 1));
@@ -353,7 +353,7 @@ public class JYAjaxController {
 						
 					//	System.out.println(finalChartData);
 			}
-				System.out.println(finalChartData);
+	//			System.out.println(finalChartData);
 			} catch (Exception e) {
 				e.printStackTrace();
 				
@@ -403,7 +403,7 @@ public class JYAjaxController {
 					obj.put("drilldown", resv.getDesigner_id());
 					chartData.add(obj);
 				}
-				System.out.println(chartData);
+	//			System.out.println(chartData);
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("fail to load chartData");

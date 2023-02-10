@@ -24,6 +24,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM resv WHERE resv_fix=0;
 	</select>
 	
+	<select id="userResvCnt" parameterType="String" resultType="Integer">
+		SELECT COUNT(r.resv_no) cnt FROM resv r
+  		INNER JOIN schedule sc ON sc.resv_no = r.resv_no
+   		WHERE r.useremail=#{r.useremail}
+	</select>
+	
 	<select id="selectList" parameterType="Integer" resultType="Resv">
 	SELECT r.resv_no, u.username, d.dog_name, ds.designer_name, i.item_name, sc.sc_date, r.resv_ask, r.resv_fix FROM resv r
 	INNER JOIN user u ON u.useremail = r.useremail
@@ -128,6 +134,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
     WHERE resv_fix NOT IN (#{resv_fix})
     GROUP BY designer_id
     ORDER BY cnt DESC;
+	</select>
+	
+	<select id="designerMonthChart" resultType="Integer">
+	SELECT COUNT(*) cnt FROM (SELECT r.resv_no no, r.resv_fix rf, sc.sc_date date, r.designer_id designer_id FROM resv r
+	INNER JOIN schedule sc ON sc.resv_no = r.resv_no) rs 
+	WHERE DATE_FORMAT(rs.date, '%Y-%c') = CONCAT(#{chartYear},'-',#{chartMonth}) AND rs.designer_id=#{rs.designer_id};
 	</select>
 	
 	<select id="designerItemChart" parameterType="Integer" resultType="Resv">

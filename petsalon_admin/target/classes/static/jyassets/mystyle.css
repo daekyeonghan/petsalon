@@ -41,6 +41,12 @@
 .mygap-xl{
 	margin:500px auto;
 }
+.fc-day-today {
+    background: #f8f2e2ff !important;
+} 
+  .fc-col-header-cell {
+  background-color:#f3ecd8 !important;
+}
 
 .card-title{
 	display:inline;
@@ -110,17 +116,32 @@ designer-update .card-body{
  }
  .listtitle{
   vertical-align: middle;
- font-size:1.5em;
+ font-size:1.5rem !important;
  }
   .listtitle-sm{
   vertical-align: bottom;
- font-size:1.2em;
+ font-size:1.2rem !important;
  }
  
  #addItemModal .form-select{
  	margin-bottom:25px;
  }
  
+ div, span{
+ font-size:17px;
+ }
+.form-select{
+	font-size:1.05rem;
+}
+
+#backbtn{
+	font-size:1.05rem;
+}
+
+#userallbtn{
+	font-size:1.05rem;
+	margin-left:3%;
+}
  .feather-icon{
   align-items: center;
  }
@@ -134,7 +155,8 @@ border:none;
  height:30px;
  width:30px;
  }
- .noticepic:hover, .itempic:hover{
+ .noticepic:hover, .itempic:hover, .reviewpic:hover, #noticePhotoBody:hover, #itemPhotoBody:hover, #reviewPhotoBody:hover{
  cursor:pointer;
  }
+
  

@@ -1,5 +1,4 @@
 <div th:fragment="main">
-<div><span class="reviewtitle">고객후기</span></div>
 <style>
 
 #content{
@@ -12,10 +11,10 @@ table {
   overflow: hidden;
   background-color: #fff;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
+  border-radius: 5px;
   }
  table thead {
-  background-image: #fff;
+  background-color: #ece2c4;
   }
   
  table thead tr th {
@@ -23,6 +22,8 @@ table {
   border-top: none;
   padding: 10px;
   font-weight: 400;
+  color: #0e0e24;
+    font-size: 1.05rem;
 }
 
 table thead tr th svg,table thead tr th img {
@@ -34,7 +35,8 @@ table tbody tr td {
   border-top: none;
   padding: 10px;
   color: #787878;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
+  height:60px;
 }
 
 table tbody tr td svg,table tbody tr td img {
@@ -65,100 +67,128 @@ table tbody tr td svg,table tbody tr td img {
 
 
 
-
-
 </style>
 <script>
 
-function addLi(totalPage){
-
-	var pagination = $("#pagination");
-	for (var i = 1; i <= totalPage; i++) {
-        var pageReview = $("<li>").addClass("page-review");
-        var pageLink = $("<a>").addClass("page-link").attr("href", "/review?page=" + i).text(i);
-        pageReview.append(pageLink);
-        pagination.append(pageReview);
-    }
-   pagination.append("<li class='page-review'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>");
-    
-}
+function addLi(totalPages){
 
 
+	urlParams = new URLSearchParams(window.location.search);
+		var pValue = parseInt(urlParams.get('page'));
 
-function  testingNowPaging(){
-	
+		var pagination = $("#pagination");
+		for (var i = 1; i <= totalPages; i++) {
+			if (pValue == i) {
+				var pageItem = $("<li>").addClass("page-item active");
 
-	$.ajax({ 
-		url: '[[@{/reviewTotalPage}]]',
-		success: function (data) {
-		   var totalPage = data;
-		  
-		   addLi(totalPage);
-	       }
+			} else {
+				var pageItem = $("<li>").addClass("page-item");
+			}
+			var pageLink = $("<a>").addClass("page-link").attr("href",
+					"/review?page=" + i).text(i);
+			pageItem.append(pageLink);
+			pagination.append(pageItem);
+		}
+
+	}
+
+	function testingNowPaging() {
+
+		$.ajax({
+			url : '[[@{/reviewTotalPage}]]',
+			success : function(data) {
+				var totalPages = data;
+
+				addLi(totalPages);
+			}
 		});
 
-	
-}
+	}
 
+	$(document).ready(function() {
 
+		var currentPathname = window.location.pathname;
+		if(currentPathname=='/review')
+		{
+		testingNowPaging();
+		}
+		
+		$('#sortbtn').on('click',function(){
+			$('#searchUser').attr({
+				'method':'post',
+				'action':'[[@{/reviewsearch}]]'
+			});
+			$('#searchUser').submit();
+			
+		})
 
-$(document).ready(function () {
- 
-	 testingNowPaging();
-	 
- $('.page-next').on('click',function(){
-	 alert('next');
- })
- 
-});
+	});
+
 </script>
+
+<div class="listtitle">고객 후기  <a th:href="@{/review}" class="btn btn-outline-secondary btn-sm ml-5" id="userallbtn" type="button">모든 후기</a></div>
+<div class="mygap-sm"></div>
+<div style="display: flex; align-items: center;" class="mb-4">
+<form id="searchUser" style="width:50%;">
+<input class="form-control" list="useridOptions" id="userDataList" name="searchValue" placeholder="검색할 유저 아이디를 입력하세요." style="font-size:1.05rem;">
+</form>
+<button type="button" id="sortbtn"><i data-feather="search" id="sortbtn"></i></button>
+
+</div>
+
 <div class="row">
             <div class="col-12">
-                <p class="mobile text-muted"></p>
-<form th:action="@{/reviewsearch}" method="POST" >
-                            <input type="text"   name="searchValue" placeholder=" "/>
-                           	<input type="submit" value="검색"><p><br>
-                           	<input type="number" name="page" th:value="1" style="display:none;">
-                           	</form>
 	<table>
 		<thead>
 		<tr class="table-header">
-			<th>후기 글번호&nbsp;&nbsp; <i data-feather=></i></th>
-			<th>보호자이메일&nbsp;&nbsp; <i data-feather=></i></th>
-			<th>디자이너 아이디&nbsp;&nbsp; <i data-feather=></i></th>
-			<th>강아지아이디&nbsp;&nbsp; <i data-feather=></i></th>
-			<th>리뷰제목&nbsp;&nbsp; <i data-feather=></i></th>
-			<th>리뷰내용&nbsp;&nbsp; <i data-feather=></i></th>
-			<th>리뷰사진&nbsp;&nbsp; <i data-feather=></i></th>
-			<th>리뷰날짜&nbsp;&nbsp; <i data-feather=></i></th>
+			<th>글번호&nbsp;&nbsp;</th>
+			<th>아이디&nbsp;&nbsp;</th>
+			<th>작성자 &nbsp;&nbsp;</th>
+			<th>후기 제목&nbsp;&nbsp;</th>
+			<th>디자이너&nbsp;&nbsp;</th>
+			<th>강아지&nbsp;&nbsp;</th>
+			<th>사진&nbsp;&nbsp;</th>
+			<th>후기 작성 날짜&nbsp;&nbsp;</th>
 			</tr>
 			</thead>
-			<br>
 			<tbody>
 			<tr th:each="re:${review}" class="Relist">
 			<td th:text="${re.review_no}"></td>
-			<td th:text="${re.useremail}"></td>
-			<td th:text="${re.designer_id}"></td>
-			<td th:text="${re.dog_id}"></td>
+			<td th:if="${session.admin.admin_id=='admin01'}"><a th:href="@{/detailPage(useremail=${re.useremail})}" 
+                            th:text="${#strings.substring(#strings.substringBefore(re.useremail,'@'),0,3) + #strings.repeat('*', #strings.length(#strings.substringBefore(re.useremail,'@'))-3) +'@'+
+                            #strings.substring(#strings.substringAfter(re.useremail,'@'),0,2) + '*****'}" ></a></td>
+			<td th:unless="${session.admin.admin_id=='admin01'}" th:text="${#strings.substring(#strings.substringBefore(re.useremail,'@'),0,3) + #strings.repeat('*', #strings.length(#strings.substringBefore(re.useremail,'@'))-3) +'@'+
+                            #strings.substring(#strings.substringAfter(re.useremail,'@'),0,2) + '*****'}"></td>
+                            <td th:text="${re.username}"></td>
 			<td><a th:href="@{/reviewPage(no=${re.review_no})}" th:text="${re.review_title}"></a></td>
-			<td id="content" th:text="${re.review_content}"></td>
-			<td th:if="${re.review_photo == null}"><img src="/wkassets/img/logo.png"></td>
-			<td th:unless="${re.review_photo == null}"><img th:src="${re.review_photo}"></td>
-			<td th:text="${re.review_date}"></td>
+			<td th:text="${re.designer_name}"></td>
+			<td th:text="${re.dog_name}"></td>
+			<td th:if="${re.review_photo == null || re.review_photo == ''}"><img src="/wkassets/img/logo.png"></td>
+			<td th:unless="${re.review_photo == null || re.review_photo == ''}"><img th:src="${re.review_photo}"></td>
+			<td th:text="${#calendars.format(re.review_date, 'YYYY-MM-dd')}"></td>
 			</tr>
 		
 	</tbody>
 	</table>
+	
 	<div class="mygap-sm"></div>
-	  <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center" id="pagination">
-	 <li class="page-review">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true" >&laquo;</span>
-      </a>
-    </li>
   </ul>
-</nav>
-	</div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end of fragmemt -->
 </div>

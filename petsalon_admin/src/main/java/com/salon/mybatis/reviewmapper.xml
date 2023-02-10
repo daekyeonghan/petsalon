@@ -40,8 +40,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * from review WHERE review_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY ) AND NOW();
 	</select>
 	<select id="pagingreview1" resultType="Review">
-	SELECT review_no,useremail,designer_id,dog_id,review_title,review_content,review_photo,review_date
-		FROM review
+		SELECT re.review_no, u.useremail, u.username, ds.designer_name, d.dog_name, re.review_title, re.review_content, re.review_photo, re.review_date
+		FROM review re
+    	INNER JOIN user u ON u.useremail = re.useremail
+    	INNER JOIN dog d ON d.dog_id = re.dog_id
+    	INNER JOIN designer ds ON ds.designer_id = re.designer_id
 		Limit #{paging} offset #{offset}
 	</select> 
 </mapper>

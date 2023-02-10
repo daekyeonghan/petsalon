@@ -36,8 +36,6 @@ public class ReviewController {
 	public String main(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		List<Review> revlist = null;
 
-		
-
 		int paging = 6;
 
 		int offset= (page - 1) * 6; //한페이지의 시작번호
@@ -89,8 +87,14 @@ public class ReviewController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+
+		
+		if(adr.size()==0) {
+			model.addAttribute("noAnswer",1);
+		}
 		model.addAttribute("rep",rep);
 		model.addAttribute("adr",adr);
+		
 		model.addAttribute("path", dir+"reviewPage");
 		model.addAttribute("content", "main");
 		return "main";

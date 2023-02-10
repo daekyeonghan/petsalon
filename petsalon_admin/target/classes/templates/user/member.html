@@ -1,22 +1,6 @@
-
 <div th:fragment="main">
-<div><span class="listtitle">전체회원목록</span></div>
-<script>
-  $(document).ready(function(){
-	 
-	$('#dbtn').on('click',function(){
 
-		let userdelEmail = $('input[name=delEmail]:checked').val();
-		 $("#delEmail").val(userdelEmail);
-		 var c = confirm('삭제하시겠습니까 ?');
-			if(c == true){
-		$('#memberdel').submit();
-			}
-	});
-});   
-	
-	
-</script>
+
 <style>
 table {
   width: 100%;
@@ -29,6 +13,7 @@ table {
 }
 table thead {
   background-image: linear-gradient(to right, #8437fa, #543efa, #3e64fa, #3eacfa, #3ec5fa);
+  /* background-color:#ece2c4; */
 }
 table thead tr th {
   background-color: transparent;
@@ -46,7 +31,8 @@ table tbody tr td {
   border-top: none;
   padding: 10px;
   color: #787878;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
+  height:60px;
 }
 table tbody tr td svg,table tbody tr td img {
   height: 41px;
@@ -276,18 +262,24 @@ body {
 
   </style>
   <script>
-  function addLi(totalPage){
-
+  function addLi(totalPages){
+	  
+		 urlParams = new URLSearchParams(window.location.search);
+			var pValue = parseInt(urlParams.get('page'));
+			
 		var pagination = $("#pagination");
-		for (var i = 1; i <= totalPage; i++) {
-	        var pageUser = $("<li>").addClass("page-user");
-	        var pageLink = $("<a>").addClass("page-link").attr("href", "/user?page=" + i).text(i);
-	        pageReview.append(pageLink);
-	        pagination.append(pageUser);
+	    for (var i = 1; i <= totalPages; i++) {
+	    	if(pValue==i) {
+	    		var pageItem = $("<li>").addClass("page-item active");
+	    		
+	    	}else{
+	    		var pageItem = $("<li>").addClass("page-item");
+	    	}
+	        var pageLink = $("<a>").addClass("page-link").attr("href", "/users?page=" + i).text(i);
+	        pageItem.append(pageLink);
+	        pagination.append(pageItem);
 	    }
-	   pagination.append("<li class='page-user'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>");
-	    
-	}
+}
 
 
 
@@ -297,9 +289,9 @@ body {
 		$.ajax({ 
 			url: '[[@{/userTotalPage}]]',
 			success: function (data) {
-			   var totalPage = data;
+			   var totalPages = data;
 			  
-			   addLi(totalPage);
+			   addLi(totalPages);
 		       }
 			});
 
@@ -307,15 +299,30 @@ body {
 	}
 
 
-
 	$(document).ready(function () {
 	 
-		 testingNowPaging();
-		 
-	 $('.page-next').on('click',function(){
-		 alert('next');
-	 })
+			var currentPathname = window.location.pathname;
+			if(currentPathname=='/users')
+			{
+			testingNowPaging();
+			}
+			
+			$('#sortbtn').on('click',function(){
+				
+				if($('#userName').val()==''||$('#userName').val()==null){
+					alert('검색할 이름을 한글자 이상 입력하세요.');
+					return;
+				};
+				
+				$('#searchUser').attr({
+					'method':'post',
+					'action':'[[@{/usersearch}]]'
+				});
+				$('#searchUser').submit();
+				
+			})
 	 
+			
 	});
   
   </script>
@@ -324,21 +331,18 @@ body {
         <!-- Toggle button -->
 
         <!-- Demo content -->
-        <h3 class="display-4 text-muted mb-3" style="font-size: 1.7rem; margin-top: -20px;" >Member</h3>
-        
+        <div class="listtitle">전체 회원 목록  <a th:href="@{/users}" class="btn btn-outline-secondary btn-sm ml-5" id="userallbtn" type="button">모든 회원</a></div>
+        <div class="mygap-sm"></div>
+<div style="display: flex; align-items: center;" class="mb-4">
+<form id="searchUser" style="width:50%;">
+<input class="form-control" id="userName" name="searchValue" placeholder="검색할 회원 이름을 입력해주세요." style="font-size:1.05rem;">
+</form>
+<button type="button" id="sortbtn"><i data-feather="search" id="sortbtn"></i></button>
+
+</div>
         <div class="row">
             <div class="col-12">
-                <p class="mobile text-muted">Click the names to see more data.</p>
-                
-                <form th:action="@{/usersearch}" method="POST" >
-                            <input type="text"   name="searchValue" placeholder=" "/>
-                           	<input type="submit" value="검색"><p><br>
-                           	</form>
-							<br>
-							<button type="button" id="dbtn">DELETE</button>
-               <form id="memberdel" th:action="@{/uDelete}">
-                <input type="text" name="delEmail" id="delEmail" style="display:none;">
-                  </form>
+
                 <table >
          
                     <thead>
@@ -346,40 +350,36 @@ body {
                         <tr class="table-headers">
                         
                     		<th></th>
-                            <th>보호자이메일&nbsp;&nbsp;<i data-feather="user"></i></th>
+                            <th>회원 이메일&nbsp;&nbsp;<i data-feather="mail"></i></th>
                             <th>이름&nbsp;&nbsp;<i data-feather="user-check"></i></th>
                             <th>생년월일&nbsp;&nbsp;<i data-feather="gift"></i></th>
                             <th>연락처&nbsp;&nbsp;<i data-feather="phone"></i></th>
-                            <th>주소&nbsp;&nbsp;<i data-feather="home"></i></th>
-                            <th>상세주소&nbsp;&nbsp;<i data-feather="map-pin"></i></th>
-                            <th>우편번호&nbsp;&nbsp;<i data-feather="mail"></i></th>
-                            <th>가입날짜&nbsp;&nbsp;<i data-feather="users"></i></th>
+                            <th>가입날짜&nbsp;&nbsp;<i data-feather="calendar"></i></th>
                            
                         </tr>
                     </thead>                    
-                    <br>                          
                     <tbody>
-                        <tr th:each="u:${userlist}" class="test" >
-                         <td><input type="radio" name="delEmail" class="check1" th:value="${u.useremail}"/></td>
-                            <td><a th:href="@{/detailPage(useremail=${u.useremail}) }" th:text="${u.useremail}" ></td>
-                            <td th:text="${u.username}" ></td>
-                            <td th:text="${u.birth}" ></td>
-                            <td th:text="${u.tel}" ></td>
-                            <td th:text="${u.addr}" ></td>
-                            <td th:text="${u.detaddr}" ></td>
-                            <td th:text="${u.zipcode}" ></td>
-                            <td th:text="${u.rdate}" ></td>
+                        <tr th:each="u:${userlist}" class="test" > 
+                        <td><div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckedDisabled" checked disabled>
+</div></td>
+                            <td th:if="${session.admin.admin_id=='admin01'}"><a th:href="@{/detailPage(useremail=${u.useremail})}" 
+                            th:text="${#strings.substring(#strings.substringBefore(u.useremail,'@'),0,3) + #strings.repeat('*', #strings.length(#strings.substringBefore(u.useremail,'@'))-3) +'@'+
+                            #strings.substring(#strings.substringAfter(u.useremail,'@'),0,2) + '*****'}" ></a></td>
+                                    <td th:unless="${session.admin.admin_id=='admin01'}"><a href="" 
+                            th:text="${#strings.substring(#strings.substringBefore(u.useremail,'@'),0,3) + #strings.repeat('*', #strings.length(#strings.substringBefore(u.useremail,'@'))-3) +'@'+
+                            #strings.substring(#strings.substringAfter(u.useremail,'@'),0,2) + '*****'}" onclick="alert('권한이 없습니다.')"></a></td>
+                            <td th:text="${u.username}"></td>
+                            <td th:text="'****'+${#strings.substring(u.birth,4)}" ></td>
+                            <td th:text="${#strings.substring(u.tel,0,5)+#strings.repeat('*', #strings.length(u.tel) - 5)}" ></td>
+                            <td th:text="${#calendars.format(u.rdate, 'YYYY-MM-dd')}" ></td>
                         </tr>
                     </tbody>
                 </table>
                 	<div class="mygap-sm"></div>
 	  <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center" id="pagination">
-	 <li class="page-user">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true" >&laquo;</span>
-      </a>
-    </li>
+
   </ul>
 </nav>
             </div>

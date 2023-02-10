@@ -89,10 +89,10 @@ $(document).ready(function(){
        <h5 class="card-header">예약일</h5>
     <div class="card-body">
     <div class="text-center" style="border:1px solid #ddd">
-  			<div class="myfont-b mybg-color" style="height:60px; line-height:60px; font-size:1.2em" th:text="${#calendars.format(r.sc_date, 'EEEE')}"></div>
+  			<div class="myfont-b mybg-color" style="height:60px; line-height:60px; font-size:1.2rem" th:text="${#calendars.format(r.sc_date, 'EEEE')}"></div>
   			<div id="resv-date"  style="background-color:#ffffff; height:80px; line-height:80px; font-size:3em;" th:text="${#calendars.format(r.sc_date, 'MM')}+' / '+${#dates.format(r.sc_date, 'dd')}" ></div>
-  			<div id="resv-date" class="myfont-b" style="background-color:#ffffff; height:47px; line-height:20px; font-size:2em;" th:text="${#dates.format(r.sc_date, 'hh')}+' : '+${#dates.format(r.sc_date, 'mm')}"></div>
-  			<div class="myfont-b mybg-color" style="height:60px; line-height:60px; font-size:1.2em" th:text="${#calendars.format(r.sc_date, 'YYYY')}"></div>
+  			<div id="resv-date" class="myfont-b" style="background-color:#ffffff; height:47px; line-height:20px; font-size:2em;" th:text="${#dates.format(r.sc_date, 'HH')}+' : '+${#dates.format(r.sc_date, 'mm')}"></div>
+  			<div class="myfont-b mybg-color" style="height:60px; line-height:60px; font-size:1.2rem" th:text="${#calendars.format(r.sc_date, 'YYYY')}"></div>
   			</div>
     </div>
     </div>
@@ -105,12 +105,13 @@ $(document).ready(function(){
 				
 				    
     <div class="card-body">
-        <div class="container text-left mt-3 mb-4">
+        <div class="container text-left mt-3 mb-3">
 				  <div class="row align-items-center">
 				    <div class="col">
 
 <div class="mb-2">이름 : </div>
-  			<a th:href="@{/detailPage(useremail=${u.useremail})}" th:text="${r.username}" style="font-size:1.2em"></a>
+  			<a th:if="${session.admin.admin_id=='admin01'}" th:href="@{/detailPage(useremail=${u.useremail})}" th:text="${r.username}" style="font-size:1.2em"></a>
+  			<span th:unless="${session.admin.admin_id=='admin01'}" th:text="${r.username}" style="font-size:1.2em"></span>
 				    </div>
 				    <div class="col">
 				    <div class="mb-2">연락처 : </div>
@@ -127,7 +128,7 @@ $(document).ready(function(){
     
     <div class="card mt-4">
     <h5 class="card-header">담당 디자이너</h5>
-    <div class="card-body mt-3 mb-3 text-center">
+    <div class="card-body mt-2 mb-3 text-center">
      		<a th:href="@{/schedule(designer_id=${rtwo.designer_id})}" th:text="${r.designer_name}"  style="font-size:1.2em"></a>
      </div>
     </div>

@@ -96,6 +96,15 @@ public class ResvService implements MyService<Integer, Resv>{
 		return mapper.designerItemChart(designer_id);
 	}
 	
+	public List<Resv> designerMonthChart(Integer chartYear, Integer chartMonth, String designer_id) throws Exception{
+		return mapper.designerMonthChart(chartYear, chartMonth, designer_id);
+	}
+	
+	public int userResvCnt(String useremail) throws Exception{
+		return mapper.userResvCnt(useremail);
+	}
+	
+	
 	/* daekyeong add */
 	public Resv mailinformation(Integer resv_no) throws Exception {
 		return mapper.mailinformation(resv_no);

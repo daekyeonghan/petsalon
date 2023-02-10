@@ -47,7 +47,15 @@
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
+<script>
 
+window.onpageshow = function(event) {
+    if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+    	document.location.reload();
+    }
+};
+  
+</script>
 </head>
 <body>
  <div class="sidebar" th:fragment="sidebar">

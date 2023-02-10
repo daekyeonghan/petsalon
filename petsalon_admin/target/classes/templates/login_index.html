@@ -88,6 +88,10 @@ $(document).ready(function(){
 	
 	var result = $('#result').val();
 	if(result==1) alert('아이디 혹은 비밀번호를 잘못 입력하셨습니다');
+	
+	if($('form').val()!=''){
+		$('form').val()=='';
+	}
 
 	$('#admin_id').focus();
 $('#loginbtn').on('click',function(){

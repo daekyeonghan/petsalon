@@ -203,12 +203,12 @@ $(document).ready(function() {
 	      </div>
 	      <div class="card-body">
 	       <a th:href="@{/schedule(designer_id=${d.designer_id})}"><h5 class="card-title" th:text="${d.designer_name}" id="test"></h5></a>
-	        <p class="card-text" th:text="${d.designer_introduce}"></p>
+	        <p class="card-text" th:text="${d.designer_introduce}" style="white-space : nowrap; overflow : hidden; text-overflow: ellipsis;"></p>
 	      </div>
 	     	<div class="card-footer">
-	        <small  th:if="${session.admin.admin_id==d.admin_id}" class="text-muted"><a th:href="@{/designerUpdatePage(id=${d.designer_id})}">수정</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+	        <small  th:if="${session.admin.admin_id=='admin01'||session.admin.admin_id==d.admin_id}" class="text-muted"><a th:href="@{/designerUpdatePage(id=${d.designer_id})}">수정</a>&nbsp;&nbsp;&nbsp;&nbsp; 
 	        <a id="deletebtn" th:href="@{/designerDelete(id=${d.designer_id},filename=${d.designer_photo})}">삭제</a></small>
-	        <small th:unless="${session.admin.admin_id==d.admin_id}" class="text-muted"><a href="#" onclick="alert('권한이 없습니다.')">수정</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+	        <small th:unless="${session.admin.admin_id=='admin01'||session.admin.admin_id==d.admin_id}" class="text-muted"><a href="#" onclick="alert('권한이 없습니다.')">수정</a>&nbsp;&nbsp;&nbsp;&nbsp; 
 	        <a href="#" onclick="alert('권한이 없습니다.')">삭제</a></small>
 	      	</div>
 	    </div>

@@ -11,10 +11,11 @@ table {
   overflow: hidden;
   background-color: #fff;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
+  border-radius: 5px;
 }
 table thead {
   background-image: linear-gradient(to right, #de52ff, #ca4afe, #b542fd, #9e3cfb, #8437fa);
+/* background-color:#ece2c4; */
 }
 table thead tr th {
   background-color: transparent;
@@ -22,6 +23,7 @@ table thead tr th {
   padding: 10px;
   color: #fff;
   font-weight: 400;  
+   font-size: 1.05rem;
 }
 table thead tr th svg,table thead tr th img {
   height: 16px;
@@ -32,7 +34,7 @@ table tbody tr td {
   border-top: none;
   padding: 10px;
   color: #787878;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
 }
 table tbody tr td svg,table tbody tr td img {
   height: 41px;
@@ -323,12 +325,7 @@ function testingNowPaging(){
 	   
 }
 
-window.onpageshow = function(event) {
-    if ( event.persisted ) {
-    	document.location.reload();
-    }
-};
-  
+
 $(document).ready(function() {	
 
 	const myAddModal = document.getElementById('addItemModal')
@@ -583,6 +580,8 @@ $(document).ready(function() {
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="itemPhoto"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        
       </div>
       <div class="modal-body">
         <img id="itemPhotoBody" class="img-fluid" title="사진을 클릭하시면 창을 닫을 수 있습니다.">

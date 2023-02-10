@@ -124,7 +124,6 @@ function update(){
 		});
 		$('#notice_update').submit();
 		
-		alert('수정되었습니다.');
 	    $('form').find('input[name=sn_title], textarea').val('');
 	    $('#contentFeedback').removeClass('is-valid');
 	    $('#titleFeedback').removeClass('is-valid');
@@ -147,7 +146,7 @@ function update(){
 
 $(document).ready(function() {	
 	
-	if('[[${sn.admin_id}]]'!='[[${session.admin.admin_id}]]'){
+	if('[[${sn.admin_id}]]'!='[[${session.admin.admin_id}]]'&&'[[${session.admin.admin_id}]]'!='admin01'){
 		window.location.href='/ERROR';
 	}
 	const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
@@ -203,7 +202,7 @@ $(document).ready(function() {
   		  <input type="text" class="form-control" th:value="${sn.sn_title}" id="sn_title" name="sn_title" aria-label="noticeTitle" aria-describedby="basic-addon1">
 		</div>
             <div class="mb-3">
-   		    <textarea class="form-control" th:text="${sn.sn_content}" id="sn_content" name="sn_content" rows="30"></textarea>
+   		    <textarea class="form-control" th:text="${sn.sn_content}" id="sn_content" name="sn_content" rows="15"></textarea>
             
           </div>
          

@@ -85,14 +85,13 @@ function update(){
 	});
 	$('#designer_update').submit();
 	
-	alert('수정되었습니다.');
 };
 	
 
 	
 $(document).ready(function() {
 
-	if('[[${ds.admin_id}]]'!='[[${session.admin.admin_id}]]'){
+	if('[[${ds.admin_id}]]'!='[[${session.admin.admin_id}]]'&&'[[${session.admin.admin_id}]]'!='admin01'){
 		window.location.href='/ERROR';
 	}
 	
