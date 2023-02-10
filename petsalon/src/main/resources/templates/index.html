@@ -20,6 +20,7 @@
 		<script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
         <script>
 			$(document).ready(function(){
+				var cnt = 1;
 				var email = $('#resv').val();
 				$('#resvbar').click(function(a){
 					if(email == null || email == ''){

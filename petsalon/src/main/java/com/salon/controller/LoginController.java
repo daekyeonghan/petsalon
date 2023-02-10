@@ -27,7 +27,7 @@ public class LoginController {
 	UserService uservice;
 	
 	@RequestMapping("/login")
-	public String login(Model model) {
+	public String login(Model model,HttpServletRequest req) {
 		model.addAttribute("center", "login");
 		return "index";
 	}
