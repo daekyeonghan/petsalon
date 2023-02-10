@@ -27,8 +27,9 @@ public class LoginController {
 	UserService uservice;
 	
 	@RequestMapping("/login")
-	public String login() {
-		return "login";
+	public String login(Model model) {
+		model.addAttribute("center", "login");
+		return "index";
 	}
 	
 	@RequestMapping("/loginimpl")
@@ -67,10 +68,5 @@ public class LoginController {
 		session.invalidate();
 		model.addAttribute("session", session);
 		return "index";
-	}
-	
-	@RequestMapping("/lostinfo")
-	public String lostinfo() {
-		return "lostinfo";
 	}
 }
