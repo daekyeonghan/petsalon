@@ -32,10 +32,11 @@ public class ServicesIdtController {
 		try {
 			model.addAttribute("designer",deservice.get());
 			model.addAttribute("item", iservice.get());
+			model.addAttribute("center","servicesintroduction");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "servicesintroduction";
+		return "main";
 	}
 	
 	@RequestMapping("/Designerlist")
@@ -46,16 +47,17 @@ public class ServicesIdtController {
 			d = deservice.get();
 			i = iservice.get();
 			model.addAttribute("designer", d);
+			model.addAttribute("center","servicesintroduction/servicesintrodes");
 			System.out.println(d);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "servicesintroduction/servicesintrodes";
+		return "main";
 	}
 	
 	@RequestMapping("/servicesintrodm")
 	public String introM(Model model) {
-		model.addAttribute("");
-		return "servicesintroduction/servicesintrodm";
+		model.addAttribute("center","servicesintroduction/servicesintrodm");
+		return "main";
 	}
 }
