@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <head>
+        <style>
+ @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+/* .board-no {margin-right: 80px;} */
+
+.mt-50{ 
+    margin-top:50px;
+}
+.mb-100{
+    margin-bottom:100px;
+}
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+.card-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card .card-title {
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+ul{
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+    margin-bottom:0px;
+}
+ul.list-style-none li {
+    list-style: none;
+}
+
+ul.list-style-none li a {
+    color: black;
+    padding: 8px 0px;
+    display: block;
+    text-decoration: none;
+}
+
+.m-t-5 {
+    margin-top: 5px;
+}
+
+.w-30px {
+    width: 30px;
+}
+
+.pagination > li > a
+{
+    background-color: white;
+    color: #5A4181;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: black;
+    background-color: #ece2c4 !Important;
+    border: solid 1px #ece2c4 !Important;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: #ece2c4  !Important;
+    border: solid 1px #ece2c4 ;
+}
+
+</style>
+<script>
+
+
+function addLi(totalPages){
+
+	 urlParams = new URLSearchParams(window.location.search);
+		var pValue = parseInt(urlParams.get('page'));
+		
+	var pagination = $("#pagination");
+   for (var i = 1; i <= totalPages; i++) {
+   	if(pValue==i) {
+   		var pageItem = $("<li>").addClass("page-item active");
+   		
+   	}else{
+   		var pageItem = $("<li>").addClass("page-item");
+   	}
+       var pageLink = $("<a>").addClass("page-link").attr("href", "/notice?page=" + i).text(i);
+       pageItem.append(pageLink);
+       pagination.append(pageItem);
+   }
+   
+}
+
+
+function testingNowPaging(){
+
+	$.ajax({
+	       url: '[[@{/noticeTotalPage}]]',
+	       success: function(data) {
+	           var totalPages = data;
+
+	          addLi(totalPages);
+	       }
+	   });
+	   
+}
+
+
+$(document).ready(function() {	
+	
+	testingNowPaging();
+	
+});
+
+</script>
+    </head>
+    <body id="page-top">
+    <section style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
+    <div><span class="listtitle text-center mx-auto d-block fw-bolde fs-1">NOTICE</span></div>
+
+                     <div class="row mx-auto d-block d-flex justify-content-center mt-50 mb-100" style="max-width: 80%; ">
+                        
+                        <div class="card" style="background-color:#f8f2e277;">
+                            <div class="card-body row" >
+                                <h5 class="col card-title m-b-0 myfont-b" >&nbsp;&nbsp;번호&nbsp;&nbsp;&nbsp;&nbsp;｜</h5>
+                                <h5 class="col text-center card-title m-b-0 myfont-b">&nbsp;&nbsp;제목</h5>
+                                <h5 class="col text-end card-title m-b-0 myfont-b" >｜ &nbsp;등록일</h5>
+                            </div>
+                            <ul th:each="sn:${snlist}" class="list-style-none">
+                                
+                                <li class="d-flex no-block card-body border-top">
+                                     <span class="board-no mt-3 fs-5" th:text="${sn.sn_no}" style=" width: 100px;"></span>
+                                    <div class="notice-title">
+                                        <a th:href="@{/noticecontent(no=${sn.sn_no})}" th:text="${sn.sn_title}" class="mt-2 fs-5" data-abc="true"></a>
+                                    </div>
+                                     <div class="mx-auto"></div>
+                                        <div class="tetx-right">
+                                            <h5 th:text="${#calendars.format(sn.sn_rdate, 'MMM')}" class="fs-5"></h5>
+                                            <span th:text="${#dates.format(sn.sn_rdate, 'dd')}+'일'" class="fs-6"></span>
+                                        </div>
+                                </li>
+                                    
+                            </ul>
+                            <nav aria-label="...">
+  <ul id="pagination" class="pagination justify-content-center mb-4 pagination-color: black">
+    
+  </ul>
+</nav>
+                        </div>
+
+                    </div>
+                    
+</section>
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>

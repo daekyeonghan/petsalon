@@ -25,7 +25,7 @@
     font-weight: normal;
     font-style: normal;
 }
-	#signup_form {font-family: 'SUIT-Regular';}
+	#signup_form {font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
 	</style>
 	<script>
 	
@@ -533,7 +533,7 @@
 	<section class="page-section" id="signup_form" style="background-color: white;">
 		<div class="container">
 			<div class="row mt-5">
-				<div class="col-lg-5 m-auto rounded-top" style="background-color: #f8f8f8;">
+				<div class="col-lg-5 m-auto rounded-top" style="background-color:#f8f2e277; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);">
 					<h2 class="text-center pt-3 mb-5">회원가입</h2>
 					<!--  form start -->
 					<form id="join_form" class="validation-form" novalidate>
@@ -546,7 +546,7 @@
 						</div>
 						<div class="input-group">
 							<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요" disabled="disabled">
-							<span><input type="button" class="form-control btn btn-secondary" id="mail-Check-Btn" value="본인인증"></span>
+							<span><input type="button" class="form-control btn btn-secondary text-dark" id="mail-Check-Btn" value="본인인증" style="background-color:#ece2c4;"></span>
 						</div>
 						<span class="mb-3" id="mail-check-warn"></span>
 
@@ -578,7 +578,7 @@
 							<font color = "red" id = "telck" style = "display:none">숫자만 입력해주세요</font>
 						</div>
 						<div class="mb-3">
-							<label for="zipcode" class="form-label">우편번호 <input type="button" class="btn btn-secondary" id="postcode_button" onclick="open_Postcode()" value="우편번호 찾기"><br></label>
+							<label for="zipcode" class="form-label">우편번호 <input type="button" class="btn btn-secondary text-dark" id="postcode_button" onclick="open_Postcode()" value="우편번호 찾기" style="background-color:#ece2c4;"><br></label>
 							<input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="우편번호" readonly />
 							<div class="invalid-feedback">우편번호를 입력하세요</div>
 							<label class="form-label mt-3">주소</label>
@@ -603,7 +603,7 @@
 						</div>
 						<p class="text-center mt-2"><b>모든 항목을 입력하셔야 회원가입이 가능합니다</b></p>
 						<div id="btn22" class="d-grid"><!-- onclick="join_check();" -->
-							<button type="button" id="joinbtn" class="btn btn-secondary">회원가입</button>
+							<button type="button" id="joinbtn" class="btn btn-secondary text-dark" style="background-color:#ece2c4;">회원가입</button>
 							<p class="text-center mt-2"><b>이미 가입된 계정이 존재하나요 ?</b><a th:href="@{/login}" style="text-decoration: none;"> 로그인</a></p>
 						</div>
 					</form>

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.salon.dto.Schedule;
 import com.salon.service.ScheduleService;
+import com.salon.service.Shop_NoticeService;
 import com.salon.service.UserService;
 
 @RestController
@@ -34,6 +35,8 @@ public class AjaxController {
 	UserService uservice;
 	@Autowired
 	ScheduleService scservice;
+	@Autowired
+	Shop_NoticeService snservice;
 	
 	@RequestMapping("/findemail")
 	public Object findemail(String username, String tel) {
@@ -108,6 +111,25 @@ public class AjaxController {
 		}
 		return result;
 	}
+	
+	@RequestMapping("/noticeTotalPage")
+    public Object noticeTotalPage() {
+        int recordsPerPage = 7;
+        int totalPages = 0;
+
+    	try {
+			int totalRecords = snservice.get().size();
+	        totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("failed to get total pages");
+		}
+    	
+    //	System.out.println(totalPages);
+
+        return totalPages;
+    }
 	
 	@GetMapping("/mailCheck")
 	@ResponseBody

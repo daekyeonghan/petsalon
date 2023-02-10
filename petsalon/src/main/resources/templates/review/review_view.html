@@ -233,8 +233,8 @@
 <div style="height: 100px;"></div>
 <form>
 <div class="container">
-	<div class="row mt-5 col-lg-12 bg-white m-auto rounded-top">
-		<div class="col-lg-6">
+	<div class="row mt-5 col-lg-12 m-auto rounded-top" style="box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05); background-color:#f8f2e277;">
+		<div class="col-lg-6 mt-3">
 			<img class="img-thumbnail" th:if="${rvs.review_photo == ''} or ${rvs.review_photo == null}" src="assets/img/logo.svg"  style="width:600px; height:600px;"/>
 			<img class="img-thumbnail" th:unless="${rvs.review_photo == ''} or ${rvs.review_photo == null}" th:src="'/assets/img/'+ ${rvs.review_photo}"  style="width:600px; height:600px;"/>
 		</div>
@@ -247,7 +247,7 @@
 				</div>
 				<hr style="border:1px color= silver;" width="100%">
 				<div class="review-center">
-					<div th:text="${rvs.review_content}"> </div>
+					<div th:text="${rvs.review_content}" style="text-align: justify;"> </div>
 				</div>
 				<div class="review-answer mt-2" style="background-color: #DCDCDC;">
 					<p th:if="${ra == null}" th:value="1" ></p>
@@ -260,8 +260,8 @@
 			</div>
 		</div>
 		<div class="col-md-12 order-md-last mb-3">
-		<button id="rlist" type="button" th:onclick="|location.href='@{/review}'|" class="btn btn-primary mt-2" style="float: right;"> 목록</button>
-		<button id="uptbtn" type="button" th:onclick="updateck([[${rvs.review_no}]]);" data-bs-toggle="modal" data-bs-target="#updateReviewModal" class="btn btn-primary mt-2" style="float: right; margin-right: 10px;"> 수정</button>
+		<button id="rlist" type="button" th:onclick="|location.href='@{/review}'|" class="btn mt-2 text-dark" style="float: right; background-color:#ece2c4;"> 목록</button>
+		<button id="uptbtn" type="button" th:onclick="updateck([[${rvs.review_no}]]);" data-bs-toggle="modal" data-bs-target="#updateReviewModal" class="btn text-dark mt-2" style="float: right; margin-right: 10px; background-color:#ece2c4;"> 수정</button>
 		</div>
 	</div>
 	

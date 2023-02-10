@@ -88,9 +88,59 @@
 <body>
 <!-- <nav th:replace="fragments :: nav-top"></nav> -->
 <!-- <section style="width: 100%; border: 1px solid red;" > -->
-<div class="container">
-	<div class="row mt-5">
-		<div id="carouselExampleIndicators" class="carousel slide mx-auto d-block " data-bs-ride="carousel" >
+<section style="border:1px solid red;">
+
+</section>
+<!-- </section> -->
+<section class="page-section" id="review" style="border:1px solid red;">
+            <div class="container" style="max-width: 90%;">
+                <div class="text-center review-header">
+                    <h2 class="section-heading text-uppercase">review</h2>
+                    <h5>아이들의 가장 예쁜 모습들입니다</h5>
+                </div>
+                <div class="col-lg-12" id="review-bar">
+	                	<button type="button" id="review_add" name="review_plus" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button>
+	                	<div id="selectdiv">
+		                    <form id="selectDesignerReview">
+								<select class="form-select" id="designer_id" name="designer_id" th:onchange="selectDesigner()">
+									<option value="" selected disabled>--디자이너별 후기검색--</option>
+									<option value="all" disabled>전체</option>
+									<option th:each="d : ${notnullist}" th:value="${d.designer_id}" th:text="|${d.designer_name}|"></option>
+								</select>
+							</form>
+						</div>
+				</div>
+                <div class="row col-lg-12">
+                    <div id="review-thumbnail" class="row col-xl-3 mb-4" th:each="o : ${rlist}">
+                        <div class="review-item shadow rounded">
+                            <a class="review-link" th:onclick="|location.href='@{/reviewview(no=${o.review_no},resv_no=${o.resv_no})}'|">
+                                <div class="review-hover" >
+                                    <div class="review-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <div>
+                                	<img class="img-fluid rounded mt-1" th:if="${o.review_photo == ''} or ${o.review_photo == null}" src="assets/img/logo.svg"  style="width:430px; height:430px;"/>
+                                	<img class="img-fluid rounded mt-1" th:unless="${o.review_photo == ''} or ${o.review_photo == null}" th:src="'/assets/img/'+ ${o.review_photo}"  style="width:430px; height:430px;"/>
+                                </div>
+                            </a>
+                            <div class="review-caption rounded-top" style="border:1px double #f8f8f8">
+	                            <div class="col mb-2">
+	                            	<span class="review-caption-heading" th:text="${o.dog_name}"></span>｜<span class="review-caption-subheading" th:text="${o.designer_name}"></span>
+	                            </div>
+	                            <div class="col">
+	                                <div class="review-caption-subheading" th:text="${o.review_title}"></div>
+	                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<section style=" border:1px solid red;">
+        <div class="container" style="border:1px solid blue;">
+	<div class="row">
+	<div class="col-lg-10 col-xl-8 mx-auto">
+                <div class="p-5 bg-white shadow rounded">
+		<div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel" >
 		  <div class="carousel-indicators" >
 		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -116,50 +166,11 @@
 		    <span class="visually-hidden">Next</span>
 		  </button>
 		</div>
+		</div>
+		</div>
 	</div>
 </div>
-<!-- </section> -->
-<section class="page-section" id="review" >
-            <div class="container" style="max-width: 90%;">
-                <div class="text-center review-header">
-                    <h2 class="section-heading text-uppercase">review</h2>
-                    <h5>아이들의 가장 예쁜 모습들입니다</h5>
-                </div>
-                <div class="col-lg-12" id="review-bar">
-	                	<button type="button" id="review_add" name="review_plus" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button>
-	                	<div id="selectdiv">
-		                    <form id="selectDesignerReview">
-								<select class="form-select" id="designer_id" name="designer_id" th:onchange="selectDesigner()">
-									<option value="" selected disabled>--디자이너별 후기검색--</option>
-									<option value="all" disabled>전체</option>
-									<option th:each="d : ${notnullist}" th:value="${d.designer_id}" th:text="|${d.designer_name}|"></option>
-								</select>
-							</form>
-						</div>
-				</div>
-                <div class="row col-lg-12">
-                    <div id="review-thumbnail" class="row col-xl-3 mb-4" th:each="o : ${rlist}">
-                        <div class="review-item">
-                            <a class="review-link" th:onclick="|location.href='@{/reviewview(no=${o.review_no},resv_no=${o.resv_no})}'|">
-                                <div class="review-hover" >
-                                    <div class="review-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-thumbnail" th:if="${o.review_photo == ''} or ${o.review_photo == null}" src="assets/img/logo.svg"  style="width:430px; height:430px;"/>
-                                <img class="img-thumbnail" th:unless="${o.review_photo == ''} or ${o.review_photo == null}" th:src="'/assets/img/'+ ${o.review_photo}"  style="width:430px; height:430px;"/>
-                            </a>
-                            <div class="review-caption rounded-top" style="border:1px double #f8f8f8">
-	                            <div class="col mb-2">
-	                            	<span class="review-caption-heading" th:text="${o.dog_name}"></span>｜<span class="review-caption-subheading" th:text="${o.designer_name}"></span>
-	                            </div>
-	                            <div class="col">
-	                                <div class="review-caption-subheading" th:text="${o.review_title}"></div>
-	                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+</section>
         
 <div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
