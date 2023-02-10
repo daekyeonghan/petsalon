@@ -40,7 +40,7 @@ public class ReviewController {
 
 		int offset= (page - 1) * 6; //한페이지의 시작번호
 
-		System.out.println(page);
+	//	System.out.println(page);
 		try {
 
 			revlist = reservice.pagingreview1(paging, offset);
@@ -180,7 +180,7 @@ public class ReviewController {
 	@RequestMapping("/reviewAns_Update")
 	public String reviewAnsUpdate(Model model, Review_Answer ad ) {
 		
-		System.out.println(ad);
+	//	System.out.println(ad);
 		
 		try {
 			
@@ -209,7 +209,7 @@ public class ReviewController {
 		
 		try {
 			answerService.remove(delno);
-			System.out.println("okok");
+	//		System.out.println("okok");
 			return "redirect:/review";
 		} catch (Exception e) {
 			e.printStackTrace();

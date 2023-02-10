@@ -10,6 +10,57 @@
 	border: 0px solid pink;
 	color: red;
 }
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+.card .card-title {
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align:right;
+    border-right:1px solid #c4c4c4;
+}
+.card .card-sub{
+	margin-bottom:10px;
+}
+
+notice-content .card-body {
+  margin-bottom:10px;
+}
+.notice-content div{
+text-align:left;
+}
+
+.notice-img{
+width:300px;
+}
+
+.mb-30 div{
+margin-bottom:30px;
+}
+
+.card-body img{
+max-width:100%;
+}
+.card-body div{
+max-width:100%;
+white-space: pre-line;
+}
 </style>
 
 
@@ -50,12 +101,12 @@ function adminupdate(){
 	});
 	$('#adminreview_update').submit();
 	
-	alert('수정되었습니다.');
 };
 
 $(document).ready(function() {
-
-	
+	if('[[${ra.admin_id}]]'!='[[${session.admin.admin_id}]]'&&'[[${session.admin.admin_id}]]'!='admin01'){
+		window.location.href='/ERROR';
+	}
 	
 	$('#update_admin_btn').on('click',function(){
 		
@@ -77,33 +128,41 @@ $(document).ready(function() {
 	
 });
 </script>
-<span class="listtitle">관리자 댓글 수정</span>
+<span class="listtitle">관리자 답변 수정</span>
 <form id="adminreview_update">
+<input type="number" name="review_no" th:value="${ra.review_no}" style="display:none;">
+<input type="number" name="ra_no" th:value="${ra.ra_no}" style="display:none;">
+<input type="text" name="admin_id" th:value="${ra.admin_id}" style="display:none;">
 
-<div class="row">
-		
-		<div class="row">
-		<div class="col-2 ">답변글번호</div>
-		<input type="number" class="col-10" name="ra_no"  th:value="${ra.ra_no}"  >
-		<div id="ra" class="invalid-ranumber" ></div>
-		</div>
-		
-		<div class="row">
-		<div class="col-2 ">답변</div>
-		<textarea class="col-10"  th:text="${ra.ra_content}" id="ra_content" name="ra_content"></textarea>
-		<div id="racontent" class="invalid-content" ></div>
-		</div>
-		
-		<div class="row">
-		<div class="col-2 ">관리자 아이디</div><br>
-		<input class="col-10" id = "admin_id" name="admin_id" th:value="${ra.admin_id}" >
-		<div id="raadminid" class="invalid-admin" ></div>
-		</div>
-		
-		</div>
-		
+<div class="d-grid gap-2">
+  <button class="btn btn-dark listtitle" id="read-answer-btn" type="button" data-bs-toggle="collapse" data-bs-target="#review_answer" aria-expanded="true" aria-controls="collapseAnswer">관리자 답변</button>
+</div>
+  <div class="card card-body">
+  
+	<div class="row card-body">
+    <div class="col-2 card-title">리뷰 번호</div>
+    <div class="col-10 card-sub" th:text="${ra.review_no}" ></div>
+  </div>
+  <div class="row card-body">
+    <div class="col-2 card-title">답변 글번호</div>
+    <div class="col-10 card-sub" id="ra_no" th:text="${ra.ra_no}" ></div>
+  </div>
+  <div class="row card-body">
+    <div class="col-2 card-title">관리자 아이디</div>
+    <div class="col-10 card-sub" th:text="${ra.admin_id}" ></div>
+  </div>
+  <div class="row card-body mb-30">
+  	<div class="col-2 card-title">답변 내용</div>
+  	<div class="col-10 card-sub">
+  <textarea class="form-control" th:text="${ra.ra_content}" name="ra_content" rows="5"></textarea>
+</div>
+  </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button class="btn btn-primary me-md-2 col-1" id="update_admin_btn" type="button">수정</button>
+  <button class="btn btn-secondary col-1" id="admin_Cancel" type="button">취소</button>
+</div>
+  </div>
+
 </form>
-<button type="button" id="update_admin_btn" class="btn btn-primary">수정</button>
-<button type="button" id="admin_Cancel" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 		
 </div>		

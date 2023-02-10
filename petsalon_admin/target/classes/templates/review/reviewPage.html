@@ -113,7 +113,7 @@ $(document).ready(function() {
 	
 	//삭제 스크립트 //
 	$('#delbtn').on('click',function(){
-	let admindelno = $('input[name=ra]:checked').val();
+	let admindelno = $('#ra_no').text();
 	
 	 $("#delno").val(admindelno);
 	 var c = confirm('삭제하시겠습니까 ?');
@@ -125,15 +125,16 @@ $(document).ready(function() {
 	// 수정 스크립트 //
 	$('#updbtn').on('click',function(){
 
-		let adminupdate = $('input[name=ra]:checked').val();
-		 
+		let adminupdate = $('#ra_no').text();
 		 $("#updno").val(adminupdate);
 		 var c = confirm('수정페이지로 이동하시겠습니까?');
 			if(c == true){
 		$('#adminupdate').submit();
 			};
 	});
-	
+	$('#backbtn').on('click',function(){
+		window.location.href="/review";
+	})
 	
 
 	$('.reviewpic').on('click',function(){
@@ -217,7 +218,7 @@ $(document).ready(function() {
   </div>
   <div class="row card-body">
     <div class="col-2 card-title">답변 글번호</div>
-    <div class="col-10 card-sub" th:text="${ar.ra_no}" ></div>
+    <div class="col-10 card-sub" id="ra_no" th:text="${ar.ra_no}" ></div>
   </div>
   <div class="row card-body">
     <div class="col-2 card-title">관리자 아이디</div>
@@ -227,15 +228,18 @@ $(document).ready(function() {
   	<div class="col-2 card-title">답변 내용</div>
   	<div class="col-10 card-sub" th:text="${ar.ra_content}"></div>
   </div>
-  
-	</div>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <button class="btn btn-primary me-md-2" type="button" id="updbtn">수정</button>
-  <button class="btn btn-primary" type="button" id="delbtn">삭제</button>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end" th:if="${session.admin.admin_id=='admin01'||session.admin.admin_id==ar.admin_id}">
+  <button class="btn btn-primary me-md-2 col-1" type="button" id="updbtn">수정</button>
+  <button class="btn btn-danger col-1" type="button" id="delbtn">삭제</button>
 </div>
+	</div>
+
   </div>
 </div>
 <div class="mygap-sm"></div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button class="btn btn-secondary col-2" id="backbtn" type="button">돌아가기</button>
+</div>
 
 	<!-- 버튼 폼 -->
 <form id="admindel" th:action="@{/rDelete}">
@@ -259,7 +263,7 @@ $(document).ready(function() {
 <form id="review_answer">
 <div class="input-group">
 
-	<input type="text" id="admin_id" value="admin01" name="admin_id" style="display:none;">
+	<input type="text" id="admin_id" th:value="${session.admin.admin_id}" name="admin_id" style="display:none;">
 	<input type="number" name="review_no" th:value="${rep.review_no}" style="display:none">
 		
 		
