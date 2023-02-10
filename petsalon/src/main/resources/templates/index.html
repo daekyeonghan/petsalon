@@ -111,38 +111,8 @@
             </div>
         </nav> -->
         <!-- Main Center -->
-		<div class="hero-wrap" th:include="${center} ? ${center} : demoindex"></div>
+        <div class="hero-wrap" th:include="${center} ? ${center} : demoindex"></div>
         
-        <section class="page-section">
-        	<div style="width:100%;text-align:center;margin-bottom:5%;">
-        		<img width="60%" src="assets/img/dogmenu.png"/>
-        	</div>
-        	<div style="width:100%;text-align:center;">
-        		<img width="60%" src="assets/img/title.jpg"//>
-        	</div>
-        	<div class="row row-cols-1 row-cols-md-2 g-4" style="width:60%;margin:0 auto;">
-			  <div class="col">
-			    <div class="card">
-			      <img src="assets/img/service1.jpg" class="card-img-top" alt="...">
-			    </div>
-			  </div>
-			  <div class="col">
-			    <div class="card">
-			      <img src="assets/img/service2.jpg" class="card-img-top" alt="...">
-			    </div>
-			  </div>
-			  <div class="col">
-			    <div class="card">
-			      <img src="assets/img/service3.jpg" class="card-img-top" alt="...">
-			    </div>
-			  </div>
-			  <div class="col">
-			    <div class="card">
-			      <img src="assets/img/service4.jpg" class="card-img-top" alt="...">
-			    </div>
-			  </div>
-			</div>
-        </section>
         <a id="chatbot" href="#" data-bs-toggle="modal" data-bs-target="#modal_chatbot" class="img" style="position: fixed; top:86%; right: 3%; width:100px; background-image: url(assets/img/chatbot1.png); width:150px; height:100px; z-index:10;"></a>
         
 		<div class="modal fade" id="modal_chatbot" role="dialog" data-backdrop="static" data-keyboard="false">
@@ -169,7 +139,7 @@
 		</div>  
         <!-- footer -->
 		<footer class="footer py-4" style="width:100%;background-color:black;color:white;font-size:0.7em;">
-			<div class="container">
+			<div class="container" style="width:34%;margin:0 auto;text-align:center;">
 				<div class="row align-items-center">
 					<div class="col text-lg-start">(주)퍼스트클래스: 서울특별시 강남구 언주로 508 14층(역삼동, 서울상록빌딩)<br/>
 					대표이사 : 한대경 | 사업자등록번호 : 123-45-67890 | 통신판매신고번호 : 제2023-서울강남-12345호<br/>

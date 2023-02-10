@@ -48,10 +48,11 @@ public class ResvController {
 			model.addAttribute("designer",deservice.designerItem());
 			model.addAttribute("item", iservice.get());
 			model.addAttribute("schedule", scservice.get());
+			model.addAttribute("center", "resv");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "resv";
+		return "index";
 	}
 	
 	@RequestMapping("/resvOk")
@@ -97,10 +98,11 @@ public class ResvController {
 			model.addAttribute("item", iservice.get());
 			model.addAttribute("schedule", scservice.userSchedule(resv_no));
 			model.addAttribute("resv", rservice.get(resv_no));
+			model.addAttribute("center", "resvupdate");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "resvupdate";
+		return "index";
 	}
 	
 	@RequestMapping("/resvupdateOk")

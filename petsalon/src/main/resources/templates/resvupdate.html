@@ -5,7 +5,7 @@
 <script>
 function dogSelect(data){
 	document.getElementById('dog_id').value = data;
-	document.getElementById('dateaccordion').click();
+	document.getElementById('designeraccordion').click();
 }
 function designerSelect(data){
 	document.getElementById('designer_id').value = data;
@@ -65,12 +65,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function dateSelect(){
-	if(document.getElementById('resvdate').value == '달력에서 날짜를 선택하세요'){
+	const btn = document.getElementById('dateselectbtn');
+	if(document.getElementById('resvdate').value == '달력에서 날짜 선택'){
 		alert('예약 날짜를 선택하지 않았습니다');
-	}
-	if(resvdate == '예약이 불가한 날입니다'){
-		alert('예약 날짜를 다시 선택해주세요');
-	}else{
+	}else if(resvdate == '예약 불가'){
+		alert('예약이 불가한 날입니다. 다시 선택해주세요');
+	}else if(resvdate!='달력에서 날짜 선택' && resvdate!='예약 불가'){
 		if(document.getElementById('btnradio1').checked){
 			resvdate = resvdate.replace(' 13시', ' 11시');
 			resvdate = resvdate.replace(' 15시', ' 11시');
@@ -92,7 +92,8 @@ function dateSelect(){
 			resvdate = resvdate.replace(' 15시', ' 17시');
 		}
 		document.getElementById('sc_date').value = resvdate;
-		document.getElementById('designeraccordion').click();
+		btn.innerText = '완료';
+		btn.className = 'btn btn-info';
 	}
 }
 
@@ -142,11 +143,6 @@ $(document).ready(function(){
 		  	$('.dogselect').not($(this)).attr('class','btn dogselect btn-outline-dark').css('color','black');
 		  }
 	});
-	/* $('#timeselect').on('click',function(){
-		  if($('#timeselect').not($(this)).hasClass('btn-dark')){
-		  	$('#timeselect').not($(this)).attr('class','btn btn-outline-dark');
-		  }
-	}); */
 	$('.designerselect').on('click',function(){
 		  $(this).attr('class','btn designerselect btn-dark').css('color','white');
 		  if($('.designerselect').not($(this)).hasClass('btn-dark')){
@@ -165,12 +161,12 @@ $(document).ready(function(){
 		var designer_id = $('#resvForm>#designer_id').val();
 		var item_id = $('#resvForm>#item_id').val();
 		
-		if(dog_id == ''){
-			alert('강아지는 필수 선택사항입니다');
-			return;
-		}
 		if(sc_date == ''){
 			alert('예약 날짜는 필수 선택사항입니다');
+			return;
+		}
+		if(dog_id == ''){
+			alert('강아지는 필수 선택사항입니다');
 			return;
 		}
 		if(designer_id == ''){
@@ -211,41 +207,7 @@ $(document).ready(function(){
 		<script src='../dist/index.global.js'></script>
     </head>
     <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand" th:href="@{/}"><img src="assets/img/logo.svg" width="80px"/></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars ms-1"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                    <ul class="navbar-nav">
-                    	<li th:if="${session.logemail==null}" class="nav-item">
-                    		<a class="nav-link" th:href="@{/register}">회원가입</a>
-                    	</li>
-                    	<li th:unless="${session.logemail==null}" class="nav-item">
-                    		<a class="nav-link" style="color:white;font-weight:500;" id="welcome" th:text="${session.logname}+'님 환영해요'"></a>
-                    	</li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/resv}">예약</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/servicesintroduction}">이웃집하로 소개</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/review}">이용후기</a></li>
-                        <li class="nav-item dropdown">
-                        	<img class="person" data-bs-toggle="dropdown" src="assets/img/person.svg" width="20px"/>
-	                        <ul class="dropdown-menu dropdown-menu-dark">
-	                        	<li id="loginsub" th:if="${session.logemail==null}">
-	                        		<a class="dropdown-item" th:href="@{/login}">로그인</a>
-	                        	</li>
-	                        	<li id="mypagesub" th:unless="${session.logemail==null}">
-	                        		<div><a class="dropdown-item" th:href="@{/logout}">로그아웃</a></div>
-	                        		<div><a class="dropdown-item" th:href="@{/mypage}">마이페이지</a></div>
-	                        	</li>
-	                        </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <nav th:replace="fragments :: nav-top"></nav>
         <!-- Header-->
         <header class="bg-dark py-5" style="margin-top:120px;font-family:'Spoqa Han Sans Neo', 'sans-serif';">
             <div class="container px-4 px-lg-5 my-5">
@@ -258,41 +220,43 @@ $(document).ready(function(){
         <!-- Section-->
         <section class="py-5" style="margin-top:50px;font-family:'Spoqa Han Sans Neo', 'sans-serif';">
         	<div style="width:350px;margin:0 auto;margin-bottom:3%;text-align:center;font-size:1.2em;text-decoration:underline;"><img id="warning" src="assets/img/warning.svg" style="margin-bottom:0.8%;"/> 오늘 기준 2일 뒤부터 예약 가능합니다</div>
-		    <div style="width:80%;height:500px;margin:0 auto;margin-bottom:5%;border:1px solid #ddd;">
-			    <div style="width:55%;margin:0 auto;margin-bottom:3%;text-align:center;float:left;">
-				    <div id="calendar"></div>
-			    </div>
-			    <div id="dateinfo" style="width:45%;height:500px;margin:0 auto;margin-bottom:5%;text-align:center;border-left:1px solid #ddd;float:left;padding-top:12%;">
-			    	<div style="height:70%;">
-				    	<img id="calicon" src="assets/img/calendar3.svg" style="text-align:center;"/>
-				    	<input type="text" id="resvdate" name="resvdate" th:value="${#dates.format(schedule.sc_date, 'yyyy-MM-dd')}" style="width:200px;"/><br><br>
-				    	<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-				    	  <span>오전</span>&nbsp;
-						  <input th:if="${#dates.format(schedule.sc_date,'HH')}==11" type="radio" class="btn-check" name="btnradio" id="btnradio1" value="11" autocomplete="off" checked>
-						  <input th:unless="${#dates.format(schedule.sc_date,'HH')}==11" type="radio" class="btn-check" name="btnradio" id="btnradio1" value="11" autocomplete="off">
-						  <label class="btn btn-outline-dark" for="btnradio1">11시</label>
-						</div>
-						<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-						  <span>오후</span>&nbsp;
-						  <input th:if="${#dates.format(schedule.sc_date,'HH')}==13" type="radio" class="btn-check" name="btnradio" id="btnradio2" value="13" autocomplete="off" checked>
-						  <input th:unless="${#dates.format(schedule.sc_date,'HH')}==13" type="radio" class="btn-check" name="btnradio" id="btnradio2" value="13" autocomplete="off">
-						  <label class="btn btn-outline-dark" for="btnradio2">13시</label>
-						 
-						  <input th:if="${#dates.format(schedule.sc_date,'HH')}==15" type="radio" class="btn-check" name="btnradio" id="btnradio3" value="15" autocomplete="off" checked>
-						  <input th:unless="${#dates.format(schedule.sc_date,'HH')}==15" type="radio" class="btn-check" name="btnradio" id="btnradio3" value="15" autocomplete="off">
-						  <label class="btn btn-outline-dark" for="btnradio3">15시</label>
-						 
-						  <input th:if="${#dates.format(schedule.sc_date,'HH')}==17" type="radio" class="btn-check" name="btnradio" id="btnradio4" value="17" autocomplete="off" checked>
-						  <input th:unless="${#dates.format(schedule.sc_date,'HH')}==17" type="radio" class="btn-check" name="btnradio" id="btnradio4" value="17" autocomplete="off">
-						  <label class="btn btn-outline-dark" for="btnradio4">17시</label>
-						</div>
-					</div>
-					<hr>
-					<div style="height:30%;padding-top:2%;">
-			    		<button style="margin-left:3%;" type="button" class="btn btn-success" onclick="dateSelect();">날짜 선택</button>
-			    	</div>
-			    </div>
+		    <div class="card mb-3" style="max-width:70%;height:500px;margin:0 auto;">
+		  <div class="row g-0">
+		    <div class="col-md-4" id="calendar" style="width:60%;"></div>
+		    <div class="col-md-8" style="max-width:40%;border-left:1px solid #ddd;overflow:auto;">
+		      <div class="card-body" style="padding:0;">
+		        <div style="width:260px;height:350px;margin:0 auto;padding-top:60px;padding-left:30px;">
+		          <input type="text" id="resvdate" name="resvdate" th:value="${#dates.format(schedule.sc_date, 'yyyy-MM-dd')}" style="width:200px;font-size:1.2em;border:none;width:190px;height:40px;text-align:center;"/>
+			      <br><br>
+			      <div>
+		    	  	<div style="margin-bottom:2%;">
+			  		  	<span>오전</span><br>
+			  		  	<button th:if="${#dates.format(schedule.sc_date,'HH')}==11" class="btn dogselect btn-dark" id="btnradio1">11시</button>
+						<button th:unless="${#dates.format(schedule.sc_date,'HH')}==11" class="btn dogselect btn-outline-dark" id="btnradio1">11시</button>
+
+				  	</div>
+				  </div>
+				  <br>
+			  	  <div>
+				    <div>	
+					  	<span>오후</span><br>
+					  	<button th:if="${#dates.format(schedule.sc_date,'HH')}==13" style="margin-right:1%;" class="btn dogselect btn-dark" id="btnradio2">13시</button>
+						<button th:unless="${#dates.format(schedule.sc_date,'HH')}==13" style="margin-right:1%;" class="btn dogselect btn-outline-dark" id="btnradio2">13시</button>
+					  	<button th:if="${#dates.format(schedule.sc_date,'HH')}==15" style="margin-right:1%;" class="btn dogselect btn-dark" id="btnradio3">15시</button>
+						<button th:unless="${#dates.format(schedule.sc_date,'HH')}==15" style="margin-right:1%;" class="btn dogselect btn-outline-dark" id="btnradio3">15시</button>
+					  	<button th:if="${#dates.format(schedule.sc_date,'HH')}==17" class="btn dogselect btn-dark" id="btnradio4">17시</button>
+						<button th:unless="${#dates.format(schedule.sc_date,'HH')}==17" class="btn dogselect btn-outline-dark" id="btnradio4">17시</button>
+				    </div>
+				  </div>
+				</div>
+				<hr style="max-width:100%;">
+				<div style="max-width:50%;margin:0 auto;text-align:center;padding-top:30px;">
+					<button id="dateselectbtn" type="button" class="btn btn-success" onclick="dateSelect();">선택</button>
+		    	</div>
+		      </div>
 		    </div>
+		  </div>
+		</div>
         	<div class="accordion" id="accordionExample" style="width:70%;margin:0 auto;">
 			  <div class="accordion-item">
 			    <h2 class="accordion-header" id="headingOne">
@@ -318,7 +282,6 @@ $(document).ready(function(){
 			      </div>
 			    </div>
 			  </div>
-			  
 			  <div class="accordion-item">
 			    <h2 class="accordion-header" id="headingThree">
 			      <button id="designeraccordion" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -327,21 +290,21 @@ $(document).ready(function(){
 			    </h2>
 			    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
 			      <div class="accordion-body" style="height:550px;">
-			        <div class="designer_info" style="margin-top:20px;">
-			        	<div class="card-group" style="width:1800px;margin:0 auto;">
-						  <div class="card" th:each="designer:${designer}">
-						    <img th:if="${designer.designer_photo==''} or ${designer.designer_photo==null}" src="assets/img/logo.svg" class="card-img-top" alt="...">
-						    <img th:unless="${designer.designer_photo==''} or ${designer.designer_photo==null}" th:src="'assets/img/'+@{${designer.designer_photo}}" style="height:50%;" class="card-img-top" alt="...">
-						    <div class="card-body" style="text-align:center;">
-						      <h5 class="card-title" th:text="${designer.designer_name}"></h5>
-						      <p class="card-text"><small class="text-muted" th:text="${designer.designer_career}+'년 경력'"></small></p>
-						      <i class="card-text" th:text="'[ '+${designer.item_name}+' 전문 ]'"></i><br><br>
-						      <button th:if="${designer.designer_id}==${resv.designer_id}" type="button" class="btn designerselect btn-dark" id="designerselectbtn" th:value="${designer.designer_id}" th:onclick="designerSelect([[${designer.designer_id}]]);">선택</button>
-						      <button th:unless="${designer.designer_id}==${resv.designer_id}" type="button" class="btn designerselect btn-outline-dark" id="designerselectbtn" th:value="${designer.designer_id}" th:onclick="designerSelect([[${designer.designer_id}]]);">선택</button>
-						    </div>
-						  </div>
-						</div>
-			      	</div>
+			        <div class="row row-cols-1 row-cols-md-3 g-4">
+					  <div class="col" th:each="designer:${designer}">
+					    <div class="card h-100">
+					      <img th:if="${designer.designer_photo==''} or ${designer.designer_photo==null}" src="assets/img/logo.svg" class="card-img-top" alt="...">
+					      <img th:unless="${designer.designer_photo==''} or ${designer.designer_photo==null}" th:src="'assets/img/'+@{${designer.designer_photo}}" style="max-width:100%;height:300px;object-fit:fill;" class="card-img-top" alt="...">
+					      <div class="card-body" style="text-align:center;">
+					        <h5 class="card-title" th:text="${designer.designer_name}"></h5>
+					        <p class="card-text"><small class="text-muted" th:text="${designer.designer_career}+'년 경력'"></small></p>
+					        <i class="card-text" th:text="'[ '+${designer.item_name}+' 전문 ]'"></i><br><br>
+					        <button th:if="${designer.designer_id}==${resv.designer_id}" type="button" class="btn designerselect btn-dark" id="designerselectbtn" th:value="${designer.designer_id}" th:onclick="designerSelect([[${designer.designer_id}]]);">선택</button>
+				                     <button th:unless="${designer.designer_id}==${resv.designer_id}" type="button" class="btn designerselect btn-outline-dark" id="designerselectbtn" th:value="${designer.designer_id}" th:onclick="designerSelect([[${designer.designer_id}]]);">선택</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 			      </div>
 			  	</div>
 			  </div>
@@ -382,9 +345,8 @@ $(document).ready(function(){
 			    </div>
 			  </div>
 			</div>
-			
 			<div style="width:109px;margin:70px auto;">
-				<button type="button" class="btn btn-primary btn-lg" id="resvbtn">예약수정</button>
+				<button type="button" class="btn btn-lg" style="background-color:#ece2c4;" id="resvbtn">예약수정</button>
         	</div>
         </section>
         
@@ -437,7 +399,7 @@ $(document).ready(function(){
 		      </div>
 		      <div class="modal-body" th:each="resv:${resv}">
 		        <div class="mb-3">
-				  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" th:text="${resv.resv_ask}"></textarea>
+				  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="100자 이내로 작성해주세요" th:text="${resv.resv_ask}"></textarea>
 				</div>
 		      </div>
 		      <div class="modal-footer">
@@ -447,24 +409,6 @@ $(document).ready(function(){
 		    </div>
 		  </div>
 		</div>
-		
-        <!-- Footer-->
-        <footer class="footer py-4" style="width:100%;background-color:black;color:white;font-size:0.7em;">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col text-lg-start">(주)퍼스트클래스: 서울특별시 강남구 언주로 508 14층(역삼동, 서울상록빌딩)<br/>
-					대표이사 : 한대경 | 사업자등록번호 : 123-45-67890 | 통신판매신고번호 : 제2023-서울강남-12345호<br/>
-					개인정보관리 최고책임자 : 한대경 이사<br/>
-					Copyright &copy; by firstClass. Ltd. All rights reserved
-					<!-- </div>
-					<div class="col-lg-2 text-lg-start"></div>
-					<div class="col-lg-3 text-lg-start"></div>
-					<br>
-					<div class="col-lg-4 text-lg-start"></div> -->
-					</div>
-				</div>
-			</div>
-		</footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
