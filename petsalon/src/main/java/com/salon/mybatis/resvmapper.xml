@@ -89,4 +89,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		ORDER BY sc.sc_date desc
 	</select>
 	
+	<select id="itemrank" resultType="Resv">
+		SELECT res.item_id, i.item_name, i.item_photo, COUNT(*) AS cnt FROM resv res
+		INNER JOIN item i ON res.item_id = i.item_id GROUP BY item_id ORDER BY cnt desc LIMIT 3
+	</select>
+	
 </mapper>

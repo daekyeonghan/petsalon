@@ -88,16 +88,55 @@
 <body>
 <!-- <nav th:replace="fragments :: nav-top"></nav> -->
 <!-- <section style="width: 100%; border: 1px solid red;" > -->
-<section style="border:1px solid red;">
+
+
+<section style="border:0px solid red;" >
+	<div class="container mt-5" style="border:0px solid blue; font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
+		<div class="row" style="border:0px solid green;">
+			<div class="col" style="margin-right: 50px;">
+				<h5 class="fs-4 mt-1 mb-4" style="line-height: 150%;"><b>지금 뜨고있는 이웃집하로의</br> 가장 인기있는 스타일이에요</b></h5>
+			</div>
+			<div class="col">
+				<h5 class="fs-4 mt-4" style="line-height: 150%;"><b>따끈따끈 방금 등록된 리뷰</b></h5>
+			</div>
+		</div>
+		<div class="row" style="border:0px solid black;">
+			<div class="col-md" style="border:0px solid green; height: 500px; margin-right: 50px;">
+				<div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
+				  <div class="carousel-inner" >
+				    <div class="carousel-item" th:each="itemrankImage, itemrankImageStat : ${itemrank}" th:classappend="${itemrankImageStat.index} == 0 ? 'active'">
+				      <img th:src="'/assets/img/'+ ${itemrankImage.item_photo}" class="img-fluid w-100 rounded" alt="..." style="min-height: 500px; max-height: 500px;">
+				      <div class="carousel-caption">
+						<h5 class="fs-3" th:text="${itemrankImage.item_name}"></h5>
+					  </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+			<div style="border-left: 1px solid silver; height: 500px; position:absolute; left: 50%;"></div>
+			<div class="col-md" style="border:0px solid green; height: 400px;">
+				<div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
+				  <div class="carousel-inner" >
+				    <div class="carousel-item" th:each="recentreviewImage, recentreviewImageStat : ${recentreview}" th:classappend="${recentreviewImageStat.index} == 0 ? 'active'">
+				      <img th:src="'/assets/img/'+ ${recentreviewImage.review_photo}" class="img-fluid w-100 rounded" alt="..." style="min-height: 500px; max-height: 500px;">
+				      <div class="carousel-caption">
+						<h5 class="fs-3" th:text="${recentreviewImage.review_title}"></h5>
+					  </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </section>
-<!-- </section> -->
-<section class="page-section" id="review" style="border:1px solid red;">
+<section class="page-section" id="review" style="border:0px solid red;">
+	<div class="text-center review-header" style="font-family:'Spoqa Han Sans Neo', 'sans-serif';">
+		<h2 class="section-heading text-uppercase">review</h2>
+		<h5><b>아이들의 가장 예쁜 모습들입니다</b></h5>
+	</div>
             <div class="container" style="max-width: 90%;">
-                <div class="text-center review-header">
-                    <h2 class="section-heading text-uppercase">review</h2>
-                    <h5>아이들의 가장 예쁜 모습들입니다</h5>
-                </div>
+                
                 <div class="col-lg-12" id="review-bar">
 	                	<button type="button" id="review_add" name="review_plus" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button>
 	                	<div id="selectdiv">
@@ -135,8 +174,8 @@
                 </div>
             </div>
         </section>
-<section style=" border:1px solid red;">
-        <div class="container" style="border:1px solid blue;">
+<section style=" border:0px solid red;">
+        <div class="container" style="border:0px solid blue;">
 	<div class="row">
 	<div class="col-lg-10 col-xl-8 mx-auto">
                 <div class="p-5 bg-white shadow rounded">

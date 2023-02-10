@@ -75,4 +75,8 @@ public class ResvService implements MyService<Integer, Resv>{
 	public List<Resv> reviewvisitcheck(String useremail) throws Exception {
 		return mapper.reviewvisitcheck(useremail);
 	}
+	
+	public List<Resv> itemrank() throws Exception {
+		return mapper.itemrank();
+	}
 }

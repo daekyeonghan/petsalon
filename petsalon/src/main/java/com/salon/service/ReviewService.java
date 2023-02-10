@@ -72,5 +72,9 @@ public class ReviewService implements MyService<Integer, Review>{
 	public Review reviewcount(Integer resv_no) throws Exception {
 		return mapper.reviewcount(resv_no);
 	}
+	
+	public List<Review> recentreview() throws Exception {
+		return mapper.recentreview();
+	}
 
 }

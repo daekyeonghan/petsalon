@@ -31,6 +31,10 @@ public class Resv {
 	private String cancel;
 	private int review_no;
 	
+	//item rank
+	private String item_photo;
+	private int cnt;
+	
 	public Resv(int resv_no, String resv_ask, int resv_fix) {
 		super();
 		this.resv_no = resv_no;

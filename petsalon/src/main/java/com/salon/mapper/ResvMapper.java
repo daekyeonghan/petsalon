@@ -20,4 +20,5 @@ public interface ResvMapper extends MyMapper<Integer, Resv>{
 	public List<Resv> resvdelchk(String useremail) throws Exception;
 	public List<Resv> reviewvisit(String useremail) throws Exception;
 	public List<Resv> reviewvisitcheck(String useremail) throws Exception;
+	public List<Resv> itemrank() throws Exception;
 }

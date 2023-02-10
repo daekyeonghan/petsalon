@@ -51,8 +51,10 @@ public class ReviewController {
 		String uemail = (String)session.getAttribute("logemail");
 		List<Review> list = null;
 		List<Review> notnullist = null;
+		List<Review> recentreview = null;
 		List<Resv> resvlist = null;
 		List<Resv> checkresv = null;
+		List<Resv> itemrank = null;
 		int review_count = 0;
 		int resv_count = 0;
 		
@@ -63,6 +65,8 @@ public class ReviewController {
 			resvlist = reservice.emailselect(uemail);
 			checkresv = reservice.resvcheck(uemail);
 			notnullist = reviewservice.notnullreview();
+			itemrank = reservice.itemrank();
+			recentreview = reviewservice.recentreview();
 			
 			model.addAttribute("resvcnt", resv_count);
 			model.addAttribute("reviewcnt", review_count);
@@ -71,6 +75,8 @@ public class ReviewController {
 			model.addAttribute("notnullist", notnullist);
 			model.addAttribute("center", reviewdir+"review_main");
 			model.addAttribute("checkresv", checkresv);
+			model.addAttribute("itemrank", itemrank);
+			model.addAttribute("recentreview", recentreview);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
