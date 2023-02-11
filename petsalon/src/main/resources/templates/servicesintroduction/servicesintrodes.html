@@ -83,41 +83,7 @@ function intromap(){
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand" th:href="@{/}"><img src="assets/img/logo.svg" width="80px"/></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars ms-1"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                    <ul class="navbar-nav">
-                    	<li th:if="${session.logemail==null}" class="nav-item">
-                    		<a class="nav-link" th:href="@{/register}">회원가입</a>
-                    	</li>
-                    	<li th:unless="${session.logemail==null}" class="nav-item">
-                    		<a class="nav-link" style="color:white;font-weight:500;" id="welcome" th:text="${session.logname}+'님 환영해요'"></a>
-                    	</li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/resv}">예약</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/servicesintroduction}">이웃집하로 소개</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/review}">이용후기</a></li>
-                        <li class="nav-item dropdown">
-                        	<img class="person" data-bs-toggle="dropdown" src="assets/img/person.svg" width="20px"/>
-	                        <ul class="dropdown-menu dropdown-menu-dark">
-	                        	<li id="loginsub" th:if="${session.logemail==null}">
-	                        		<a class="dropdown-item" th:href="@{/login}">로그인</a>
-	                        	</li>
-	                        	<li id="mypagesub" th:unless="${session.logemail==null}">
-	                        		<div><a class="dropdown-item" th:href="@{/logout}">로그아웃</a></div>
-	                        		<div><a class="dropdown-item" th:href="@{/mypage}">마이페이지</a></div>
-	                        	</li>
-	                        </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+     <nav th:replace="fragments :: nav-top"></nav>
         <!-- Header-->
         <header class="bg-dark py-5" style="margin-top:60px;font-family:'Spoqa Han Sans Neo', 'sans-serif';">
             <div class="container px-4 px-lg-4 my-4">
