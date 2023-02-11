@@ -11247,6 +11247,7 @@ p {
 
 .page-section {
   padding: 6rem 0;
+  flex:1;
 }
 .page-section h2.section-heading, .page-section .section-heading.h2 {
   font-size: 2.5rem;
@@ -11537,7 +11538,7 @@ p {
 	background-color:#5F5F5F;
 	color:white;
 }
-#doginfo>#updateform>#updatebtn,#doginfo>#updateform>#delbtn,#myinfo>#updateform>#updatebtn{
+#doginfo>#updateform>#updatebtn,#doginfo>#updateform>#delbtn{
 	width:100px;
 	height:40px;
 	font-size:1.1em;
@@ -11545,6 +11546,16 @@ p {
 	border-radius:15px 15px;
 	background-color:white;
 	color:#6633FF;
+	border-style:thin;
+}
+#myinfo>#updateform>div>#updatebtn{
+	width:100px;
+	height:40px;
+	font-size:1.1em;
+	border-radius:15px 15px;
+	background-color:#ece2c4;
+	color:black;
+	border:none;
 	border-style:thin;
 }
 #doginfo>#updateform>#delbtn{
@@ -11720,8 +11731,8 @@ p {
 	text-align:center;
 	border:1px solid #ddd;
 	border-radius:10px;
-	background-color:orange;
-	color:white;
+	background-color:#ece2c4;
+	color:black;
 }
 #userResv #resv_modify>#resv_apply, #userResv #resv_modify>#resv_update, #userResv #resv_modify>#resv_del{
 	width:100px;
@@ -11766,7 +11777,6 @@ p {
 	text-align:center;
 }
 footer{
-	width:900px;
 	height:100px;
 	margin:0 auto;
 }
@@ -11824,12 +11834,12 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../assets/img/KakaoTalk_20230113_204932840_01.jpg");
+  background-image: url("../assets/img/main.jpg");
   opacity:0.8;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
-  background-size: cover;
+  background-size: 100% 130%;
 }
 header.masthead .masthead-subheading {
   font-size: 1.5rem;
@@ -11848,7 +11858,7 @@ header.masthead .masthead-heading {
 
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 17rem;
+    padding-top: 18rem;
     padding-bottom: 12.5rem;
   }
   header.masthead .masthead-subheading {

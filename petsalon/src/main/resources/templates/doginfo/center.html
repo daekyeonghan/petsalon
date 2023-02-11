@@ -1,7 +1,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
-</script>
+<style>
+#updatedogbtn{
+width:80px;height:40px;color:white;border-color:white;border-radius:10px;background-color:#6633FF;font-size:1.05em;
+}
+</style>
 <div id="dogtitle">My dog</div>
 <div th:if="${nodogList==1}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
 	<div class="alert alert-danger" role="alert" style="width:500px;margin:10% auto;text-align:center;">
@@ -15,16 +18,18 @@
 	<div class="card mb-3" style="max-width:540px;margin:0 auto;" th:each="dog : ${dogList}">
 	  <div class="row g-0">
 	    <div class="col-md-4" style="width:150px;margin:12% auto;text-align:center;">
-	      <img th:if="${dog.dog_photo==''} or ${dog.dog_photo==null}" src="assets/img/logo.svg" style="width:125px;height:125px;border-radius:50%;">
-		  <img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="@{${dog.dog_photo}}" style="width:125px;height:125px;border-radius:50%;">
+	      <img th:if="${dog.dog_photo==''} or ${dog.dog_photo==null}" src="assets/img/logo.svg" style="width:140px;height:140px;border-radius:50%;">
+		  <img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="@{${dog.dog_photo}}" style="width:140px;height:140px;border-radius:50%;">
 	    </div>
 	    <div class="col-md-8">
-	      <div class="card-body">
+	      <div class="card-body" style="font-size:1.05em;">
 	        <h5 class="card-title" th:text="${dog.dog_name}"></h5><br>
 	        <p class="card-text" th:text="'견종 | '+${dog.dog_breed}"></p>
 	        <p class="card-text" th:text="'나이 | '+${dog.dog_age}"></p>
 	        <p class="card-text" th:text="'성별 | '+${dog.dog_gender}"></p>
-	        <p class="card-text"><small class="text-muted"><button id="updatedogbtn" type="button" style="width:80px;height:40px;color:white;border-color:white;border-radius:10px;background-color:#6633FF;font-size:1.05em;" th:onclick="|location.href='@{/updatedog(dog_id=${dog.dog_id})}'|">수정</button></small></p>
+	        <div style="float:right;margin-right:10%;">
+	        	<p class="card-text"><small class="text-muted"><button id="updatedogbtn" type="button" th:onclick="|location.href='@{/updatedog(dog_id=${dog.dog_id})}'|">수정</button></small></p>
+	      	</div>
 	      </div>
 	    </div>
 	  </div>

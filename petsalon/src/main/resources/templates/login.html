@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script th:replace="fragments :: boot"></script>
 <script>
 $(document).ready(function(){
 	var cnt = 1;
@@ -88,7 +89,7 @@ function loginchk(){
         <!-- Navigation-->
         <nav th:replace="fragments :: nav-top"></nav>
         <!-- Login -->
-        <section class="page-section" id="login" style="height:653px;">
+        <section class="page-section" id="login">
         	<form name="loginform" id="loginform" method="post" style="border-radius:10px;background-color:#f8f2e277;">
         		<input type="hidden" id="result" th:value="${session.result}"/>
                 <h3>로그인</h3><br>

@@ -2,20 +2,50 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<style>
+.carousel-inner {
+border:1px solid red;width:70%;margin:0 auto;
+}
+.carousel-item{
+text-align:center;
+}
+</style>
 </head>
 <body>
         <!-- Masthead-->
         <header class="masthead">
-            <div class="container">
+            <div class="container" style="position: relative;top: 190px;">
                 <div class="masthead-subheading">우리집 강아지 미모 프로젝트</div>
                 <div class="masthead-heading text-uppercase">이웃집 하로</div>
                 <a class="btn btn-primary btn-xl text-uppercase" th:href="@{/resv}">예약하러 가기</a>
             </div>
         </header>
         <section class="page-section">
-        	<div style="width:100%;text-align:center;margin-bottom:5%;">
-        		<img width="60%" src="assets/img/dogmenu.png"/>
-        	</div>
+        	<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+			  <div class="carousel-inner">
+			    <div class="carousel-item active">
+			      <img src="assets/img/haro.png" style="max-height:400px;max-width:60%;" class="d-block w-100" alt="...">
+			      <div class="carousel-caption d-none d-md-block">
+			        <h5>이웃집 하로 컷 메뉴</h5>
+			      </div>
+			    </div>
+			    <div class="carousel-item" th:each="item:${item}">
+				  	<div class="col">
+		      			<div class="card h-100">
+					    	<img th:src="'assets/img/'+@{${item.item_photo}}" style="margin-left:15%;max-height:700px;max-width:50%;object-fit:cover;" alt="...">
+					  	</div>
+					</div>
+			    </div>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
         	<div style="width:100%;text-align:center;">
         		<img width="60%" src="assets/img/title.jpg"//>
         	</div>
