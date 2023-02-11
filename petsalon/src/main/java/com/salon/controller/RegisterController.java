@@ -73,6 +73,28 @@ public class RegisterController {
 		}
 	}
 	
+	@RequestMapping("/pwdmodify")
+	public String pwdmodify(Model model, User user) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException,
+	NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
+		String useremail = user.getUseremail();
+		String userpwd = user.getUserpwd();
+		System.out.println(useremail);
+		String enc_userpwd = CryptoUtil.sha512(userpwd);
+		
+		user.setUserpwd(enc_userpwd);
+		System.out.println(enc_userpwd);
+		try {
+			service.resetpwd(enc_userpwd, useremail);
+			System.out.println("OK");
+			model.addAttribute("center",regidir+"pwdresetok");
+		} catch (Exception e) {
+			System.out.println("FAIL");
+			e.printStackTrace();
+		}
+		
+		return "main";
+	}
+	
 	
 
 

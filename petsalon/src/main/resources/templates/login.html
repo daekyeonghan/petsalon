@@ -4,6 +4,21 @@
 <script th:replace="fragments :: boot"></script>
 <script>
 $(document).ready(function(){
+	
+	activateJoinbtn();
+	
+	$('#resetbtn').click(function(){
+		var c = confirm('비밀번호를 재설정 하시겠습니까?');
+		if(c == true) {
+			$('#reset_pwd').attr({
+				'enctype':'multipart/form-data',
+				'method':'post',
+				'action':'[[@{/pwdmodify}]]'
+			});
+			$('#reset_pwd').submit();
+		};
+	});
+	
 	var cnt = 1;
 	var result = $('#result').val();
 	if(result==1) alert('아이디 혹은 비밀번호를 잘못 입력하셨습니다');
@@ -25,7 +40,274 @@ $(document).ready(function(){
 	$('.close').click(function(){
 		document.getElementById('addAnswer').remove();
 	});
+	
+	$('#mail-Check-Btn').click(function() {
+		const eamil = $('#useremail').val(); // 이메일 주소값 얻어오기!
+		console.log('완성된 이메일 : ' + eamil); // 이메일 오는지 확인
+		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+		
+		$.ajax({
+			type : 'get',
+			url : '/mailCheck?email='+eamil, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+			success : function (data) {
+				console.log("data : " +  data);
+				checkInput.attr('disabled',false);
+				code =data;
+				alert('인증번호가 전송되었습니다.')
+			}			
+		}); // end ajax
+	}); // end send eamil
+	
+	// 인증번호 비교 
+	// blur -> focus가 벗어나는 경우 발생
+	$('.mail-check-input').blur(function () {
+		const inputCode = $(this).val();
+		const $resultMsg = $('#mail-check-warn');
+		const pwdInput = $('#userpwd');
+		const pwd2Input = $('#userpwd2');
+		
+		if(inputCode === code){
+			$resultMsg.html('인증번호가 일치합니다.');
+			$resultMsg.css('color','green');
+			$('#mail-Check-Btn').attr('disabled',true);
+			$('#useremail').attr('readonly',true);
+			$('#useremail').attr('readonly',true);
+			pwdInput.attr('disabled',false);
+			pwd2Input.attr('disabled',false);
+			$("#resetbtn").prop("disabled", false);
+	         /* $("#nextbtn").prop("disabled", false); */
+	         emailCheck = 1;
+		}else{
+			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+			$resultMsg.css('color','red');
+			pwdInput.attr('disabled',true);
+			pwd2Input.attr('disabled',true);
+			$("#resetbtn").prop("disabled", true);
+			/* $("#nextbtn").prop("disabled", true); */
+			emailCheck = 0;
+		}
+	});
 });
+	
+	function regMemberid(useremail) {
+		   var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+\.[a-zA-Z]{2,3}$/;
+		   return regExp.test(useremail);   
+		}
+	
+	function regPhoneNumber(tel) {
+		   var regExp = /^01[0-1]?\d{3,4}?\d{4}$/;
+		   return regExp.test(tel);
+	}
+	
+	function regMemberName(username) {
+		   var regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+		   return regExp.test(username);
+		}
+	
+	function regPassword(userpwd) {
+		   var regExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+		   return regExp.test(userpwd);
+		}
+	
+	var idCheck = 0;
+	var phoneCheck = 0;
+	var emailCheck = 0;
+	var nameCheck = 0;
+	var checkinput = 0;
+	var pwdCheck = 0;
+	var pwCheck = 0;
+	
+	function checkId() {
+		   var inputed = $('#useremail').val();
+		   $.ajax({
+		      data : {
+		         useremail : inputed //입력한 값을 mId라는 변수에 담음
+		      },
+		      url : "checkid", // data를 checkid url에 보냄 (Controller에서 받아처리한다. 중복이 되면 1, 아니면 0을 반환하는 함수를 구현했다.)
+		      success : function(data) {
+		         if(data == '1') { //아이디가 중복되었을 때
+		            /* $("#fail").css("display", "block"); */ //에러메세지를 띄운다
+		            $("#mailform").css("display","none"); //중복에러메세지 말고 다른 에러 메세지를 지운다.
+		            $("#mailcon").css("display","none");
+		            $("#mail-Check-Btn").prop("disabled", true);
+		            /* $("#mail-Check-Btn").css("background-color", "#aaaaaa"); */
+		            $("#inputnotcorrect").css("display", "none");
+		            /* $("#useremail").css("background-color", "#FFCECE"); */
+		            idCheck = 1;
+		         } else if (regMemberid(inputed) == false) {
+		            $("#mailform").css("display","block");
+		            $("#mailcon").css("display","none");
+		            $("#fail").css("display","none");
+		            $("#mail-Check-Btn").prop("disabled", true);
+		            /* $("#mail-Check-Btn").css("background-color", "#aaaaaa"); */
+		            $("#inputnotcorrect").css("display", "block");
+		            /* $("#useremail").css("background-color", "#FFCECE"); */
+		            idCheck = 0;
+		         } else if( data == '0' && regMemberid(inputed)) { //중복되지않고, 정규식을 통과할 때
+		            /* $("#useremail").css("background-color", "white"); */
+		            $("#mailform").css("display","none");
+		            $("#fail").css("display","none");
+		            $("#mailcon").css("display","block");
+		            $("#inputnotcorrect").css("display", "block");
+		            idCheck = 0;  
+		         }
+		      }
+		   });
+		}
+	
+	function checkName() {
+		   var inputed = $('#username').val(); //이름에 입력한 값
+		   $.ajax({
+		      success: function() {
+		         if(regMemberName(inputed) == false || inputed.length > 18) { //입력한 값이 정규표현식에 해당되지 않을 때와 18자 이상이 넘을 때 
+		            $("#mail-Check-Btn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+		            /* $("#mail-Check-Btn").css("background-color", "#aaaaaa"); */ //버튼 회색으로 바꾸기 
+		           /*  $("#username").css("background-color", "#FFCECE"); */  // input 배경 붉은색으로 바꾸기
+		            $("#usernameck").css("display", "block");
+		            nameCheck = 1; // 회원 가입 전 값들 체크하기 위해 (0은 불가, 1은 가능)
+		         } else if(regMemberName(inputed) == true) { //정규표현식에 해당할 때
+		            /* $("#username").css("background-color", "#B0F6AC"); */ // input 배경 초록색으로 바꾸기
+		            $("#usernameck").css("display", "none");
+		            nameCheck = 0;
+		         }
+		      }
+		   })
+		}
+	
+	function checkTel() {
+		   var inputed = $('#tel').val();
+		   
+		   $.ajax({
+		      success: function() {
+		         if(regPhoneNumber(inputed) ==  false) {
+		        	$("#mail-Check-Btn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+		            /* $("#tel").css("background-color", "#FFCECE"); */
+		            inputed = $('#tel').val();
+		            $("#telck").css("display", "block");
+		            phoneCheck = 0;
+		         }
+		         else if(regPhoneNumber(inputed)== true) {
+		            /* $("#tel").css("background-color", "#B0F6AC"); */
+		            $("#telck").css("display", "none");
+		            phoneCheck = 1;
+		         }
+		      }
+		   })
+		}
+	
+	function checkInputCor() {
+		   var inputed1 = $('#username').val();
+		   var inputed2 = $('#tel').val();
+		   var inputed3 = $('#useremail').val();
+		   $.ajax({
+		      data : {
+		    	  username : inputed1,
+		    	  tel : inputed2,
+		         useremail : inputed3 //입력한 값을 mId라는 변수에 담음
+		      },
+		      url : "findpwdcorrect", // data를 checkid url에 보냄 (Controller에서 받아처리한다. 중복이 되면 1, 아니면 0을 반환하는 함수를 구현했다.)
+		      success : function(data) {
+		         if(data == '1') { //아이디가 중복되었을 때 
+		        	 $("#inputcorrect").css("display", "block");
+		        	 $("#inputnotcorrect").css("display", "none");
+		        	 $("#fail").css("display","none");
+		        	 $("#mail-Check-Btn").prop("disabled", false);
+		        	 checkinput = 1;
+		         } else {
+		        	 $("#mail-Check-Btn").prop("disabled", true);
+		        	 $("#inputcorrect").css("display", "none");
+		        	 checkinput = 0;
+		         }
+		      }
+		   });
+		}
+	
+	function checkPwd() {
+		   var inputed = $('#userpwd').val();
+		   $.ajax({
+		      success: function() {
+		         if(regPassword(inputed) == false || inputed.length > 25) {
+		            /* $(".joinbtn").prop("disabled", true);
+		            $(".joinbtn").css("background-color", "#aaaaaa"); */
+		            $("#failpwd").css("display", "block");
+		            $("#userpwdok").css("display", "none"); 
+		            /* $('#userpwd2').attr('disabled',true); */
+		            /* $("#userpwd").css("background-color", "#FFCECE"); */
+		            pwdCheck = 0;
+		         } else if(regPassword(inputed) == true) {
+		        	 /* $('#userpwd2').attr('disabled',false); */
+		            /* $("#userpwd").css("background-color", "#B0F6AC"); */
+		            $("#failpwd").css("display", "none");
+		             $("#userpwdok").css("display", "block"); 
+		            pwdCheck = 1;
+		         }
+		      }
+		   })
+		}
+		function checkPwd2() {
+		   var inputed = $('#userpwd2').val();
+		   var inputed1 = $('#userpwd').val();
+		   
+		   $.ajax({
+		      success: function() {
+		         if(inputed != inputed1) {
+		            $(".joinbtn").prop("disabled", true);
+		            $(".joinbtn").css("background-color", "#aaaaaa");
+		            /* $("#userpwd2").css("background-color", "#FFCECE"); */
+		            $("#userpwd2no").css("display", "block");
+		            $("#userpwd2ok").css("display", "none");
+		            $("#resetbtn").prop("disabled", true);
+		            pwCheck = 0;
+		         } else if(inputed == inputed1) {
+		            /* $("#userpwd2").css("background-color", "#B0F6AC"); */
+		            $("#userpwd2ok").css("display", "block");
+		            $("#userpwd2no").css("display", "none"); resetbtn
+		            $("#resetbtn").prop("disabled", false);
+		            pwCheck = 1;
+		         }
+		      }
+		   })
+		}
+		
+		function activateresetbtn() {
+					
+					$.ajax({
+					      success: function() {
+					    	
+		
+						   if(pwCheck == 1 && emailCheck == 1) {
+							   $("#resetbtn").prop("disabled", false);
+							     /*  $("#nextbtn").prop("disabled", true);    */
+							      /* $("#joinbtn").css("background-color", "#B0F6AC"); */
+							   }
+							   else  {
+								   $("#resetbtn").prop("disabled", true);
+							     /*  $("#nextbtn").prop("disabled", true); */
+							   }
+		
+					}
+					});
+				}
+			
+			function activateJoinbtn() {
+				
+				$.ajax({
+				      success: function() {
+				    	
+		
+					   if(idCheck == 1 && nameCheck == 1 && phoneCheck == 1 && emailCheck == 1 && checkinput == 1) {
+						   
+						     /*  $("#nextbtn").prop("disabled", true);    */
+						      /* $("#joinbtn").css("background-color", "#B0F6AC"); */
+						   }
+						   else  {
+						     /*  $("#nextbtn").prop("disabled", true); */
+						   }
+		
+				}
+				});
+			}
+
 
 function chatbot(){
 	var divQ = document.createElement('div');
@@ -139,9 +421,9 @@ function loginchk(){
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
-		        <div class="mb-3">
-				  <label for="useremail" class="form-label">이메일</label>
-				  <input type="text" id="useremail" name="useremail" class="form-control" placeholder="예) id@example.com" oninput="checkId(), activateJoinbtn()"/>
+		        <!-- <div class="mb-3">
+				  <label for="useremail2" class="form-label">이메일</label>
+				  <input type="text" id="useremail2" name="useremail2" class="form-control" placeholder="예) id@example.com" oninput="checkId(), activateJoinbtn()"/>
 				  <font color = "red" id = "mailform" style = "display:none">올바른 이메일 형식이 아닙니다</font>
 				  <font color = "red" id = "fail" style = "display:none">이미 존재하는 이메일입니다</font>
 				  <font color = "green" id = "mailcon" style = "display:none">사용 가능한 이메일입니다</font>
@@ -150,11 +432,10 @@ function loginchk(){
 				  <input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요" disabled="disabled">
 				  <span><input type="button" class="form-control btn btn-secondary text-dark" id="mail-Check-Btn" value="인증 요청" style="background-color:#ece2c4;"></span>
 				</div>
-				<span class="mb-3" id="mail-check-warn"></span>
+				<span class="mb-3" id="mail-check-warn"></span> -->
 		      </div>
 		      <div class="modal-footer">
-		        <button id="closebtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-		        <button id="askbtn" type="button" class="btn btn-primary" onclick="askregister();">등록</button>
+		        <button id="closebtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 		      </div>
 		    </div>
 		  </div>
@@ -168,35 +449,61 @@ function loginchk(){
 		        <h1 class="modal-title fs-5" id="exampleModalLabel">비밀번호 찾기</h1>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
-		      <div class="modal-body">
+		      	<div class="modal-body">
+		      	<div class="mb-3">
+							<label for="username" class="form-label">이름</label>
+							<input type="text" id="username" name="username" class="form-control" placeholder="이름" oninput="checkName(),activateJoinbtn(), checkInputCor()"/>
+							<font color = "red" id = "usernameck" style = "display:none">한글만 입력해주세요</font>
+				</div>
+				<div class="mb-3">
+							<label for="tel" class="form-label">연락처</label>
+							<input type="text" id="tel" name="tel" class="form-control" placeholder="예) 01012345678" oninput="checkTel(), activateJoinbtn(), checkInputCor()"/>
+							<font color = "red" id = "telck" style = "display:none">숫자만 입력해주세요</font>
+				</div>
+				<form id="reset_pwd">
 		        <div class="mb-3">
-				  <label for="useremail" class="form-label">이메일</label>
-				  <input type="text" id="useremail" name="useremail" class="form-control" placeholder="예) id@example.com" oninput="checkId(), activateJoinbtn()"/>
-				  <font color = "red" id = "mailform" style = "display:none">올바른 이메일 형식이 아닙니다</font>
-				  <font color = "red" id = "fail" style = "display:none">이미 존재하는 이메일입니다</font>
-				  <font color = "green" id = "mailcon" style = "display:none">사용 가능한 이메일입니다</font>
-				</div>
-				<div class="input-group">
-				  <input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요" disabled="disabled">
-				  <span><input type="button" class="form-control btn btn-secondary text-dark" id="mail-Check-Btn" value="인증 요청" style="background-color:#ece2c4;"></span>
-				</div>
+							<label for="useremail" class="form-label">이메일</label>
+							<input type="text" id="useremail" name="useremail" class="form-control" placeholder="예) id@example.com" oninput="checkId(), activateJoinbtn(), checkInputCor()"/>
+							<font color="red" id="mailform" style= "display:none">올바른 이메일 형식이 아닙니다</font>
+							<font color="red" id="fail" style= "display:none">이미 존재하는 이메일입니다</font>
+							<font color="green" id="mailcon" style= "display:none">사용 가능한 이메일입니다</font>
+							<font color="green" id="inputcorrect" style= "display:none">비밀번호 찾기가 가능합니다 '본인인증' 버튼을 눌러주세요.</font>
+							<font color="red" id="inputnotcorrect" style= "display:none">일치하는 정보가 없습니다. 입력 정보를 다시 확인해주세요.</font>
+							
+							
+						</div>
+						<div class="input-group">
+							<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요" disabled="disabled">
+							<span><input type="button" class="form-control btn btn-secondary text-dark" id="mail-Check-Btn" value="본인인증" style="background-color:#ece2c4;" disabled></span>
+						</div>
 				<span class="mb-3" id="mail-check-warn"></span>
+				
+						<div class="mt-3 mb-3">
+							<label for="userpwd" class="form-label">재설정 비밀번호</label>
+							<input type="password" id="userpwd" name="userpwd" class="form-control" placeholder="영문자+숫자+특수조합(8~25자리 입력)" oninput="checkPwd(), activateresetbtn()" disabled/>
+							<font color = "red" id = "failpwd" style = "display:none">비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다</font>
+							<font color = "green" id = "userpwdok" style = "display:none">사용 가능한 비밀번호입니다</font>
+						</div>        
+						<div class="mb-3">
+							<label for="userpwd2" class="form-label">비밀번호 재확인</label>
+							<input type="password" id="userpwd2" name="userpwd2" class="form-control" placeholder="비밀번호 재확인" oninput ="checkPwd2(), activateresetbtn()" disabled/>
+							<font color = "green" id = "userpwd2ok" style = "display:none">비밀번호가 일치합니다</font>
+							<font color = "red" id = "userpwd2no" style = "display:none">비밀번호가 일치하지 않습니다</font>
+						</div>
+						<button id="resetbtn" type="button" class="btn btn-secondary text-dark" style="background-color:#ece2c4; float: right;" disabled>비밀번호 재설정</button>
+				</form>
 		      </div>
+		      
 		      <div class="modal-footer">
-		        <button id="closebtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-		        <button id="askbtn" type="button" class="btn btn-primary" onclick="askregister();">등록</button>
+		        <button id="cancelbtn" type="button" class="btn btn-secondary text-dark" data-bs-dismiss="modal" style="background-color:#ece2c4;">확인</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
+		
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>

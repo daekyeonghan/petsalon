@@ -4,9 +4,9 @@
 <!-- FullCalendar -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.1/index.global.min.js'></script>
 <script src='../dist/index.global.js'></script>
-<script th:replace="fragments :: boot"></script>
 <script th:inline="javascript">
 function movedoginfo(){
+	var cnt = 1;
 	location.href = '/doginfo';
 }
 function dogSelect(data){
@@ -289,7 +289,7 @@ $(document).ready(function(){
 			        강아지 선택
 			      </button>
 			    </h2>
-			    <div class="alert alert-info" role="alert" style="max-width:500px;text-align:center;margin:10% auto;">
+			    <div class="alert alert-info" role="alert" style="width:500px;text-align:center;margin:10% auto;">
 				  등록한 강아지 정보가 없습니다. &nbsp;&nbsp;
 				  <button type="button" class="btn btn-light" onclick="movedoginfo();">강아지 정보 등록하기</button>
 				</div>

@@ -74,7 +74,7 @@ function open_Postcode(){  //다음 카카오 주소찾기
 };
 </script>
 <div id="infotitle">Information</div>
-<section class="page-section" id="myinfo" style="width:60%;margin:0 auto;">
+<section class="page-section" id="myinfo">
 	<form name="updateform" id="updateform" class="validation-form" method="post" th:action="@{/updateuser}" novalidate>
 		<div class="mb-3">
 			<label for="useremail" class="form-label">이메일</label>
@@ -111,9 +111,6 @@ function open_Postcode(){  //다음 카카오 주소찾기
 			<input type="text" id="detaddr" name="detaddr" th:value="${user.detaddr}" class="form-control"/>
 			<div class="invalid-feedback">주소를 입력하세요</div>
 		</div>
-		<br>
-		<div style="width:23%;margin:0 auto;">
-			<button id="updatebtn" onclick="updatechk()">정보 수정</button>
-		</div>
+		<button id="updatebtn" onclick="updatechk()">정보 수정</button>
     </form>
 </section>

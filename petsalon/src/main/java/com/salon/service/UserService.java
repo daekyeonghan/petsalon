@@ -52,5 +52,14 @@ public class UserService implements MyService<String, User>{
 		int result = mapper.checkId(useremail);
 		return result;
 	}
+	
+	public int findpwdcorrect(String username, String tel, String useremail) {
+		return mapper.findpwdcorrect(username, tel, useremail);
+	}
+	
+	public void resetpwd(String userpwd, String useremail) throws Exception {
+		mapper.resetpwd(userpwd, useremail);
+	}
+	
 
 }

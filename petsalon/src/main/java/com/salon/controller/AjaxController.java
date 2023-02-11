@@ -21,6 +21,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,6 +60,18 @@ public class AjaxController {
 		}
 		return pwd;
 	}
+	
+	@RequestMapping(value = "/findpwdcorrect", method = {RequestMethod.GET})
+	public @ResponseBody int findpwdcorrect(String username, String tel, String useremail) {
+		if(username == null || username == "" || tel == null || tel == "" || useremail == null || useremail == "") {
+			return -1;
+		}else {
+			return uservice.findpwdcorrect(username, tel, useremail);
+			
+		}
+		
+	}
+
 	@RequestMapping("/weekSchedule")
 	public Object weekSchedule() {
 		List<Schedule> resvlist = null;

@@ -35,5 +35,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="checkId" parameterType = "String" resultType = "int">
  	 	SELECT COUNT(*) FROM user WHERE useremail = #{useremail}
  	 </select>
+ 	 
+ 	<select id="findpwdcorrect" parameterType = "String" resultType = "int">
+		SELECT COUNT(*) FROM user WHERE username=#{username} AND tel=#{tel} AND useremail = #{useremail}
+	</select>
+	
+	<update id="resetpwd" parameterType="String">
+		UPDATE user SET userpwd=#{userpwd} WHERE useremail=#{useremail}
+	</update>
 	
 </mapper>
