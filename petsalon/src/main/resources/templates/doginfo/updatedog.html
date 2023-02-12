@@ -60,7 +60,7 @@ function deletechk(){
 }
 </script>
 <div id="doginfo">
-	<form name="updateform" id="updateform" method="post" enctype="multipart/form-data">
+	<form name="dogupdateform" id="dogupdateform" method="post" enctype="multipart/form-data">
 		<input type="hidden" id="dog_id" name="dog_id" th:value="${dog.dog_id}">
 		<div class="mb-3">
 			<label for="dog_name" class="form-label">강아지 이름을 알려주세요!</label>
@@ -103,7 +103,9 @@ function deletechk(){
 			<label for="dog_special" class="form-label">특이사항이 있다면?</label><br>
 			<textarea id="dog_special" name="dog_special" th:value="${dog.dog_special}" style="width:600px;border-radius:5px;" maxlength="300"></textarea>
 		</div>
-		<button id="updatebtn" onclick="updatechk()">정보 수정</button>
-		<button id="delbtn" onclick="deletechk()">정보 삭제</button>
+		<div style="width:35%;margin-left:30%;">
+			<button id="updatebtn" onclick="updatechk()">정보 수정</button>
+			<button id="delbtn" onclick="deletechk()">정보 삭제</button>
+		</div>
     </form>
 </div>

@@ -87,6 +87,38 @@ $(document).ready(function(){
 			emailCheck = 0;
 		}
 	});
+	
+	$('#findemailbtn').click(function(){
+		var username = $('#username').val();
+		var tel = $('#tel').val();
+		if(username==""){
+			alert("이름을 입력해주세요");
+			$('#username').focus();
+			return false;
+		}
+		if(tel==""){
+			alert("연락처를 입력해주세요");
+			$('#tel').focus();
+			return false;
+		}
+		$.ajax({
+			data:{
+				"username":username, 
+				"tel":tel
+			},
+			url:'[[@{/findemail}]]',
+			success:function(data){
+				if(data==""){
+					alert("등록되지 않은 회원입니다. 이름과 연락처를 올바르게 입력했는지 확인하세요");
+				}else {
+					$('#emailresult').css('display','block');
+					$('#emailresult').text('회원님의 가입 이메일은 '+data+'입니다 (도메인 제외)');
+				}
+			},error:function(){
+				alert("error");
+			}
+		});
+	});
 });
 	
 	function regMemberid(useremail) {
@@ -352,6 +384,17 @@ function loginchk(){
 	form.submit();
 }
 </script>
+<style>
+#emailresult{
+display:none;max-width:100%;margin:5% auto;text-align:center;
+}
+#emailfooter{
+max-width:100%;text-align:center;
+}
+#findemailbtn{
+background-color:#ece2c4;font-family: 'Spoqa Han Sans Neo', 'sans-serif';border:thin;height:40px;width:120px;
+}
+</style>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -372,7 +415,7 @@ function loginchk(){
         <nav th:replace="fragments :: nav-top"></nav>
         <!-- Login -->
         <section class="page-section" id="login">
-        	<form name="loginform" id="loginform" method="post" style="border-radius:10px;background-color:#f8f2e277;">
+        	<form name="loginform" id="loginform" method="post" style="border-radius:20px;background-color:#f8f2e277;">
         		<input type="hidden" id="result" th:value="${session.result}"/>
                 <h3>로그인</h3><br>
                 <input type="text" name="email" id="email" placeholder="이메일"/><br><br>
@@ -421,18 +464,20 @@ function loginchk(){
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
-		        <!-- <div class="mb-3">
-				  <label for="useremail2" class="form-label">이메일</label>
-				  <input type="text" id="useremail2" name="useremail2" class="form-control" placeholder="예) id@example.com" oninput="checkId(), activateJoinbtn()"/>
-				  <font color = "red" id = "mailform" style = "display:none">올바른 이메일 형식이 아닙니다</font>
-				  <font color = "red" id = "fail" style = "display:none">이미 존재하는 이메일입니다</font>
-				  <font color = "green" id = "mailcon" style = "display:none">사용 가능한 이메일입니다</font>
+		        <div class="mb-3">
+					<label for="username" class="form-label">이름</label>
+					<input type="text" id="username" name="username" class="form-control" placeholder="이름" oninput="checkName(),activateJoinbtn(), checkInputCor()"/>
+					<font color = "red" id = "usernameck" style = "display:none">한글만 입력해주세요</font>
 				</div>
-				<div class="input-group">
-				  <input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요" disabled="disabled">
-				  <span><input type="button" class="form-control btn btn-secondary text-dark" id="mail-Check-Btn" value="인증 요청" style="background-color:#ece2c4;"></span>
+				<div class="mb-3">
+					<label for="tel" class="form-label">연락처</label>
+					<input type="text" id="tel" name="tel" class="form-control" placeholder="예) 01012345678" oninput="checkTel(), activateJoinbtn(), checkInputCor()"/>
+					<font color = "red" id = "telck" style = "display:none">숫자만 입력해주세요</font>
 				</div>
-				<span class="mb-3" id="mail-check-warn"></span> -->
+				<div class="mb-3" id="emailfooter">
+					<button id="findemailbtn">이메일 찾기</button>
+ 					<div id="emailresult"></div>
+				</div>
 		      </div>
 		      <div class="modal-footer">
 		        <button id="closebtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>

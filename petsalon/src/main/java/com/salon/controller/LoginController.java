@@ -51,6 +51,7 @@ public class LoginController {
 				if(user.getUserpwd().equals(pwd)) {
 					session.setAttribute("logemail", email);
 					session.setAttribute("logname", user.getUsername());
+					session.setAttribute("logpwd", user.getUserpwd());
 					mav.setViewName("redirect:/");
 				}else {
 					session.setAttribute("result", 1);

@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.salon.dto.Item;
 import com.salon.dto.Shop_Notice;
+import com.salon.service.ItemService;
 import com.salon.service.Shop_NoticeService;
 
 @Controller
@@ -18,10 +20,18 @@ public class MainController {
 	
 	@Autowired
 	Shop_NoticeService snservice;
+	@Autowired
+	ItemService iservice;
 	
 	@RequestMapping("/")
 	public String main(Model model) {
 		model.addAttribute("center", "demoindex");
+		try {
+			List<Item> list = iservice.get();
+			model.addAttribute("item", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "index";
 	}
 	

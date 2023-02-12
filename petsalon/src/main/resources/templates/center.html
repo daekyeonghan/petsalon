@@ -23,7 +23,7 @@ function moveresv(){
 		<img th:unless="${resv.dog_photo==null} or ${resv.dog_photo==''}" th:src="@{${resv.dog_photo}}" style="width:70px;height:70px;border-radius:50%">
 	</div>
 	
-	<div id="resv_head">
+	<div id="resv_head" style="padding-top:1%;">
 		<div id="dog_name" th:text="${resv.dog_name}"></div>
 		<div id="sc_date" th:text="${resv.sc_date}"></div>
 	</div>

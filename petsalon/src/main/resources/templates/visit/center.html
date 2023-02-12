@@ -13,9 +13,9 @@ function moveresv(){
 	</div>
 	
 	<div id="visit_content">
-		<div id="sc_date" th:text="${noreview.sc_date}" style="margin-left:22%;"></div>
-		<div id="content" th:text="${noreview.dog_name}+' | '+${noreview.designer_name}+'디자이너님께 '+${noreview.item_name}+'을 받았어요!'"></div>
-		<button type="button" class="btn btn-primary mx-auto d-block mt-3" th:onclick="|location.href='@{/review_write(no=${noreview.resv_no})}'|">리뷰작성</button>
+		<div id="sc_date" th:text="${noreview.dog_name}+' | '+${noreview.sc_date}"></div>
+		<div id="content" th:text="${noreview.designer_name}+'디자이너님께 '+${noreview.item_name}+'을 받았어요!'"></div>
+		<button style="background-color:#5f9ea0;color:white;" type="button" class="btn mx-auto d-block mt-3" th:onclick="|location.href='@{/review_write(no=${noreview.resv_no})}'|">리뷰작성</button>
 	</div>
 </div>
 <!--  -->
@@ -24,11 +24,10 @@ function moveresv(){
 		<img th:if="${visit.dog_photo==null} or ${visit.dog_photo==''}" src="assets/img/logo.svg" style="max-width:150px;height:150px;border-radius:50%;">
 		<img th:unless="${visit.dog_photo==null} or ${visit.dog_photo==''}" th:src="@{${visit.dog_photo}}" style="width:150px;height:150px;border-radius:50%">
 	</div>
-	
 	<div id="visit_content">
-		<div id="sc_date" th:text="${visit.sc_date}" style="margin-left:22%;"></div>
-		<div id="content" th:text="${visit.dog_name}+' | '+${visit.designer_name}+'디자이너님께 '+${visit.item_name}+'을 받았어요!'"></div>
-		<button type="button" class="btn btn-light mx-auto d-block mt-3" th:onclick="|location.href='@{/reviewview(no=${visit.review_no},resv_no=${visit.resv_no})}'|">리뷰확인</button>
+		<div id="sc_date" th:text="${visit.dog_name}+' | '+${visit.sc_date}"></div>
+		<div id="content" th:text="${visit.designer_name}+'디자이너님께 '+${visit.item_name}+'을 받았어요!'"></div>
+		<button style="background-color:#ece2c4;color:black;" type="button" class="btn mx-auto d-block mt-3" th:onclick="|location.href='@{/reviewview(no=${visit.review_no},resv_no=${visit.resv_no})}'|">리뷰확인</button>
 	</div>
 </div>
 

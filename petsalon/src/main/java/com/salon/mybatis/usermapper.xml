@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="findemail" resultType="String">
-		SELECT useremail FROM user WHERE username=#{username} AND tel=#{tel}
+		SELECT CONCAT(REPLACE(SUBSTRING_INDEX(useremail,'@',1),RIGHT(SUBSTRING_INDEX(useremail,'@',1),LENGTH(SUBSTRING_INDEX(useremail,'@',1))/2),'***')) useremail FROM user WHERE username=#{username} AND tel=#{tel}
 	</select>
 	
 	<select id="findpwd" resultType="String">

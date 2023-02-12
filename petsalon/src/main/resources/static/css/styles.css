@@ -11516,7 +11516,7 @@ p {
 #updateform{
 	width:95%;
 	height:700px;
-	margin-left:30px;
+	margin-left:25%;
 	overflow:auto;
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 	font-size:0.9em;
@@ -11532,28 +11532,62 @@ p {
 	width:400px;
 	height:30px;
 }
+#dogupdateform{
+	width:95%;
+	height:700px;
+	overflow:auto;
+	margin-left:5%;
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+	font-size:0.9em;
+}
+#dogupdateform input[type="text"]{
+	width:250px;
+	height:30px;
+}
+#dogupdateform input[type="file"]{
+	margin-top:10px;
+}
+#dogupdateform input[name="addr"],#updateform input[name="detaddr"]{
+	width:400px;
+	height:30px;
+}
 #postcode_button{
 	margin-left:10px;
 	background-color:#5F5F5F;
 	color:white;
 }
-#doginfo>#updateform>#updatebtn,#doginfo>#updateform>#delbtn,#myinfo>#updateform>#updatebtn{
+#doginfo>#dogupdateform>div>#updatebtn,#doginfo>#dogupdateform>div>#delbtn{
 	width:100px;
-	height:40px;
+	height:50px;
 	font-size:1.1em;
 	margin-top:0px;
+	margin-right:4%;
 	border-radius:15px 15px;
-	background-color:white;
-	color:#6633FF;
-	border-style:thin;
+	background-color:#f8f2e277;
+	border:none;
+}
+#doginfo>#dogupdateform>div>#updatebtn:hover,#doginfo>#dogupdateform>div>#delbtn:hover{
+	background-color:#ece2c4;
+}
+#myinfo>#updateform>div>#updatebtn{
+	background-color:#f8f2e277;
+	color:black;
+	width:100px;
+	height:45px;
+	border-radius:10px;
+	border:thin;
+	font-size:1.1em;
 }
 #doginfo>#updateform>#delbtn{
 	margin-left:12px;
 }
-#doginfo>#updateform>#updatebtn:hover,#doginfo>#updateform>#delbtn:hover,#myinfo>#updateform>#updatebtn:hover{
+#doginfo>#updateform>#updatebtn:hover,#doginfo>#updateform>#delbtn:hover{
 	background-color:#6633FF;
 	color:white;
 	border:white;
+}
+#myinfo>#updateform>div>#updatebtn:hover{
+	background-color:#ece2c4;
 }
 #dogmanage{
 	width:100%;
@@ -11616,10 +11650,10 @@ p {
 	width:130px;
 	height:50px;
 	border-radius:10px;
+	background-color:#f8f2e277;
 }
 #addbtn>#add:hover{
-	background-color:#FF9F3E;
-	color:white;
+	background-color:#ece2c4;
 }
 #addform{
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
@@ -11720,8 +11754,8 @@ p {
 	text-align:center;
 	border:1px solid #ddd;
 	border-radius:10px;
-	background-color:orange;
-	color:white;
+	background-color:#ece2c4;
+	color:black;
 }
 #userResv #resv_modify>#resv_apply, #userResv #resv_modify>#resv_update, #userResv #resv_modify>#resv_del{
 	width:100px;
@@ -11755,15 +11789,12 @@ p {
 #visit>#visit_content{
 	width:450px;
 	margin:0 auto;
-	margin-top:50px;
+	margin-top:8%;
+	margin-left:28%;
 }
 #visit>#visit_content>#sc_date{
 	font-size:1.2em;
 	font-weight:bold;
-	text-decoration:underline;
-}
-#visit>#visit_content>#content{
-	text-align:center;
 }
 footer{
 	width:900px;
@@ -11824,7 +11855,7 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../assets/img/KakaoTalk_20230113_204932840_01.jpg");
+  background-image: url("../assets/img/main.jpg");
   opacity:0.8;
   background-repeat: no-repeat;
   background-attachment: scroll;

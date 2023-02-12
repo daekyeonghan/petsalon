@@ -2,22 +2,101 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<style>
+@font-face {
+    font-family: 'PuradakGentleGothicR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.1/PuradakGentleGothicR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+#cuttitle,#specialtitle{
+font-size:4.0em;text-align:center;
+font-family: 'Lobster', cursive;color:#1A1A3A;
+width:50%;margin:0 auto;border-radius:10px;
+}
+#carouselExampleIndicators{
+width:70%;
+height:420px;
+margin:0 auto;
+padding-bottom:10%;
+}
+#cutdisplay{
+max-width:100%;height:420px;font-family: 'PuradakGentleGothicR';
+font-size:2vw;display:flex;justify-content: center;
+}
+#cutdisplay>p{
+margin:0 auto;
+}
+#cutdisplay>p:nth-child(1){
+margin-bottom:2%;
+}
+#mainheader>a{
+background-color:#ece2c4;color:black;
+}
+.carousel-inner {
+width:70%;
+height:420px;
+margin:0 auto;
+}
+.carousel-item{
+max-width:100%;
+}
+#cutcard{
+width:100%;height:420px;
+}
+h5{
+font-family:'Spoqa Han Sans Neo', 'sans-serif';
+color:black;background-color:#f8f2e277;width:200px;margin:0 auto;height:50px;line-height:50px;
+}
+</style>
 </head>
 <body>
         <!-- Masthead-->
         <header class="masthead">
-            <div class="container">
-                <div class="masthead-subheading">우리집 강아지 미모 프로젝트</div>
+            <div class="container" id="mainheader" style="position:relative;top:100px;">
+                <div class="masthead-subheading">반려견 미모 프로젝트</div>
                 <div class="masthead-heading text-uppercase">이웃집 하로</div>
-                <a class="btn btn-primary btn-xl text-uppercase" th:href="@{/resv}">예약하러 가기</a>
+                <a class="btn btn-xl text-uppercase" th:href="@{/resv}">예약하러 가기</a>
             </div>
         </header>
         <section class="page-section">
-        	<div style="width:100%;text-align:center;margin-bottom:5%;">
-        		<img width="60%" src="assets/img/dogmenu.png"/>
+        	<div id="cuttitle">
+        		<p>Haro's Cut</p>
         	</div>
-        	<div style="width:100%;text-align:center;">
-        		<img width="60%" src="assets/img/title.jpg"//>
+        	<div id="carouselExampleIndicators" class="carousel slide">
+			  <div class="carousel-inner">
+				  <div class="carousel-item active" style="text-align:center;">
+				  	<div class="card" id="cutdisplay">
+				  		<p style="max-width:35%;">이웃집 하로는</p>
+				  		<p style="max-width:58%;background-color:#f8f2e277;">이렇게 스타일링합니다</p>
+				  	</div>
+			      </div>
+			      <div class="carousel-item" th:each="item:${item}">
+				    <div class="card" id="cutcard">
+				      <img th:src="'assets/img/'+@{${item.item_photo}}" class="card-img-top" style="max-width:120%;height:420px;" alt="...">
+				      <div class="carousel-caption d-none d-md-block">
+				        <h5 th:text="${item.item_name}"></h5>
+				      </div>
+				    </div>
+			      </div>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color:black;border-radius:50%;"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color:black;border-radius:50%;"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
+			<br><br><br><br>
+			<hr style="width:55%;margin:0 auto;">
+			<br><br><br><br>
+        	<div id="specialtitle">
+        		<p>Haro's Special</p>
         	</div>
         	<div class="row row-cols-1 row-cols-md-2 g-4" style="width:60%;margin:0 auto;">
 			  <div class="col">
