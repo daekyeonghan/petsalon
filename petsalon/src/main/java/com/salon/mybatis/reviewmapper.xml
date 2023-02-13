@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		INNER JOIN resv rv ON rv.resv_no = re.resv_no
         INNER JOIN dog d ON re.dog_id = d.dog_id
         INNER JOIN schedule sc ON sc.resv_no = rv.resv_no
-        INNER JOIN designer de ON de.designer_id = sc.designer_id WHERE rv.resv_fix = 1
+        INNER JOIN designer de ON de.designer_id = sc.designer_id WHERE rv.resv_fix = 1 ORDER BY re.review_date desc
 	</select>
 	
 	<select id="searchreview" resultType="Review">
@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		INNER JOIN resv rv ON rv.resv_no = re.resv_no
         INNER JOIN dog d ON re.dog_id = d.dog_id
         INNER JOIN schedule sc ON sc.resv_no = rv.resv_no
-        INNER JOIN designer de ON de.designer_id = sc.designer_id WHERE rv.resv_fix = 1 and de.designer_id=#{designer_id}
+        INNER JOIN designer de ON de.designer_id = sc.designer_id WHERE rv.resv_fix = 1 and de.designer_id=#{designer_id} ORDER BY re.review_date desc
 	</select>
 	
 	<select id="review_count" parameterType="String" resultType="Integer">

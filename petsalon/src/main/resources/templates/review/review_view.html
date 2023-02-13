@@ -23,19 +23,15 @@
 		.review-answer {padding-left: 5px;}
 		.review-title {padding-left: 5px;}
 		.review-head {padding-left: 5px;}
-		@font-face {
-		    font-family: 'SUIT-Regular';
-		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-		    font-weight: normal;
-		    font-style: normal;
-		}
-		#review-text {font-family: 'SUIT-Regular';}
 		
 		
 	</style>
 </head>
 <meta charset="UTF-8">
 <script>
+
+	var useremail = '[[${session.logemail}]]';	// 로그인한 사람 이메일
+	var emailmatch = '[[${rvs.useremail}]]';	//후기글 작성자 이메일
 
 	$(document).ready(function(){
 		var title = document.querySelector('input[name=review_title]').value.length;
@@ -152,6 +148,9 @@
 		});
 	    
 	    $('#delbtn').click(function(){
+	    	var useremail = '[[${session.logemail}]]';	// 로그인한 사람 이메일
+	    	var emailmatch = '[[${rvs.useremail}]]';	//후기글 작성자 이메일
+	    	
 	    	if(useremail ==  emailmatch){
 	    		var c = confirm('삭제 하시겠습니까?');
 		    	if(c == true){
@@ -229,7 +228,7 @@
 <body>
 
 
-<section class="page-section bg-light" id="review">
+<section class="page-section bg-light" id="review" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
 <div style="height: 100px;"></div>
 <form>
 <div class="container">
@@ -318,8 +317,8 @@
 	</div>
 	<div class="filebox mb-3">
 	  <label for="formFile" class="form-label mr-5">사진</label>
-	  <img id="previewImg" class="mx-auto d-block mt-3 mb-3" style="width: 300px; height: 300px;">
-	   <input class="form-control" type="text" name="originname" th:value="${rvs.review_photo}" style="display:none;">
+	  <img id="previewImg" class="mx-auto d-block mt-3 mb-3" th:src="'/assets/img/'+ ${rvs.review_photo}" style="width: 300px; height: 300px;">
+	   <input class="form-control" type="text" name="originname" style="display:none;">
 	  <input class="form-control upload-hidden" type="file" id="formFile" name="review_img"  />
 	</div>
 	<p class="text-center"><b>사진 미선택시 원본사진으로 등록됩니다</b></p>

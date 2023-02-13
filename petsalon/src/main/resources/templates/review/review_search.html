@@ -24,7 +24,7 @@
 		$(document).ready(function(){
 			
 			review_check();
-			window.scrollTo({ left: 0, top: 1500, behavior: "smooth" });
+			window.scrollTo({ left: 0, top: 1650, behavior: "smooth" });
 		});
 		
 		function review_check(){
@@ -75,10 +75,40 @@
 </head>
 <meta charset="UTF-8">
 <style>
+
 	#review-thumbnail{margin: auto;}
-	#review-bar{padding-left:15px; margin-top:110px; margin-bottom:20px;}
-	#designer_id{ width: 230px;}
-	#selectdiv{float:right;  padding-right: 36px;}
+	#review_add{background-color:#ece2c4; width:200px ;height: 70px;}
+	#review-img{
+		opacity: 1;
+		-webkit-transition: .3s ease-in-out;
+		transition: .3s ease-in-out;
+		cursor: pointer;
+	}
+	#review-img:hover {
+		opacity: .5;
+	}
+	
+	.review-title{
+		width: 100%; 
+		height: 30px; 
+		padding-left: 15px; 
+		padding-right: 15px; 
+		overflow: hidden; 
+		text-overflow: ellipsis; 
+		white-space: nowrap;
+	}
+	
+	#recreview-title{
+		width:620px;
+		max-width: 100%;
+		height: 45px;
+		padding-top: 5px;
+		padding-left: 30px;
+		padding-right: 30px;
+		overflow: hidden; 
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 
 </style>
 </head>
@@ -102,12 +132,10 @@
 				<h5 class="fs-4 mt-1 mb-3" style="line-height: 150%;"><b>지금 뜨고있는 이웃집하로의</br> 가장 인기있는 스타일이에요</b></h5>
 				</div>
 				<div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
-				  <div class="carousel-inner" >
+				    <div class="carousel-inner" >
 				    <div class="carousel-item" th:each="itemrankImage, itemrankImageStat : ${itemrank}" th:classappend="${itemrankImageStat.index} == 0 ? 'active'">
 				      <img th:src="'/assets/img/'+ ${itemrankImage.item_photo}" class="img-fluid w-100 rounded" alt="..." style="min-height: 500px; max-height: 500px;">
-				      <div class="carousel-caption">
-						<h5 class="fs-3" th:text="${itemrankImage.item_name}"></h5>
-					  </div>
+						<div class="fs-4 text-center bg-white shadow rounded" th:text="${itemrankImage.item_name}" style="width:100%; height: 45px; padding-top: 5px; "></div>
 				    </div>
 				  </div>
 				</div>
@@ -118,30 +146,28 @@
 			</div>
 				<div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
 				  <div class="carousel-inner" >
-				    <div class="carousel-item" th:each="recentreviewImage, recentreviewImageStat : ${recentreview}" th:classappend="${recentreviewImageStat.index} == 0 ? 'active'">
-				      <img th:src="'/assets/img/'+ ${recentreviewImage.review_photo}" class="img-fluid w-100 rounded" alt="..." style="min-height: 500px; max-height: 500px;">
-				      <div class="carousel-caption">
-						<h5 class="fs-3" th:text="${recentreviewImage.review_title}"></h5>
-					  </div>
+				    <div class="carousel-item" th:onclick="|location.href='@{/reviewview(no=${recentreviewImage.review_no},resv_no=${recentreviewImage.resv_no})}'|" th:each="recentreviewImage, recentreviewImageStat : ${recentreview}" th:classappend="${recentreviewImageStat.index} == 0 ? 'active'">
+				      <img th:src="'/assets/img/'+ ${recentreviewImage.review_photo}"  class="img-fluid w-100 rounded" id="review-img" style="min-height: 500px; max-height: 500px;">
+						<div class="fs-4 text-center bg-white shadow rounded" th:text="${recentreviewImage.review_title}" id="recreview-title"></div>
 				    </div>
 				  </div>
 				</div>
 			</div>
+			<div><button type="button" id="review_add" name="review_plus" class="btn fs-3 mt-5 mx-auto d-block text-dark" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button></div>
 		</div>
 	</div>
 
 </section>
 <section id="review">
 	<div class="col"><img class="mx-auto d-block" src="/assets/img/review-banner.jpg" style="width: 80%; height: 10%;"> </div>
-            <div class="container" style="max-width: 90%;">
-                <div class="col-lg-12" id="review-bar">
-	                	<button type="button" id="review_add" name="review_plus" class="btn" data-bs-toggle="modal" data-bs-target="#addReviewModal" style="background-color:#ece2c4;">후기 작성하기</button>
-	                	<div id="selectdiv">
+            <div class="container" style="max-width: 100%;">
+                <div class="row" id="review-bar" style="border: 0px solid red;">
+	                	<div class="col-lg" id="selectdiv" style="border: 0px solid green; margin-top:4%;  padding-right: 4%;">
 		                    <form id="selectDesignerReview">
-								<select class="form-select" id="designer_id" name="designer_id" th:onchange="selectDesigner()" style="background-color:#ece2c4;">
-									<option value="" selected disabled>--디자이너별 후기검색--</option>
+								<select class="form-select mb-3" id="designer_id" name="designer_id" th:onchange="selectDesigner()" style="background-color:#ece2c4; width: 100px; float:right; margin-right: 10px;">
+									<!-- <option value="" selected disabled>--디자이너별 후기검색--</option> -->
 									<option value="all">전체</option>
-									<option th:each="d : ${notnullist}" th:value="${d.designer_id}" th:text="|${d.designer_name}|"></option>
+									<option th:each="d : ${notnullist}" th:value="${d.designer_id}" th:text="${d.designer_name}" th:selected="${d.designer_name}==${dsname}"></option>
 								</select>
 							</form>
 						</div>
@@ -150,18 +176,18 @@
                     <div id="review-thumbnail" class="row col-xl-3 mb-4" th:each="o : ${searchlist}">
                         <div class="review-item shadow rounded">
                             <a class="review-link" th:onclick="|location.href='@{/reviewview(no=${o.review_no},resv_no=${o.resv_no})}'|">
-                                <div class="review-hover" >
+                                <div class="review-hover mt-2" >
                                     <div class="review-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-thumbnail" th:if="${o.review_photo == ''} or ${o.review_photo == null}" src="assets/img/logo.svg"  style="width:430px; height:430px;"/>
-                                <img class="img-thumbnail" th:unless="${o.review_photo == ''} or ${o.review_photo == null}" th:src="'/assets/img/'+ ${o.review_photo}"  style="width:430px; height:430px;"/>
+                                <img class="img-fluid rounded mt-2" th:if="${o.review_photo == ''} or ${o.review_photo == null}" src="assets/img/logo.svg"  style="width:430px; height:430px;"/>
+                                <img class="img-fluid rounded mt-2" th:unless="${o.review_photo == ''} or ${o.review_photo == null}" th:src="'/assets/img/'+ ${o.review_photo}"  style="width:430px; height:430px;"/>
                             </a>
                             <div class="review-caption rounded-top" style="border:1px double #f8f8f8">
 	                            <div class="col mb-2">
 	                            	<span class="review-caption-heading" th:text="${o.dog_name}"></span>｜<span class="review-caption-subheading" th:text="${o.designer_name}"></span>
 	                            </div>
 	                            <div class="col">
-	                                <div style="width: 250px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden;" class="review-caption-subheading text-center" th:text="${o.review_title}"></div>
+	                                <div class="review-caption-subheading review-title text-center fs-5" th:text="${o.review_title}"></div>
 	                            </div>
                             </div>
                         </div>
