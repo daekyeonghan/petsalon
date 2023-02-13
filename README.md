@@ -43,10 +43,6 @@
 	<h3>📚 Tech Stack 📚</h3>
 	<p>✨ Languages ✨</p>
 </div>
-<div align="center">
-	<img src="https://user-images.githubusercontent.com/94223526/218358224-33e04c4b-a078-42e2-a313-1679dc721416.PNG" />
-	<br>
-</div>
 <br>
 <div align=center>
 	<p>✨ Platforms ✨</p>
@@ -62,3 +58,7 @@
 	<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />
 </div>
 <br>
+<div align="center">
+	<img src="https://user-images.githubusercontent.com/94223526/218358224-33e04c4b-a078-42e2-a313-1679dc721416.PNG" />
+	<br>
+</div>
