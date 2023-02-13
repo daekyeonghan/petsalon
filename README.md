@@ -33,15 +33,15 @@
 	<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />
 </div>
 <br>
+<div align="center">
+	<img src="https://user-images.githubusercontent.com/94223526/218358224-33e04c4b-a078-42e2-a313-1679dc721416.PNG" />
+	<br>
+</div>
+<br>
 <div>
 	<h2>데이터 베이스 설계</h2>
 	<p>eXERD를 이용하여 게시판 데이터베이스를 설계했습니다. 다음은 사용자 테이블(member), 게시판 테이블(board), 자료실 테이블(data), 댓글 테이블(replyBoard), 주소 테이블(zipcodeTbl)의 모습입니다.</p>
 	<img src="https://user-images.githubusercontent.com/94223526/218357924-369188fa-ef52-4ae7-954a-7fa538b53d8b.png" width=70%/>
-</div>
-<br>
-<div align="center">
-	<img src="https://user-images.githubusercontent.com/94223526/218358224-33e04c4b-a078-42e2-a313-1679dc721416.PNG" />
-	<br>
 </div>
 <br>
 <div>
