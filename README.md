@@ -7,25 +7,19 @@
 </div>
 <br>
 <div>
-	<h2>프로젝트 시작 전 설치</h2>
-	<ul>
-		<li>mybatis</li>
-		<li>spring jdbc</li>
-		<li>commons-io</li>
-		<li>commons-fileupload</li>
-		<li>gson</li>
-	</ul>
-</div>
-<br>
-<div>
 	<h2>시스템 구성도</h2>
-	<img src="https://user-images.githubusercontent.com/94223526/218357924-369188fa-ef52-4ae7-954a-7fa538b53d8b.png" width=70%/>
+	<img src="https://user-images.githubusercontent.com/94223526/218358178-032e8dc1-a50d-4976-b36f-cf94f6f9eeec.PNG" width=70%/>
 </div>
 <br>
 <div>
 	<h2>데이터 베이스 설계</h2>
 	<p>eXERD를 이용하여 게시판 데이터베이스를 설계했습니다. 다음은 사용자 테이블(member), 게시판 테이블(board), 자료실 테이블(data), 댓글 테이블(replyBoard), 주소 테이블(zipcodeTbl)의 모습입니다.</p>
 	<img src="https://user-images.githubusercontent.com/94223526/218357924-369188fa-ef52-4ae7-954a-7fa538b53d8b.png" width=70%/>
+</div>
+<br>
+<div>
+	<h2>프로젝트 일정</h2>
+	<img src="https://user-images.githubusercontent.com/94223526/218358280-77d4bc60-bdf9-40d9-86be-c39e5fb7c3e0.PNG" width=70%/>
 </div>
 <br>
 <div>
@@ -50,11 +44,7 @@
 	<p>✨ Languages ✨</p>
 </div>
 <div align="center">
-	<img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white" />
-	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
-	<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" />
-	<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white" />
-	<img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jQuery&logoColor=white" />
+	<img src="https://user-images.githubusercontent.com/94223526/218358178-032e8dc1-a50d-4976-b36f-cf94f6f9eeec.PNG" />
 	<br>
 </div>
 <br>
