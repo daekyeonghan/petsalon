@@ -15,8 +15,8 @@
 	<h2>사용 기술 및 도구</h2>
 </div>
 <div align=center>
-	<h3>📚 Tech Stack 📚</h3>
-	<p>✨ Languages ✨</p>
+	<h3>📚 Tech Stack 📚</h3><br>
+	<p>:mega: Languages :mega:</p>
 	<img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white" />
 	<img src="https://img.shields.io/badge/Html5-E34F26?style=flat&logo=Html5&logoColor=white" />
 	<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" />
@@ -69,4 +69,10 @@
 	<br>
 	<h4>4. 자료실 첨부파일 수정</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/209549703-1b656408-8f30-4cb9-87c0-7dac3aa08498.gif"/>
+</div>
+<br>
+<div>
+	<h2>트러블 슈팅</h2>
+	<p>프로젝트 진행 과정에서 발생한 오류와 그에 대한 해결 기록을 정리하였습니다.</p>
+	<p>링크 : https://www.notion.so/0f02a98327844caf9025f4c929f0ba8a?v=c40057dd76c14ba5a073886a0cb7bc74</p>
 </div>
