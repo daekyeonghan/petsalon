@@ -430,7 +430,15 @@ background-color:#ece2c4;font-family: 'Spoqa Han Sans Neo', 'sans-serif';border:
         <!-- Navigation-->
         <nav th:replace="fragments :: nav-top"></nav>
         <!-- Login -->
-        <section class="page-section" id="login">
+        <!-- <header class="bg-dark py-5" style="margin-top:120px;font-family:'Spoqa Han Sans Neo', 'sans-serif';">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">로그인</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">어서오세요, 이웃집 하로입니다</p>
+                </div>
+            </div>
+        </header> -->
+        <section class="page-section" id="login" style="height:450px;">
         	<form name="loginform" id="loginform" method="post" style="border-radius:20px;background-color:#f8f2e277;">
         		<input type="hidden" id="result" th:value="${session.result}"/>
                 <h3>로그인</h3><br>

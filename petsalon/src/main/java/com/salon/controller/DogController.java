@@ -38,7 +38,7 @@ public class DogController {
 				model.addAttribute("dogList", dogList);
 			}
 			model.addAttribute("left", dir+"left");
-			model.addAttribute("center", dir+"center");
+			model.addAttribute("content", dir+"content");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,7 +52,7 @@ public class DogController {
 			dog = dservice.get(dog_id);
 			model.addAttribute("dog", dog);
 			model.addAttribute("left", dir+"left");
-			model.addAttribute("center", dir+"updatedog");
+			model.addAttribute("content", dir+"updatedog");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -122,13 +122,13 @@ public class DogController {
 			e.printStackTrace();
 		}
 		model.addAttribute("left", dir+"left");
-		model.addAttribute("center", dir+"center");
+		model.addAttribute("content", dir+"content");
 		return "mypage";
 	}
 	@RequestMapping("/adddog")
 	public String adddog(Model model) {
 		model.addAttribute("left", dir+"left");
-		model.addAttribute("center", dir+"adddog");
+		model.addAttribute("content", dir+"adddog");
 		return "mypage";
 	}
 	@RequestMapping("/adddogOk")
@@ -184,7 +184,7 @@ public class DogController {
 			List<Dog> dogList = dservice.ownerdog((String)session.getAttribute("logemail"));
 			model.addAttribute("dogList", dogList);
 			model.addAttribute("left", dir+"left");
-			model.addAttribute("center", dir+"center");
+			model.addAttribute("content", dir+"content");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -211,7 +211,7 @@ public class DogController {
 			List<Dog> dogList = dservice.ownerdog((String)session.getAttribute("logemail"));
 			model.addAttribute("dogList", dogList);
 			model.addAttribute("left", dir+"left");
-			model.addAttribute("center", dir+"center");
+			model.addAttribute("content", dir+"content");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

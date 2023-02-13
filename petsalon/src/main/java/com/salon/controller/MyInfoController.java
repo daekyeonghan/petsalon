@@ -34,7 +34,7 @@ public class MyInfoController {
 			e.printStackTrace();
 		}
 		model.addAttribute("left", dir+"left");
-		model.addAttribute("center", dir+"center");
+		model.addAttribute("content", dir+"content");
 		return "mypage";
 	}
 	@RequestMapping("/updateuser")
@@ -52,7 +52,7 @@ public class MyInfoController {
 			e.printStackTrace();
 		}
 		model.addAttribute("left", dir+"left");
-		model.addAttribute("center", dir+"center");
+		model.addAttribute("content", dir+"content");
 		return "index";
 	}
 }

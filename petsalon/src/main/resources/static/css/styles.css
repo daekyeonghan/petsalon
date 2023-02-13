@@ -11349,6 +11349,12 @@ p {
     margin-right: 0;
   }
 }
+#login{
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform: translate(-50%,-50%);
+}
 #login>#loginform>h3{
 	margin-right:330px;
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
@@ -11356,12 +11362,9 @@ p {
 	color:#6633FF;
 }
 #login>#loginform{
-	margin: 100px auto;
+	margin: 0 auto;
 	padding: 30px 30px;;
 	text-align:center;
-	/* border:2px solid black;
-	border-radius:10px 10px;
-	border-color:black; */
 	width:600px;
 	height:400px;
 }
@@ -11462,7 +11465,7 @@ p {
 }
 #mypage{
 	width:1000px;
-	height:600px;
+	height:1100px;
 	margin:0 auto;
 }
 #mypage>aside{
