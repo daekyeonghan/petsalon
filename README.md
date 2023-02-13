@@ -3,7 +3,7 @@
 </div>
 <div>
 	<h2>프로젝트 소개</h2>
-	<p>백엔드 개발 수업을 수강하면서 게시판 만들기 사이드 프로젝트를 수행했습니다. 회원가입 및 로그인, 게시판에서 글 등록/수정/삭제, 자료실 첨부파일 등록/수정/삭제 등을 구현했습니다.</p>
+	<p>일반 반려견 미용실의 경우 SNS나 전화를 이용하여 예약이 이루어지는데, 이로 인해 예약 및 고객 문의 처리에 불필요한 시간이 소요되곤 합니다. 이에 따라 저희 퍼스트 클래스는 '반려견 미용실 예약 시스템'을 구축함으로써 해당 문제를 개선하고자 했습니다.</p>
 </div>
 <br>
 <div>
@@ -44,7 +44,7 @@
 	<p>✨ Languages ✨</p>
 </div>
 <div align="center">
-	<img src="https://user-images.githubusercontent.com/94223526/218358178-032e8dc1-a50d-4976-b36f-cf94f6f9eeec.PNG" />
+	<img src="https://user-images.githubusercontent.com/94223526/218358224-33e04c4b-a078-42e2-a313-1679dc721416.PNG" />
 	<br>
 </div>
 <br>
