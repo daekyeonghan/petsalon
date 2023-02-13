@@ -175,11 +175,12 @@ $(document).ready(function() {
   </div>
   <div class="row card-body">
     <div class="col-2 card-title">제목</div>
-    <div class="col-10 card-sub" th:text="${rep.review_title}" ></div>
+    <div class="col-10 card-sub" th:text="${rep.review_title}"></div>
   </div>
   <div class="row card-body">
     <div class="col-2 card-title">작성자</div>
-    <div class="col-10 card-sub" th:text="${rep.useremail}" ></div>
+    <div class="col-10 card-sub" th:text="${#strings.substring(#strings.substringBefore(rep.useremail,'@'),0,3) + #strings.repeat('*', #strings.length(#strings.substringBefore(rep.useremail,'@'))-3) +'@'+
+                            #strings.substring(#strings.substringAfter(rep.useremail,'@'),0,2) + '*****'}" ></div>
   </div>
   <div class="row card-body mb-30">
   	<div class="col-2 card-title">내용</div>

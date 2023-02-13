@@ -25,6 +25,9 @@ public class ShopController {
 	@Value("${admindir}")
 	String admindir;
 	
+	@Value("${userdir}")
+	String userdir;
+	
 	@RequestMapping("/shop")
 	public String main(Model model,@RequestParam(value = "page", defaultValue = "1") int page) {
 		List<Shop_Notice> snlist = null;
@@ -84,7 +87,7 @@ public class ShopController {
 		
 		try {
 			if(notice.getSn_img()!=null&&blankName.length()!=0){
-				String newName = ImgUtil.saveFile(notice.getSn_img(), admindir);
+				String newName = ImgUtil.saveFile(notice.getSn_img(), admindir, userdir);
 				notice.setSn_photo(newName);
 			}
 			
@@ -110,7 +113,7 @@ public class ShopController {
 		Shop_Notice sn = new Shop_Notice();
 		try {
 			sn = snservice.get(sn_no);
-			System.out.println(sn_no);
+	//		System.out.println(sn_no);
 			model.addAttribute("sn", sn);
 			model.addAttribute("path", dir + "shop_notice_update");
 			model.addAttribute("content", "main");
@@ -130,9 +133,9 @@ public class ShopController {
 
 		try {
 			if (sn.getSn_img() != null && blankName.length() != 0) {
-				String newName = ImgUtil.saveFile(sn.getSn_img(), admindir);
+				String newName = ImgUtil.saveFile(sn.getSn_img(), admindir, userdir);
 				sn.setSn_photo(newName);
-				ImgUtil.deleteFile(admindir, originname);
+				ImgUtil.deleteFile(admindir, userdir, originname);
 			} else {
 				sn.setSn_photo(originname);
 			}
@@ -159,7 +162,7 @@ public class ShopController {
 
 		try {
 			snservice.remove(no);
-			ImgUtil.deleteFile(admindir, filename);
+			ImgUtil.deleteFile(admindir, userdir, filename);
 			System.out.println("shop_notice deleted");
 			return "redirect:/shop";
 		} catch (Exception e) {

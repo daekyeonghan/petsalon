@@ -12,6 +12,7 @@ table {
   background-color: #fff;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
+  table-layout:fixed;
   }
  table thead {
   background-color: #ece2c4;
@@ -23,7 +24,7 @@ table {
   padding: 10px;
   font-weight: 400;
   color: #0e0e24;
-    font-size: 1.05rem;
+    font-size: 1rem;
 }
 
 table thead tr th svg,table thead tr th img {
@@ -37,7 +38,12 @@ table tbody tr td {
   color: #787878;
   font-size: 1.05rem;
   height:60px;
+  white-space : nowrap;
+  text-overflow:ellipsis; 
+  overflow:hidden ;
 }
+
+
 
 table tbody tr td svg,table tbody tr td img {
   height: 41px;
@@ -141,14 +147,14 @@ function addLi(totalPages){
 	<table>
 		<thead>
 		<tr class="table-header">
-			<th>글번호&nbsp;&nbsp;</th>
-			<th>아이디&nbsp;&nbsp;</th>
-			<th>작성자 &nbsp;&nbsp;</th>
-			<th>후기 제목&nbsp;&nbsp;</th>
-			<th>디자이너&nbsp;&nbsp;</th>
-			<th>강아지&nbsp;&nbsp;</th>
-			<th>사진&nbsp;&nbsp;</th>
-			<th>후기 작성 날짜&nbsp;&nbsp;</th>
+			<th scope="col" width="7%">글번호&nbsp;&nbsp;</th>
+			<th scope="col" width="10%">아이디&nbsp;&nbsp;</th>
+			<th scope="col" width="10%">작성자 &nbsp;&nbsp;</th>
+			<th scope="col" width="25%">후기 제목&nbsp;&nbsp;</th>
+			<th scope="col" width="10%">디자이너&nbsp;&nbsp;</th>
+			<th scope="col" width="10%">강아지&nbsp;&nbsp;</th>
+			<th scope="col" width="10%">사진&nbsp;&nbsp;</th>
+			<th scope="col" width="10%">후기 작성 날짜&nbsp;&nbsp;</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -160,11 +166,11 @@ function addLi(totalPages){
 			<td th:unless="${session.admin.admin_id=='admin01'}" th:text="${#strings.substring(#strings.substringBefore(re.useremail,'@'),0,3) + #strings.repeat('*', #strings.length(#strings.substringBefore(re.useremail,'@'))-3) +'@'+
                             #strings.substring(#strings.substringAfter(re.useremail,'@'),0,2) + '*****'}"></td>
                             <td th:text="${re.username}"></td>
-			<td><a th:href="@{/reviewPage(no=${re.review_no})}" th:text="${re.review_title}"></a></td>
+			<td><a th:href="@{/reviewPage(no=${re.review_no})}" th:text="${re.review_title}" ></a></td>
 			<td th:text="${re.designer_name}"></td>
 			<td th:text="${re.dog_name}"></td>
 			<td th:if="${re.review_photo == null || re.review_photo == ''}"><img src="/wkassets/img/logo.png"></td>
-			<td th:unless="${re.review_photo == null || re.review_photo == ''}"><img th:src="${re.review_photo}"></td>
+			<td th:unless="${re.review_photo == null || re.review_photo == ''}"><img th:src="'/jyassets/img/'+${re.review_photo}"></td>
 			<td th:text="${#calendars.format(re.review_date, 'YYYY-MM-dd')}"></td>
 			</tr>
 		

@@ -84,7 +84,7 @@ public class MainController {
 	
 
 	@RequestMapping("/ERROR")
-	public String errorForbidden(HttpServletResponse response, HttpServletRequest request) {
+	public String errorForbidden(HttpServletResponse response) {
 		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		return "error/403";
 	}

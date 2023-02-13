@@ -21,7 +21,7 @@ import com.salon.service.ScheduleService;
 import com.salon.service.Shop_NoticeService;
 
 @RestController
-public class JYAjaxController {
+public class AjaxController {
 
 	@Autowired
 	DesignerService dsservice;
@@ -40,27 +40,6 @@ public class JYAjaxController {
 	
 	@Autowired
 	AdminService adservice;
-
-
-	@RequestMapping("/designerRegi")
-	public String register(Model model, Designer designer) {
-		try {
-			dsservice.register(designer);
-			System.out.println("ok");
-			// model.addAttribute("obj",designer);
-			// model.addAttribute("center",dir+"registerok");
-		} catch (Exception e) {
-			// model.addAttribute("center",dir+"registerfail");
-			e.printStackTrace();
-			System.out.println("fail");
-		}
-		// model.addAttribute("left",dir+"left");
-
-		model.addAttribute("path", "designer/designer_main");
-		model.addAttribute("content", "main");
-		return "main";
-	}
-	
 
 	 @RequestMapping("/monthSchedule")
 	 public Object weekSchedule() {

@@ -104,7 +104,7 @@ public class ReviewController {
 	
 	@RequestMapping("/reviewregister")
 	public String reviewregister(Model model,Review_Answer review_answer) {
-		Review_Answer rag= null;
+		int no = review_answer.getReview_no();
 		try {
 			
 			answerService.register(review_answer);			
@@ -113,6 +113,7 @@ public class ReviewController {
 			 * model.addAttribute("path", dir+"reviewPage"); model.addAttribute("content",
 			 * "main");
 			 */
+		
 		}catch(Exception e) {
 			e.printStackTrace();
 			
@@ -120,7 +121,7 @@ public class ReviewController {
 		model.addAttribute("path",	"fragments");
 		model.addAttribute("content", "fail");
 		}
-		return "redirect:/review";
+		return "redirect:/reviewPage?no="+no;
 	}
 	
 	
@@ -145,43 +146,12 @@ public class ReviewController {
 	}
 	
 	
-	/*@RequestMapping("/reviewSort")
-	public String sortreview(Model model,String designer_id ,@RequestParam(value = "page", defaultValue = "1") int page) {
-		List<Review> revlist = null;
-		
-		
-
-		int paging = 6;
-
-		int offset = (page - 1) * 6;
-
-		try {
-			System.out.println(designer_id);
-
-			revlist = reservice.sortreview(designer_id,paging, offset);	
-					
-			
-			model.addAttribute("menulist", revlist);
-			
-			model.addAttribute("content", "main");
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("path", "fragments");
-			model.addAttribute("content", "fail");
-		}
-
-		return "main";
-	}*/
-	
-	
-	
-	
 	
 	@RequestMapping("/reviewAns_Update")
 	public String reviewAnsUpdate(Model model, Review_Answer ad ) {
 		
-	//	System.out.println(ad);
-		
+
+		int no = ad.getReview_no();
 		try {
 			
 			
@@ -189,7 +159,7 @@ public class ReviewController {
 			
 			System.out.println("update ok");
 			
-			return "redirect:/review";
+			return "redirect:/reviewPage?no="+no;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -209,7 +179,6 @@ public class ReviewController {
 		
 		try {
 			answerService.remove(delno);
-	//		System.out.println("okok");
 			return "redirect:/review";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -80,28 +80,9 @@
 </div>
 
 
-<!-- 
-<div class="card  w-auto mb-3">
-  <div class="card-body">
-    <div style="text-align:right;"><a th:href="@{/reservation}" class="minilink">예약 내역 <i data-feather="arrow-right-circle"></i></a></div>
-    <div class="card-title">
-    <div th:text="${#calendars.format(#calendars.createNow(), 'yyyy - MM - dd')}" class="date-today"></div>
-    	<h2>확인이 필요한 예약</h2>
-    </div>
-    <hr>
-    <span th:text="${checkresv}" style="font-size:1.5em;"></span><span class="card-text"> 건</span>
-  </div>
-</div>
-
- -->
-
-
-
-
 <div class="card  w-auto mb-3">
   <div class="card-body calendar">
-<!--     <div style="text-align:right;"><a href="#" class="minilink">스케줄 확인하기 <i data-feather="arrow-right-circle"></i></a></div>
- -->    <div class="card-title text-center"><h3>&#8900; 월 스케줄 &#8900;</h3><div class="date-today"></div></div>
+   <div class="card-title text-center"><h3>&#8900; 월 스케줄 &#8900;</h3><div class="date-today"></div></div>
     <hr>
     <span></span><span class="card-text"></span>
     <div id="calendar"></div>

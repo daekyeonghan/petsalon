@@ -37,10 +37,7 @@ public class ScheduleController {
 	ResvService resvservice;
 	
 	String dir = "schedule/";
-	
-	@Value("${admindir}")
-	String admindir;
-	
+
 	
 	@RequestMapping("/schedule")
 	public String getlistds(Model model, String designer_id) {

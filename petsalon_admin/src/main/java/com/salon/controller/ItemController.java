@@ -29,6 +29,9 @@ public class ItemController {
 	@Value("${admindir}")
 	String admindir;
 
+	@Value("${userdir}")
+	String userdir;
+
 	@RequestMapping("/item")
 	public String main(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		List<Item> ilist = null;
@@ -57,26 +60,6 @@ public class ItemController {
 
 		return "main";
 	}
-//	
-//	@RequestMapping("/item")
-//	public String main(Model model) {
-//		List<Item> ilist = null;
-//		List<Designer> dlist = null;
-//		try {
-//			ilist = iservice.getlist();
-//			dlist = dsservice.get();
-//			model.addAttribute("menulist", ilist);
-//			model.addAttribute("designerlist", dlist);
-//			model.addAttribute("path", dir + "item_main");
-//			model.addAttribute("content", "main");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			model.addAttribute("path", "fragments");
-//			model.addAttribute("content", "fail");
-//		}
-//
-//		return "main";
-//	}
 
 	@RequestMapping("/itemSortByDesigner")
 	public String sortitem(Model model, String designer_id, int page) {
@@ -119,7 +102,7 @@ public class ItemController {
 
 		try {
 			if (item.getItem_img() != null && blankName.length() != 0) {
-				String newName = ImgUtil.saveFile(item.getItem_img(), admindir);
+				String newName = ImgUtil.saveFile(item.getItem_img(), admindir, userdir);
 				item.setItem_photo(newName);
 
 			}
@@ -142,7 +125,7 @@ public class ItemController {
 
 		try {
 			iservice.remove(id);
-			ImgUtil.deleteFile(admindir, filename);
+			ImgUtil.deleteFile(admindir, userdir, filename);
 			System.out.println("item deleted");
 			return "redirect:/item";
 		} catch (Exception e) {
@@ -181,9 +164,9 @@ public class ItemController {
 
 		try {
 			if (item.getItem_img() != null && blankName.length() != 0) {
-				String newName = ImgUtil.saveFile(item.getItem_img(), admindir);
+				String newName = ImgUtil.saveFile(item.getItem_img(), admindir, userdir);
 				item.setItem_photo(newName);
-				ImgUtil.deleteFile(admindir, originname);
+				ImgUtil.deleteFile(admindir, userdir, originname);
 			} else {
 				item.setItem_photo(originname);
 			}
@@ -204,56 +187,6 @@ public class ItemController {
 		
 	}
 
-//	 @RequestMapping("/itempage")
-//	    public String getItemsByPage(int page, Model model) {
-//	        int recordsPerPage = 6;
-//	        
-//	        List<Item> ilist;
-//	    	List<Designer> dlist = null;
-//
-//	    	try {
-//				int totalRecords = iservice.totalitem();
-//		        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-//
-//		        int offset = (page-1)*6;
-//				
-//		        ilist = iservice.pagingitem(recordsPerPage,offset);
-//				
-//				dlist = dsservice.get();
-//				
-//				model.addAttribute("menulist", ilist);
-//				model.addAttribute("dslist", dlist);
-//				model.addAttribute("path", "item/item_main");
-//				model.addAttribute("content", "main");
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				model.addAttribute("path", "fragments");
-//				model.addAttribute("content", "fail");
-//			}
-//
-//
-//	        return "main";
-//	    }
-//	
 
-//	@RequestMapping("/itemtemp")
-//	public String itemtemp(Model model) {
-//
-//		List<Item> ilist = null;
-//		try {
-//			ilist = iservice.dsMenu("id");
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			model.addAttribute("path", "fragments");
-//			model.addAttribute("content", "fail");
-//		}
-//
-//		model.addAttribute("menulist", ilist);
-//		model.addAttribute("path", dir + "item_main_temp");
-//		model.addAttribute("content", "main");
-//		return "main";
-//
-//	}
 
 }

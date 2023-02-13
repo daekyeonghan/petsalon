@@ -23,6 +23,11 @@ public class DesignerController {
 	@Value("${admindir}")
 	String admindir;
 	
+
+	@Value("${userdir}")
+	String userdir;
+	
+	
 	@RequestMapping("/designer")
 		public String getlistds(Model model) {
 			List<Designer> list = null;
@@ -51,7 +56,7 @@ public class DesignerController {
 		
 		try {
 			if(designer.getDesigner_img()!=null&&blankName.length()!=0){
-				String newName = ImgUtil.saveFile(designer.getDesigner_img(), admindir);
+				String newName = ImgUtil.saveFile(designer.getDesigner_img(), admindir, userdir);
 				designer.setDesigner_photo(newName);
 				
 			}
@@ -79,7 +84,7 @@ public class DesignerController {
 		try {
 			dsservice.remove(id);
 			if(!filename.equals("haro.png")) {
-			ImgUtil.deleteFile(admindir, filename);
+				ImgUtil.deleteFile(admindir, userdir, filename);
 			}
 			System.out.println("designer deleted");
 			return "redirect:/designer";
@@ -121,11 +126,11 @@ public class DesignerController {
 
 		try {
 			if(designer.getDesigner_img()!=null&&blankName.length()!=0){
-				String newName = ImgUtil.saveFile(designer.getDesigner_img(), admindir);
+				String newName = ImgUtil.saveFile(designer.getDesigner_img(), admindir, userdir);
 				designer.setDesigner_photo(newName);
 				dsservice.modify(designer);
 					if(!originname.equals("haro.png")) {
-					ImgUtil.deleteFile(admindir, originname);
+						ImgUtil.deleteFile(admindir, userdir, originname);
 					}
 				}
 				else {
@@ -145,13 +150,5 @@ public class DesignerController {
 	}
 	
 
-	
-//	@RequestMapping("/designerError")
-//	public String designerError(Model model) {
-//		model.addAttribute("path", "fragments");
-//		model.addAttribute("content", "fail");
-//		
-//		return "main";
-//	}
 }
 
