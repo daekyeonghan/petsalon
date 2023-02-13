@@ -1,6 +1,22 @@
 <div th:fragment="main">
 <script>
-window.location.replace('[[@{/designer}]]');
+$(document).ready(function(){
+	setTimeout(() => window.location.replace('[[@{/designer}]]'),3000);
+});
 </script>
-<h1>성공</h1>
+<h1 class="text-center">처리중입니다..</h1>
+<h3 class="text-center">잠시만 기다려 주세요</h3>
+<div class="mygap-lg"></div>
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+
+
+
+
+
+
 </div>

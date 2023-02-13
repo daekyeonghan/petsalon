@@ -34,8 +34,7 @@ public class MainController {
 	public String login(HttpSession session) {
 		
 		if(session != null) {
-			session.removeAttribute("admin");
-			
+			session.invalidate();
 		}
 		
 		return "login_index";

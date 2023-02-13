@@ -271,21 +271,6 @@ function itemRegister(){
 	});
 	$('#item_register').submit();
 	
-	alert('등록되었습니다.');
-    $('form').find('input[name=item_name], input[name=item_price]').val('');
-};
-
-
-function itemUpdate(){
-	
-	$('#item_register').attr({
-		'enctype':'multipart/form-data',
-		'method':'post',
-		'action':'[[@{/itemUpdate}]]'
-	});
-	$('#item_update').submit();
-	
-	alert('수정되었습니다.');
     $('form').find('input[name=item_name], input[name=item_price]').val('');
 };
 

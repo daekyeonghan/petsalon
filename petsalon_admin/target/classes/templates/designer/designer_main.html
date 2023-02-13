@@ -73,7 +73,6 @@ function designerSubmit(){
 		});
 		$('#designer_register').submit();
 		
-		alert('등록되었습니다.');
 	    $('form').find('input[name=designer_id], input[name=designer_name], textarea').val('');
 	    $('#nameFeedback').removeClass('is-valid');
 	    $('#idFeedback').removeClass('is-valid');
@@ -129,7 +128,7 @@ $(document).ready(function() {
 		    var value = $('#designer_id').val();
 		    $.ajax({
 		        type: 'post',
-		        url: '/checkid',
+		        url: '/checkDsid',
 		        data: { 'dsid' : value },
 		        success: function(result){
 		        	if(result==0&&$('#designer_id').val()!=''){

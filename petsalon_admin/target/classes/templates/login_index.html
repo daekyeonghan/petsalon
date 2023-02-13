@@ -69,11 +69,13 @@ function loginchk(){
 
 	if($('#admin_id').val()==''){
 		 alert("아이디를 입력하세요.");
+		 $('#admin_id').focus();
 		 return false;
 	}
 	
 	if($('#admin_pwd').val()==''){
 		alert("비밀번호를 입력하세요.");
+		$('#admin_pwd').focus();
 		 return false;
 	}
 
@@ -94,6 +96,12 @@ $(document).ready(function(){
 	}
 
 	$('#admin_id').focus();
+	
+	$('input').on('keyup', function(event) {
+		  if (event.keyCode === 13) { 
+		    $('#loginbtn').click();
+		  }
+		});
 	
 	$('#loginbtn').on('click',function(){
  	if(loginchk()){
@@ -116,6 +124,7 @@ $(document).ready(function(){
 			}else{
 				alert('아이디 혹은 비밀번호를 잘못 입력하셨습니다.');
 				 $('#loginFeedback').text('아이디 또는 비밀번호를 다시 확인하세요.');
+				$('#admin_id').focus();
 			}
 		}
 	});

@@ -136,7 +136,6 @@ public class JYAjaxController {
 	 
 	 @RequestMapping("/monthChart")
 	 public Object monthChart(Integer chartYear) {
-		 System.out.println(chartYear);
 			JSONArray rFix = new JSONArray(); 
 			JSONArray rCheck = new JSONArray(); 
 	//		JSONArray rCancel = new JSONArray(); 
@@ -306,7 +305,7 @@ public class JYAjaxController {
 					obj.put("drilldown", resv.getUseremail());
 					chartData.add(obj);
 				}
-				System.out.println(chartData);
+	//			System.out.println(chartData);
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("fail to load chartData");
@@ -340,7 +339,7 @@ public class JYAjaxController {
 		 return chartData;
 	 }
 	
-	@RequestMapping("/checkid")
+	@RequestMapping("/checkDsid")
 	public Object checkid(String dsid) {
 		int result = 0;
 		Designer ds = new Designer();

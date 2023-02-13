@@ -118,7 +118,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
     INNER JOIN user u ON u.useremail = resv.useremail
     WHERE resv.resv_fix NOT IN (2)
     GROUP BY u.useremail
-    ORDER BY cnt DESC
+    ORDER BY cnt DESC LIMIT 5
 	</select>
 	
 	<select id="userResvChart" parameterType="Integer" resultType="Resv">

@@ -90,7 +90,7 @@ function displaychart(chartData){
 		  },
 		  legend: {
 		    align: 'left',
-		    x: 260,
+		    x: 310,
 		    verticalAlign: 'top',
 		    y: 25,
 		    floating: true,
@@ -129,7 +129,6 @@ function getdata(){
 		data: { 'chartYear' : value },
 		dataType : 'json',
 		success:function(chartData){
-			// {'x':['1','2','3'....], 'mdata':[222,333,444....]}
 			displaychart(chartData);
 		}
 	});
@@ -146,15 +145,6 @@ $(document).ready(function(){
 <div class="listtitle">이웃집 하로 통계</div>
 <div class="d-grid gap-2 col-6 mx-auto">
 <div class="btn-group">
-<!-- <div class="btn-group">
-  <a th:href="@{/statistics}" class="btn btn-outline-secondary active">월 예약</a>
-   <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="visually-hidden">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="" id="last-year">작년 월 예약</a></li>
-  </ul>
-  </div> -->
    <a th:href="@{/statistics}" class="btn btn-outline-secondary active">월 예약</a>
    <a th:href="@{/statistics/designer}" class="btn btn-outline-secondary">디자이너</a>
   <a th:href="@{/statistics/user}" class="btn btn-outline-secondary">고객</a>

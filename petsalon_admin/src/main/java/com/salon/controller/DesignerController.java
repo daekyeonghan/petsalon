@@ -59,15 +59,18 @@ public class DesignerController {
 				designer.setDesigner_photo("haro.png");
 			}
 			dsservice.register(designer);
-			System.out.println("designer register ok");
+			return "redirect:/designer";
+//			System.out.println("designer register ok");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 			System.out.println("designer register fail");
 			
 		}
 		
-		return "redirect:/designer";
+		return "main";
 	}
 	
 	@RequestMapping("/designerDelete")
