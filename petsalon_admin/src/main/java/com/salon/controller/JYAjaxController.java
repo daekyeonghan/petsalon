@@ -10,9 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.salon.dto.Admin;
 import com.salon.dto.Designer;
-import com.salon.dto.Item;
 import com.salon.dto.Resv;
+import com.salon.service.AdminService;
 import com.salon.service.DesignerService;
 import com.salon.service.ItemService;
 import com.salon.service.ResvService;
@@ -36,6 +37,10 @@ public class JYAjaxController {
 	
 	@Autowired
 	Shop_NoticeService snservice;
+	
+	@Autowired
+	AdminService adservice;
+
 
 	@RequestMapping("/designerRegi")
 	public String register(Model model, Designer designer) {
@@ -56,84 +61,7 @@ public class JYAjaxController {
 		return "main";
 	}
 	
-	
-	 @RequestMapping("/itemTotalPage")
-	    public Object itemTotalPage() {
-	        int recordsPerPage = 6;
-	        int totalPages = 0;
 
-	    	try {
-				int totalRecords = iservice.totalitem();
-		        totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("failed to get total pages");
-			}
-	    	
-	    //	System.out.println(totalPages);
-
-	        return totalPages;
-	    }
-	
-	 @RequestMapping("/dsitemTotalPage")
-	    public Object dsitemTotalPage(String designer_id) {
-	        int recordsPerPage = 6;
-	        int totalPages = 0;
-
-	    	try {
-				int totalRecords = iservice.totaldsitem(designer_id);
-		        totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-		  //    System.out.println(totalPages);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("failed to get total pages");
-			}
-	    	
-	    //	System.out.println(totalPages);
-
-	        return totalPages;
-	    }
-	 
-	 @RequestMapping("/resvTotalPage")
-	    public Object resvTotalPage() {
-	        int recordsPerPage = 15;
-	        int totalPages = 0;
-
-	    	try {
-				int totalRecords = resvservice.get().size();
-		        totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("failed to get total pages");
-			}
-	    	
-	    //	System.out.println(totalPages);
-
-	        return totalPages;
-	    }
-	 
-	 @RequestMapping("/noticeTotalPage")
-	    public Object noticeTotalPage() {
-	        int recordsPerPage = 7;
-	        int totalPages = 0;
-
-	    	try {
-				int totalRecords = snservice.get().size();
-		        totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("failed to get total pages");
-			}
-	    	
-	    //	System.out.println(totalPages);
-
-	        return totalPages;
-	    }
-	 
 	 @RequestMapping("/monthSchedule")
 	 public Object weekSchedule() {
 			List<Resv> resvlist = null;
@@ -211,12 +139,12 @@ public class JYAjaxController {
 		 System.out.println(chartYear);
 			JSONArray rFix = new JSONArray(); 
 			JSONArray rCheck = new JSONArray(); 
-			JSONArray rCancel = new JSONArray(); 
+	//		JSONArray rCancel = new JSONArray(); 
 			
 			JSONArray chartData = new JSONArray();
 			
 			JSONObject joF = new JSONObject();
-			JSONObject joCcl = new JSONObject();
+//			JSONObject joCcl = new JSONObject();
 			JSONObject joChk = new JSONObject();
 		 
 			try {
@@ -224,20 +152,20 @@ public class JYAjaxController {
 				
 				for(int i = 1; i<=12; i++) {
 					rFix.add(resvservice.resvMonthChart(chartYear, i, 1));
-					rCancel.add(resvservice.resvMonthChart(chartYear, i, 2));
+//					rCancel.add(resvservice.resvMonthChart(chartYear, i, 2));
 					rCheck.add(resvservice.resvMonthChart(chartYear, i, 0));
 				}
 				
 				
 				joF.put("name", "예약 확정");
 				joF.put("data", rFix);
-				joCcl.put("name", "예약 취소");
-				joCcl.put("data", rCancel);
+//				joCcl.put("name", "예약 취소");
+//				joCcl.put("data", rCancel);
 				joChk.put("name", "미확인");
 				joChk.put("data", rCheck);
 				
 				chartData.add(joF);
-				chartData.add(joCcl);
+//				chartData.add(joCcl);
 				chartData.add(joChk);
 				
 			} catch (Exception e) {
@@ -411,56 +339,7 @@ public class JYAjaxController {
 		
 		 return chartData;
 	 }
-//	 @RequestMapping("/itemPageTest")
-//	    public Object getItemsByPage(int page, Model model) {
-//		 int recordsPerPage = 6;
-//	        
-//	        List<Item> ilist;
-//	    	List<Designer> dlist = null;
-//
-//	    	try {
-//				int totalRecords = iservice.totalitem();
-//		        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-//
-//		        int offset = (page-1)*6;
-//				
-//		        ilist = iservice.pagingitem(recordsPerPage,offset);
-//				
-//				dlist = dsservice.get();
-//				
-//				model.addAttribute("menulist", ilist);
-//				model.addAttribute("designerlist", dlist);
-//				model.addAttribute("totalPages", totalPages);
-//				model.addAttribute("path", "item/item_main");
-//				model.addAttribute("content", "main");
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				model.addAttribute("path", "fragments");
-//				model.addAttribute("content", "fail");
-//			}
-//
-//
-//	        return "main";
-//	    }
-
 	
-	
-	/*
-	 * @RequestMapping("/designerlist") public Object getlist(Model model, Designer
-	 * designer) {
-	 * 
-	 * List<Designer> list = new ArrayList<Designer>(); JSONArray ar = new
-	 * JSONArray(); try { list = dsservice.get(); for(Designer ds:list) { JSONObject
-	 * obj = new JSONObject(); obj.put("designer_id", ds.getDesigner_id());
-	 * obj.put("designer_name", ds.getDesigner_name()); obj.put("designer_photo",
-	 * "jyassets/img/"+ds.getDesigner_photo()); obj.put("designer_introduce",
-	 * ds.getDesigner_introduce()); ar.add(obj); }
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * //model.addAttribute(list); return ar; }
-	 */
-
 	@RequestMapping("/checkid")
 	public Object checkid(String dsid) {
 		int result = 0;
@@ -468,7 +347,6 @@ public class JYAjaxController {
 		try {
 			ds = dsservice.get(dsid);
 			if (ds != null) {
-//			System.out.println(ds);
 				result = 1;
 			} else {
 				result = 0;
@@ -480,4 +358,26 @@ public class JYAjaxController {
 		return result;
 	}
 
+	
+	@RequestMapping("/checkAdmin")
+	public Object checkAdmin(String admin_id, String admin_pwd) {
+		int result = 0;
+
+		Admin admin = new Admin();
+		try {
+			admin = adservice.get(admin_id);
+			if (admin == null) {
+				result = 1;
+			} else {
+				if(admin.getAdmin_pwd().equals(admin_pwd)) {
+					result = 0;
+				}else {
+					result = 1;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

@@ -17,10 +17,8 @@ public interface ReviewMapper extends MyMapper<Integer, Review>{
 
 	public List<Review> pagingreview(Integer limit, Integer offset) throws Exception;
 
-	public List<Review> reviewsearch(String word)throws Exception;
+	public List<Review> reviewsearch(String word) throws Exception;
 	
-	public List<Review> pagingreview1(int paging, int offset);
-
-	public Integer totalreview()throws Exception;
+	public Integer totalreview() throws Exception;
 
 }

@@ -36,14 +36,14 @@ public class ReviewController {
 	public String main(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		List<Review> revlist = null;
 
-		int paging = 6;
+		int recordsPerPage = 6;
 
 		int offset= (page - 1) * 6; //한페이지의 시작번호
 
 	//	System.out.println(page);
 		try {
 
-			revlist = reservice.pagingreview1(paging, offset);
+			revlist = reservice.pagingreview(recordsPerPage, offset);
 			
 
 			model.addAttribute("review", revlist);

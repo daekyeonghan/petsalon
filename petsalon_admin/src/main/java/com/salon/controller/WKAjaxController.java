@@ -46,45 +46,45 @@ public class WKAjaxController {
 //		}
 //		return result;
 //	}
-	
-	@RequestMapping("/reviewTotalPage")
-    public Object reviewTotalPage() {
-        int paging = 6;
-        int totalPage = 0;
-
-    	try {
-			int totalRecords = reservice.totalreview();
-	        totalPage = (int) Math.ceil(totalRecords * 1.0 / paging);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("failed to get total pages");
-		}
-    	
-    //	System.out.println(totalPages);
-
-        return totalPage;
-    }
-	
-	@RequestMapping("/userTotalPage")
-    public Object userTotalPage() {
-        int paging = 6;
-        int totalPage = 0;
-
-    	try {
-			int totalRecords = userservice.totaluser();
-	        totalPage = (int) Math.ceil(totalRecords * 1.0 / paging);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("failed to get total pages");
-		}
-    	
-    //	System.out.println(totalPages);
-
-        return totalPage;
-    }
-	
+//	
+//	@RequestMapping("/reviewTotalPage")
+//    public Object reviewTotalPage() {
+//        int paging = 6;
+//        int totalPage = 0;
+//
+//    	try {
+//			int totalRecords = reservice.totalreview();
+//	        totalPage = (int) Math.ceil(totalRecords * 1.0 / paging);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("failed to get total pages");
+//		}
+//    	
+//    //	System.out.println(totalPages);
+//
+//        return totalPage;
+//    }
+//	
+//	@RequestMapping("/userTotalPage")
+//    public Object userTotalPage() {
+//        int paging = 6;
+//        int totalPage = 0;
+//
+//    	try {
+//			int totalRecords = userservice.totaluser();
+//	        totalPage = (int) Math.ceil(totalRecords * 1.0 / paging);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("failed to get total pages");
+//		}
+//    	
+//    //	System.out.println(totalPages);
+//
+//        return totalPage;
+//    }
+//	
 	
 	
 }

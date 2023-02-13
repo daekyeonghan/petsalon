@@ -53,11 +53,6 @@ public class ReviewService implements MyService<Integer, Review>{
 		return mapper.reviewsearch(k);
 	}
 
-
-	public List<Review> pagingreview1(Integer paging, Integer offset)throws Exception {
-		return mapper.pagingreview1(paging,offset); 
-	}
-
 	public Integer totalreview() throws Exception {
 		return mapper.totalreview();
 	}

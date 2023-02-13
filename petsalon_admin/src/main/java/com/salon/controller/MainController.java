@@ -42,14 +42,14 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		
-		if(session != null) {
-			session.invalidate();
-		}
-		return "login_index";
-	}
+//	@RequestMapping("/logout")
+//	public String logout(HttpSession session) {
+//		
+//		if(session != null) {
+//			session.invalidate();
+//		}
+//		return "login_index";
+//	}
 	
 	
 	@RequestMapping("/loginimpl")
@@ -65,14 +65,14 @@ public class MainController {
 		try {
 			admin = adservice.get(admin_id);
 			if(admin==null) {
-				session.setAttribute("result", 1);
+			//	session.setAttribute("result", 1);
 				return "redirect:/";
 			}else {
 				if(admin.getAdmin_pwd().equals(admin_pwd)) {
 					session.setAttribute("admin", admin);
 					return "redirect:/home";
 				}else {
-					session.setAttribute("result", 1);
+			//		session.setAttribute("result", 1);
 					return "redirect:/";
 				}
 			}
