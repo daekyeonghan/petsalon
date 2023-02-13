@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>signup form</title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="assets/img/logo_adobe_express.svg" />
 	<!-- Font Awesome icons (free version)-->
@@ -19,6 +17,13 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script th:replace="fragments :: boot"></script>
+		<style>
+	/* img{display:block; margin:auto;} */
+	#review-thumbnail{margin: auto;}
+	#review-bar{padding-left:15px; margin-top:110px; margin-bottom:20px;}
+	#designer_id{ width: 230px;}
+	#selectdiv{float:right;  padding-right: 36px;}
+	</style>
 	<script>
 	
 		$(document).ready(function(){
@@ -72,36 +77,27 @@
 		
 
 	</script>
+
 </head>
-<meta charset="UTF-8">
-<style>
-	/* img{display:block; margin:auto;} */
-	#review-thumbnail{margin: auto;}
-	#review-bar{padding-left:15px; margin-top:20px; margin-bottom:20px;}
-	#designer_id{ width: 230px;}
-	#selectdiv{float:right;  padding-right: 36px;}
-	.review-header{margin-bottom: 60px;}
-
-
-</style>
-</head>
-<body>
-<!-- <nav th:replace="fragments :: nav-top"></nav> -->
-<!-- <section style="width: 100%; border: 1px solid red;" > -->
-
-
-<section style="border:0px solid red; background-color:#f8f2e277;" >
-	<div class="container mt-5" style="border:0px solid blue; font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
-		<div class="row" style="border:0px solid green;">
-			<div class="col" style="margin-right: 50px;">
-				<h5 class="fs-4 mt-1 mb-4" style="line-height: 150%;"><b>지금 뜨고있는 이웃집하로의</br> 가장 인기있는 스타일이에요</b></h5>
-			</div>
-			<div class="col">
-				<h5 class="fs-4 mt-4" style="line-height: 150%;"><b>따끈따끈 방금 등록된 리뷰</b></h5>
-			</div>
-		</div>
-		<div class="row" style="border:0px solid black;">
-			<div class="col-md" style="border:0px solid green; height: 500px; margin-right: 50px;">
+<body id="page-top">
+    	<nav th:replace="fragments :: nav-top"></nav>
+        <!-- Header-->
+        <header class="bg-dark py-5" style="margin-top:120px;font-family:'Spoqa Han Sans Neo', 'sans-serif';">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">이웃집 하로 이용후기</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">아이들의 가장 예쁜 모습들입니다</p>
+                </div>
+            </div>
+        </header>
+        
+	<section class="page-section" style="background-color:#f8f2e277;">
+	<div class="container" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
+		<div class="row">
+			<div class="col-md mb-3" style="height: 600px; margin-right: 50px;">
+				<div class="col" style="margin-right: 50px;">
+				<h5 class="fs-4 mt-1 mb-3" style="line-height: 150%;"><b>지금 뜨고있는 이웃집하로의</br> 가장 인기있는 스타일이에요</b></h5>
+				</div>
 				<div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
 				  <div class="carousel-inner" >
 				    <div class="carousel-item" th:each="itemrankImage, itemrankImageStat : ${itemrank}" th:classappend="${itemrankImageStat.index} == 0 ? 'active'">
@@ -113,8 +109,10 @@
 				  </div>
 				</div>
 			</div>
-			<div style="border-left: 1px solid silver; height: 500px; position:absolute; left: 50%;"></div>
-			<div class="col-md" style="border:0px solid green; height: 400px;">
+			<div class="col-md mb-5" style="height: 600px;">
+				<div class="col">
+				<h5 class="fs-4 mt-3" style="line-height: 150%; margin-bottom: 40px;"><b>따끈따끈 방금 등록된 리뷰</b></h5>
+			</div>
 				<div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
 				  <div class="carousel-inner" >
 				    <div class="carousel-item" th:each="recentreviewImage, recentreviewImageStat : ${recentreview}" th:classappend="${recentreviewImageStat.index} == 0 ? 'active'">
@@ -130,18 +128,14 @@
 	</div>
 
 </section>
-<section class="page-section" id="review" style="border:0px solid red;">
-	<div class="text-center review-header" style="font-family:'Spoqa Han Sans Neo', 'sans-serif';">
-		<h2 class="section-heading text-uppercase">review</h2>
-		<h5><b>아이들의 가장 예쁜 모습들입니다</b></h5>
-	</div>
+<section id="review">
+	<div class="col"><img class="mx-auto d-block" src="/assets/img/review-banner.jpg" style="width: 80%; height: 10%;"> </div>
             <div class="container" style="max-width: 90%;">
-                
                 <div class="col-lg-12" id="review-bar">
-	                	<button type="button" id="review_add" name="review_plus" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addReviewModal">후기 작성하기</button>
+	                	<button type="button" id="review_add" name="review_plus" class="btn" data-bs-toggle="modal" data-bs-target="#addReviewModal" style="background-color:#ece2c4;">후기 작성하기</button>
 	                	<div id="selectdiv">
 		                    <form id="selectDesignerReview">
-								<select class="form-select" id="designer_id" name="designer_id" th:onchange="selectDesigner()">
+								<select class="form-select" id="designer_id" name="designer_id" th:onchange="selectDesigner()" style="background-color:#ece2c4;">
 									<option value="" selected disabled>--디자이너별 후기검색--</option>
 									<option value="all" disabled>전체</option>
 									<option th:each="d : ${notnullist}" th:value="${d.designer_id}" th:text="|${d.designer_name}|"></option>
@@ -153,28 +147,51 @@
                     <div id="review-thumbnail" class="row col-xl-3 mb-4" th:each="o : ${rlist}">
                         <div class="review-item shadow rounded">
                             <a class="review-link" th:onclick="|location.href='@{/reviewview(no=${o.review_no},resv_no=${o.resv_no})}'|">
-                                <div class="review-hover" >
-                                    <div class="review-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                <div class="review-hover mt-2" >
+                                    <div class="review-hover-content"><i class="fas fa-plus fa-3x text-muted"></i></div>
                                 </div>
                                 <div>
-                                	<img class="img-fluid rounded mt-1" th:if="${o.review_photo == ''} or ${o.review_photo == null}" src="assets/img/logo.svg"  style="width:430px; height:430px;"/>
-                                	<img class="img-fluid rounded mt-1" th:unless="${o.review_photo == ''} or ${o.review_photo == null}" th:src="'/assets/img/'+ ${o.review_photo}"  style="width:430px; height:430px;"/>
+                                	<img class="img-fluid rounded mt-2" th:if="${o.review_photo == ''} or ${o.review_photo == null}" src="assets/img/logo.svg"  style="width:430px; height:430px;"/>
+                                	<img class="img-fluid rounded mt-2" th:unless="${o.review_photo == ''} or ${o.review_photo == null}" th:src="'/assets/img/'+ ${o.review_photo}"  style="width:430px; height:430px;"/>
                                 </div>
                             </a>
                             <div class="review-caption rounded-top" style="border:1px double #f8f8f8">
 	                            <div class="col mb-2">
 	                            	<span class="review-caption-heading" th:text="${o.dog_name}"></span>｜<span class="review-caption-subheading" th:text="${o.designer_name}"></span>
 	                            </div>
-	                            <div class="col">
-	                                <div class="review-caption-subheading" th:text="${o.review_title}"></div>
+	                            <div class="col ">
+	                                <div style="width: 250px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden;" class="review-caption-subheading text-center" th:text="${o.review_title}"></div>
 	                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">최근 이용내역을 선택해주세요</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="padding-left:50px; padding-right:50px;">
+      <form id="selectDesigner">
+		<select class="form-select" id="num" th:onchange="selectNum()">
+			<option value="" selected disabled>--최근이용내역선택--</option>
+			<option th:each="resv : ${checkresv}" th:value="${resv.resv_no}" th:text="|${resv.dog_name} ${resv.designer_name} ${resv.sc_date}|"></option>
+		</select>
+		<div class="modal-footer">
+			<button type="button" id="cancle-btn" class="btn" data-bs-dismiss="modal" style="background-color:#ece2c4;" >취소</button>
+			<button type="button" id="new_review" class="btn" style="background-color:#ece2c4;" > 작성하러가기</button>
+		</div>
+		</form>
+      </div>
+      </div>
+      </div>
+      </div>
         </section>
-<section style=" border:0px solid red;">
+<!-- <section style=" border:0px solid red;">
         <div class="container" style="border:0px solid blue;">
 	<div class="row">
 	<div class="col-lg-10 col-xl-8 mx-auto">
@@ -209,34 +226,14 @@
 		</div>
 	</div>
 </div>
-</section>
+</section> -->
         
-<div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">최근 이용내역을 선택해주세요</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" style="padding-left:50px; padding-right:50px;">
-      <form id="selectDesigner">
-		<select class="form-select" id="num" th:onchange="selectNum()">
-			<option value="" selected disabled>--최근이용내역선택--</option>
-			<option th:each="resv : ${checkresv}" th:value="${resv.resv_no}" th:text="|${resv.dog_name} ${resv.designer_name} ${resv.sc_date}|"></option>
-		</select>
-		<div class="modal-footer">
-			<button type="button" id="cancle-btn" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-			<button type="button" id="new_review" class="btn btn-primary" > 작성하러가기</button>
-		</div>
-		</form>
-      </div>
-      </div>
-      </div>
-      </div>
 
-<!-- Bootstrap core JS-->
+	<!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
 </body>
 </html>
+
+

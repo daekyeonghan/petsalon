@@ -198,6 +198,8 @@ public class ReviewController {
 		List<Review> dslist = null;
 		List<Review> notnullist = null;
 		List<Resv> checkresv = null;
+		List<Review> recentreview = null;
+		List<Resv> itemrank = null;
 		
 		int review_count = 0;
 		int resv_count = 0;
@@ -209,6 +211,8 @@ public class ReviewController {
 			review_count = reviewservice.review_count(uemail);
 			resv_count = reservice.resvcnt(uemail);
 			notnullist = reviewservice.notnullreview();
+			itemrank = reservice.itemrank();
+			recentreview = reviewservice.recentreview();
 			
 			model.addAttribute("searchlist", rlist);
 			model.addAttribute("dsearchlist", dslist);
@@ -216,6 +220,8 @@ public class ReviewController {
 			model.addAttribute("resvcnt", resv_count);
 			model.addAttribute("reviewcnt", review_count);
 			model.addAttribute("notnullist", notnullist);
+			model.addAttribute("itemrank", itemrank);
+			model.addAttribute("recentreview", recentreview);
 			model.addAttribute("center", reviewdir+"review_search");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
