@@ -1,8 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <head>
-<style>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="assets/img/logo_adobe_express.svg" />
+	<!-- Font Awesome icons (free version)-->
+	<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+	<!-- fonts-->
+	<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="css/styles.css" rel="stylesheet" />
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script th:replace="fragments :: boot"></script>
+	<style>
 
 .card {
     position: relative;
@@ -58,10 +73,12 @@ white-space: pre-line;
 }
 
 </style>
-<script th:replace="fragments :: boot"></script>
-</head>
+	</head>
+
+
 <body id="page-top">
-<section style="background-color:#f8f2e277;">
+<nav th:replace="fragments :: nav-top"></nav>
+<section class="page-section" style="background-color:#f8f2e277;">
 <div class="container text-center notice-content card" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif'; ">
 	<div class="mt-5" style="margin-left:260px; border: solid 0px red; max-width: 60%; height: 40px;">
 		<span class="fs-4" th:text="${sn.sn_title}" style="padding-left: 5px;" ></span>
@@ -72,7 +89,7 @@ white-space: pre-line;
 	<div class="row card-body mb-3" th:unless="${sn.sn_photo == null || sn.sn_photo == ''}">
 		<img th:src="'/assets/img/'+${sn.sn_photo}" data-bs-toggle="modal" data-bs-target="#noticePhotoModal" class="mx-auto d-block noticepic p-2" style="border: solid 0px red;" >
 	</div>
-	<div class="row card-body mx-auto d-block " style="max-width: 60%;">
+	<div class="row card-body mx-auto d-block " style="max-width: 100%;">
 		<div class="card-sub fs-5" th:text="${sn.sn_content}" style="text-align: justify; "></div>
 	</div>
 	<div class="mx-auto d-block mt-3">

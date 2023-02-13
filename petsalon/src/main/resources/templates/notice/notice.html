@@ -171,9 +171,9 @@ $(document).ready(function() {
             </div>
         </header>
 		<section class="page-section" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
-                     <div class="row mx-auto d-block d-flex justify-content-center mb-100" style="max-width: 80%; ">
+                     <div class="row mx-auto d-block d-flex mb-100" style="width: 100%; ">
                         
-                        <div class="card" style="background-color:#f8f2e277;">
+                        <div class="card" style="background-color:#f8f2e277; border: 1px solid red;">
                             <div class="card-body text-center">
                                 <h5 class="card-title m-b-0">글 목록</h5>
                             </div>
@@ -182,10 +182,10 @@ $(document).ready(function() {
                             
                             <ul th:each="sn:${snlist}" class="list-style-none">
                                 
-                                <li class="d-flex no-block card-body border-top">
-                                     <span class="board-no mt-3 fs-5" th:text="${sn.sn_no}" style=" width: 100px;"></span>
-                                    <div class="notice-title">
-                                        <a th:href="@{/noticecontent(no=${sn.sn_no})}" th:text="${sn.sn_title}" class="mt-2 fs-5" data-abc="true" style="overflow: hidden; text-overflow: ellipsis;"></a>
+                                <li class="row d-flex no-block card-body border-top" style="border: 0px solid green;">
+                                     <div class="col-md-4 board-no mt-4 fs-5" th:text="${sn.sn_no}" style=" margin-right: 50px; width: 200px; border: 0px solid black;"></div>
+                                    <div class="col-md-8 notice-title" style="border: 0px solid blue;">
+                                        <a th:href="@{/noticecontent(no=${sn.sn_no})}" th:text="${sn.sn_title}" class="mt-2 fs-5" data-abc="true" style="width:100%; overflow: hidden; text-overflow: ellipsis;  "></a>
                                         <span th:text="${#dates.format(sn.sn_rdate, 'yyyy-MM-dd')}" class="text-muted fs-6"></span>
                                     </div>
                                      <!-- <div class="mx-auto"></div>
