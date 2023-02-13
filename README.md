@@ -18,25 +18,6 @@
 </div>
 <br>
 <div>
-	<h2>프로젝트 일정</h2>
-	<img src="https://user-images.githubusercontent.com/94223526/218358280-77d4bc60-bdf9-40d9-86be-c39e5fb7c3e0.PNG" width=70%/>
-</div>
-<br>
-<div>
-	<h2>주요 기능 소개</h2>
-	<h4>1. 아이디 중복확인</h4>
-	<img src="https://user-images.githubusercontent.com/94223526/209548316-10b7a171-cde7-45f7-a2c8-cb993319d946.gif"/>
-	<br>
-	<h4>2. 우편번호 검색</h4>
-	<img src="https://user-images.githubusercontent.com/94223526/209548606-d88cd07c-1fc8-4e25-8e7a-2d8a82feb09c.gif"/>
-	<br>
-	<h4>3. 게시판 글쓰기</h4>
-	<img src="https://user-images.githubusercontent.com/94223526/209549017-3791bc85-f219-4a85-bc01-8daf3d6b68fa.gif"/>
-	<br>
-	<h4>4. 자료실 첨부파일 수정</h4>
-	<img src="https://user-images.githubusercontent.com/94223526/209549703-1b656408-8f30-4cb9-87c0-7dac3aa08498.gif"/>
-</div>
-<div>
 	<h2>사용 기술 및 도구</h2>
 </div>
 <div align=center>
@@ -61,4 +42,24 @@
 <div align="center">
 	<img src="https://user-images.githubusercontent.com/94223526/218358224-33e04c4b-a078-42e2-a313-1679dc721416.PNG" />
 	<br>
+</div>
+<br>
+<div>
+	<h2>프로젝트 일정</h2>
+	<img src="https://user-images.githubusercontent.com/94223526/218358280-77d4bc60-bdf9-40d9-86be-c39e5fb7c3e0.PNG" width=70%/>
+</div>
+<br>
+<div>
+	<h2>주요 기능 소개</h2>
+	<h4>1. 아이디 중복확인</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/209548316-10b7a171-cde7-45f7-a2c8-cb993319d946.gif"/>
+	<br>
+	<h4>2. 우편번호 검색</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/209548606-d88cd07c-1fc8-4e25-8e7a-2d8a82feb09c.gif"/>
+	<br>
+	<h4>3. 게시판 글쓰기</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/209549017-3791bc85-f219-4a85-bc01-8daf3d6b68fa.gif"/>
+	<br>
+	<h4>4. 자료실 첨부파일 수정</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/209549703-1b656408-8f30-4cb9-87c0-7dac3aa08498.gif"/>
 </div>
