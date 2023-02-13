@@ -38,14 +38,13 @@ public class LoginController {
 		String email = req.getParameter("email");
 		String pwd = req.getParameter("pwd");
 		
-		
+
 		/* String enc_plainText = CryptoUtil.sha512(pwd); */
 		
 		User user = null;
 		try {
 			user = uservice.get(email);
 			if(user==null) {
-				session.setAttribute("result", 1);
 				mav.setViewName("redirect:login");
 			}else {
 				if(user.getUserpwd().equals(pwd)) {
@@ -54,7 +53,6 @@ public class LoginController {
 					session.setAttribute("logpwd", user.getUserpwd());
 					mav.setViewName("redirect:/");
 				}else {
-					session.setAttribute("result", 1);
 					mav.setViewName("redirect:login");
 				}
 			}

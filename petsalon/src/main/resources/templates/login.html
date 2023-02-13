@@ -380,8 +380,24 @@ function loginchk(){
 		event.preventDefault();
 		return;
 	}
-	form.action = '[[@{/loginimpl}]]';
-	form.submit();
+
+	$.ajax({
+		url:'[[@{/checkUser}]]',
+		type : 'post',
+		data: { 'useremail' : email , 'userpwd': pwd},
+		dataType : 'json',
+		success:function(result){
+			if(result==0){
+				$('#loginform').attr({
+					'method':'post',
+					'action':'[[@{/loginimpl}]]'
+				});
+				$('#loginform').submit();
+			}else{
+				alert('아이디 혹은 비밀번호를 잘못 입력하셨습니다.');
+			}
+		}
+	});
 }
 </script>
 <style>

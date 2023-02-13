@@ -11397,13 +11397,8 @@ p {
 	margin-top:40px;
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 	border-radius:25px 25px 25px 25px;
-	border-color:#6633FF;
-	background-color:white;
-	color:#6633FF;
-}
-#login>#loginform>button:hover{
-	background-color:#6633FF;
-	color:white;
+	background-color:#ece2c4;
+	border:none;
 }
 #lostinfo{
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
@@ -11535,6 +11530,7 @@ p {
 #dogupdateform{
 	width:95%;
 	height:700px;
+	margin:0 auto;
 	overflow:auto;
 	margin-left:5%;
 	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
@@ -11640,15 +11636,16 @@ p {
 	color:white;
 }
 #addbtn{
-	width:125px;
+	width:150px;
 	height:50px;
 	font-size:1.1em;
 	margin:0 auto;
 	margin-top:40px;
 }
 #addbtn>#add{
-	width:130px;
+	width:150px;
 	height:50px;
+	margin:0 auto;
 	border-radius:10px;
 	background-color:#f8f2e277;
 }
@@ -11660,7 +11657,6 @@ p {
 	width:93%;
 	font-size:0.9em;
 	margin:0 auto;
-	padding:100px auto;
 }
 #doginfo{
 	margin-top:55px;
@@ -11674,17 +11670,14 @@ p {
 	float:left;
 }
 #registerbtn{
-	margin-top:10px;
-	width:120px;
-	height:40px;
-	border-radius:15px 15px;
-	background-color:white;
-	color:#6633FF;
+	width:130px;
+	height:50px;
+	border-radius:10px;
+	border:none;
+	background-color:#f8f2e277;
 }
 #registerbtn:hover{
-	background-color:#6633FF;
-	color:white;
-	border-color:white;
+	background-color:#ece2c4;
 }
 #resvtitle,#visittitle{
 	font-family: 'Lobster', cursive;
@@ -11879,7 +11872,7 @@ header.masthead .masthead-heading {
 
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 17rem;
+    padding-top: 16%;
     padding-bottom: 12.5rem;
   }
   header.masthead .masthead-subheading {

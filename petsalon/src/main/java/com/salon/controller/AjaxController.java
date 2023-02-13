@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.salon.dto.Schedule;
+import com.salon.dto.User;
 import com.salon.service.ScheduleService;
 import com.salon.service.Shop_NoticeService;
 import com.salon.service.UserService;
@@ -38,6 +39,27 @@ public class AjaxController {
 	ScheduleService scservice;
 	@Autowired
 	Shop_NoticeService snservice;
+	
+	@RequestMapping("/checkUser")
+	public Object checkUser(String useremail, String userpwd) {
+		User user = null;
+		int result = 0;
+		try {
+			user = uservice.get(useremail);
+			if(user==null) {
+				result = 1;
+			}else {
+				if(user.getUserpwd().equals(userpwd)) {
+					result = 0;
+				}else {
+					result = 1;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	@RequestMapping("/findemail")
 	public Object findemail(String username, String tel) {

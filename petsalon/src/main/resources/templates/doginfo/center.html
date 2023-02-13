@@ -9,7 +9,7 @@
 	</div>
 </div>
 <div id="addbtn" style="margin-bottom:5%;font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
-	<button id="add" class="btn" th:onclick="|location.href='@{/adddog}'|" style="font-size:1.05em;">+ 강아지 추가</button>
+	<button id="add" class="btn" th:onclick="|location.href='@{/adddog}'|" style="font-size:1.05em;"><img src="assets/img/plus-circle.svg" style="margin-bottom:1%;">&nbsp;강아지 추가</button>
 </div>
 <div id="dogmanage" enctype="multipart/form-data">
 	<div class="card mb-3" style="max-width:540px;margin:0 auto;" th:each="dog : ${dogList}">
