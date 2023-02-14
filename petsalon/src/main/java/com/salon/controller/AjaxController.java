@@ -1,5 +1,9 @@
 package com.salon.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -7,6 +11,9 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -27,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.salon.dto.Schedule;
 import com.salon.dto.User;
+import com.salon.frame.CryptoUtil;
 import com.salon.service.ScheduleService;
 import com.salon.service.Shop_NoticeService;
 import com.salon.service.UserService;
@@ -41,24 +49,38 @@ public class AjaxController {
 	Shop_NoticeService snservice;
 	
 	@RequestMapping("/checkUser")
-	public Object checkUser(String useremail, String userpwd) {
+	public Object checkUser(String useremail, String userpwd) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException,
+	NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
 		User user = null;
+		/*암호화 주석 없애야됨
+		 * String enc_plainText = CryptoUtil.sha512(userpwd);
+		 * System.out.println(enc_plainText);
+		 */
 		int result = 0;
 		try {
 			user = uservice.get(useremail);
 			if(user==null) {
 				result = 1;
 			}else {
-				if(user.getUserpwd().equals(userpwd)) {
+				if(user.getUserpwd().equals(userpwd)) { //암호화 주석 없애야됨 enc_plainText 랑 pwd랑 변경
 					result = 0;
 				}else {
 					result = 1;
 				}
 			}
+			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	@RequestMapping("/checkUserpwd")
+	public String checkUserpwd(String userpwd) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException,
+	NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
+		String enc_plainText = CryptoUtil.sha512(userpwd);
+
+		return enc_plainText;
 	}
 	
 	@RequestMapping("/findemail")

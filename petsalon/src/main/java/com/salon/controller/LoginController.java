@@ -38,16 +38,19 @@ public class LoginController {
 		String email = req.getParameter("email");
 		String pwd = req.getParameter("pwd");
 		
+		/*암호화 주석 없애야됨
+		 * String enc_plainText = CryptoUtil.sha512(pwd);
+		 * System.out.println(enc_plainText);
+		 */
 
-		/* String enc_plainText = CryptoUtil.sha512(pwd); */
-		
 		User user = null;
 		try {
 			user = uservice.get(email);
 			if(user==null) {
 				mav.setViewName("redirect:login");
 			}else {
-				if(user.getUserpwd().equals(pwd)) {
+				if(user.getUserpwd().equals(pwd)) { //암호화 주석 없애야됨 enc_plainText 랑 pwd랑 변경
+					System.out.println("OK");
 					session.setAttribute("logemail", email);
 					session.setAttribute("logname", user.getUsername());
 					session.setAttribute("logpwd", user.getUserpwd());
