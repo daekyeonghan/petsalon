@@ -130,7 +130,7 @@ public class ReservationController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "/error";
+			return "redirect:/error";
 		}
 		
 		return "redirect:/resvInfo?no="+no;

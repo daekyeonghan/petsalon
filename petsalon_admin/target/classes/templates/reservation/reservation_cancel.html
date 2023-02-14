@@ -62,7 +62,8 @@ $(document).ready(function(){
         <h4 class="card-title" th:text="${d.dog_name}"></h4>
         <div class="card-text mt-1 mb-3" th:text="${d.dog_age}+' 세&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;'+${d.dog_breed}+'&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;'+${d.dog_weight}+' kg'"></div>
         <hr>
-        <div class="card-text mb-3" th:text="'특이사항 : '+${d.dog_special}"></div>
+        <div class="card-text mb-3" th:if="${d.dog_special == null || d.dog_special == ''}" th:text="'특이사항 : 없음'"></div>
+        <div class="card-text mb-3" th:unless="${d.dog_special == null || d.dog_special == ''}" th:text="'특이사항 : '+${d.dog_special}"></div>
         <div class="card-text mb-3" th:text="'컷 종류 : '+${r.item_name}"></div>
         <div class="card-text mb-3" th:text="'요청사항 : '+${r.resv_ask}"></div>
       </div>
