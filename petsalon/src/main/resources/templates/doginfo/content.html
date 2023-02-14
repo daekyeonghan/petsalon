@@ -16,7 +16,7 @@
 	  <div class="row g-0">
 	    <div class="col-md-4" style="width:150px;margin:12% auto;text-align:center;">
 	      <img th:if="${dog.dog_photo==''} or ${dog.dog_photo==null}" src="assets/img/logo.svg" style="width:140px;height:140px;border-radius:50%;">
-		  <img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="@{${dog.dog_photo}}" style="width:140px;height:140px;border-radius:50%;">
+		  <img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="'assets/img/'+${dog.dog_photo}" style="width:140px;height:140px;border-radius:50%;">
 	    </div>
 	    <div class="col-md-8">
 	      <div class="card-body">

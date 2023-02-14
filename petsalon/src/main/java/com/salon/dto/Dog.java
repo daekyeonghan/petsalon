@@ -2,6 +2,8 @@ package com.salon.dto;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,8 @@ public class Dog {
 	private String dog_breed;
 	private String dog_special;
 	private Date dog_rdate;
+	
+	private MultipartFile dog_img;
 	
 	public Dog(int dog_id, String useremail, String dog_name, String dog_photo, String dog_gender, int dog_age,
 			float dog_weight, String dog_breed, String dog_special) {

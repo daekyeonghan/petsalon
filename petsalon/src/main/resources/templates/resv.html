@@ -281,8 +281,8 @@ $(document).ready(function(){
 				      <div class="row row-cols-1 row-cols-md-3 g-4">
 						  <div class="col" th:each="dog:${dog}" style="margin-top:4%;">
 						    <div class="card h-100">
-						      <img th:if="${dog.dog_photo==''} or ${dog.dog_photo==null}" src="assets/img/logo.svg" class="card-img-top" alt="...">
-						      <img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" th:src="@{${dog.dog_photo}}" class="card-img-top" alt="...">
+						      <img th:if="${dog.dog_photo==''} or ${dog.dog_photo==null}" style="height:70%;" src="assets/img/logo.svg" class="card-img-top" alt="...">
+						      <img th:unless="${dog.dog_photo==''} or ${dog.dog_photo==null}" style="height:70%;" th:src="'/assets/img/'+${dog.dog_photo}" class="card-img-top" alt="...">
 						      <div class="card-body bg-light" style="text-align:center;border-top:1px solid #ddd;">
 						        <h5 class="card-title" th:text="${dog.dog_name}"></h5>
 						        <button type="button" class="btn dogselect btn-outline-dark" id="dogselectbtn" th:value="${dog.dog_id}" th:onclick="dogSelect([[${dog.dog_id}]]);">선택</button>

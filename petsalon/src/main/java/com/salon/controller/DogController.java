@@ -18,12 +18,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.salon.dto.Dog;
+import com.salon.frame.Util;
 import com.salon.service.DogService;
 
 @Controller
 public class DogController {
 	@Autowired
 	DogService dservice;
+	
+	@Value("${admindir}")
+	String admindir;
+
+	@Value("${userdir}")
+	String userdir;
 	
 	String dir = "doginfo/";
 	
@@ -60,65 +67,25 @@ public class DogController {
 		return "mypage";
 	}
 	@RequestMapping("/updatedogOk")
-	public String updateuser(HttpServletRequest req, HttpSession session, Model model) {
-		Dog dog = new Dog();
-		
-		int dog_id = Integer.parseInt(req.getParameter("dog_id"));
-		int dog_age = Integer.parseInt(req.getParameter("dog_age"));
-		float dog_weight = Float.valueOf(req.getParameter("dog_weight"));
-		
-		String path = req.getSession().getServletContext().getRealPath("/");
-		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
-		MultipartFile file = mr.getFile("dog_photo");
-		
-		String fName = file.getOriginalFilename();
-		if(file!=null) {
-			if(fName!=null && !fName.equals("")) {
-				File f = new File(path,fName);
-				if(f.exists()) {
-					for(int rename=1;;rename++) {
-						int dot = fName.lastIndexOf(".");
-						String fileNameNoExt = fName.substring(0,dot);
-						String extend = fName.substring(dot);
-						
-						String newFileName = fileNameNoExt + "(" + rename + ")";
-						
-						f = new File(path,newFileName);
-						if(!f.exists()) {
-							fName = newFileName;
-							break;
-						}
-					}
-				}
-			}
-			try {
-				file.transferTo(new File(path,fName));
-				try {
-					dog = dservice.get(dog_id);
-					File f = new File(path,dog.getDog_photo());
-					if(f.exists()) f.delete();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		dog.setDog_id(dog_id);
-		dog.setDog_name(req.getParameter("dog_name"));
-		dog.setDog_photo(fName);
-		dog.setDog_gender(req.getParameter("dog_gender"));
-		dog.setDog_age(dog_age);
-		dog.setDog_weight(dog_weight);
-		dog.setDog_breed(req.getParameter("dog_breed"));
-		dog.setDog_special(req.getParameter("dog_special"));
+	public String updateuser(HttpSession session, Model model, Dog dog, String originname) {
+		String useremail = (String)session.getAttribute("logemail");
+		String blankName = dog.getDog_img().getOriginalFilename();
 		
 		try {
-			dservice.modify(dog);
-			List<Dog> dogList = dservice.ownerdog((String)session.getAttribute("logemail"));
-			model.addAttribute("dogList", dogList);
+			if(dog.getDog_img()!= null && blankName.length() != 0) {
+				String newName = Util.saveFile(dog.getDog_img(), userdir, admindir);
+				dog.setDog_photo(newName);
+				dservice.modify(dog);
+				Util.deleteFile(admindir, userdir, originname);
+			}else {
+				dservice.nopicUpdate(dog);
+			}
+		} catch (Exception e) {
+			System.out.println("FAIL");
+			e.printStackTrace();
+		}
+		try {
+			model.addAttribute("dogList",dservice.ownerdog(useremail));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -133,84 +100,39 @@ public class DogController {
 		return "mypage";
 	}
 	@RequestMapping("/adddogOk")
-	public String adddogOk(HttpServletRequest req, HttpSession session, Model model) {
-		Dog dog = new Dog();
+	public String adddogOk(HttpSession session, Dog dog, Model model) {
+		String useremail = (String)session.getAttribute("logemail");
+		String img = dog.getDog_img().getOriginalFilename();
 		
-		int dog_age = Integer.parseInt(req.getParameter("dog_age"));
-		float dog_weight = Float.valueOf(req.getParameter("dog_weight"));
-		
-		String path = req.getSession().getServletContext().getRealPath("/");
-		MultipartHttpServletRequest ms = (MultipartHttpServletRequest)req;
-		MultipartFile file = ms.getFile("dog_photo");
-		
-		String fName = file.getOriginalFilename();
-		if(file!=null) {
-			if(fName!=null && !fName.equals("")) {
-				File f = new File(path,fName);
-				if(f.exists()) {
-					for(int rename=1;;rename++) {
-						int dot = fName.lastIndexOf(".");
-						String filenameNoExt = fName.substring(0,dot);
-						String extend = fName.substring(dot);
-						
-						String newFilename = filenameNoExt + "(" + rename + ")" + extend;
-						
-						f = new File(path,newFilename);
-						if(!f.exists()) {
-							fName = newFilename;
-							break;
-						}
-					}
-				}
-			}
-			try {
-				file.transferTo(new File(path,fName));
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		dog.setUseremail((String)session.getAttribute("logemail"));
-		dog.setDog_name(req.getParameter("dog_name"));
-		dog.setDog_photo(fName);
-		dog.setDog_gender(req.getParameter("dog_gender"));
-		dog.setDog_age(dog_age);
-		dog.setDog_weight(dog_weight);
-		dog.setDog_breed(req.getParameter("dog_breed"));
-		dog.setDog_special(req.getParameter("dog_special"));
 		try {
+			if(dog.getDog_img()!=null && img.length()!=0) {
+				String newName = Util.saveFile(dog.getDog_img(),admindir,userdir);
+				dog.setDog_photo(newName);
+			}
+			else {
+				dservice.nopicUpdate(dog);
+				dog.setDog_photo("logo.svg");
+			}
 			dservice.register(dog);
-			List<Dog> dogList = dservice.ownerdog((String)session.getAttribute("logemail"));
-			model.addAttribute("dogList", dogList);
-			model.addAttribute("left", dir+"left");
-			model.addAttribute("content", dir+"content");
+			model.addAttribute("dogList",dservice.ownerdog(useremail));
+			model.addAttribute("left",dir+"left");
+			model.addAttribute("content",dir+"content");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "mypage";
 	}
 	@RequestMapping("/deletedog")
-	public String deletedog(HttpServletRequest req, HttpSession session, Model model) {
-		Dog dog = new Dog();
-		
-		int dog_id = Integer.parseInt(req.getParameter("dog_id"));
-		String path = req.getSession().getServletContext().getRealPath("/");
-		
-		try {
-			dog = dservice.get(dog_id);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		
-		File f = new File(path,dog.getDog_photo());
-		if(f.exists()) f.delete();
-		
+	public String deletedog(HttpSession session, Model model, Integer dog_id, String originname) {
+		String useremail = (String)session.getAttribute("logemail");
+		List list = null;
 		try {
 			dservice.remove(dog_id);
-			List<Dog> dogList = dservice.ownerdog((String)session.getAttribute("logemail"));
-			model.addAttribute("dogList", dogList);
+			if(!originname.equals("logo.svg")) {
+				Util.deleteFile(admindir, userdir, originname);
+			}
+			list = dservice.ownerdog(useremail);
+			model.addAttribute("dogList", list);
 			model.addAttribute("left", dir+"left");
 			model.addAttribute("content", dir+"content");
 		} catch (Exception e) {

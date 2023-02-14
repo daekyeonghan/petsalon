@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.salon.dto.Dog;
+import com.salon.dto.Review;
 import com.salon.frame.MyService;
 import com.salon.mapper.DogMapper;
 
@@ -41,5 +42,9 @@ public class DogService implements MyService<Integer, Dog>{
 	
 	public List<Dog> ownerdog(String j) throws Exception {
 		return mapper.ownerdog(j);
+	}
+	
+	public void nopicUpdate(Dog v) throws Exception {
+		mapper.nopicUpdate(v);
 	}
 }

@@ -20,7 +20,7 @@ function moveresv(){
 <div id="userResv" th:if="${resv!=null}" th:each="resv : ${resv}" style="font-family: 'Spoqa Han Sans Neo', 'sans-serif';">
 	<div id="dog_photo">
 		<img th:if="${resv.dog_photo==null} or ${resv.dog_photo==''}" src="assets/img/logo.svg" style="width:70px;height:70px;border-radius:50%">
-		<img th:unless="${resv.dog_photo==null} or ${resv.dog_photo==''}" th:src="@{${resv.dog_photo}}" style="width:70px;height:70px;border-radius:50%">
+		<img th:unless="${resv.dog_photo==null} or ${resv.dog_photo==''}" th:src="'/assets/img/'+${resv.dog_photo}" style="width:70px;height:70px;border-radius:50%">
 	</div>
 	
 	<div id="resv_head" style="padding-top:1%;">
@@ -48,7 +48,7 @@ function moveresv(){
 	<input type="hidden" id="hidden" th:value="${resvdel.cancel}"/>
 	<div id="dog_photo">
 		<img th:if="${resvdel.dog_photo==null} or ${resvdel.dog_photo==''}" src="assets/img/logo.svg" style="width:70px;height:70px;border-radius:50%">
-		<img th:unless="${resvdel.dog_photo==null} or ${resvdel.dog_photo==''}" th:src="@{${resvdel.dog_photo}}" style="width:70px;height:70px;border-radius:50%">
+		<img th:unless="${resvdel.dog_photo==null} or ${resvdel.dog_photo==''}" th:src="'/assets/img/'+${resvdel.dog_photo}" style="width:70px;height:70px;border-radius:50%">
 	</div>
 	
 	<div id="resv_head">

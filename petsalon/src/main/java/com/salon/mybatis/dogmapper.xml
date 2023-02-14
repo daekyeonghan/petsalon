@@ -22,4 +22,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE dog SET dog_name=#{dog_name}, dog_photo=#{dog_photo}, dog_gender=#{dog_gender}, dog_age=#{dog_age}, dog_weight=#{dog_weight}, dog_breed=#{dog_breed}, dog_special=#{dog_special}, dog_rdate=#{dog_rdate}
 		WHERE dog_id=#{dog_id}
 	</update>
+	<update id="nopicUpdate" parameterType="Dog">
+		UPDATE dog SET dog_name=#{dog_name}, dog_gender=#{dog_gender}, dog_age=#{dog_age}, dog_weight=#{dog_weight}, dog_breed=#{dog_breed}, dog_special=#{dog_special}, dog_rdate=#{dog_rdate}
+		WHERE dog_id=#{dog_id}
+	</update>
 </mapper>

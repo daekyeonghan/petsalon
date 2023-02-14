@@ -52,12 +52,16 @@ function addchk(){
 <div id="doginfo">
 	<form name="addform" id="addform" class="validation-form" method="post" th:action="@{/adddogOk}" enctype="multipart/form-data">
 		<div class="mb-3">
+			<input type="hidden" id="useremail" name="useremail" th:value="${session.logemail}" class="form-control"/>
+		</div>
+		<div class="mb-3">
 			<label for="dog_name" class="form-label">강아지 이름을 알려주세요!</label>
 			<input type="text" id="dog_name" name="dog_name" class="form-control"/>
 		</div>
 		<div class="mb-3">
 			<label for="dog_photo" class="form-label">강아지 사진을 등록해보세요!</label>
-			<input type="file" id="dog_photo" name="dog_photo" style="width:400px;" class="form-control"/>
+			<input type="text" name="originname" style="display: none;">
+			<input type="file" id="dog_img" name="dog_img" style="width:400px;" class="form-control"/>
 			<input type="hidden" id=""/>
 		</div> 
 		<div class="mb-3">

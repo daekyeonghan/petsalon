@@ -46,7 +46,7 @@ function updatechk(){
 		event.preventDefault();
 		return false;
 	}
-	form.action = '[[@{updatedogOk(dog_id=${dog.dog_id})}]]';
+	form.action = '[[@{updatedogOk(dog=${dog})}]]';
 	form.submit();
 }
 function deletechk(){
@@ -68,9 +68,11 @@ function deletechk(){
 		</div>
 		<div class="mb-3">
 			<label for="dog_photo" class="form-label">강아지 사진을 등록해보세요!</label><br>
-			<img th:if="${dog.dog_photo!=''}" th:src="@{${dog.dog_photo}}" width="100px;">
+			<img th:if="${dog.dog_photo!=''}" th:src="'/assets/img/'+${dog.dog_photo}" width="100px;">
 			<img th:unless="${dog.dog_photo!=''}" src="assets/img/logo.svg" width="100px;">
-			<input type="file" id="dog_photo" name="dog_photo" th:value="${dog.dog_photo}" style="width:400px;" class="form-control"/>
+			<input type="file" id="dog_img" name="dog_img" style="width:400px;" class="form-control"/>
+			<input th:if="${dog.dog_photo!=''}" type="text" name="originname" th:value="${dog.dog_photo}" style="display:none;"/>
+			<input th:unless="${dog.dog_photo!=''}" type="text" name="originname" value="logo.svg" style="display:none;"/>
 		</div> 
 		<div class="mb-3">
 			<label for="dog_gender" class="form-label"><b style="color:red;">* </b>강아지의 성별은?</label><br>

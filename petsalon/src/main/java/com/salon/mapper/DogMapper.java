@@ -6,10 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.salon.dto.Dog;
+import com.salon.dto.Review;
 import com.salon.frame.MyMapper;
 
 @Repository
 @Mapper
 public interface DogMapper extends MyMapper<Integer, Dog> {
 	public List<Dog> ownerdog(String useremail);
+	public void nopicUpdate(Dog dog) throws Exception;
 }
