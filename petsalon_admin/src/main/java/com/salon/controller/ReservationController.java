@@ -122,10 +122,9 @@ public class ReservationController {
 			
 			String dateToStr = dateFormat.format(date);
 			
-			/*
-			 * MailUtil.confirmEmail(dateToStr, useremail, dog_name, designer_name,
-			 * item_name);
-			 */
+			
+			MailUtil.confirmEmail(dateToStr, useremail, dog_name, designer_name,item_name);
+
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -193,10 +192,9 @@ public class ReservationController {
 			rservice.resvCancel(resv_no, cancel);
 			
 			schservice.scheduleDel(resv_no);
-			/*
-			 * MailUtil.cancelEmail(dateToStr, useremail, dog_name, designer_name,
-			 * item_name, cancel);
-			 */
+			
+			MailUtil.cancelEmail(dateToStr, useremail, dog_name, designer_name, item_name, cancel);
+
 			
 		} catch (Exception e) {
 			e.printStackTrace();

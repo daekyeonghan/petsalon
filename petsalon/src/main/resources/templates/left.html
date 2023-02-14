@@ -3,31 +3,23 @@ function pwdchk(){
 	var pwd = document.getElementById('userpwd').value;
 	var logpwd = document.getElementById('logpwd').value;;
 	
-	if(pwd == ''){
-		alert('비밀번호를 입력해주세요');
-	}else if(pwd != logpwd){
-		alert('비밀번호가 다릅니다. 다시 입력해주세요');
-	}else if(pwd == logpwd){
-		location.href = '/myinfo';
-	}
-};
-
-	/* 암호화 주석 없애야됨
-		$.ajax({
+	$.ajax({
 		url:'[[@{/checkUserpwd}]]',
 		type : 'post',
 		data: {'userpwd': pwd},
 		success:function(data){
 			if(pwd == ''){
 				alert('비밀번호를 입력해주세요');
-			}
-			else if(data == logpwd) {
+			}else if(data == logpwd) {
 				location.href = '/myinfo';
 			}else if(data != logpwd) {
 				alert('비밀번호가 다릅니다. 다시 입력해주세요');
 			}
 		}
-	}); */
+	});
+
+};
+
 </script>
 
 <div class="left_myinfo">

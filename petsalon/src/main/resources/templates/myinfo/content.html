@@ -82,8 +82,8 @@ function open_Postcode(){  //다음 카카오 주소찾기
 			<div class="invalid-feedback">이메일주소를 입력하세요</div>
 		</div>
 		<div class="mb-3">
-			<label for="userpwd" class="form-label">비밀번호</label><!-- 암호화 주석 없애야됨 th:value="${#strings.substring(user.userpwd,0,8)}" -->
-			<input type="password" id="userpwd" name="userpwd" th:value="${user.userpwd}" class="form-control" style="width:250px;" readonly/>
+			<label for="userpwd" class="form-label">비밀번호</label>
+			<input type="password" id="userpwd" name="userpwd" th:value="${#strings.substring(user.userpwd,0,8)}" class="form-control" style="width:250px;" readonly/>
 			<div class="invalid-feedback">비밀번호를 입력하세요</div>
 		</div> 
 		<div class="mb-3">
