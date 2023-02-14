@@ -65,7 +65,7 @@ public class ReviewController {
 		try {	
 		revlist = reservice.reviewsearch(searchValue);
 		
-		System.out.println(useremail);
+	//	System.out.println(useremail);
 		} catch (Exception e) {
 		
 			e.printStackTrace();

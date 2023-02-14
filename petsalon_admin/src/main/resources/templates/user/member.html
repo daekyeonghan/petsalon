@@ -306,6 +306,11 @@ body {
 			{
 			testingNowPaging();
 			}
+			$('input').on('keyup', function(event) {
+				  if (event.keyCode === 13) { 
+				    $('#sortbtn').click();
+				  }
+				});
 			
 			$('#sortbtn').on('click',function(){
 				

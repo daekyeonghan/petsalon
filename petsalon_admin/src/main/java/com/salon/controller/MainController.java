@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.salon.dto.Admin;
+import com.salon.dto.User;
+import com.salon.frame.CryptoUtil;
 import com.salon.service.AdminService;
 
 @Controller
@@ -81,6 +83,33 @@ public class MainController {
 		
 		return "redirect:/";
 	}
+	
+//	@RequestMapping("/pwd")
+//	public String pwd(Model model, Admin admin) {
+//		model.addAttribute("path", "home/pwd_setting");
+//		model.addAttribute("content", "main");
+//		return "main";
+//	}
+//	
+//	
+//	@RequestMapping("/pwdmodify")
+//	public String pwdmodify(Model model, Admin admin) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException,
+//	NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
+//		String adminPwd = admin.getAdmin_pwd();
+//		String enc_adminPwd = CryptoUtil.sha512(adminPwd);
+//		
+//		admin.setAdmin_pwd(enc_adminPwd);
+//		try {
+//			adservice.modify(admin);
+//			return "redirect:/home";
+//		} catch (Exception e) {
+//			model.addAttribute("path", "fragments");
+//			model.addAttribute("content", "fail");
+//			e.printStackTrace();
+//		}
+//		
+//		return "main";
+//	}
 	
 
 	@RequestMapping("/ERROR")

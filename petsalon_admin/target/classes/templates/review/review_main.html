@@ -119,6 +119,12 @@ function addLi(totalPages){
 		testingNowPaging();
 		}
 		
+		$('input').on('keyup', function(event) {
+			  if (event.keyCode === 13) { 
+			    $('#sortbtn').click();
+			  }
+			});
+		
 		$('#sortbtn').on('click',function(){
 			$('#searchUser').attr({
 				'method':'post',
