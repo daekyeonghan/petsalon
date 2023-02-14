@@ -12,8 +12,26 @@
 	<p>반려견 미용실 통합 예약시스템</p>
 	</li>
 	<li><b>팀 소개</b>
-	<p><b>- 팀장 : </b>한대경</p>
-	<p><b>- 팀원 : </b>김원균 | 김진영 | 허승준</p>
+	<table>
+		<tbody>
+		  <th>한대경</th>
+		  <th>김원균</th>
+		  <th>김진영</th>
+		  <th>허승준</th>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		  <tr>
+		    <td>https://github.com/daekyeonghan</td>
+		    <td>https://github.com/mini-Ner</td>
+		    <td>https://github.com/Thanol</td>
+		    <td>https://github.com/heoseungjun</td>
+		  </tr>
+		</tbody>
+	</table>
 	</li>
 	<li><b>기획 의도</b>
 	<p>최근 반려견 가구 수가 증가하면서 반려견 미용실의 이용 소요 또한 늘어나고 있습니다. 이때 일반 반려견 미용실의 경우 SNS나 전화로 예약이 진행되어 예약 및 고객 문의 처리에 불필요한 시간이 소요됩니다. 이에 따라 저희 퍼스트클래스는 '반려견 미용실 예약 시스템'을 구축함으로써 해당 문제를 개선하고자 하였습니다.</p>
