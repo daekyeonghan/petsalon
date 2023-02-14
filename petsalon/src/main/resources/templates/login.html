@@ -23,7 +23,7 @@ $(document).ready(function(){
 	var result = $('#result').val();
 	if(result==1) alert('아이디 혹은 비밀번호를 잘못 입력하셨습니다');
 	
-	$('#chatEnter').click(function(){
+	/* $('#chatEnter').click(function(){
 		if(document.getElementById('quest').value == '')
 			return;
 		chatbot();
@@ -39,7 +39,7 @@ $(document).ready(function(){
 	});
 	$('.close').click(function(){
 		document.getElementById('addAnswer').remove();
-	});
+	}); */
 	
 	$('#mail-Check-Btn').click(function() {
 		const eamil = $('#useremail').val(); // 이메일 주소값 얻어오기!
@@ -341,7 +341,7 @@ $(document).ready(function(){
 			}
 
 
-function chatbot(){
+/* function chatbot(){
 	var divQ = document.createElement('div');
 	divQ.innerHTML = '<div style="display:inline-block;margin:2px;float:right;background-color:#eec550;color:white; border-radius:10px; margin-top:10px;"><div style="margin:5px; ">'+$('#quest').val()+'</div></div><br>';
 	document.getElementById('addAnswer').appendChild(divQ);
@@ -361,7 +361,7 @@ function chatbot(){
 	
 	var chat = document.querySelector('#chatBasic');
     chat.scrollTop = chat.scrollHeight;
-};
+}; */
 
 function loginchk(){
 	var form = document.loginform;
@@ -455,9 +455,9 @@ background-color:#ece2c4;font-family: 'Spoqa Han Sans Neo', 'sans-serif';border:
             </form>
         </section>
         
-        <a id="chatbot" href="#" data-bs-toggle="modal" data-bs-target="#modal_chatbot" class="img" style="position: fixed; top:86%; right: 3%; width:100px; background-image: url(assets/img/chatbot1.png); width:150px; height:100px; z-index:10;"></a>
+        <!-- <a id="chatbot" href="#" data-bs-toggle="modal" data-bs-target="#modal_chatbot" class="img" style="position: fixed; top:86%; right: 3%; width:100px; background-image: url(assets/img/chatbot1.png); width:150px; height:100px; z-index:10;"></a> -->
         
-		<div class="modal fade" id="modal_chatbot" role="dialog" data-backdrop="static" data-keyboard="false">
+		<!-- <div class="modal fade" id="modal_chatbot" role="dialog" data-backdrop="static" data-keyboard="false">
 		    <div class="modal-dialog modal-2sm">
 		      <div class="modal-content" style="width:100%;">
 		        <div class="modal-header">
@@ -478,7 +478,7 @@ background-color:#ece2c4;font-family: 'Spoqa Han Sans Neo', 'sans-serif';border:
 		        </div>
 		      </div>
 		    </div>
-	    </div>
+	    </div> -->
 	    <!-- Modal-->
 		<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">

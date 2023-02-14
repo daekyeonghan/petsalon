@@ -79,6 +79,7 @@
 			            $("#mailcon").css("display","none");
 			            $(".joinbtn").prop("disabled", true);
 			            $(".joinbtn").css("background-color", "#aaaaaa");
+			            $("#mail-Check-Btn").prop("disabled", true);
 			            /* $("#useremail").css("background-color", "#FFCECE"); */
 			            idCheck = 0;
 			         } else if (regMemberid(inputed) == false) {
@@ -87,13 +88,15 @@
 			            $("#fail").css("display","none");
 			            $(".joinbtn").prop("disabled", true);
 			            $(".joinbtn").css("background-color", "#aaaaaa");
+			            $("#mail-Check-Btn").prop("disabled", true);
 			            /* $("#useremail").css("background-color", "#FFCECE"); */
 			            idCheck = 0;
 			         } else if( data == '0' && regMemberid(inputed)) { //중복되지않고, 정규식을 통과할 때
 			            /* $("#useremail").css("background-color", "white"); */
 			            $("#mailform").css("display","none");
 			            $("#fail").css("display","none");
-			            $("#mailcon").css("display","block");
+			            $("#mailcon").css("display","block"); 
+			            $("#mail-Check-Btn").prop("disabled", false);
 			            idCheck = 1;  
 			         }
 			      }
@@ -546,7 +549,7 @@
 						</div>
 						<div class="input-group">
 							<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요" disabled="disabled">
-							<span><input type="button" class="form-control btn btn-secondary text-dark" id="mail-Check-Btn" value="본인인증" style="background-color:#ece2c4;"></span>
+							<span><input type="button" class="form-control btn btn-secondary text-dark" id="mail-Check-Btn" value="본인인증" style="background-color:#ece2c4;" disabled="disabled"></span>
 						</div>
 						<span class="mb-3" id="mail-check-warn"></span>
 
