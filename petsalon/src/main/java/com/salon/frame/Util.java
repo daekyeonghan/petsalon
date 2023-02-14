@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Util {
-	public static String saveFile(MultipartFile mf, String userdir) throws Exception{
+	public static String saveFile(MultipartFile mf, String userdir, String admindir) throws Exception{
 		byte [] data;
 		
 		UUID uuid = UUID.randomUUID();
@@ -18,10 +18,12 @@ public class Util {
 		
 		try {
 			data = mf.getBytes();
-			FileOutputStream fo = 
-					new FileOutputStream(userdir+newImgName);
-			fo.write(data);
-			fo.close();
+			FileOutputStream fo1 = new FileOutputStream(admindir + newImgName);
+			FileOutputStream fo2 = new FileOutputStream(userdir + newImgName);
+			fo1.write(data);
+			fo2.write(data);
+			fo1.close();
+			fo2.close();
 		}catch(Exception e) {
 			throw e;
 		}
@@ -29,10 +31,12 @@ public class Util {
 		return newImgName;
 	}
 	
-	public static void deleteFile(String userdir, String filename) throws Exception{
-		File f = new File(userdir+filename);
+	public static void deleteFile(String admindir, String userdir, String filename) throws Exception{
+		File f1 = new File(admindir+filename);
+		File f2 = new File(userdir+filename);
 		
-		f.delete();
+		f1.delete();
+		f2.delete();
 	}
 	
 }

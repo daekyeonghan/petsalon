@@ -41,6 +41,9 @@ public class ReviewController {
 	@Value("${userdir}")
 	String userdir;
 	
+	@Value("${admindir}")
+	String admindir;
+	
 	@RequestMapping("")
 	public String main(Model model) {
 		return "index";
@@ -115,7 +118,7 @@ public class ReviewController {
 		try {
 			reviewservice.reviewDelete(review_no);
 			if(!filename.equals("haro.png")) {
-				Util.deleteFile(userdir, filename);
+				Util.deleteFile(admindir, userdir, filename);
 			}
 			return "redirect:/review";
 		} catch (Exception e) {
@@ -133,10 +136,10 @@ public class ReviewController {
 		
 		try {
 			if(review.getReview_img()!= null && blankName.length() != 0) {
-				String newName = Util.saveFile(review.getReview_img(), userdir);
+				String newName = Util.saveFile(review.getReview_img(), admindir,userdir);
 				review.setReview_photo(newName);
 				reviewservice.modify(review);
-				Util.deleteFile(userdir, originname);
+				Util.deleteFile(admindir, userdir, originname);
 			}else {
 				reviewservice.nopicUpdate(review);
 			}
@@ -159,7 +162,7 @@ public class ReviewController {
 		
 		try {
 			if(review.getReview_img()!=null && img.length()!=0) {
-				String newName = Util.saveFile(review.getReview_img(),userdir);
+				String newName = Util.saveFile(review.getReview_img(),admindir,userdir);
 				review.setReview_photo(newName);
 			}
 			else {
