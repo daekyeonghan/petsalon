@@ -28,7 +28,6 @@ public class MyInfoController {
 		User user = null;
 		try {
 			user = uservice.get(useremail);
-			System.out.println(user);
 			model.addAttribute("user", user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,11 +47,10 @@ public class MyInfoController {
 		user.setZipcode(req.getParameter("zipcode"));
 		try {
 			uservice.modify(user);
+			System.out.println(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("left", dir+"left");
-		model.addAttribute("content", dir+"content");
 		return "index";
 	}
 }

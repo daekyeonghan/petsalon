@@ -3,7 +3,7 @@
 <script>
 function updatechk(){
 	/* form의 name을 받아옴 */
-	var form = document.updateform;
+	var form = document.dogupdateform;
 	var dog_gender = form.dog_gender.value;
 	var dog_age = form.dog_age.value;
 	var dog_weight = form.dog_weight.value;
@@ -50,7 +50,7 @@ function updatechk(){
 	form.submit();
 }
 function deletechk(){
-	var form = document.updateform;
+	var form = document.dogupdateform;
 	if(!confirm('정말 삭제하시겠습니까?')){
 		event.preventDefault();
 		return false;

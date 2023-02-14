@@ -89,8 +89,8 @@ $(document).ready(function(){
 	});
 	
 	$('#findemailbtn').click(function(){
-		var username = $('#username').val();
-		var tel = $('#tel').val();
+		var username = $('#name').val();
+		var tel = $('#phone').val();
 		if(username==""){
 			alert("이름을 입력해주세요");
 			$('#username').focus();
@@ -490,13 +490,11 @@ background-color:#ece2c4;font-family: 'Spoqa Han Sans Neo', 'sans-serif';border:
 		      <div class="modal-body">
 		        <div class="mb-3">
 					<label for="username" class="form-label">이름</label>
-					<input type="text" id="username" name="username" class="form-control" placeholder="이름" oninput="checkName(),activateJoinbtn(), checkInputCor()"/>
-					<font color = "red" id = "usernameck" style = "display:none">한글만 입력해주세요</font>
+					<input type="text" id="name" name="name" class="form-control" placeholder="이름" oninput="checkName(),activateJoinbtn(), checkInputCor()"/>
 				</div>
 				<div class="mb-3">
 					<label for="tel" class="form-label">연락처</label>
-					<input type="text" id="tel" name="tel" class="form-control" placeholder="예) 01012345678" oninput="checkTel(), activateJoinbtn(), checkInputCor()"/>
-					<font color = "red" id = "telck" style = "display:none">숫자만 입력해주세요</font>
+					<input type="text" id="phone" name="phone" class="form-control" placeholder="예) 01012345678" oninput="checkTel(), activateJoinbtn(), checkInputCor()"/>
 				</div>
 				<div class="mb-3" id="emailfooter">
 					<button id="findemailbtn">이메일 찾기</button>

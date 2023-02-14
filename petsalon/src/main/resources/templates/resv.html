@@ -77,23 +77,23 @@ function dateSelect(){
 		alert('예약 날짜를 선택하지 않았습니다');
 	}else if(resvdate == '예약 불가'){
 		alert('예약이 불가한 날입니다. 다시 선택해주세요');
-	}else if(resvdate!='달력에서 날짜 선택' && resvdate!='예약 불가'){
-		if(document.getElementById('btnradio1').checked){
+	}else if(document.getElementById('resvdate').value!='달력에서 날짜 선택' && resvdate!='예약 불가'){
+		if($('#btnradio1').hasClass('btn-dark')){
 			resvdate = resvdate.replace(' 13시', ' 11시');
 			resvdate = resvdate.replace(' 15시', ' 11시');
 			resvdate = resvdate.replace(' 17시', ' 11시');
 		}
-		if(document.getElementById('btnradio2').checked){
+		if($('#btnradio2').hasClass('btn-dark')){
 			resvdate = resvdate.replace(' 11시', ' 13시');
 			resvdate = resvdate.replace(' 15시', ' 13시');
 			resvdate = resvdate.replace(' 17시', ' 13시');
 		}
-		if(document.getElementById('btnradio3').checked){
+		if($('#btnradio3').hasClass('btn-dark')){
 			resvdate = resvdate.replace(' 11시', ' 15시');
 			resvdate = resvdate.replace(' 13시', ' 15시');
 			resvdate = resvdate.replace(' 17시', ' 15시');
 		}
-		if(document.getElementById('btnradio4').checked){
+		if($('#btnradio4').hasClass('btn-dark')){
 			resvdate = resvdate.replace(' 11시', ' 17시');
 			resvdate = resvdate.replace(' 13시', ' 17시');
 			resvdate = resvdate.replace(' 15시', ' 17시');

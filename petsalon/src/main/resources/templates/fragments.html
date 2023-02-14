@@ -23,7 +23,8 @@
                     	<li th:unless="${session.logemail==null}" class="nav-item">
                     		<a class="nav-link" style="color:white;font-weight:500;" id="welcome" th:text="${session.logname}+'님 환영해요'"></a>
                     	</li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/resv}">예약</a></li>
+                        <li th:if="${session.logemail}==null or ${session.logemail}==''" class="nav-item"><a class="nav-link" th:href="@{/login}">예약</a></li>
+                        <li th:unless="${session.logemail}==null or ${session.logemail}==''" class="nav-item"><a class="nav-link" th:href="@{/resv}">예약</a></li>
                         <li class="nav-item"><a class="nav-link" th:href="@{/servicesintroduction}">이웃집하로 소개</a></li>
                         <li class="nav-item"><a class="nav-link" th:href="@{/review}">이용후기</a></li>
                         <li class="nav-item"><a class="nav-link" th:href="@{/notice}">공지사항</a></li>

@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</insert>
 	
 	<update id="update" parameterType="User">
-		UPDATE user SET username=#{username},addr=#{addr}, zipcode=#{zipcode} WHERE useremail=#{useremail}
+		UPDATE user SET username=#{username},tel=#{tel},addr=#{addr},detaddr=#{detaddr},zipcode=#{zipcode} WHERE useremail=#{useremail}
 	</update>
 	
 	<delete id="delete" parameterType="String">
