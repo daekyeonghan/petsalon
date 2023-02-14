@@ -1,0 +1,137 @@
+<div th:fragment="main">
+<style>
+header{
+	margin:20px auto 0px ;
+}  
+	img {
+	width: 200px;
+	height: 200px;
+	
+}
+
+/************div center**************/
+#cn{
+	width:400px;
+	padding:30px;
+	margin: 0px auto;
+	background-color:#fff;
+/* 	border: 2px solid #F0CA61; */
+
+}
+/***************footer*****************/
+#ft{
+	font-size: 12px;
+	font-style: inherit;
+	text-align: center;
+
+}
+
+.login{
+height:55px;
+
+}
+
+#loginbtn{
+height:50px;
+background-color:#ece2c4;
+border:1px solid #ccc;}
+
+</style>
+
+<script>
+
+function pwdchk(){
+
+	if($('#admin_pwd_one').val()==''){
+		alert("비밀번호를 입력하세요.");
+		 $('#loginFeedback').text('비밀번호를 입력하세요.');
+		$('#admin_pwd_one').focus();
+		 return false;
+	}
+	
+	if($('#admin_pwd').val()==''){
+		alert("비밀번호를 한번 더 입력하세요.");
+		 $('#loginFeedback').text('비밀번호를 한번 더 입력하세요.');
+		$('#admin_pwd').focus();
+		 return false;
+	}
+	
+	if($('#admin_pwd').val()==$('#admin_pwd_one').val()){
+		
+		return true;
+	}
+	
+	alert("비밀번호가 일치하지 않습니다.");
+	 $('#loginFeedback').text('비밀번호가 일치하지 않습니다.');
+	$('#admin_pwd').focus();
+	return false;
+};
+
+$(document).ready(function(){
+
+	if($('form').val()!=''){
+		$('form').val()=='';
+	}
+	
+	$('#loginbtn').on('click',function(){
+ 	if(pwdchk()){
+
+ 		let admin_id = $('#admin_id').val();
+ 		let admin_pwd = $('#admin_pwd_origin').val();
+ 		$.ajax({
+ 			url:'[[@{/checkAdmin}]]',
+ 			type : 'post',
+ 			data: { 'admin_id' : admin_id , 'admin_pwd': admin_pwd},
+ 			dataType : 'json',
+ 			success:function(result){
+ 				if(result==0){
+ 				 	$('#login_form').attr({
+ 						'method':'post',
+ 						'action':'[[@{/pwdmodify}]]'
+ 					});
+ 					$('#login_form').submit(); 
+ 				}else{
+ 					alert('기존 비밀번호가 일치하지 않습니다.');
+ 					 $('#loginFeedback').text('비밀번호를 다시 확인하세요.');
+ 					$('#admin_pwd_origin').addClass('is-invalid');
+ 					$('#admin_pwd_origin').focus();
+ 				}
+ 			}
+ 		});
+
+ 	} 
+})
+
+});
+</script>
+	<div id="cn" class="card">
+	<span id="title" class="text-center h2 myfont">관리자 비밀번호 재설정</span>
+	<span id="title" class="text-center mb-4 h4 myfont"></span>
+	<div class="mygap-xs"></div>
+	
+
+<form id="login_form" method="post">
+  <div class="mb-3">
+    <input type="text" class="form-control login" id="admin_id" name="admin_id" th:value="${session.admin.admin_id}" aria-label="admin_id" maxlength="41" readonly="readonly">
+  </div>
+   <div class="mb-3">
+    <input type="password" class="form-control login" id="admin_pwd_origin" placeholder="기존 비밀번호를 입력해주세요" aria-label="password" maxlength="16" >
+  </div>
+  <div class="mb-3">
+    <input type="password" class="form-control login" id="admin_pwd_one" placeholder="새로운 비밀번호를 입력해주세요" aria-label="password" maxlength="16" >
+  </div>
+   <div class="mb-3">
+    <input type="password" class="form-control login" id="admin_pwd" name="admin_pwd" placeholder="비밀번호를 한번 더 입력해주세요" aria-label="password" maxlength="16" >
+  </div>
+ <div class="mygap-sm" style="color:red" id="loginFeedback"></div>
+ <div class="d-grid gap-2">
+   <button type="button" id="loginbtn" class="btn myfont-b">비밀번호 변경</button>
+</div>
+
+</form>
+</div>
+
+
+	
+<!-- end of fragment -->
+</div>

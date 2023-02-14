@@ -62,6 +62,8 @@ public class MainController {
 		
 		/* String enc_plainText = CryptoUtil.sha512(pwd); */
 		
+		String enc_plainText = CryptoUtil.sha512(admin_pwd);
+		
 		Admin admin = null;
 		try {
 			admin = adservice.get(admin_id);
@@ -69,7 +71,7 @@ public class MainController {
 			//	session.setAttribute("result", 1);
 				return "redirect:/";
 			}else {
-				if(admin.getAdmin_pwd().equals(admin_pwd)) {
+				if(admin.getAdmin_pwd().equals(enc_plainText)||admin.getAdmin_pwd().equals(admin_pwd)) {
 					session.setAttribute("admin", admin);
 					return "redirect:/home";
 				}else {
@@ -84,32 +86,32 @@ public class MainController {
 		return "redirect:/";
 	}
 	
-//	@RequestMapping("/pwd")
-//	public String pwd(Model model, Admin admin) {
-//		model.addAttribute("path", "home/pwd_setting");
-//		model.addAttribute("content", "main");
-//		return "main";
-//	}
-//	
-//	
-//	@RequestMapping("/pwdmodify")
-//	public String pwdmodify(Model model, Admin admin) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException,
-//	NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
-//		String adminPwd = admin.getAdmin_pwd();
-//		String enc_adminPwd = CryptoUtil.sha512(adminPwd);
-//		
-//		admin.setAdmin_pwd(enc_adminPwd);
-//		try {
-//			adservice.modify(admin);
-//			return "redirect:/home";
-//		} catch (Exception e) {
-//			model.addAttribute("path", "fragments");
-//			model.addAttribute("content", "fail");
-//			e.printStackTrace();
-//		}
-//		
-//		return "main";
-//	}
+	@RequestMapping("/pwd")
+	public String pwd(Model model, Admin admin) {
+		model.addAttribute("path", "home/pwd_setting");
+		model.addAttribute("content", "main");
+		return "main";
+	}
+	
+	
+	@RequestMapping("/pwdmodify")
+	public String pwdmodify(Model model, Admin admin) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException,
+	NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
+		String adminPwd = admin.getAdmin_pwd();
+		String enc_adminPwd = CryptoUtil.sha512(adminPwd);
+		
+		admin.setAdmin_pwd(enc_adminPwd);
+		try {
+			adservice.modify(admin);
+			return "redirect:/home";
+		} catch (Exception e) {
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
+			e.printStackTrace();
+		}
+		
+		return "main";
+	}
 	
 
 	@RequestMapping("/ERROR")

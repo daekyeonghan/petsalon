@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.salon.dto.Admin;
 import com.salon.dto.Designer;
 import com.salon.dto.Resv;
+import com.salon.frame.CryptoUtil;
 import com.salon.service.AdminService;
 import com.salon.service.DesignerService;
 import com.salon.service.ItemService;
@@ -342,12 +343,15 @@ public class AjaxController {
 		int result = 0;
 
 		Admin admin = new Admin();
+		
 		try {
 			admin = adservice.get(admin_id);
+			String enc_plainText = CryptoUtil.sha512(admin_pwd);
+			
 			if (admin == null) {
 				result = 1;
 			} else {
-				if(admin.getAdmin_pwd().equals(admin_pwd)) {
+				if(admin.getAdmin_pwd().equals(enc_plainText)||admin.getAdmin_pwd().equals(admin_pwd)) {
 					result = 0;
 				}else {
 					result = 1;
