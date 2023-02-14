@@ -368,12 +368,9 @@ body {
                         <td><div class="form-check form-switch">
   <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckedDisabled" checked disabled>
 </div></td>
-                            <td th:if="${session.admin.admin_id=='admin01'}"><a th:href="@{/detailPage(useremail=${u.useremail})}" 
+                            <td><a th:href="@{/detailPage(useremail=${u.useremail})}" 
                             th:text="${#strings.substring(#strings.substringBefore(u.useremail,'@'),0,3) + #strings.repeat('*', #strings.length(#strings.substringBefore(u.useremail,'@'))-3) +'@'+
                             #strings.substring(#strings.substringAfter(u.useremail,'@'),0,2) + '*****'}" ></a></td>
-                                    <td th:unless="${session.admin.admin_id=='admin01'}"><a href="" 
-                            th:text="${#strings.substring(#strings.substringBefore(u.useremail,'@'),0,3) + #strings.repeat('*', #strings.length(#strings.substringBefore(u.useremail,'@'))-3) +'@'+
-                            #strings.substring(#strings.substringAfter(u.useremail,'@'),0,2) + '*****'}" onclick="alert('권한이 없습니다.')"></a></td>
                             <td th:text="${u.username}"></td>
                             <td th:text="'****'+${#strings.substring(u.birth,4)}" ></td>
                             <td th:text="${#strings.substring(u.tel,0,5)+#strings.repeat('*', #strings.length(u.tel) - 5)}" ></td>

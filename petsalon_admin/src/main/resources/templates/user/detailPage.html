@@ -62,7 +62,9 @@ notice-content .card-body {
 <script>
 $(document).ready(function(){
 	if('[[${session.admin.admin_id}]]'!='admin01'){
-		window.location.href='/ERROR';
+		
+		$('#admin_autho').css('display', 'none');
+//		window.location.href='/ERROR';
 	}
 	
 	$('#backbtn').on('click',function(){
@@ -87,12 +89,11 @@ $(document).ready(function(){
 <form id="memberdel">
 <input type="text" id="uemail" name="delEmail" th:value="${u.useremail}" style="display:none;">
 </form>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end user-info">
-  <button class="btn btn-danger me-md-2" type="button" id="dbtn">강제 탈퇴</button>
-</div>
+
 	<i data-feather="user-check"></i>&nbsp;&nbsp;<span class="listtitle" th:text="${u.username}+' 님 '"></span><span class="listtitle-sm">&nbsp;&nbsp;상세 정보</span>
 
 	<div class="mygap-xs"></div>
+	<div id="admin_autho">
 	<div class="container text-center notice-content card mb-5">
 	<div class="userinfo-box mt-3 mb-3">
 			<div class="input-group user-info">
@@ -129,9 +130,12 @@ $(document).ready(function(){
 </div>
 
 </div>
-	</div>
-	
 
+	</div>
+	<div class="d-grid gap-2 d-md-flex justify-content-md-end user-info">
+  <button class="btn btn-danger me-md-2" type="button" id="dbtn">강제 탈퇴</button>
+</div>
+</div>
 	
 	
 	

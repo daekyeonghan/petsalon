@@ -110,8 +110,7 @@ $(document).ready(function(){
 				    <div class="col">
 
 <div class="mb-2">이름 : </div>
-  			<a th:if="${session.admin.admin_id=='admin01'}" th:href="@{/detailPage(useremail=${u.useremail})}" th:text="${r.username}" style="font-size:1.2em"></a>
-  			<span th:unless="${session.admin.admin_id=='admin01'}" th:text="${r.username}" style="font-size:1.2em"></span>
+  			<a th:href="@{/detailPage(useremail=${u.useremail})}" th:text="${r.username}" style="font-size:1.2em"></a>
 				    </div>
 				    <div class="col">
 				    <div class="mb-2">연락처 : </div>
