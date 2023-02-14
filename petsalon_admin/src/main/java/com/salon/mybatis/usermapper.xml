@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<select id="paginguser" resultType="User">
 	SELECT useremail,username,birth,tel,addr,detaddr,zipcode,rdate
-	FROM user
+	FROM user ORDER BY rdate desc
 	Limit #{paging} offset #{offset}
 	</select>
 	
