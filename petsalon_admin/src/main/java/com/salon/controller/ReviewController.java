@@ -69,6 +69,8 @@ public class ReviewController {
 		} catch (Exception e) {
 		
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
 		model.addAttribute("review",revlist);
 		model.addAttribute("path",dir+"review_main");
@@ -86,6 +88,8 @@ public class ReviewController {
 			adr = answerService.adminreview(no);
 		} catch(Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
 
 		

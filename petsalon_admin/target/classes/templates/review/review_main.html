@@ -98,7 +98,7 @@ function addLi(totalPages){
 
 	}
 
-	function testingNowPaging() {
+	function nowPaging() {
 
 		$.ajax({
 			url : '[[@{/reviewTotalPage}]]',
@@ -116,7 +116,7 @@ function addLi(totalPages){
 		var currentPathname = window.location.pathname;
 		if(currentPathname=='/review')
 		{
-		testingNowPaging();
+		nowPaging();
 		}
 		
 		$('input').on('keyup', function(event) {

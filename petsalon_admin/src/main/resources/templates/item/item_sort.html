@@ -233,7 +233,7 @@ function addLi(totalPages,designer_id){
 }
 
 
-function testingNowPaging(){
+function nowPaging(){
 
 	let designer_id = $('#designer_id').val();
 		$.ajax({
@@ -251,7 +251,7 @@ function testingNowPaging(){
 
 $(document).ready(function() {	
 
-	   testingNowPaging();
+	   nowPaging();
 	   
 	$('#sortbtn').on('click',function(){
 		if($('#designer_id').val()=='all'){

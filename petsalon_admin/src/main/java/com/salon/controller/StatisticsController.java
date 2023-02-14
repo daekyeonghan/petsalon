@@ -41,10 +41,4 @@ public class StatisticsController {
 	}
 	
 	
-	@RequestMapping("/temp")
-	public String temp(Model model) {
-		model.addAttribute("path", dir+"statistics_temp");
-		model.addAttribute("content", "main");
-		return "main";
-	}
 }

@@ -85,6 +85,8 @@ public class UserController {
 			userservice.remove(delEmail);
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
 		
 		return "redirect:/users";
@@ -107,6 +109,8 @@ public class UserController {
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
 		model.addAttribute("u",user);
 		model.addAttribute("doglist", doglist);
@@ -117,18 +121,5 @@ public class UserController {
 		return "main";
 	
 		}
-	/* 임시 확인용
-	@RequestMapping("/userlist")
-	public String userlist(Model model) {
-		List<User> list = null;
-		try {	
-		list = userservice.get();
-		} catch (Exception e) {
-		
-			e.printStackTrace();
-		}
-		model.addAttribute("userlist",list);
-		return "userlist_temp";
-	}
-	*/
+
 }

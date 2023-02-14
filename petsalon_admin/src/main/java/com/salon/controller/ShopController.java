@@ -61,6 +61,8 @@ public class ShopController {
 			sn = snservice.get(no);
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
 		
 		model.addAttribute("sn",sn);

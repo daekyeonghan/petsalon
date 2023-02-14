@@ -92,6 +92,8 @@ public class ReservationController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
 		
 		return "main";
@@ -128,6 +130,7 @@ public class ReservationController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "/error";
 		}
 		
 		return "redirect:/resvInfo?no="+no;
@@ -150,6 +153,8 @@ public class ReservationController {
 			dog = dservice.get(resvTwo.getDog_id());
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
 		
 		
@@ -198,6 +203,8 @@ public class ReservationController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
 		
 		return "redirect:/reservation";

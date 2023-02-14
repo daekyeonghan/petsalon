@@ -58,6 +58,19 @@ notice-content .card-body {
 .userinfo-box{
 	padding:5px;
 }
+
+.crop{
+
+position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+img{
+ position: absolute;
+ height:100%;
+ object-fit: cover;
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -147,8 +160,10 @@ $(document).ready(function(){
 
 		<div class="col" th:each="d:${doglist}">
 			<div class="card h-100">
+				<div class="crop">
 				<img th:if="${d.dog_photo == null || d.dog_photo == ''}" src="/jyassets/img/haro.png" class="card-img-top" alt="...">
 				<img th:unless="${d.dog_photo == null || d.dog_photo == ''}" th:src="'/jyassets/img/'+${d.dog_photo}" class="card-img-top" alt="...">
+				</div>
 				<div class="card-body">
 					<h5 class="text-center" th:text="${d.dog_name}"></h5>
 					<ul class="list-group list-group-flush">

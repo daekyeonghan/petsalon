@@ -81,6 +81,8 @@ public class MainController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("path", "fragments");
+			model.addAttribute("content", "fail");
 		}
 		
 		return "redirect:/";

@@ -44,10 +44,4 @@ public class HomeController {
 		return "main";
 	}
 	
-@RequestMapping("/homeerror")
-public String error(Model model) {
-	model.addAttribute("path", "fragments");
-	model.addAttribute("content", "fail");
-	return "main";
-}
 }
