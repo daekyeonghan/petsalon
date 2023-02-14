@@ -132,7 +132,7 @@ public class ReviewController {
 		Review_Answer ra = new Review_Answer();
 		try {
 			ra = answerService.get(updno);
-			System.out.println(updno);	//리뷰답변번호 출
+	//		System.out.println(updno);	//리뷰답변번호 출
 			model.addAttribute("ra", ra);
 			model.addAttribute("path", dir + "reviewAns_update");
 			model.addAttribute("content", "main");

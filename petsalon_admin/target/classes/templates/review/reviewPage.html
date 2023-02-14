@@ -141,10 +141,6 @@ $(document).ready(function() {
 		var src = $(this).attr("src");
 		$('#reviewPhotoBody').attr("src",src);
 	})
-
-	$('#backbtn').on('click',function(){
-		history.back();
-	})
 	
 	$('#reviewPhotoBody').on('click',function(){
 		$(this).attr('data-bs-dismiss','modal');

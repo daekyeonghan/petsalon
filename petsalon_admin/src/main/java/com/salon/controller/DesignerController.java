@@ -138,8 +138,7 @@ public class DesignerController {
 				}
 			
 			System.out.println("designer updated");
-			model.addAttribute("path", dir+"designer_ok");
-			model.addAttribute("content", "main");
+			return "redirect:/designer";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("path", "fragments");

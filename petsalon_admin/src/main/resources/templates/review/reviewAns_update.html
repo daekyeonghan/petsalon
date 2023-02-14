@@ -121,7 +121,7 @@ $(document).ready(function() {
 	
 	/*취소 버튼 활성화*/
 	$('#admin_Cancel').on('click',function(){
-		history.back();
+		window.location.href='/reviewPage?no='+$('#review_no').val();
 	});
 	
 	
@@ -130,7 +130,7 @@ $(document).ready(function() {
 </script>
 <span class="listtitle">관리자 답변 수정</span>
 <form id="adminreview_update">
-<input type="number" name="review_no" th:value="${ra.review_no}" style="display:none;">
+<input type="number" id="review_no" name="review_no" th:value="${ra.review_no}" style="display:none;">
 <input type="number" name="ra_no" th:value="${ra.ra_no}" style="display:none;">
 <input type="text" name="admin_id" th:value="${ra.admin_id}" style="display:none;">
 
