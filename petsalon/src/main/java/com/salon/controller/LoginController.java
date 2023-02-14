@@ -37,11 +37,7 @@ public class LoginController {
 	NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
 		String email = req.getParameter("email");
 		String pwd = req.getParameter("pwd");
-		
-		
 		String enc_plainText = CryptoUtil.sha512(pwd);
-		System.out.println(enc_plainText);
-		
 
 		User user = null;
 		try {

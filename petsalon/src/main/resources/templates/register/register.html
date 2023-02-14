@@ -40,7 +40,7 @@
 			}
 		
 		function regPhoneNumber(tel) {
-			   var regExp = /^01[0-1]?\d{3,4}?\d{4}$/;
+			   var regExp = /^01[0-1]?\d{4}?\d{4}$/;
 			   return regExp.test(tel);
 		}
 		
@@ -77,8 +77,8 @@
 			            $("#fail").css("display", "block"); //에러메세지를 띄운다
 			            $("#mailform").css("display","none"); //중복에러메세지 말고 다른 에러 메세지를 지운다.
 			            $("#mailcon").css("display","none");
-			            $(".joinbtn").prop("disabled", true);
-			            $(".joinbtn").css("background-color", "#aaaaaa");
+			            $("#joinbtn").prop("disabled", true);
+			            $("#joinbtn").css("background-color", "#aaaaaa");
 			            $("#mail-Check-Btn").prop("disabled", true);
 			            /* $("#useremail").css("background-color", "#FFCECE"); */
 			            idCheck = 0;
@@ -86,8 +86,8 @@
 			            $("#mailform").css("display","block");
 			            $("#mailcon").css("display","none");
 			            $("#fail").css("display","none");
-			            $(".joinbtn").prop("disabled", true);
-			            $(".joinbtn").css("background-color", "#aaaaaa");
+			            $("#joinbtn").prop("disabled", true);
+			            $("#joinbtn").css("background-color", "#aaaaaa");
 			            $("#mail-Check-Btn").prop("disabled", true);
 			            /* $("#useremail").css("background-color", "#FFCECE"); */
 			            idCheck = 0;
@@ -109,8 +109,8 @@
 			   $.ajax({
 			      success: function() {
 			         if(regPassword(inputed) == false || inputed.length > 25) {
-			            $(".joinbtn").prop("disabled", true);
-			            $(".joinbtn").css("background-color", "#aaaaaa");
+			            $("#joinbtn").prop("disabled", true);
+			            $("#joinbtn").css("background-color", "#aaaaaa");
 			            $("#failpwd").css("display", "block");
 			            /* $("#userpwd").css("background-color", "#FFCECE"); */
 			            pwdCheck = 0;
@@ -130,8 +130,8 @@
 			   $.ajax({
 			      success: function() {
 			         if(inputed != inputed1) {
-			            $(".joinbtn").prop("disabled", true);
-			            $(".joinbtn").css("background-color", "#aaaaaa");
+			            $("#joinbtn").prop("disabled", true);
+			            $("#joinbtn").css("background-color", "#aaaaaa");
 			            /* $("#userpwd2").css("background-color", "#FFCECE"); */
 			            $("#userpwd2no").css("display", "block");
 			            $("#userpwd2ok").css("display", "none");
@@ -151,8 +151,8 @@
 				   $.ajax({
 				      success: function() {
 				         if(regMemberName(inputed) == false || inputed.length > 18) { //입력한 값이 정규표현식에 해당되지 않을 때와 18자 이상이 넘을 때 
-				            $(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
-				            $(".joinbtn").css("background-color", "#aaaaaa"); //버튼 회색으로 바꾸기 
+				            $("#joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				            $("#joinbtn").css("background-color", "#aaaaaa"); //버튼 회색으로 바꾸기 
 				           /*  $("#username").css("background-color", "#FFCECE"); */  // input 배경 붉은색으로 바꾸기
 				            $("#usernameck").css("display", "block");
 				            nameCheck = 0; // 회원 가입 전 값들 체크하기 위해 (0은 불가, 1은 가능)
@@ -171,7 +171,7 @@
 				   $.ajax({
 				      success: function() {
 				         if(regPhoneNumber(inputed) ==  false) {
-				        	$(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				        	$("#joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
 				            /* $("#tel").css("background-color", "#FFCECE"); */
 				            inputed = $('#tel').val();
 				            $("#telck").css("display", "block");
@@ -192,7 +192,7 @@
 				   $.ajax({
 				      success: function() {
 				         if(regUserBirth(inputed) ==  false) {
-				        	$(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				        	$("#joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
 				            /* $("#birth").css("background-color", "#FFCECE"); */
 				            inputed = $('#birth').val();
 				            $("#birthck").css("display", "block");
@@ -217,7 +217,7 @@
 					            detaddressCheck = 1;
 				         }
 				         else if(inputed == false) {
-				        	 $(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				        	 $("#joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
 					            /* $("#detaddr").css("background-color", "#FFCECE"); */
 					            inputed = $('#detaddr').val();
 					            $("#detaddrck").css("display", "block");
@@ -263,14 +263,12 @@
 				
 				$('#mail-Check-Btn').click(function() {
 					const eamil = $('#useremail').val(); // 이메일 주소값 얻어오기!
-					console.log('완성된 이메일 : ' + eamil); // 이메일 오는지 확인
 					const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
 					
 					$.ajax({
 						type : 'get',
 						url : '/mailCheck?email='+eamil, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
 						success : function (data) {
-							console.log("data : " +  data);
 							checkInput.attr('disabled',false);
 							code =data;
 							alert('인증번호가 전송되었습니다.')
@@ -312,7 +310,7 @@
 				   if( idCheck == 1 && pwdCheck == 1  && nameCheck == 1 && phoneCheck == 1 && pwCheck == 1 && birthCheck == 1 && addressCheck == 1 && detaddressCheck == 1 && checkagree == 1 && emailCheck == 1) {
 					   
 					      $("#joinbtn").prop("disabled", false);   
-					      /* $("#joinbtn").css("background-color", "#B0F6AC"); */
+					      $("#joinbtn").css("background-color", "#ece2c4");
 					   }
 					   else  {
 					      $("#joinbtn").css("background-color", "#aaaaaa");
@@ -322,96 +320,6 @@
 			}
 			});
 		}
-	
-		/* function join_check() {
-			var useremail = document.getElementById("useremail");
-			var userpwd = document.getElementById("userpwd");
-			var userpwd2 = document.getElementById("userpwd2");
-			var username = document.getElementById("username");
-			var birth = document.getElementById("birth");
-			var tel = document.getElementById("tel");
-			var addr = document.getElementById("addr");
-			var detaddr = document.getElementById("detaddr");
-			var zipcode = document.getElementById("zipcode"); */
-			
-			/* var emailc = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
-			
-			if (useremail.value == "") { //해당 입력값이 없을 경우 같은말: if(!uid.value)
-				alert("이메일을 입력하세요");
-			    useremail.focus(); //focus(): 커서가 깜빡이는 현상, blur(): 커서가 사라지는 현상
-			    return false; //return: 반환하다 return false:  아무것도 반환하지 말아라 아래 코드부터 아무것도 진행하지 말것
-			};
-			
-			if(!emailc.test(useremail.value)){ //이메일 유효성 검사
-	            alert("올바른 이메일 형식이 아닙니다.");
-	            return false;
-	        } */
-			
-			/* if (userpwd.value == "") {
-			    alert("비밀번호를 입력하세요.");
-			    userpwd.focus();
-			    return false;
-			}; */
-
-			  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
-			  /* var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-
-			  if (!pwdCheck.test(userpwd.value)) {
-			    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
-			    userpwd.focus();
-			    return false;
-			  };
-
-			  if (userpwd2.value !== userpwd.value) {
-			    alert("비밀번호가 일치하지 않습니다..");
-			    userpwd2.focus();
-			    return false;
-			  }; */
-			  
-			  /* if (username.value == "") {
-				    alert("이름을 입력하세요.");
-				    username.focus();
-				    return false;
-				  };
-				  
-				  var nameCheck = /^[가-힣]{2,15}$/;
-				  if(!nameCheck.test(username.value)){
-			            alert("특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");
-			            return false;
-			        } */
-				  
-				  /* var birthCheck = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
-				  if (!birthCheck.test(birth.value)) {
-					    alert("생년월일을 입력해주세요 예) 19901212");
-					    birth.focus();
-					    return false;
-					  }; */
-
-				/* var reg = /^01[0-1]?\d{3,4}?\d{4}$/; //숫자만 입력하는 정규식
-
-				  if (!reg.test(tel.value)) {
-				    alert("전화번호는 숫자만 입력할 수 있습니다.");
-				    tel.focus();
-				    return false;
-				  } */
-				
-				  /* if(zipcode.value == "") {
-						alert("주소를 입력해주세요.");
-						open_Postcode();
-						return false;
-					}
-				  
-					if(detaddr.value == "") {
-						alert("상세주소를 입력하세요.");
-						detaddr.focus();
-						return false;
-					} */
-					
-					
-
-				  
-				  
-		/* }; */
 		
 		function open_Postcode(){  //다음 카카오 주소찾기 
 			  new daum.Postcode({ 
@@ -496,8 +404,8 @@
 				  $("#joinbtn").prop("disabled", false);
 				  checkagree = 1;
 			  }else{
-				  $(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
-				  $(".joinbtn").css("background-color", "#aaaaaa"); //버튼 회색으로 바꾸기
+				  $("#joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				  $("#joinbtn").css("background-color", "#aaaaaa"); //버튼 회색으로 바꾸기
 				  $("#agreeck").css("display", "block");
 				  checkagree = 0;
 			  }
@@ -516,8 +424,8 @@
 				  $("#joinbtn").prop("disabled", false);
 				  checkagree = 1;
 			  }else {
-				  $(".joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
-				  $(".joinbtn").css("background-color", "#aaaaaa"); //버튼 회색으로 바꾸기
+				  $("#joinbtn").prop("disabled", true); //회원가입 버튼 누르지 못하게 하기
+				  $("#joinbtn").css("background-color", "#aaaaaa"); //버튼 회색으로 바꾸기
 				  $("#agreeck").css("display", "block");
 				  checkagree = 0;
 			  }

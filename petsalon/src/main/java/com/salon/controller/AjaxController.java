@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.salon.dto.Schedule;
-import com.salon.dto.User;
 import com.salon.frame.CryptoUtil;
 import com.salon.service.ScheduleService;
 import com.salon.service.Shop_NoticeService;
@@ -182,12 +181,9 @@ public class AjaxController {
 	@ResponseBody
 	public String mailCheck(String email) {
 		int authNumber;
-		System.out.println("이메일 인증 요청이 들어옴!");
-		System.out.println("이메일 인증 이메일 : " + email);
-		
+
 		Random r = new Random();
 		int checkNum = r.nextInt(888888) + 111111;
-		System.out.println("인증번호 : " + checkNum);
 		authNumber = checkNum;
 		
 		String recipient = email;
