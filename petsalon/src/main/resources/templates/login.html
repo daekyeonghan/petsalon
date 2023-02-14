@@ -381,7 +381,7 @@ function loginchk(){
 		return;
 	}
 
-	$.ajax({
+	/* $.ajax({
 		url:'[[@{/checkUser}]]',
 		type : 'post',
 		data: { 'useremail' : email , 'userpwd': pwd},
@@ -397,7 +397,10 @@ function loginchk(){
 				alert('아이디 혹은 비밀번호를 잘못 입력하셨습니다.');
 			}
 		}
-	});
+	}); */
+	
+	form.action = '/loginimpl';
+	form.submit();
 }
 </script>
 <style>

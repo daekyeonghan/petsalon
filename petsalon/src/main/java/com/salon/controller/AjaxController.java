@@ -48,32 +48,22 @@ public class AjaxController {
 	@Autowired
 	Shop_NoticeService snservice;
 	
-	@RequestMapping("/checkUser")
-	public Object checkUser(String useremail, String userpwd) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException,
-	NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
-		User user = null;
-
-		String enc_plainText = CryptoUtil.sha512(userpwd);
-		System.out.println(enc_plainText);
-		
-		int result = 0;
-		try {
-			user = uservice.get(useremail);
-			if(user==null) {
-				result = 1;
-			}else {
-				if(user.getUserpwd().equals(enc_plainText)) { //암호화 주석 없애야됨 enc_plainText 랑 pwd랑 변경
-					result = 0;
-				}else {
-					result = 1;
-				}
-			}
-			System.out.println(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+	/*
+	 * @RequestMapping("/checkUser") public Object checkUser(String useremail,
+	 * String userpwd) throws NoSuchAlgorithmException,
+	 * UnsupportedEncodingException, InvalidKeyException, NoSuchPaddingException,
+	 * InvalidAlgorithmParameterException, IllegalBlockSizeException,
+	 * BadPaddingException{ User user = null;
+	 * 
+	 * String enc_plainText = CryptoUtil.sha512(userpwd);
+	 * System.out.println(enc_plainText);
+	 * 
+	 * int result = 0; try { user = uservice.get(useremail); if(user==null) { result
+	 * = 1; }else { if(user.getUserpwd().equals(enc_plainText)) { //암호화 주석 없애야됨
+	 * enc_plainText 랑 pwd랑 변경 result = 0; }else { result = 1; } }
+	 * System.out.println(result); } catch (Exception e) { e.printStackTrace(); }
+	 * return result; }
+	 */
 	
 	@RequestMapping("/checkUserpwd")
 	public String checkUserpwd(String userpwd) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException,
