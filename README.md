@@ -49,7 +49,7 @@
 <br>
 <div>
 	<h2>2. 시스템 구성도</h2>
-	<img src="https://user-images.githubusercontent.com/94223526/218358178-032e8dc1-a50d-4976-b36f-cf94f6f9eeec.PNG" width=70%/>
+	<img src="https://user-images.githubusercontent.com/94223526/218933825-55eba943-bebb-4598-877b-6a97a798c02b.png" width=70%/>
 </div>
 <br>
 <div>
