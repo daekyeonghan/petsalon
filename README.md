@@ -155,17 +155,22 @@
 <br>
 <div>
 	<h2>7. 주요 기능 소개</h2>
-	<h4>1) 아이디 중복확인</h4>
+	<h4>1) 회원가입</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219177998-3aeb54a5-9bca-4a3c-93ee-27d69757f9ad.gif"/>
+	<br>
+	<h4>2) 로그인</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/209548316-10b7a171-cde7-45f7-a2c8-cb993319d946.gif"/>
 	<br>
-	<h4>2) 우편번호 검색</h4>
-	<img src="https://user-images.githubusercontent.com/94223526/209548606-d88cd07c-1fc8-4e25-8e7a-2d8a82feb09c.gif"/>
+	<h4>3) 챗봇</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219178008-51f0292c-b9d9-4e22-bcbe-2b327855b63e.gif"/>
 	<br>
-	<h4>3) 게시판 글쓰기</h4>
-	<img src="https://user-images.githubusercontent.com/94223526/209549017-3791bc85-f219-4a85-bc01-8daf3d6b68fa.gif"/>
+	<h4>4) 마이페이지 - 내 예약 확인</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219177935-fa2086a7-6e3f-4641-b40a-9429b04239d8.gif"/>
 	<br>
-	<h4>4) 자료실 첨부파일 수정</h4>
-	<img src="https://user-images.githubusercontent.com/94223526/209549703-1b656408-8f30-4cb9-87c0-7dac3aa08498.gif"/>
+	<h4>5) 마이페이지 - 강아지 정보 등록/수정</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219177848-0803bca3-a80f-4914-bc11-63b98ebc702e.gif"/>
+	<h4>6) 예약 신청</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219177816-56feef6d-b33d-4afa-a3e7-de7dd0a8140d.gif"/>
 </div>
 <br>
 <div>
