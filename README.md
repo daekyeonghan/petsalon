@@ -14,7 +14,7 @@
 	<li><b>팀 소개</b>
 	<table>
 		<tbody>
-		  <th align=center>한대경</th>
+		  <th align=center>한대경 [팀장]</th>
 		  <th align=center>김원균</th>
 		  <th align=center>김진영</th>
 		  <th align=center>허승준</th>
