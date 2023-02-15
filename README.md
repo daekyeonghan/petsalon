@@ -14,15 +14,15 @@
 	<li><b>팀 소개</b>
 	<table>
 		<tbody>
-		  <th>한대경</th>
-		  <th>김원균</th>
-		  <th>김진영</th>
-		  <th>허승준</th>
+		  <th align=center>한대경</th>
+		  <th align=center>김원균</th>
+		  <th align=center>김진영</th>
+		  <th align=center>허승준</th>
 		  <tr>
-		    <td></td>
-		    <td></td>
-		    <td></td>
-		    <td></td>
+		    <td align=center><img src="https://user-images.githubusercontent.com/94223526/218891126-06f835bb-ddf8-4fc5-bd97-6c287b24e766.jpg" width="150px" height="180px"/></td>
+		    <td align=center><img src="https://user-images.githubusercontent.com/94223526/218891167-95cfe913-4f22-4d11-a090-7056bcb2a020.jpg" width="150px" height="180px"/></td>
+		    <td align=center><img src="https://user-images.githubusercontent.com/94223526/218891175-da36259c-9e4f-4068-afc8-69ca52a14eaa.PNG" width="150px" height="180px"/></td>
+		    <td align=center><img src="https://user-images.githubusercontent.com/94223526/218891159-dc725020-b803-49c3-ad1c-036845a1945e.jpg" width="150px" height="180px"/></td>
 		  </tr>
 		  <tr>
 		    <td>https://github.com/daekyeonghan</td>
