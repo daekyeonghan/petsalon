@@ -84,7 +84,7 @@ public class PageAjaxController {
 	 
 	 @RequestMapping("/resvTotalPage")
 	    public Object resvTotalPage() {
-	        int recordsPerPage = 15;
+	        int recordsPerPage = 10;
 	        int totalPages = 0;
 
 	    	try {

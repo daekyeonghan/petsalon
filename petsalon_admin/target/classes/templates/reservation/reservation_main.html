@@ -221,7 +221,7 @@ function addLi(totalPages){
 }
 
 
-function nowPaging(){
+function NowPaging(){
 
 	$.ajax({
 	       url: '[[@{/resvTotalPage}]]',
@@ -249,13 +249,12 @@ $(document).ready(function(){
 		
 	})
 	
-	nowPaging();
+	NowPaging();
 
 })
 </script>
 
 <div class="listtitle">예약 목록</div>
-<div class="pull-right">
   <ul id="pagination" class="pagination justify-content-center">
   </ul>
 <table class="table table-hover tickets-container">
@@ -278,13 +277,13 @@ $(document).ready(function(){
       <td th:text="${r.item_name}"></td>
       <td th:switch="${r.resv_fix}">
        <div class="btn-group" th:case="0">
-  			<a th:href="@{/resvInfo(no=${r.resv_no})}" class="btn btn-primary check-resv">예약 확인 &raquo;</a>
+  			<a th:href="@{/resvInfo(no=${r.resv_no})}" class="btn btn-primary">예약 확인 &raquo;</a>
 		</div>
 		 <div class="btn-group resvFixed" th:case="1">
-  			<a th:href="@{/resvInfo(no=${r.resv_no})}" class="btn btn-success disabled fix-resv" role="button">확정된 예약</a>
+  			<a th:href="@{/resvInfo(no=${r.resv_no})}" class="btn btn-success disabled" role="button">확정된 예약</a>
 		</div>
 		 <div class="btn-group" th:case="2">
-		 <a class="btn btn-secondary disabled cancel-resv" role="button">취소한 예약</a>
+		 <a class="btn btn-secondary disabled" role="button">취소한 예약</a>
 		</div>
       </td>
     </tr>

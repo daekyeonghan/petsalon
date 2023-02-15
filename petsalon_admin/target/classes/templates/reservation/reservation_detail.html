@@ -2,17 +2,29 @@
 
 <style>
 
-.img-div img{
+.img-div{
   margin: 40px auto;
   width: 200px;
   height: 200px;
   overflow: hidden;
   background: #aaa;
-   border-radius:50%;
+  border-radius:50%;
+}
+
+.crop{
+
+position: relative;
+    height: 200px;
+    overflow: hidden;
 }
 
 .dog-div{
 margin:auto;
+}
+
+img{
+ height:100%;
+ object-fit: cover;
 }
 </style>
 
@@ -64,7 +76,10 @@ $(document).ready(function(){
  <h5 class="card-header" th:text="${r.resv_no}+' 번 예약'"></h5>
   <div class="row g-0">
     <div class="col-md-4 text-center img-div">
-      <img src="/jyassets/img/haro.png" class="img-fluid" alt="..." style="max-width:100%">
+     <div class="crop">
+				<img th:if="${d.dog_photo == null || d.dog_photo == ''}" src="/jyassets/img/haro.png" class="card-img-top" alt="...">
+				<img th:unless="${d.dog_photo == null || d.dog_photo == ''}" th:src="'/jyassets/img/'+${d.dog_photo}" class="card-img-top" alt="...">
+				</div>
     </div>
     <div class="col-md-8 dog-div">
       <div class="card-body">
