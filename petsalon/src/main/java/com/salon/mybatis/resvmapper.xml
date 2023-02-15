@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	<select id="resvcheck" parameterType="String" resultType="Resv">
 		select resv.resv_no, DATE_FORMAT(sc.sc_date, "%Y년%m월%d일") sc_date, d.dog_name, de.designer_name from resv resv
-		INNER JOIN dog d ON d.useremail = resv.useremail
+		INNER JOIN dog d ON d.dog_id = resv.dog_id
 		INNER JOIN designer de ON de.designer_id = resv.designer_id
 		INNER JOIN schedule sc ON sc.resv_no = resv.resv_no
 		LEFT OUTER JOIN review re ON resv.resv_no = re.resv_no
