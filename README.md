@@ -4,7 +4,7 @@
 <div align=center>
 	<h3>어서오세요, 이웃집 하로입니다</h3>
 	<img src="https://user-images.githubusercontent.com/94223526/218724936-015907de-bebd-475b-9342-2d5a9565764e.jpg" width="50%"/>	
-	<p>📺 프로젝트 시연 영상</p>
+	<h5>📺 프로젝트 시연 영상</h5>
 </div>
 <div>
 	<h2>1. 프로젝트 개요</h2>
