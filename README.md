@@ -158,8 +158,8 @@
 	<h4>1) 회원가입</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219177998-3aeb54a5-9bca-4a3c-93ee-27d69757f9ad.gif"/>
 	<br>
-	<h4>2) 로그인</h4>
-	<img src="https://user-images.githubusercontent.com/94223526/209548316-10b7a171-cde7-45f7-a2c8-cb993319d946.gif"/>
+	<h4>2) 로그인 및 아이디/비밀번호 찾기</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219184899-6ac89d3e-cd32-417e-a205-bcf7aca4b53e.gif"/>
 	<br>
 	<h4>3) 챗봇</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219178008-51f0292c-b9d9-4e22-bcbe-2b327855b63e.gif"/>
