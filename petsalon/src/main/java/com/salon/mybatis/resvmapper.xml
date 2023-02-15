@@ -85,7 +85,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		INNER JOIN designer de ON de.designer_id = resv.designer_id
 		INNER JOIN schedule sc ON sc.resv_no = resv.resv_no
 		LEFT OUTER JOIN review re ON resv.resv_no = re.resv_no
-		where resv_fix=1 and re.resv_no is null and resv.useremail=#{useremail}
+		where resv_fix=1 and re.resv_no is null and resv.useremail=#{useremail} and NOW() > sc.sc_date
 		ORDER BY sc.sc_date desc
 	</select>
 	
