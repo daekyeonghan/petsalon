@@ -174,6 +174,22 @@
 	<img src="https://user-images.githubusercontent.com/94223526/219177848-0803bca3-a80f-4914-bc11-63b98ebc702e.gif"/>
 	<h4>6) 예약 신청</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219177816-56feef6d-b33d-4afa-a3e7-de7dd0a8140d.gif"/>
+	<h4>7) 예약 </h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219177816-56feef6d-b33d-4afa-a3e7-de7dd0a8140d.gif"/>
+	<h4>8) 이용후기 작성</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219251596-e7cc50e2-e7ba-4ab4-8d86-147fdc6ad6b9.gif"/>
+	<h4>9) 이용후기 수정 및 삭제</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219251584-c3f5722c-09bb-4deb-9014-62b8d2a6d3e2.gif"/>
+	<h4>10) 관리자 - 예약 관리</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219251784-124a5fd6-17d3-4536-acfd-27678b1268c6.gif"/>
+	<h4>11) 관리자 - 디자이너 관리</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219251771-e1d39a2b-5cad-4a8a-85cd-3224be544de5.gif"/>
+	<h4>12) 관리자 - 컷 메뉴 관리</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219251782-fbbb7b76-c138-4ae5-b618-d7151701daba.gif"/>
+	<h4>13) 관리자 - 후기 관리</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219251786-b06e2be9-b849-4a49-b370-89f65e7dc937.gif"/>
+	<h4>14) 관리자 - 차트</h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219251721-6b287a2d-3b6d-49f2-871e-a72057927588.gif"/>
 </div>
 <br>
 <div>
