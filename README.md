@@ -5,7 +5,7 @@
 	<h3>어서오세요, 이웃집 하로입니다</h3>
 	<img src="https://user-images.githubusercontent.com/94223526/218724936-015907de-bebd-475b-9342-2d5a9565764e.jpg" width="50%"/>	
 	<h5>📺 프로젝트 시연 영상</h5>
-	<p>https://youtu.be/fUeh-lBx5ec</p>
+	<p>https://youtu.be/2GQN1RV2sDs</p>
 </div>
 <br>
 <div>
