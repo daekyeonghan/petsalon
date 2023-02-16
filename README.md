@@ -200,8 +200,10 @@
 	<img src="https://user-images.githubusercontent.com/94223526/219251721-6b287a2d-3b6d-49f2-871e-a72057927588.gif"/>
 	<br><br><br>
 	<h3>📱 반응형 페이지 구현</h3>
-	<img src="https://user-images.githubusercontent.com/94223526/219180019-c8a1a31f-fdb3-4255-bf1f-298a897271ed.gif" width:20%/>
-	<img src="https://user-images.githubusercontent.com/94223526/219180046-e6a56abd-a09c-4a19-b7f3-39b64dca6401.gif" width:70%"/>
+	<div align="center">
+		<img src="https://user-images.githubusercontent.com/94223526/219180019-c8a1a31f-fdb3-4255-bf1f-298a897271ed.gif"/>
+		<img src="https://user-images.githubusercontent.com/94223526/219180046-e6a56abd-a09c-4a19-b7f3-39b64dca6401.gif"/>
+	</div>
 </div>
 <br>
 <div>
