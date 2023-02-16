@@ -152,7 +152,7 @@
 <br>
 <div>
 	<h2>6. 프로젝트 일정 및 수행기간</h2>
-	<p>2023.01.06 ~ 2023.02.16(5주)</p>
+	<p><b> :</b> 2023.01.06 ~ 2023.02.16 (5주)</p>
 	<p><b>상세 WBS :</b> https://docs.google.com/spreadsheets/d/10tQzK9C3Z7UEMIgn07CI29FaC3jkZXEv/edit#gid=1287961449</p>
 	<img src="https://user-images.githubusercontent.com/94223526/218724821-1c219426-f9ec-4f8d-a038-1cd5f291f739.png" width="50%"/>
 <div>
@@ -200,8 +200,8 @@
 	<img src="https://user-images.githubusercontent.com/94223526/219251721-6b287a2d-3b6d-49f2-871e-a72057927588.gif"/>
 	<br><br><br>
 	<h3>📱 반응형 페이지 구현</h3>
-	<img src="https://user-images.githubusercontent.com/94223526/219180019-c8a1a31f-fdb3-4255-bf1f-298a897271ed.gif" width:50px;/>
-	<img src="https://user-images.githubusercontent.com/94223526/219180046-e6a56abd-a09c-4a19-b7f3-39b64dca6401.gif" width:200px;"/>
+	<img src="https://user-images.githubusercontent.com/94223526/219180019-c8a1a31f-fdb3-4255-bf1f-298a897271ed.gif" width:20%/>
+	<img src="https://user-images.githubusercontent.com/94223526/219180046-e6a56abd-a09c-4a19-b7f3-39b64dca6401.gif" width:70%"/>
 </div>
 <br>
 <div>
