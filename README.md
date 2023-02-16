@@ -193,6 +193,8 @@
 	<h4>1-6-2) 이용후기 - 후기 수정 및 삭제</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251584-c3f5722c-09bb-4deb-9014-62b8d2a6d3e2.gif"/>
 	<br><br><br>
+	<hr>
+	<br>
 	<h3>🧑‍ 관리자</h3>
 	<h4>2-1) 관리자 로그인 및 홈</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219274809-9e52aec1-96fc-4dac-a769-01b41176d05b.gif"/>
@@ -215,13 +217,15 @@
 	<h4>2-7) 회원 관리</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219274819-e6ccbe9f-332f-4a36-8dac-4e50e956ee62.gif"/>
 	<br><br><br>
+	<hr>
+	<br>
 	<h3>📱 반응형 페이지 구현</h3>
 	<div align="center">
 		<img src="https://user-images.githubusercontent.com/94223526/219274766-33413c48-dde5-4982-b75e-da4b5024a57b.gif"/>
 		<img src="https://user-images.githubusercontent.com/94223526/219180046-e6a56abd-a09c-4a19-b7f3-39b64dca6401.gif"/>
 	</div>
 </div>
-<br><br>
+<br><br><br>
 <div>
 	<h2>8. 트러블 슈팅</h2>
 	<p><b>1) 노션 :</b> https://www.notion.so/0f02a98327844caf9025f4c929f0ba8a?v=c40057dd76c14ba5a073886a0cb7bc74</p>
