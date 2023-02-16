@@ -151,7 +151,8 @@
 </div>
 <br>
 <div>
-	<h2>6. 프로젝트 일정</h2>
+	<h2>6. 프로젝트 일정 및 수행기간</h2>
+	<p>2023.01.06 ~ 2023.02.16(5주)</p>
 	<p><b>상세 WBS :</b> https://docs.google.com/spreadsheets/d/10tQzK9C3Z7UEMIgn07CI29FaC3jkZXEv/edit#gid=1287961449</p>
 	<img src="https://user-images.githubusercontent.com/94223526/218724821-1c219426-f9ec-4f8d-a038-1cd5f291f739.png" width="50%"/>
 <div>
