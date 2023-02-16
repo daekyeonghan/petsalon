@@ -92,7 +92,8 @@
 	<img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white" />
 </div>
 <br>
-<div align="center">
+<div align=center><p>* 버전 : SpringBoot 2.7.2 | Java 11 | Mybatis 2.2.2 | Thymeleaf 3.0.15 | MySQL 8.0 | JQuery 1.11.3 | Tomcat 8.5.27</p></div>
+<div align=center>
 	<img src="https://user-images.githubusercontent.com/94223526/218928491-76864d11-b38e-4e08-9be5-e0d231dcb822.png" />
 	<br>
 </div>
