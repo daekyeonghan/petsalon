@@ -186,7 +186,7 @@
 	<img src="https://user-images.githubusercontent.com/94223526/219251596-e7cc50e2-e7ba-4ab4-8d86-147fdc6ad6b9.gif"/>
 	<h4>1-6-2) 이용후기 - 후기 수정 및 삭제</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251584-c3f5722c-09bb-4deb-9014-62b8d2a6d3e2.gif"/>
-	<br>
+	<br><br><br>
 	<h3>🧑‍ 관리자</h3>
 	<h4>2-1) 예약 관리</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251784-124a5fd6-17d3-4536-acfd-27678b1268c6.gif"/>
@@ -198,10 +198,10 @@
 	<img src="https://user-images.githubusercontent.com/94223526/219251786-b06e2be9-b849-4a49-b370-89f65e7dc937.gif"/>
 	<h4>2-5) 차트</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251721-6b287a2d-3b6d-49f2-871e-a72057927588.gif"/>
-	<br>
+	<br><br><br>
 	<h3>📱 반응형 페이지 구현</h3>
-	<img src="https://user-images.githubusercontent.com/94223526/219180019-c8a1a31f-fdb3-4255-bf1f-298a897271ed.gif"/>
-	<img src="https://user-images.githubusercontent.com/94223526/219180046-e6a56abd-a09c-4a19-b7f3-39b64dca6401.gif"/>
+	<img src="https://user-images.githubusercontent.com/94223526/219180019-c8a1a31f-fdb3-4255-bf1f-298a897271ed.gif" width:50px;/>
+	<img src="https://user-images.githubusercontent.com/94223526/219180046-e6a56abd-a09c-4a19-b7f3-39b64dca6401.gif" width:200px;"/>
 </div>
 <br>
 <div>
