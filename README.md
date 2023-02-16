@@ -50,10 +50,14 @@
 	</ul>
 </div>
 <br>
+<hr>
+<br>
 <div>
 	<h2>2. 시스템 구성도</h2>
 	<img src="https://user-images.githubusercontent.com/94223526/218933825-55eba943-bebb-4598-877b-6a97a798c02b.png" width=70%/>
 </div>
+<br>
+<hr>
 <br>
 <div>
 	<h2>3. 사용 기술 및 도구</h2>
@@ -93,10 +97,14 @@
 	<br>
 </div>
 <br>
+<hr>
+<br>
 <div>
 	<h2>4. 데이터 베이스 설계</h2>
 	<img src="https://user-images.githubusercontent.com/94223526/218357924-369188fa-ef52-4ae7-954a-7fa538b53d8b.png" width=100%/>
 </div>
+<br>
+<hr>
 <br>
 <div>
 	<h2>5. 역할 분담</h2>
@@ -150,12 +158,16 @@
 	</table>
 </div>
 <br>
+<hr>
+<br>
 <div>
 	<h2>6. 프로젝트 일정 및 수행기간</h2>
 	<p><b>1) 일정 :</b> 2023.01.06 ~ 2023.02.16 (5주)</p>
 	<p><b>2) 상세 WBS :</b> https://docs.google.com/spreadsheets/d/10tQzK9C3Z7UEMIgn07CI29FaC3jkZXEv/edit#gid=1287961449</p>
 	<img src="https://user-images.githubusercontent.com/94223526/218724821-1c219426-f9ec-4f8d-a038-1cd5f291f739.png" width="50%"/>
 <div>
+<br>
+<hr>
 <br>
 <div>
 	<h2>7. 주요 기능 소개</h2>
@@ -226,6 +238,8 @@
 	</div>
 </div>
 <br><br><br>
+<hr>
+<br>
 <div>
 	<h2>8. 트러블 슈팅</h2>
 	<p><b>1) 노션 :</b> https://www.notion.so/0f02a98327844caf9025f4c929f0ba8a?v=c40057dd76c14ba5a073886a0cb7bc74</p>
