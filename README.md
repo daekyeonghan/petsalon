@@ -159,38 +159,49 @@
 <br>
 <div>
 	<h2>7. 주요 기능 소개</h2>
-	<h4>1) 회원가입</h4>
+	<h3>🐕‍🦺 고객</h3>
+	<h4>1-1) 회원가입</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219177998-3aeb54a5-9bca-4a3c-93ee-27d69757f9ad.gif"/>
 	<br>
-	<h4>2) 로그인 및 아이디/비밀번호 찾기</h4>
+	<h4>1-2) 로그인 및 아이디/비밀번호 찾기</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219184899-6ac89d3e-cd32-417e-a205-bcf7aca4b53e.gif"/>
 	<br>
-	<h4>3) 챗봇</h4>
+	<h4>1-3) 챗봇</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219178008-51f0292c-b9d9-4e22-bcbe-2b327855b63e.gif"/>
 	<br>
-	<h4>4) 마이페이지 - 내 예약 확인</h4>
+	<h4>1-4-1) 마이페이지 - 내 예약 확인</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219177935-fa2086a7-6e3f-4641-b40a-9429b04239d8.gif"/>
 	<br>
-	<h4>5) 마이페이지 - 강아지 정보 등록/수정</h4>
+	<h4>1-4-2) 마이페이지 - 강아지 정보 등록/수정</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219177848-0803bca3-a80f-4914-bc11-63b98ebc702e.gif"/>
-	<h4>6) 예약 신청</h4>
+	<h4>1-5-1) 예약 - 예약 신청</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219177816-56feef6d-b33d-4afa-a3e7-de7dd0a8140d.gif"/>
-	<h4>7) 예약 </h4>
-	<img src="https://user-images.githubusercontent.com/94223526/219177816-56feef6d-b33d-4afa-a3e7-de7dd0a8140d.gif"/>
-	<h4>8) 이용후기 작성</h4>
+	<h4>1-5-2) 예약 - 예약 수정 </h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219253929-d75ec0a6-9a37-4df4-ad92-6c161f9a0cac.gif"/>
+	<h4>1-5-3) 예약 - 예약 확정 </h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219253397-618b9a49-92de-4aca-91ae-dd7a053927d6.gif"/>
+	<h4>1-5-4) 예약 - 예약 취소 </h4>
+	<img src="https://user-images.githubusercontent.com/94223526/219253766-38e734d3-e095-4e3f-9acd-36f6d9062a23.gif"/>
+	<h4>1-6-1) 이용후기 - 후기 작성</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251596-e7cc50e2-e7ba-4ab4-8d86-147fdc6ad6b9.gif"/>
-	<h4>9) 이용후기 수정 및 삭제</h4>
+	<h4>1-6-2) 이용후기 - 후기 수정 및 삭제</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251584-c3f5722c-09bb-4deb-9014-62b8d2a6d3e2.gif"/>
-	<h4>10) 관리자 - 예약 관리</h4>
+	<br>
+	<h3>🧑‍ 관리자</h3>
+	<h4>2-1) 예약 관리</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251784-124a5fd6-17d3-4536-acfd-27678b1268c6.gif"/>
-	<h4>11) 관리자 - 디자이너 관리</h4>
+	<h4>2-2) 디자이너 관리</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251771-e1d39a2b-5cad-4a8a-85cd-3224be544de5.gif"/>
-	<h4>12) 관리자 - 컷 메뉴 관리</h4>
+	<h4>2-3) 컷 메뉴 관리</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251782-fbbb7b76-c138-4ae5-b618-d7151701daba.gif"/>
-	<h4>13) 관리자 - 후기 관리</h4>
+	<h4>2-4) 후기 관리</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251786-b06e2be9-b849-4a49-b370-89f65e7dc937.gif"/>
-	<h4>14) 관리자 - 차트</h4>
+	<h4>2-5) 차트</h4>
 	<img src="https://user-images.githubusercontent.com/94223526/219251721-6b287a2d-3b6d-49f2-871e-a72057927588.gif"/>
+	<br>
+	<h3>📱 반응형 페이지 구현</h3>
+	<img src="https://user-images.githubusercontent.com/94223526/219180019-c8a1a31f-fdb3-4255-bf1f-298a897271ed.gif"/>
+	<img src="https://user-images.githubusercontent.com/94223526/219180046-e6a56abd-a09c-4a19-b7f3-39b64dca6401.gif"/>
 </div>
 <br>
 <div>
