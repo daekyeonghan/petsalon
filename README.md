@@ -54,7 +54,7 @@
 <br>
 <div>
 	<h2>2. 시스템 구성도</h2>
-	<img src="https://user-images.githubusercontent.com/94223526/218933825-55eba943-bebb-4598-877b-6a97a798c02b.png" width=70%/>
+	<img src="https://user-images.githubusercontent.com/94223526/218933825-55eba943-bebb-4598-877b-6a97a798c02b.png" width=70% align=center/>
 </div>
 <br>
 <hr>
@@ -108,7 +108,7 @@
 <br>
 <div>
 	<h2>5. 역할 분담</h2>
-	<table>
+	<table align=center>
 		<tbody>
 		  <tr>
 		    <td><b>김원균</b></td>
@@ -164,7 +164,7 @@
 	<h2>6. 프로젝트 일정 및 수행기간</h2>
 	<p><b>1) 일정 :</b> 2023.01.06 ~ 2023.02.16 (5주)</p>
 	<p><b>2) 상세 WBS :</b> https://docs.google.com/spreadsheets/d/10tQzK9C3Z7UEMIgn07CI29FaC3jkZXEv/edit#gid=1287961449</p>
-	<img src="https://user-images.githubusercontent.com/94223526/218724821-1c219426-f9ec-4f8d-a038-1cd5f291f739.png" width="50%"/>
+	<img src="https://user-images.githubusercontent.com/94223526/218724821-1c219426-f9ec-4f8d-a038-1cd5f291f739.png" width="50%" align=center/>
 <div>
 <br>
 <hr>
