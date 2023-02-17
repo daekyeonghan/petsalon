@@ -259,7 +259,7 @@
 		  </tr>
 		  <tr>
 		    <td><b>MultipartHttpServletRequest Exception</b></td>
-		    <td>MultipartFile 객체 구현을 위한 환경설성 과정 상의 오류<br>
+		    <td>MultipartFile 객체 구현을 위한 환경설정 과정 상의 오류<br>
 		    https://www.notion.so/org-springframework-web-multipart-MultipartHttpServletRequest-8b8d901b06224735ae0315a70651ffdd?pvs=4</td>
 		  </tr>
 		</tbody>
